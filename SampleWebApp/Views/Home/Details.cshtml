@@ -1,0 +1,58 @@
+﻿@model ServiceLayer.PostServices.Concrete.DetailPostDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DetailPostDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloggerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloggerName)
+        </dd>
+
+        <dt>
+            Last updated
+        </dt>
+
+        <dd>
+            @Model.LastUpdatedUtc.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TagNames)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TagNames)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PostId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

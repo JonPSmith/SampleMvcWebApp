@@ -1,0 +1,118 @@
+﻿@model ServiceLayer.TestActionService.Concrete.CommsTestActionData
+
+@{
+    ViewBag.Title = "RunAction";
+}
+
+<h2>Run Action</h2>
+
+
+<div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
+    <div id="progressbar"></div>
+    <div id="message-container" class="overflow-auto">
+        <table id="messages" class="table table-condensed">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="action-lower-menu">
+        <button id="action-button" class="btn btn-default">Invalid</button>
+    </div>
+</div>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>CommsTestActionData</h4>
+        <hr />
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EnumDropDownListFor(model => model.Mode)
+                    @Html.ValidationMessageFor(model => model.FailToRespondToCancel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FailToRespondToCancel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.FailToRespondToCancel)
+                    @Html.ValidationMessageFor(model => model.FailToRespondToCancel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumErrorsToExitWith, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumErrorsToExitWith, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumErrorsToExitWith, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecondsBetweenIterations, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SecondsBetweenIterations, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondsBetweenIterations, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumIterations, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumIterations, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumIterations, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SecondsDelayToRespondingToCancel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SecondsDelayToRespondingToCancel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondsDelayToRespondingToCancel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WriteEvenIfWarning, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.WriteEvenIfWarning)
+                    @Html.ValidationMessageFor(model => model.WriteEvenIfWarning, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Run Action" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ActionRunner")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            ActionRunner.setupActionForm();
+        });
+
+    </script> 
+}

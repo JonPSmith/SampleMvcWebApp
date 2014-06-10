@@ -1,0 +1,48 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* ===============================================================
+* Items specific to SampleWebApp      
+*/
+
+#progressbar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+.action-lower-menu {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#action-button {
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+.message-type-verbose {
+    
+}

@@ -1,0 +1,8 @@
+﻿@model ServiceLayer.UiClasses.DropDownListType
+
+@Html.DropDownListFor( x => x.SelectedValue, Model.KeyValueList.Select( x => new SelectListItem
+                        {
+                            Selected = Model.SelectedValue != null && Model.KeyValueList[0].Key == x.Key,
+                            Text =  x.Key,
+                            Value = x.Value
+                        }))

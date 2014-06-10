@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ServiceLayer.PostServices.Concrete.SimplePostDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div>
+    <br />
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BloggerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            Last updated
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TagNames)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BloggerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @item.LastUpdatedUtc.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TagNames)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.PostId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.PostId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.PostId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Reset Database", "Reset")
