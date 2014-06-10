@@ -1,5 +1,5 @@
 ﻿var jsonData = {
-    "ActionId": "123",
+    "ActionGuid": "abcd",
     "Config": {
         "DisplayElapsedTime": false,
         "LowestMessageLevelToSend": "Verbose",

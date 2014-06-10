@@ -15,20 +15,20 @@ var ActionRunner = (function (actionRunner) {
     //----------------------------------------------------------------
     //now the ActionRunner ui public methods
     
-    actionRunner.createActionPanel = function (actionId, actionConfig) {
+    actionRunner.createActionPanel = function (actionGuid, actionConfig) {
         actionRunner.logStep('createActionPanel');
     };
 
-    actionRunner.removeActionPanel = function (actionId) {
+    actionRunner.removeActionPanel = function (actionGuid) {
         actionRunner.logStep('removeActionPanel');
     };
 
-    actionRunner.addMessageToProgressList = function (actionId, messageType, messageText) {
-        actionRunner.logStep('addMessageToProgressList(' + actionId + ', ' + messageType + ', ' + messageText);
+    actionRunner.addMessageToProgressList = function (actionGuid, messageType, messageText) {
+        actionRunner.logStep('addMessageToProgressList(' + actionGuid + ', ' + messageType + ', ' + messageText);
     };
 
-    actionRunner.updateProgress = function (actionId, percentage, numErrors) {
-        actionRunner.logStep('updateProgress(' + actionId + ', ' + percentage + ', ' + numErrors);
+    actionRunner.updateProgress = function (actionGuid, percentage, numErrors) {
+        actionRunner.logStep('updateProgress(' + actionGuid + ', ' + percentage + ', ' + numErrors);
     };
 
     actionRunner.displayGlobalMessage = function (message, stayUp, messageType) {

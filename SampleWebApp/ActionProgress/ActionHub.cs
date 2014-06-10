@@ -35,14 +35,14 @@ namespace SampleWebApp.ActionProgress
         /// It calls the 'Started' method to inform the called when the action is started successfully,
         /// of calls 'Failed' if there was a problem.
         /// </summary>
-        /// <param name="actionId">The actionId is used to look for a Action instance to run</param>
-        public void StartAction(string actionId)
+        /// <param name="actionGuid">The actionGuid is used to look for a Action instance to run</param>
+        public void StartAction(string actionGuid)
         {
-            var actionRunner = GetActionRunner(actionId);
+            var actionRunner = GetActionRunner(actionGuid);
 
             if (actionRunner != null)
                 //If this succeeds then this Hub is paused for the duration of the action
-                actionRunner.RunActionSynchronously(actionId, Context.ConnectionId, this);
+                actionRunner.RunActionSynchronously(actionGuid, Context.ConnectionId, this);
         }
 
         /// <summary>
@@ -50,12 +50,12 @@ namespace SampleWebApp.ActionProgress
         /// It calls the 'Cancelled' method to inform the called when the action is cancelled successfully,
         /// of calls 'Failed' if there was a problem.
         /// </summary>
-        /// <param name="actionId">The actionId is used to look for a Action instance</param>
-        public void CancelAction(string actionId)
+        /// <param name="actionGuid">The actionGuid is used to look for a Action instance</param>
+        public void CancelAction(string actionGuid)
         {
-            var actionRunner = GetActionRunner(actionId);
+            var actionRunner = GetActionRunner(actionGuid);
 
-            if (actionRunner == null || actionRunner.CancelRunningAction(actionId)) 
+            if (actionRunner == null || actionRunner.CancelRunningAction(actionGuid)) 
                 //It wasn't there or wasn't running so we send a cancelled message straght away to stop a potential hangup
                 Stopped(actionRunner, ProgressMessage.CancelledMessage("Action had already finished (or there was a problem)."));
         }
@@ -63,8 +63,8 @@ namespace SampleWebApp.ActionProgress
         /// <summary>
         /// This is called by JavaScript at the end of the action
         /// </summary>
-        /// <param name="actionId">The actionId is used to look for a Action instance to run</param>
-        public void EndAction(string actionId)
+        /// <param name="actionGuid">The actionGuid is used to look for a Action instance to run</param>
+        public void EndAction(string actionGuid)
         {
             //not now used, but left in
         }
@@ -80,7 +80,7 @@ namespace SampleWebApp.ActionProgress
         /// <param name="actionRunner"></param>
         public void Started(IHubControl actionRunner)
         {
-            Clients.Client(actionRunner.UserConnectionId).Started(actionRunner.ActionId);
+            Clients.Client(actionRunner.UserConnectionId).Started(actionRunner.ActionGuid);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SampleWebApp.ActionProgress
         /// <param name="message">optional message</param>
         public void Progress(IHubControl actionRunner, int percentageDone, ProgressMessage message)
         {
-            Clients.Client(actionRunner.UserConnectionId).Progress(actionRunner.ActionId, percentageDone, message);
+            Clients.Client(actionRunner.UserConnectionId).Progress(actionRunner.ActionGuid, percentageDone, message);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace SampleWebApp.ActionProgress
         /// <param name="finalMessage">The finalMessage must be present as the MessageType property carries the type of stop</param>
         public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage)
         {
-            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionId, finalMessage);
+            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage);
         }
 
         #endregion
@@ -120,21 +120,21 @@ namespace SampleWebApp.ActionProgress
 
             var actionIdsOfActionsInDict =
                 AllActionsRunning.Values.Where(x => x.UserConnectionId == Context.ConnectionId)
-                               .Select(x => x.ActionId)
+                               .Select(x => x.ActionGuid)
                                .ToList();
 
             if (actionIdsOfActionsInDict.Count > 1)
                 //There should have only been one action being run by user
                 Logger.Error("There was more than one entry in the AllRunningActions which had the user connection. Software error.");
 
-            foreach (var actionId in actionIdsOfActionsInDict)
+            foreach (var actionGuid in actionIdsOfActionsInDict)
             {
                 IHubControl actionRunner;
-                AllActionsRunning.TryGetValue(actionId, out actionRunner);        //due to async nature of actioning it could have been removed elsewhere
+                AllActionsRunning.TryGetValue(actionGuid, out actionRunner);        //due to async nature of actioning it could have been removed elsewhere
                 if (actionRunner != null)
                 {
-                    actionRunner.CancelRunningAction(actionId);                   //make sure its cancelled
-                    AllActionsRunning.TryRemove(actionId, out actionRunner);      //try to remove, but ok if it isn't there (due to async behaviour)
+                    actionRunner.CancelRunningAction(actionGuid);                   //make sure its cancelled
+                    AllActionsRunning.TryRemove(actionGuid, out actionRunner);      //try to remove, but ok if it isn't there (due to async behaviour)
                 }
             }
 
@@ -147,22 +147,22 @@ namespace SampleWebApp.ActionProgress
 
         public static void SetActionRunner(IHubControl actionRunner)
         {
-            AllActionsRunning[actionRunner.ActionId] = actionRunner;
+            AllActionsRunning[actionRunner.ActionGuid] = actionRunner;
         }
 
-        public static void RemoveActionRunner(string actionId)
+        public static void RemoveActionRunner(string actionGuid)
         {
             IHubControl oldValue;
-            if (!AllActionsRunning.TryRemove(actionId, out oldValue))
-                Logger.Warn("Attempted to remove actionId from dictionary but wasn't there. Could be concurrency issue.");
+            if (!AllActionsRunning.TryRemove(actionGuid, out oldValue))
+                Logger.Warn("Attempted to remove actionGuid from dictionary but wasn't there. Could be concurrency issue.");
         }
 
         //--------------------------------------------------------
         //private helper
 
-        private static IHubControl GetActionRunner(string actionId)
+        private static IHubControl GetActionRunner(string actionGuid)
         {
-            return AllActionsRunning[actionId];
+            return AllActionsRunning[actionGuid];
         }
     }
 }

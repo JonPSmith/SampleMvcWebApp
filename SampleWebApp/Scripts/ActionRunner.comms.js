@@ -59,7 +59,7 @@ var ActionRunner = (function (actionRunner, $, window) {
             actionRunner.numErrorMessages++;
     }
 
-    var actionIdString = null;
+    var actionGuid = null;
     var actionConfig = null;
     var actionChannel = null;
 
@@ -107,24 +107,24 @@ var ActionRunner = (function (actionRunner, $, window) {
     //This is called by setupTaskChannel to link to the SignalR events
     function setupTaskFunctions() {
         actionChannel.on('Progress', function(serverTaskId, percentDone, message) {
-            if (serverTaskId === actionIdString) {
+            if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
-                actionRunner.updateProgress(actionIdString, percentDone, actionRunner.numErrorMessages);
+                actionRunner.updateProgress(actionGuid, percentDone, actionRunner.numErrorMessages);
                 logMessage(message);
             }
         });
         actionChannel.on('Started', function (serverActionId) {
-            if (serverActionId === actionIdString) {
+            if (serverActionId === actionGuid) {
                 actionRunner.setActionState(actionStates.cancel);
             }
         });
         actionChannel.on('Stopped', function (serverTaskId, message) {
-            if (serverTaskId === actionIdString) {
+            if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
                 logMessage(message);
-                actionChannel.invoke('EndAction', actionIdString); //this cleans up the action at the server end
+                actionChannel.invoke('EndAction', actionGuid); //this cleans up the action at the server end
                 if (message.MessageTypeString === messageTypes.finished) {
-                    actionRunner.updateProgress(actionIdString, 100);
+                    actionRunner.updateProgress(actionGuid, 100);
                     if (actionRunner.numErrorMessages === 0) {
                         actionRunner.setActionState(actionStates.finishedOk);
                     } else {
@@ -142,13 +142,13 @@ var ActionRunner = (function (actionRunner, $, window) {
     function startAction() {
         //we set the state first so that if the invoke fails the user can exit
         actionRunner.setActionState(actionStates.startingTransient);
-        actionChannel.invoke('StartAction', actionIdString);
+        actionChannel.invoke('StartAction', actionGuid);
     }
 
     function cancelAction() {
         //we set the state first so that if the invoke fails the user can exit
         actionRunner.setActionState(actionStates.cancellingTransient);
-        actionChannel.invoke('CancelAction', actionIdString);
+        actionChannel.invoke('CancelAction', actionGuid);
 
     }
 
@@ -159,7 +159,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         if (actionMessage == null || !actionMessage.MessageTypeString || !actionMessage.MessageText) {
             return;
         }
-        actionRunner.addMessageToProgressList(actionIdString, actionMessage.MessageTypeString, actionMessage.MessageText);
+        actionRunner.addMessageToProgressList(actionGuid, actionMessage.MessageTypeString, actionMessage.MessageText);
     }
 
     //------------------------------------------------------
@@ -178,13 +178,13 @@ var ActionRunner = (function (actionRunner, $, window) {
         if (jsonContent.errorsDict) {
             //there are validation errors so ask ui to display them
             actionRunner.displayValidationErrors(jsonContent.errorsDict);
-        } else if (jsonContent.ActionId && jsonContent.Config) {
+        } else if (jsonContent.ActionGuid && jsonContent.Config) {
             //Got back a sensible content so we run start the action 
-            actionIdString = jsonContent.ActionId;
+            actionGuid = jsonContent.ActionGuid;
             actionConfig = jsonContent.Config;
             setupTaskChannel();
 
-            actionRunner.createActionPanel(actionIdString, actionConfig); //this sets up the dialog display and show it
+            actionRunner.createActionPanel(actionGuid, actionConfig); //this sets up the dialog display and show it
         } else {
             actionRunner.reportSystemError('bad call or bad json format data in response to ajax submit', true);
         }
@@ -201,11 +201,11 @@ var ActionRunner = (function (actionRunner, $, window) {
             //The system is in the middle of an operation. Might be hung so give user chance to abandon, but only after confirmation.
             if (confirm(commsResources.confirmExitOnRunningSys)) {
                 //If user says OK then we exit then remove modal panel
-                actionRunner.removeActionPanel(actionIdString);
+                actionRunner.removeActionPanel(actionGuid);
             }
         } else {
             //we need to exit
-            actionRunner.removeActionPanel(actionIdString);
+            actionRunner.removeActionPanel(actionGuid);
             if (finishedOk && actionConfig.SuccessExitUrl != null) {
                 //on successful completion it can goto a new location
                 window.location.href = actionConfig.SuccessExitUrl;

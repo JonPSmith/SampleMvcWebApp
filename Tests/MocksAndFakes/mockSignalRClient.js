@@ -38,7 +38,7 @@ var mockSignalRClient = (function ($) {
         mock.logStep('channel.on(' + namedMessage);
         mock.onFunctionDict[namedMessage] = functionToCall;
     };
-    channel.invoke = function (actionName, actionId) {
+    channel.invoke = function (actionName, actionGuid) {
         mock.logStep('channel.invoke(' + actionName);
     };
 

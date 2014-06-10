@@ -112,29 +112,29 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         describe('Check progress', function () {
             beforeEach(function () {
-                mockSignalRClient.onFunctionDict.Started('123');
+                mockSignalRClient.onFunctionDict.Started('abcd');
             });
 
             it('Called Progress with Info message', function () {
                 var message = createMessage('Info');
-                mockSignalRClient.onFunctionDict.Progress('123', 55, message);
+                mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(123, 55, 0');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(123, Info, This is a test');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 0');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Info, This is a test');
             });
 
             it('Called Progress with Error message', function () {
                 var message = createMessage('Error');
-                mockSignalRClient.onFunctionDict.Progress('123', 55, message);
+                mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(123, 55, 1');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(123, Error, This is a test');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 1');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Error, This is a test');
             });
 
         });
 
         it('Call connection.on( Started) should set state', function () {
-            mockSignalRClient.onFunctionDict.Started('123');
+            mockSignalRClient.onFunctionDict.Started('abcd');
             expect(ActionRunner.getActionState()).toBe('Cancel');
         });
 
@@ -143,7 +143,7 @@ describe('Test05 - check ActionRunner.comms', function () {
                 MessageTypeString: 'Finished',
                 message: 'we have finished'
             };
-            mockSignalRClient.onFunctionDict.Stopped('123', message );
+            mockSignalRClient.onFunctionDict.Stopped('abcd', message );
             expect(ActionRunner.getActionState()).toBe('Finished Ok');
         });
 
@@ -152,7 +152,7 @@ describe('Test05 - check ActionRunner.comms', function () {
                 MessageTypeString: 'Cancelled',
                 message: 'we have finished'
             };
-            mockSignalRClient.onFunctionDict.Stopped('123', message);
+            mockSignalRClient.onFunctionDict.Stopped('abcd', message);
             expect(ActionRunner.getActionState()).toBe('Cancelled');
         });
 
@@ -161,7 +161,7 @@ describe('Test05 - check ActionRunner.comms', function () {
                 MessageTypeString: 'Failed',
                 message: 'we have finished'
             };
-            mockSignalRClient.onFunctionDict.Stopped('123', message);
+            mockSignalRClient.onFunctionDict.Stopped('abcd', message);
             $('.results').append('<div>' + ActionRunner.getActionState() + '</div>');
             expect(ActionRunner.getActionState()).toBe('Failed');
         });

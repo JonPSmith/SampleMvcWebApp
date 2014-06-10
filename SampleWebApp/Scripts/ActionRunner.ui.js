@@ -100,7 +100,7 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     //This will setup a panel of some for. It must use the data in the actionConfig to define what sort of panel
     //to create and whether to display it
-    actionRunner.createActionPanel = function (actionId, actionConfig) {
+    actionRunner.createActionPanel = function (actionGuid, actionConfig) {
         $(messagesTableId + ' tr').remove();
         $actionButton.unbind('click').on('click', function(eventObject) {
             actionRunner.respondToStateChangeRequest(eventObject.target.innerText);
@@ -113,7 +113,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.removeActionPanel = function(actionId) {
+    actionRunner.removeActionPanel = function(actionGuid) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         $actionPanel.dialog('close');
@@ -121,7 +121,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $progressBar.progressbar('destroy');
     };
 
-    actionRunner.addMessageToProgressList = function (actionId, messageType, messageText) {
+    actionRunner.addMessageToProgressList = function (actionGuid, messageType, messageText) {
         var rowData = '<tr><td class="' + messageTypeClassLookup[messageType] + '">' + messageType + '</td><td>' + messageText + '</td></tr>';
         var $lastRow = $(messagesTableId + ' tr:last');
         if ($lastRow.length == 0) {
@@ -136,7 +136,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $messagesContainer.scrollTop(rowPos.top);
     };
 
-    actionRunner.updateProgress = function(actionId, percentage, numErrors) {
+    actionRunner.updateProgress = function(actionGuid, percentage, numErrors) {
         if (typeof (percentage) !== 'number' || percentage > 100 || percentage < 0) {
             return;
         }

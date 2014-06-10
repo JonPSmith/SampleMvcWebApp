@@ -11,9 +11,9 @@ namespace SampleWebApp.ActionProgress
     public class RunnerSetup<T> where T : class
     {
         /// <summary>
-        /// This is the action Id of the created action. Used for for saving in dictionary and security checks
+        /// This is the string holding a Guid for the created action. Used for for saving in dictionary and security checks
         /// </summary>
-        public string ActionId { get; private set; }
+        public string ActionGuid { get; private set; }
 
         /// <summary>
         /// Holds the configuration to use for this action
@@ -33,11 +33,11 @@ namespace SampleWebApp.ActionProgress
         {
 
             //We assign a action ID for this action
-            ActionId = Guid.NewGuid().ToString();
+            ActionGuid = Guid.NewGuid().ToString();
             Config = actionConfig ?? new ActionConfig();
 
             //Setup the HubRunner in the hubs dictionary
-            ActionHub.SetActionRunner(new HubRunner<T>(ActionId, actionType, args));
+            ActionHub.SetActionRunner(new HubRunner<T>(ActionGuid, actionType, args));
         }
         
         

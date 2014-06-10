@@ -74,14 +74,14 @@ namespace SampleWebApp.ActionProgress
         /// <summary>
         /// This is the action Id of the created action. Used for for saving in dictionary and security checks
         /// </summary>
-        public string ActionId { get; private set; }
+        public string ActionGuid { get; private set; }
 
-        public HubRunner(string actionId, Type actionType, T dto)
+        public HubRunner(string actionGuid, Type actionType, T dto)
         {
             if (ActionHub.LifeTimeScopeProvider == null)
                 throw new NullReferenceException("You must set up the static varable HubRunner.LifeTimeScopeProvider before using ActionSetup etc.");
 
-            ActionId = actionId;
+            ActionGuid = actionGuid;
             _actionType = actionType;
             _dto = dto;
         }
@@ -90,20 +90,20 @@ namespace SampleWebApp.ActionProgress
         /// This runs the service while including the actionHub if userConnectionId is set up.
         /// This runs until the action is finished.
         /// </summary>
-        /// <param name="actionId">Id of the action. Used for checking and security</param>
+        /// <param name="actionGuid">Id of the action. Used for checking and security</param>
         /// <param name="userConnectionId">If null then does not communicate via ActionHub</param>
         /// <param name="hubSendMethods"></param>
-        public ProgressMessage RunActionSynchronously(string actionId, string userConnectionId, IActionHubSend hubSendMethods)
+        public ProgressMessage RunActionSynchronously(string actionGuid, string userConnectionId, IActionHubSend hubSendMethods)
         {
             IActionHubDependencyResolver diContainer = null;
             ISuccessOrErrors actionsResult = new SuccessOrErrors();
             UserConnectionId = userConnectionId;
             _hubSendMethods = hubSendMethods;                   //we get a link the the ActionHub for the progress message to use
 
-            if (actionId != ActionId)
+            if (actionGuid != ActionGuid)
             {
-                Logger.Error("Failed checks on ActionId when starting action. Security issue?");
-                return ProgressMessage.FinishedMessage(true, "Failed checks on ActionId");
+                Logger.Error("Failed checks on ActionGuid when starting action. Security issue?");
+                return ProgressMessage.FinishedMessage(true, "Failed checks on ActionGuid");
             }
 
             if (userConnectionId != null)
@@ -179,7 +179,7 @@ namespace SampleWebApp.ActionProgress
                 hubSendMethods.Stopped(this, actionStatus);
 
             //Always remove at end
-            ActionHub.RemoveActionRunner(actionId);
+            ActionHub.RemoveActionRunner(actionGuid);
 
             return actionStatus;
         }
@@ -187,13 +187,13 @@ namespace SampleWebApp.ActionProgress
         /// <summary>
         /// This sets the pendingCancel flag on a action
         /// </summary>
-        /// <param name="actionId"></param>
+        /// <param name="actionGuid"></param>
         /// <returns>returns true if there was a problem. This allows the caller to sort things out</returns>
-        public bool CancelRunningAction(string actionId)
+        public bool CancelRunningAction(string actionGuid)
         {
-            if (actionId != ActionId)
+            if (actionGuid != ActionGuid)
             {
-                Logger.Error("Failed checks on ActionId when being cancelled. Security issue?");
+                Logger.Error("Failed checks on ActionGuid when being cancelled. Security issue?");
                 return true;
             }
 
