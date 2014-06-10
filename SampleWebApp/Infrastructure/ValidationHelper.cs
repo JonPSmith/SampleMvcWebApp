@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
@@ -45,6 +46,39 @@ namespace SampleWebApp.Infrastructure
 
             foreach (var error in errorHolder.Errors)
                     modelState.AddModelError("", error.ErrorMessage);
+        }
+
+
+        /// <summary>
+        /// This returns the ModelState errors as a json array containing objects with the PropertyName and the first error message.
+        /// Must only be called if there are model errors.
+        /// </summary>
+        /// <param name="modelState"></param>
+        /// <returns>It returns a JsonNetResult with one parameter called errors which contains key value pairs.
+        /// The key is the name of the property which had the error, or is empty string if global error.
+        /// The value is an array of error strings for that property key</returns>
+        public static JsonNetResult ReturnModelErrorsAsJson(this ModelStateDictionary modelState)
+        {
+            if (modelState.IsValid)
+                throw new ArgumentException("You should only call this if there are model errors to return.");
+
+            var dict = new Dictionary<string, object>();
+            var emptyNameErrors = new List<string>();
+            foreach (var propertyError in modelState.Where(x => x.Value.Errors.Any()))
+            {
+                if (string.IsNullOrEmpty(propertyError.Key))
+                    //The modelState doesn't seem to combine empty named items so we do it for it
+                    emptyNameErrors.AddRange(propertyError.Value.Errors.Select(x => x.ErrorMessage));
+                else
+                    dict[propertyError.Key] = new { errors = propertyError.Value.Errors.Select(x => x.ErrorMessage) };
+            }
+
+            if (emptyNameErrors.Any())
+                dict[string.Empty] = new { errors = emptyNameErrors };
+
+            var result = new JsonNetResult { Data = new { errorsDict = dict } };
+
+            return result;
         }
 
         private static IList<string> PropertyNamesInDto<T> ( T objectToCheck)

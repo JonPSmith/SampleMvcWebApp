@@ -15,6 +15,11 @@ namespace Tests.Helpers
             return JsonConvert.SerializeObject(data, Formatting.Indented);
         }
 
+        public static string SerialiseToJsonUsingJsonNet(this object data)
+        {
+            return JsonConvert.SerializeObject(data);
+        }
+
         public static string AssertJsonPropertyPresentAndReturnValue<TSource, TProperty>
             (this string jsonString,
                 TSource source, Expression<Func<TSource, TProperty>> propertyLambda)

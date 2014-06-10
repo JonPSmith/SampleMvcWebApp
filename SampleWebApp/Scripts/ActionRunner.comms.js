@@ -174,8 +174,11 @@ var ActionRunner = (function (actionRunner, $, window) {
     //
     //It expects the jsonContent to contain TaskId (for communication) and TaskName, to show the user
     //if it has a setup error it returns that error, else returns null
-    actionRunner.runAction = function(jsonContent) {
-        if (jsonContent.ActionId && jsonContent.Config) {
+    actionRunner.runAction = function (jsonContent) {
+        if (jsonContent.errorsDict) {
+            //there are validation errors so ask ui to display them
+            actionRunner.displayValidationErrors(jsonContent.errorsDict);
+        } else if (jsonContent.ActionId && jsonContent.Config) {
             //Got back a sensible content so we run start the action 
             actionIdString = jsonContent.ActionId;
             actionConfig = jsonContent.Config;

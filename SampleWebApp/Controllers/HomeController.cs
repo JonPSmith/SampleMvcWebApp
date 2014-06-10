@@ -3,6 +3,7 @@ using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
+using Microsoft.Owin.Security.Provider;
 using SampleWebApp.ActionProgress;
 using SampleWebApp.Infrastructure;
 using ServiceLayer.PostServices.Concrete;
@@ -107,8 +108,8 @@ namespace SampleWebApp.Controllers
         public ActionResult RunAction(CommsTestActionData data)
         {
             if (!ModelState.IsValid)
-                //model errors so get out of Ajax call and redisplay orginal page
-                return View("RunAction", data);
+                //model errors so we return a errorDict to the ajax call
+                return ModelState.ReturnModelErrorsAsJson();
 
             return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
         }

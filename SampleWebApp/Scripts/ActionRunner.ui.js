@@ -155,6 +155,18 @@ var ActionRunner = (function (actionRunner, $, window) {
         }
     };
 
+    //This takes an error dictionary in the form of object with keys that hold arrays of errors
+    //This version simply concatentates the error messages and shows them in the global message
+    actionRunner.displayValidationErrors = function (errorDict) {
+        var combinedErrors = 'Validation errors:\n';
+        for (var property in errorDict) {
+            for (var i = 0; i < errorDict[property].errors.length; i++) {
+                combinedErrors += errorDict[property].errors[i] + '\n';
+            }
+        }
+        actionRunner.displayGlobalMessage(combinedErrors, true);
+    };
+
     //----------------------------------------------------
     //get/set the action state. This is the text that appears somewhere in the UI. 
     //The text controls the state machine inside ActionRunner.comms.js
