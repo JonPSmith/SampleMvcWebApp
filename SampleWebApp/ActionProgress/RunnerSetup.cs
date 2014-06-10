@@ -39,7 +39,6 @@ namespace SampleWebApp.ActionProgress
             //Setup the HubRunner in the hubs dictionary
             ActionHub.SetActionRunner(new HubRunner<T>(ActionGuid, actionType, args));
         }
-        
-        
+            
     }
 }
