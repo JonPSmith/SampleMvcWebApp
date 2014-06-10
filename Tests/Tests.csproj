@@ -154,7 +154,9 @@
       <Name>ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Docs\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="JsUnitTests\Test05CheckActionRunner.comms.js" />
     <Content Include="JsUnitTests\Test04CheckMockActionRunnerUi.js" />

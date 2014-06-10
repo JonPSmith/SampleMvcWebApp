@@ -102,7 +102,7 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             //VERIFY
             _mockHub.ProgressWithMessages.Count.ShouldEqual(data.NumIterations + 2);
-            string.Join(",", _mockHub.PercentagesOnly).ShouldEqual("-1,25,50,75,101");
+            string.Join(",", _mockHub.PercentagesOnly).ShouldEqual("-1,25,41,58,101");
         }
 
         [Test]
