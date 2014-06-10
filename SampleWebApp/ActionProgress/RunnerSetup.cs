@@ -15,11 +15,6 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         public string ActionGuid { get; private set; }
 
-        /// <summary>
-        /// Holds the configuration to use for this action
-        /// </summary>
-        public ActionConfig Config { get; private set; }
-
         //------------------------------------------------------------
         //ctor.
 
@@ -28,13 +23,11 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         /// <param name="actionType">The type of the action to be injected via DI (normally an interface)</param>
         /// <param name="args">arguments to hand to action</param>
-        /// <param name="actionConfig">A configuration file for the action.</param>
-        public RunnerSetup(Type actionType, T args, ActionConfig actionConfig)
+        public RunnerSetup(Type actionType, T args)
         {
 
             //We assign a action ID for this action
             ActionGuid = Guid.NewGuid().ToString();
-            Config = actionConfig ?? new ActionConfig();
 
             //Setup the HubRunner in the hubs dictionary
             ActionHub.SetActionRunner(new HubRunner<T>(ActionGuid, actionType, args));

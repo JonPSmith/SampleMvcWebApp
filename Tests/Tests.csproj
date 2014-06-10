@@ -129,7 +129,6 @@
     <Compile Include="UnitTests\Group03ServiceLayer\Test10DiSimple.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test11AutoFacModules.cs" />
     <Compile Include="UnitTests\Group06Mvc\Test02Validation.cs" />
-    <Compile Include="UnitTests\Group08ActionRunner\Test02ActionConfig.cs" />
     <Compile Include="UnitTests\Group08ActionRunner\Test05HubRunnerBasic.cs" />
     <Compile Include="UnitTests\Group08ActionRunner\Test06HubRunnerDi.cs" />
     <Compile Include="UnitTests\Group08ActionRunner\Test08HubRunnerRun.cs" />

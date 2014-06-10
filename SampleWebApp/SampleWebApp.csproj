@@ -178,7 +178,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionProgress\ActionConfig.cs" />
     <Compile Include="ActionProgress\AutoFacActionHubResolver.cs" />
     <Compile Include="ActionProgress\HubRunner.cs" />
     <Compile Include="ActionProgress\IActionHubDependencyResolver.cs" />

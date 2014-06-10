@@ -60,7 +60,6 @@ var ActionRunner = (function (actionRunner, $, window) {
     }
 
     var actionGuid = null;
-    var actionConfig = null;
     var actionChannel = null;
 
     var startsWith = function(str, prefix) {
@@ -178,13 +177,12 @@ var ActionRunner = (function (actionRunner, $, window) {
         if (jsonContent.errorsDict) {
             //there are validation errors so ask ui to display them
             actionRunner.displayValidationErrors(jsonContent.errorsDict);
-        } else if (jsonContent.ActionGuid && jsonContent.Config) {
+        } else if (jsonContent.ActionGuid) {
             //Got back a sensible content so we run start the action 
             actionGuid = jsonContent.ActionGuid;
-            actionConfig = jsonContent.Config;
             setupTaskChannel();
 
-            actionRunner.createActionPanel(actionGuid, actionConfig); //this sets up the dialog display and show it
+            actionRunner.createActionPanel(actionGuid); //this sets up the dialog display and show it
         } else {
             actionRunner.reportSystemError('bad call or bad json format data in response to ajax submit', true);
         }
@@ -194,7 +192,6 @@ var ActionRunner = (function (actionRunner, $, window) {
     //It recieves the current state and steps on to the next state, e.g. Cancel moves to Cancelling...
     //If the new state means that the action has finished the  the finishAction method is called
     actionRunner.respondToStateChangeRequest = function (currentState) {
-        var finishedOk = currentState === actionStates.finishedOk;
         if (currentState === actionStates.cancel) {
             cancelAction();
         } else if (endsWith(currentState, actionStates.transientSuffix)) {
@@ -206,10 +203,6 @@ var ActionRunner = (function (actionRunner, $, window) {
         } else {
             //we need to exit
             actionRunner.removeActionPanel(actionGuid);
-            if (finishedOk && actionConfig.SuccessExitUrl != null) {
-                //on successful completion it can goto a new location
-                window.location.href = actionConfig.SuccessExitUrl;
-            }
         }
     };
 

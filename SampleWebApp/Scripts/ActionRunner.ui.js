@@ -18,7 +18,9 @@ var ActionRunner = (function (actionRunner, $, window) {
         // no jQuery Ui
         throw uiResources.nojQueryUi;
     }
-    
+
+    var titleForModalWindow;
+
     //-----------------------------------------------------
     //local methods to do with ajax call
 
@@ -69,10 +71,8 @@ var ActionRunner = (function (actionRunner, $, window) {
         this.closeOnEscape = false;
 
         //now the optional items 
-        if (actionConfig.PanelClass)
-            this.dialogClass = actionConfig.PanelClass;
-        if (actionConfig.HeaderText)
-            this.title = actionConfig.HeaderText;
+        if (titleForModalWindow != null)
+            this.title = titleForModalWindow;
     }
 
     //This sets the ui dialog height, width and position relative to the screen
@@ -195,7 +195,9 @@ var ActionRunner = (function (actionRunner, $, window) {
     //This sets up the form element on the page to use an Ajax submit method.
     //It runs the normal MVC validation on the form
     //This allows the result to be captured and then the appropriate progress form to be displayed
-    actionRunner.setupActionForm = function() {
+    actionRunner.setupActionForm = function( overrideModalWindowTitle) {
+
+        titleForModalWindow = overrideModalWindowTitle; //this allows the title of the Panel to be changed
 
         $('form').submit(function() {
 
