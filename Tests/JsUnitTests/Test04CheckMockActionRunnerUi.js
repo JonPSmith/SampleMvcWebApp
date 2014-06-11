@@ -6,15 +6,36 @@ describe('Test04 - check mock ActionRunner.ui', function () {
         ActionRunner.reset();
     });
 
-    it('that callLog exists', function () {
+    it('that callLog exists', function() {
         expect(ActionRunner.callLog).toBeDefined();
         expect(ActionRunner.callLog.length).toBe(0);
     });
 
-    it('that callLog works', function () {
-        ActionRunner.logStep('Hello world');
+    it('that callLog works with named function', function () {
+        function test(str, val) {
+            ActionRunner.logStep();
+        };
+        test('xxx', 456);
         expect(ActionRunner.callLog.length).toBe(1);
-        expect(ActionRunner.callLog[0]).toBe('Hello world');
+        expect(ActionRunner.callLog[0]).toBe('test(xxx, 456)');
+    });
+
+    it('that callLog works with anonymous function', function () {
+        var test = function (str, val) {
+            ActionRunner.logStep('anonymousFunc');
+        };
+        test('xxx', 456);
+        expect(ActionRunner.callLog.length).toBe(1);
+        expect(ActionRunner.callLog[0]).toBe('anonymousFunc(xxx, 456)');
+    });
+
+    it('that callLog works with function as argument', function () {
+        function test(func) {
+            ActionRunner.logStep();
+        };
+        test(function () { return 'xxx'; });
+        expect(ActionRunner.callLog.length).toBe(1);
+        expect(ActionRunner.callLog[0]).toBe('test(function)');
     });
 
     describe('check actionState works', function () {
@@ -75,37 +96,37 @@ describe('Test04 - check mock ActionRunner.ui', function () {
         it('mock createActionPanel exists', function () {
             ActionRunner.createActionPanel('abcd');
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel');
+            expect(ActionRunner.callLog[0]).toBe('createActionPanel(abcd)');
         });
 
         it('mock removeActionPanel exists', function () {
             ActionRunner.removeActionPanel('abcd');
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('removeActionPanel');
+            expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
         });
 
         it('mock addMessageToProgressList exists', function () {
             ActionRunner.addMessageToProgressList('abcd', 'info', 'Hello world');
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('addMessageToProgressList(abcd, info, Hello world');
+            expect(ActionRunner.callLog[0]).toBe('addMessageToProgressList(abcd, info, Hello world)');
         });
 
         it('mock updateProgress exists', function () {
             ActionRunner.updateProgress('abcd', 55, 0);
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('updateProgress(abcd, 55, 0');
+            expect(ActionRunner.callLog[0]).toBe('updateProgress(abcd, 55, 0)');
         });
 
         it('mock displayGlobalMessage exists', function () {
             ActionRunner.displayGlobalMessage('Hello world', true, 'Error');
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('displayGlobalMessage(Hello world, true, Error');
+            expect(ActionRunner.callLog[0]).toBe('displayGlobalMessage(Hello world, true, Error)');
         });
 
         it('mock reportSystemError exists', function () {
             ActionRunner.reportSystemError('This is a test', false);
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('reportSystemError(This is a test, ');
+            expect(ActionRunner.callLog[0]).toBe('reportSystemError(This is a test, false)');
         });
 
     });

@@ -29,12 +29,6 @@ describe('Test05 - check ActionRunner.comms', function () {
         expect(ActionRunner.getActionState).toBeDefined();
     });
 
-    it('that callLog works', function () {
-        ActionRunner.logStep('Hello world');
-        expect(ActionRunner.callLog.length).toBe(1);
-        expect(ActionRunner.callLog[0]).toBe('Hello world');
-    });
-
     describe('Call runAction to start', function () {
         beforeEach(function() {
             ActionRunner.runAction(jsonData);
@@ -42,7 +36,7 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         it('Should call createActionPanel in ui', function () {
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel');
+            expect(ActionRunner.callLog[0]).toBe('createActionPanel(abcd)');
         });
 
         it('Should call various in SignalR', function () {
@@ -50,14 +44,14 @@ describe('Test05 - check ActionRunner.comms', function () {
             //    $('.results').append('<div>' + mockSignalRClient.callLog[i] + '</div>');
             //}
             expect(mockSignalRClient.callLog).toEqual(
-                ['connection.createHubProxy(ActionHub',
-                'channel.on(Progress',
-                'channel.on(Started', 
-                'channel.on(Stopped',
-                'connection.error',
-                'connection.start',
-                'connection.start.done',
-                'connection.start.fail']);
+                ['connection.createHubProxy(ActionHub)',
+                    'channel.on(Progress, function)',
+                    'channel.on(Started, function)',
+                    'channel.on(Stopped, function)',
+                    'connection.error(function)',
+                    'connection.start()',
+                    'connection.start.done(function)',
+                    'connection.start.fail(function)']);
         });
 
         it('check connection.error func is set', function () {
@@ -67,7 +61,7 @@ describe('Test05 - check ActionRunner.comms', function () {
         it('Calling connection.error func should result in reportSystemError', function () {
             mockSignalRClient.errorFunc('test');
             expect(ActionRunner.callLog.length).toBe(2);
-            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR error: test, ');
+            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR error: test)');
         });
 
         it('check connection.start.fail func is set', function () {
@@ -77,7 +71,7 @@ describe('Test05 - check ActionRunner.comms', function () {
         it('Calling connection.start.fail func should result in reportSystemError', function () {
             mockSignalRClient.failFunc('test');
             expect(ActionRunner.callLog.length).toBe(2);
-            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR connection error: test, ');
+            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR connection error: test)');
         });
 
         it('Calling connection.start.fail func should set actionState', function () {
@@ -100,7 +94,7 @@ describe('Test05 - check ActionRunner.comms', function () {
             //    $('.results').append('<div>' + mockSignalRClient.callLog[i] + '</div>');
             //}
             expect(mockSignalRClient.callLog.length).toBe(9);
-            expect(mockSignalRClient.callLog[8]).toBe('channel.invoke(StartAction');
+            expect(mockSignalRClient.callLog[8]).toBe('channel.invoke(StartAction, abcd)');
         });
 
 
@@ -119,16 +113,16 @@ describe('Test05 - check ActionRunner.comms', function () {
                 var message = createMessage('Info');
                 mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 0');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Info, This is a test');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 0)');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Info, This is a test)');
             });
 
             it('Called Progress with Error message', function () {
                 var message = createMessage('Error');
                 mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 1');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Error, This is a test');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 1)');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Error, This is a test)');
             });
 
         });
@@ -171,7 +165,7 @@ describe('Test05 - check ActionRunner.comms', function () {
             it('Called respondToStateChangeRequest should call invoke(Cancel', function () {
                 ActionRunner.respondToStateChangeRequest('Cancel');
                 expect(mockSignalRClient.callLog.length).toBe(9);
-                expect(mockSignalRClient.callLog[8]).toBe('channel.invoke(CancelAction');
+                expect(mockSignalRClient.callLog[8]).toBe('channel.invoke(CancelAction, abcd)');
             });
 
             it('Called respondToStateChangeRequest should move to cancelling...', function () {
@@ -186,19 +180,19 @@ describe('Test05 - check ActionRunner.comms', function () {
             it('Called respondToStateChangeRequest with Finished Ok should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Finished Ok');
                 expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel');
+                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
             });
 
             it('Called respondToStateChangeRequest with Cancelled should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Cancelled');
                 expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel');
+                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
             });
 
             it('Called respondToStateChangeRequest with Failed xxx should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Failed xxx');
                 expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel');
+                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
             });
 
         });

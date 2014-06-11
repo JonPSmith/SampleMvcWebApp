@@ -3,8 +3,19 @@
 var ActionRunner = (function (actionRunner) {
 
     actionRunner.callLog = null;
-    actionRunner.logStep = function (stepName) {
-        actionRunner.callLog.push(stepName);
+    //This logs a string with the caller's function name and the parameters
+    //Include a funcName parameter if the function is anonymous or 
+    //if you want to better define the function name, e.g. connection.on
+    actionRunner.logStep = function (funcName) {
+        var log = funcName || arguments.callee.caller.name;
+        log += '(';
+        var callerArgs = arguments.callee.caller.arguments;
+        for (var i = 0; i < callerArgs.length; i++) {
+            log += (typeof callerArgs[i] === 'function') ? 'function, ' : callerArgs[i] + ', ';
+        };
+        if (callerArgs.length > 0)
+            log = log.substr(0, log.length - 2);
+        actionRunner.callLog.push(log + ')');
     };
     actionRunner.reset = function () {
         actionRunner.callLog = [];
@@ -24,15 +35,15 @@ var ActionRunner = (function (actionRunner) {
     };
 
     actionRunner.addMessageToProgressList = function (actionGuid, messageType, messageText) {
-        actionRunner.logStep('addMessageToProgressList(' + actionGuid + ', ' + messageType + ', ' + messageText);
+        actionRunner.logStep('addMessageToProgressList');
     };
 
     actionRunner.updateProgress = function (actionGuid, percentage, numErrors) {
-        actionRunner.logStep('updateProgress(' + actionGuid + ', ' + percentage + ', ' + numErrors);
+        actionRunner.logStep('updateProgress');
     };
 
     actionRunner.displayGlobalMessage = function (message, stayUp, messageType) {
-        actionRunner.logStep('displayGlobalMessage(' + message + ', ' + stayUp + ', ' + messageType);
+        actionRunner.logStep('displayGlobalMessage');
     };
 
     //This sets the text in the ui element, which is also the state of the state machine
@@ -48,8 +59,7 @@ var ActionRunner = (function (actionRunner) {
 
     //support routine for reporting an error
     actionRunner.reportSystemError = function (additionalInfo, tryAgain) {
-        tryAgain = tryAgain || '';
-        actionRunner.logStep('reportSystemError(' + additionalInfo + ', ' + tryAgain);
+        actionRunner.logStep('reportSystemError');
     };
 
     //Return the mock base which the ui methods in it plus the test items

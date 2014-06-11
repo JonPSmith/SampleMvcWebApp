@@ -16,10 +16,31 @@ describe('Test03 - check mockSignalRClient', function () {
         expect(mockSignalRClient.callLog.length).toBe(0);
     });
 
-    it('that callLog works', function () {
-        mockSignalRClient.logStep('Hello world');
+    it('that callLog works with named function', function () {
+        function test(str, val) {
+            mockSignalRClient.logStep();
+        };
+        test('xxx', 456);
         expect(mockSignalRClient.callLog.length).toBe(1);
-        expect(mockSignalRClient.callLog[0]).toBe('Hello world');
+        expect(mockSignalRClient.callLog[0]).toBe('test(xxx, 456)');
+    });
+
+    it('that callLog works with anonymous function', function () {
+        var test = function (str, val) {
+            mockSignalRClient.logStep('anonymousFunc');
+        };
+        test('xxx', 456);
+        expect(mockSignalRClient.callLog.length).toBe(1);
+        expect(mockSignalRClient.callLog[0]).toBe('anonymousFunc(xxx, 456)');
+    });
+
+    it('that callLog works with function as argument', function () {
+        function test(func) {
+            mockSignalRClient.logStep();
+        };
+        test(function () { return 'xxx'; });
+        expect(mockSignalRClient.callLog.length).toBe(1);
+        expect(mockSignalRClient.callLog[0]).toBe('test(function)');
     });
 
     describe('with connection', function() {
@@ -99,7 +120,7 @@ describe('Test03 - check mockSignalRClient', function () {
 
             it('that channel create was logged', function () {
                 expect(mockSignalRClient.callLog.length).toBe(1);
-                expect(mockSignalRClient.callLog[0]).toBe('connection.createHubProxy(ActionHub');
+                expect(mockSignalRClient.callLog[0]).toBe('connection.createHubProxy(ActionHub)');
             });
 
             it('that channel on method exists', function() {
@@ -113,13 +134,13 @@ describe('Test03 - check mockSignalRClient', function () {
             it('that channel invoke method is logged', function () {
                 this.channel.invoke('An action', 'aaa');
                 expect(mockSignalRClient.callLog.length).toBe(2);
-                expect(mockSignalRClient.callLog[1]).toBe('channel.invoke(An action');
+                expect(mockSignalRClient.callLog[1]).toBe('channel.invoke(An action, aaa)');
             });
 
             it('that channel on method is logged', function () {
                 this.channel.on( 'xxx', function() {});
                 expect(mockSignalRClient.callLog.length).toBe(2);
-                expect(mockSignalRClient.callLog[1]).toBe('channel.on(xxx');
+                expect(mockSignalRClient.callLog[1]).toBe('channel.on(xxx, function)');
             });
 
             it('that channel on method adds to dict', function () {
