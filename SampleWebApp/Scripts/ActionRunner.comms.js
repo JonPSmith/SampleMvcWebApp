@@ -31,7 +31,7 @@ var ActionRunner = (function (actionRunner, $, window) {
     };
     //now add the states that are composites of the above.
     actionStates.connectingTransient = 'Connecting' + actionStates.transientSuffix; // the connection is set up but not finished
-    actionStates.startingTransient = actionStates.startingPrefix + actionStates.transientSuffix; // action is being started
+    actionStates.startingTransient = actionStates.startingPrefix + actionStates.transientSuffix; // action is being started. waiting for confirmation
     actionStates.cancellingTransient = actionStates.cancellingPrefix + actionStates.transientSuffix; // user cancelled the action; but cancel hasn't finished
     actionStates.failed = actionStates.failedPrefix;
     actionStates.failedLink = actionStates.failedPrefix + ' (link)'; // error with the SignalR link to the host 
