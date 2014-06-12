@@ -5,7 +5,7 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     var commsResources = {
         nojQuery: 'jQuery was not found. Please ensure jQuery is referenced before this ActionRinner JavaScript file.',
-        noSignalR: 'SignalR was not found. Please ensure SignalR is referenced before this ActionRinner JavaScript file.',
+        noSignalR: 'SignalR was not found. Please ensure SignalR is referenced before this ActionRunner JavaScript file.',
         confirmExitOnRunningSys: 'The system is waiting for the server to respond. Do you want to exit anyway? Press OK to exit.',
     };
 
