@@ -19,7 +19,7 @@ namespace Tests.UnitTests.Group01DataLayer
             using (var db = new SampleWebAppDb())
             {
                 DataLayerInitialise.InitialiseThis();
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Simple);
+                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
             }
         }
 

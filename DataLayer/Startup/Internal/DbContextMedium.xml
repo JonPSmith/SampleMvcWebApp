@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content>
+  <Tags>
+    <Tag>
+      <Name>business</Name>
+      <Slug>business</Slug>
+    </Tag>
+    <Tag>
+      <Name>opinion</Name>
+      <Slug>opinion</Slug>
+    </Tag>
+    <Tag>
+      <Name>education</Name>
+      <Slug>education</Slug>
+    </Tag>
+    <Tag>
+      <Name>mystery</Name>
+      <Slug>mystery</Slug>
+    </Tag>
+    <Tag>
+      <Name>entertainment</Name>
+      <Slug>entertainment</Slug>
+    </Tag>
+    <Tag>
+      <Name>vices</Name>
+      <Slug>vices</Slug>
+    </Tag>
+    <Tag>
+      <Name>personal</Name>
+      <Slug>personal</Slug>
+    </Tag>
+    <Tag>
+      <Name>murder</Name>
+      <Slug>murder</Slug>
+    </Tag>
+    <Tag>
+      <Name>programming</Name>
+      <Slug>programming</Slug>
+    </Tag>
+  </Tags>
+  <Blogs>
+    <Blog>
+      <Name>Ada Lovelace</Name>
+      <Email>ada@nospam.com</Email>
+      <Posts>
+        <Post>
+          <Title>Thoughts on programming with a spanner</Title>
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          </Content>
+          <TagSlugs>programming,opinion</TagSlugs>
+        </Post>
+        <Post>
+          <Title>Babbage engine - the internals</Title>
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          </Content>
+          <TagSlugs>programming,education</TagSlugs>
+        </Post>
+        <Post>
+          <Title>An algrorithm for winning on the horses</Title>
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          </Content>
+          <TagSlugs>programming,vices,personal</TagSlugs>
+        </Post>
+        <Post>
+          <Title>Women in programming - we got here first</Title>
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          </Content>
+          <TagSlugs>programming,personal,opinion</TagSlugs>
+        </Post>
+      </Posts>
+    </Blog>
+    <Blog>
+      <Name>Sherlock Holmes</Name>
+      <Email>sherlock@nospam.com</Email>
+      <Posts>
+        <Post>
+          <Title>Sound qualities of 221b Baker Street</Title>
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+            non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
+            ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
+            bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
+            laoreet dignissim. Nulla rhoncus, leo ac sollicitudin egestas, nunc nisi cursus augue, rutrum pellentesque
+            dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
+            semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
+            Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+          </Content>
+          <TagSlugs>entertainment,personal</TagSlugs>
+        </Post>
+        <Post>
+          <Title>Using urchins as an information source</Title>
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+            non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
+            ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
+            bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
+            laoreet dignissim. Nulla rhoncus, leo ac sollicitudin egestas, nunc nisi cursus augue, rutrum pellentesque
+            dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
+            semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
+            Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+          </Content>
+          <TagSlugs>business</TagSlugs>
+        </Post>
+        <Post>
+          <Title>My considered option on the TV adaptions of my life</Title>
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+            non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
+            ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
+            bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
+            laoreet dignissim. Nulla rhoncus, leo ac sollicitudin egestas, nunc nisi cursus augue, rutrum pellentesque
+            dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
+            semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
+            Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+          </Content>
+          <TagSlugs>opinion,entertainment</TagSlugs>
+        </Post>
+        <Post>
+          <Title>Professor Moriarty's habits and acquaintances</Title>
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+            non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
+            ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
+            bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
+            laoreet dignissim. Nulla rhoncus, leo ac sollicitudin egestas, nunc nisi cursus augue, rutrum pellentesque
+            dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
+            semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
+            Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+          </Content>
+          <TagSlugs>education,business</TagSlugs>
+        </Post>
+      </Posts>
+    </Blog>
+    <Blog>
+      <Name>Homer Simsom</Name>
+      <Email>doh@nospam.com</Email>
+      <Posts>
+        <Post>
+          <Title>I am in love with Beer, oh sorry I meant Marge</Title>
+          <Content>
+            Curabitur id vulputate lectus, in ullamcorper arcu. Donec vitae libero sit amet tellus pretium ornare.
+            Nunc auctor tempus neque sit amet tempor. Maecenas ipsum tellus, consequat sed bibendum vitae, placerat
+            at nulla. Sed posuere nisl mi, non semper eros vulputate nec. Nam blandit lorem sapien, a auctor lectus
+            placerat nec. Nulla lobortis erat et nibh cursus imperdiet. Aliquam in massa ut justo consequat venenatis.
+            Nulla facilisi. Nulla facilisi. Ut fringilla leo vitae pharetra interdum. Donec ullamcorper diam
+            vitae scelerisque faucibus. Fusce in est bibendum, tincidunt quam quis, ullamcorper sem. Aliquam sed
+            ligula eu dolor posuere sagittis. Curabitur id ligula non dolor consectetur elementum. Proin tincidunt
+            feugiat lacinia.
+          </Content>
+          <TagSlugs>vices,personal</TagSlugs>
+        </Post>
+        <Post>
+          <Title>Homer's Php... No, pph... D'oh, PhD.</Title>
+          <Content>
+            Curabitur id vulputate lectus, in ullamcorper arcu. Donec vitae libero sit amet tellus pretium ornare.
+            Nunc auctor tempus neque sit amet tempor. Maecenas ipsum tellus, consequat sed bibendum vitae, placerat
+            at nulla. Sed posuere nisl mi, non semper eros vulputate nec. Nam blandit lorem sapien, a auctor lectus
+            placerat nec. Nulla lobortis erat et nibh cursus imperdiet. Aliquam in massa ut justo consequat venenatis.
+            Nulla facilisi. Nulla facilisi. Ut fringilla leo vitae pharetra interdum. Donec ullamcorper diam
+            vitae scelerisque faucibus. Fusce in est bibendum, tincidunt quam quis, ullamcorper sem. Aliquam sed
+            ligula eu dolor posuere sagittis. Curabitur id ligula non dolor consectetur elementum. Proin tincidunt
+            feugiat lacinia.
+          </Content>
+          <TagSlugs>education</TagSlugs>
+        </Post>
+      </Posts>
+    </Blog>
+    <Blog>
+      <Name>Yoni the cat</Name>
+      <Email>yoni@nospam.com</Email>
+      <Posts>
+        <Post>
+          <Title>Why I only have three legs</Title>
+          <Content>
+            Ut malesuada nibh quis velit tincidunt sollicitudin cursus placerat lorem. Praesent laoreet,
+            erat vel viverra euismod, massa nunc vehicula lectus, imperdiet convallis nisi nisl in felis.
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam laoreet scelerisque nulla.
+            Phasellus eleifend erat vitae blandit porta. Maecenas sed congue mi. Vivamus felis neque, iaculis
+            sit amet sollicitudin ac, rhoncus et enim. Etiam non ullamcorper elit. Phasellus convallis nibh ut
+            mollis aliquet. Nullam commodo mauris vel mauris hendrerit aliquet.
+          </Content>
+          <TagSlugs>personal</TagSlugs>
+        </Post>
+        <Post>
+          <Title>I might allow you to pet me...</Title>
+          <Content>
+            Ut malesuada nibh quis velit tincidunt sollicitudin cursus placerat lorem. Praesent laoreet,
+            erat vel viverra euismod, massa nunc vehicula lectus, imperdiet convallis nisi nisl in felis.
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam laoreet scelerisque nulla.
+            Phasellus eleifend erat vitae blandit porta. Maecenas sed congue mi. Vivamus felis neque, iaculis
+            sit amet sollicitudin ac, rhoncus et enim. Etiam non ullamcorper elit. Phasellus convallis nibh ut
+            mollis aliquet. Nullam commodo mauris vel mauris hendrerit aliquet.
+          </Content>
+          <TagSlugs>personal,vices</TagSlugs>
+        </Post>
+        <Post>
+          <Title>The 17 things humans do that I find annoying</Title>
+          <Content>
+            Ut malesuada nibh quis velit tincidunt sollicitudin cursus placerat lorem. Praesent laoreet,
+            erat vel viverra euismod, massa nunc vehicula lectus, imperdiet convallis nisi nisl in felis.
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam laoreet scelerisque nulla.
+            Phasellus eleifend erat vitae blandit porta. Maecenas sed congue mi. Vivamus felis neque, iaculis
+            sit amet sollicitudin ac, rhoncus et enim. Etiam non ullamcorper elit. Phasellus convallis nibh ut
+            mollis aliquet. Nullam commodo mauris vel mauris hendrerit aliquet.
+          </Content>
+          <TagSlugs>personal,opinion</TagSlugs>
+        </Post>
+      </Posts>
+    </Blog>
+  </Blogs>
+</Content>

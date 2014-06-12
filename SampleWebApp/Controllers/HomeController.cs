@@ -91,7 +91,7 @@ namespace SampleWebApp.Controllers
 
         public ActionResult Reset(SampleWebAppDb db)
         {
-            DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Simple);
+            DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Medium);
             TempData["message"] = "Successfully reset the database";
             return RedirectToAction("Index");
         }

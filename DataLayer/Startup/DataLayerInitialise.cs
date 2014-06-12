@@ -1,20 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup.Internal;
+using GenericServices;
+using GenericServices.Logger;
 
 namespace DataLayer.Startup
 {
-    public enum TestDataSelection { Simple = 0}
+    public enum TestDataSelection { Small = 0, Medium = 1}
 
     public static class DataLayerInitialise
     {
 
+        private static IGenericLogger Logger;
+
         private static readonly Dictionary<TestDataSelection, string> XmlDataFileManifestPath = new Dictionary<TestDataSelection, string>
             {
-                {TestDataSelection.Simple, "DataLayer.Startup.Internal.DbContentSimple.xml"}
+                {TestDataSelection.Small, "DataLayer.Startup.Internal.DbContentSimple.xml"},
+                {TestDataSelection.Medium, "DataLayer.Startup.Internal.DbContextMedium.xml"}
             };
 
         /// <summary>
@@ -22,6 +28,7 @@ namespace DataLayer.Startup
         /// </summary>
         public static void InitialiseThis()
         {
+            Logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
             //Initialise the database
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SampleWebAppDb>());
         }
@@ -37,7 +44,13 @@ namespace DataLayer.Startup
             var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlDataFileManifestPath[selection]);
 
             context.Blogs.AddRange(bloggers);
-            context.SaveChanges();
+            var status = context.SaveChangesWithValidation();
+            if (!status.IsValid)
+            {
+                Logger.CriticalFormat("Error when resetting database to data selection {0}. Error:\n{1}", selection, 
+                    string.Join(",", status.Errors));
+                throw new FormatException("xml derived data did not load well.");
+            }
         }
     }
 

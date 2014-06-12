@@ -41,7 +41,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check10DatabaseResetOk()
+        public void Check10DatabaseResetSmallOk()
         {
             using (var db = new SampleWebAppDb())
             {
@@ -49,12 +49,30 @@ namespace Tests.UnitTests.Group01DataLayer
                 DataLayerInitialise.InitialiseThis();
 
                 //ATTEMPT
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Simple);
+                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
 
                 //VERIFY
                 db.Blogs.Count().ShouldEqual(2);
                 db.Posts.Count().ShouldEqual(3);
                 db.Tags.Count().ShouldEqual(3);
+            }
+        }
+
+        [Test]
+        public void Check11DatabaseResetMediumOk()
+        {
+            using (var db = new SampleWebAppDb())
+            {
+                //SETUP
+                DataLayerInitialise.InitialiseThis();
+
+                //ATTEMPT
+                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Medium);
+
+                //VERIFY
+                db.Blogs.Count().ShouldEqual(4);
+                db.Posts.Count().ShouldEqual(13);
+                db.Tags.Count().ShouldEqual(7);
             }
         }
 
