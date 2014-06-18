@@ -26,6 +26,15 @@ namespace SampleWebApp.Controllers
             return Json("Message from Post action method.");
         }
 
+
+        [HttpPost]
+        public ActionResult Immediate(int id, string foo)
+        {
+            System.Threading.Thread.Sleep(5000);
+
+            return Json("Message from Post action method.");
+        }
+
         public ActionResult ActionNeedingData()
         {
             return View(new CommsTestActionData());
@@ -41,5 +50,6 @@ namespace SampleWebApp.Controllers
 
             return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
         }
+
     }
 }

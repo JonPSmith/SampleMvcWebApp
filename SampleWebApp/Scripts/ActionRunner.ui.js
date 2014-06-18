@@ -133,7 +133,9 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.addClass('hidden');
         $actionPanel.dialog('close');
         $actionPanel.dialog('destroy');
-        $progressBar.progressbar('destroy');
+        if ($progressBar.hasClass('ui-progressbar')) {           
+            $progressBar.progressbar('destroy');
+        }
     };
 
     actionRunner.addMessageToProgressList = function (messageType, messageText) {
@@ -251,15 +253,13 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     //2) Action with is triggered from a link with optional properties in the 'data' part of the triggering element
     //
-    actionRunner.startActionFromLink = function(jQueryElementSelector, actionUrl) {
+    actionRunner.startActionFromLink = function (jQueryElementSelector, actionUrl, indeterminate) {
         $(jQueryElementSelector).unbind('click').on('click',
                 function (event) {
-                    //$('#indeterminate-panel').modal('show');
-                    actionRunner.createActionPanel(true);
+                    actionRunner.createActionPanel(indeterminate);
                     $.post( actionUrl, event.target.dataset,
                         function (data) {
                             actionRunner.removeActionPanel();
-                            //$('#indeterminate-panel').modal('hide');
                         });
                 }
             );
