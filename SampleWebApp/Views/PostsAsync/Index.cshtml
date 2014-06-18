@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Posts (async)</h2>
 
 @if (TempData["message"] != null)
 {
@@ -57,3 +57,5 @@
 </table>
 
 @Html.ActionLink("Reset Database", "Reset")
+<br />
+@Html.ActionLink("Delay for 500ms (async)", "Delay")

@@ -87,6 +87,12 @@ namespace SampleWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<ActionResult> Delay()
+        {
+            await Task.Delay(500);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Reset(SampleWebAppDb db)
         {
             DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Medium);

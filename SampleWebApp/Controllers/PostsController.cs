@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer.DataClasses;
@@ -86,6 +88,12 @@ namespace SampleWebApp.Controllers
             else
                 //else errors, so copy the errors over to the ModelState and return to view
                 response.CopyErrorsToModelState(ModelState);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delay()
+        {
+            Thread.Sleep(500);
             return RedirectToAction("Index");
         }
 
