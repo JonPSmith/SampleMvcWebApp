@@ -1,59 +1,77 @@
-﻿@model IEnumerable<ServiceLayer.PostServices.Concrete.SimplePostDto>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-@if (TempData["message"] != null)
-{
-    <div class="text-success">@TempData["message"]</div>
-    <br />
-}
+<h2>Welcome to Sample MVC Web Application</h2>
+<div>
+    <p>
+        This web site is designed to show a number of useful methods for building enterprise grade web applications using
+        <a href="http://www.asp.net/mvc/tutorials/mvc-5/introduction/getting-started">ASP.NET MVC5</a> and
+        <a href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc">Entity Framework 6</a>.
+    </p>
+    <p>
+        The code for this sample MVC web appliction is an open source project by <a href="http://thereformedprogrammer.net/" target="_blank">Jon Smith</a> 
+        and is available on <a href="https://github.com/JonPSmith/SampleMvcWebApp" target="_blank">GitHub</a> under the MIT licence.
+    </p>
+    <h3>The specific patterns and frameworks that SampleMvcWebApp highlights are:</h3>
+    <dl>
+        <dt>The GenericService Framework</dt>
+        <dd>
+            <p>
+                The GenericService framework is an open source project by <a href="http://thereformedprogrammer.net/" target="_blank">Jon Smith</a>
+                and is available on <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GitHub</a> under the MIT licence (and soon NuGet).
+                The aim of GenericService is to simplify the building of standard database CRUD (Create, Read Update and Delete) commands
+                and the running of business layer methods. This site uses GenericServices in the following places
+            </p>
+            <ul>
+                <li>
+                    Example CRUD operations on a fictitious blog site
+                    <ul>
+                        <li>Normal, synchronous access in the @Html.ActionLink("Posts", "Index", "Posts") Controller</li>
+                        <li>The new EF6 async access in the @Html.ActionLink("PostsAsync", "Index", "PostsAsync") Controller</li>
+                    </ul>
+                </li>
+                <li>A blog series covering GenericServices can be found here???</li>
+            </ul>
+        </dd>
+        <dt>Handling long running tasks</dt>
+        <dd>
+            <p>
+                My applications have a number of long running business logic parts where I want to show progress messages and
+                allow the user to be able to cancel the task. I use
+                <a href="http://www.asp.net/signalr/overview/signalr-20/getting-started-with-signalr-20/tutorial-getting-started-with-signalr-20" target="_blank">SignalR</a>
+                and MVC, with a little help from the GenericService Framework.
+            </p>
+            <ul>
+                <li>Examples of running a task with progress bar can be found here???</li>
+                <li>Explanation of the code can be found here???</li>
+            </ul>
+            <p>See <a href="#" target="_blank">insert blog link</a> for an explanation of this code.</p>
+        </dd>
+        <dt>Dependency Injection</dt>
+        <dd>
+            <p>
+                The GenericService framework is designed to be used with
+                <a href="http://www.codeproject.com/Articles/615139/An-Absolute-Beginners-Tutorial-on-Dependency-Inver" target="_blank">Dependency Injection</a> (DI).
+                DI is used in this example in the following places.
+            </p>
+            <ul>
+                <li>
+                    Inserting the required services into a controller by action parameter injection. <br />
+                    This is a powerful, but unusual usage and is explained in <a href="#" target="_blank">insert blog link</a>
+                </li>
+                <li>
+                    We also use DI in the more standard usage of linking creating the GenericService etc.
+                    See <a href="#" target="_blank">insert blog link</a> for more information.
+                </li>
+            </ul>
+            <p>
+                Note that the SampleMvcWebApp uses <a href="https://github.com/autofac/Autofac/wiki/Getting-Started" target="_blank">AutoFac</a>
+                dependency injection framework, but I have abstracted the one place where SampleMvcWebApp needs more complex access for long running tasks
+                so that you can replace AutoFac with your own favourite DI tool.
+            </p>
+        </dd>
+    </dl>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BloggerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            Last updated
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TagNames)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BloggerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @item.LastUpdatedUtc.ToShortDateString()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TagNames)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.PostId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.PostId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.PostId })
-            </td>
-        </tr>
-    }
-
-</table>
-
-@Html.ActionLink("Reset Database", "Reset")
