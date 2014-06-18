@@ -194,6 +194,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PostsAsyncController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -349,6 +350,10 @@
     <Content Include="Views\Shared\EditorTemplates\MultiSelectListType.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\RunAction.cshtml" />
+    <Content Include="Views\PostsAsync\Create.cshtml" />
+    <Content Include="Views\PostsAsync\Details.cshtml" />
+    <Content Include="Views\PostsAsync\Edit.cshtml" />
+    <Content Include="Views\PostsAsync\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

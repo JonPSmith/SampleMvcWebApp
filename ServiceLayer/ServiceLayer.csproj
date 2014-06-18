@@ -55,7 +55,11 @@
   <ItemGroup>
     <Compile Include="BlogServices\Concrete\BlogDto.cs" />
     <Compile Include="BlogServices\IBlogDto.cs" />
+    <Compile Include="PostServices\Concrete\DetailPostDtoAsync.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDto.cs" />
+    <Compile Include="PostServices\IDetailPostDtoAsync.cs" />
+    <Compile Include="PostServices\ISimplePostDtoAsync.cs" />
+    <Compile Include="PostServices\Concrete\SimplePostDtoAsync.cs" />
     <Compile Include="PostServices\IDetailPostDto.cs" />
     <Compile Include="PostServices\ISimplePostDto.cs" />
     <Compile Include="PostServices\Concrete\SimplePostDto.cs" />

@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.DataClasses.Concrete.Helpers;
 using GenericServices;
@@ -24,6 +25,21 @@ namespace DataLayer.DataClasses
             try
             {
                 numChanges = SaveChanges(); //then update it
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return result.SetErrors(ex.EntityValidationErrors);
+            }
+            return result.SetSuccessMessage("Successfully added or updated {0} items", numChanges);
+        }
+
+        public async Task<ISuccessOrErrors> SaveChangesWithValidationAsync()
+        {
+            var result = new SuccessOrErrors();
+            var numChanges = 0;
+            try
+            {
+                numChanges = await SaveChangesAsync(); //then update it
             }
             catch (DbEntityValidationException ex)
             {
