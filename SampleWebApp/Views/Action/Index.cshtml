@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
 }
 
+@*This isn't used anuy more, but its how a modal panel is done in bootstrap*@
 <div id="indeterminate-panel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm">
         <div class="modal-content centeredImage">
@@ -11,6 +12,15 @@
             <img id="loading" alt="Running ..." src="../../Content/img/ajax-loader.gif" style="float:" />
             <p>&nbsp;</p>
         </div>
+    </div>
+</div>
+
+<div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
+    <div id="progressbar"></div>
+    <div id="message-container" class="overflow-auto">
+    </div>
+    <div class="action-lower-menu">
+        <button id="action-button" class="btn btn-default">Invalid</button>
     </div>
 </div>
 
@@ -54,7 +64,7 @@
     </tr>
     <tr>
         <td>
-            <a class="btn btn-primary btn-sm" href="" style="width: 120px;">Input, then modal</a>
+            <a class="btn btn-primary btn-sm" href="@Url.Action("ActionNeedingData")" style="width: 120px;">Input, then modal</a>
         </td>
         <td>
             Enter data to hand to method before running in a modal panel with progress.
@@ -63,18 +73,12 @@
 </table>
 
 @section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/ActionRunner")
+
     <script type="text/javascript" language="javascript">
-        $(document).ready(function() {
-            $("#indeterminate-action").click(
-                function (event) {
-                    $('#indeterminate-panel').modal('show');
-                    $.post('@Url.Action("Indeterminate")', event.target.dataset,
-                        function(data) {
-                            //$('#result').html(data);
-                            $('#indeterminate-panel').modal('hide');
-                        });
-                }
-            );
+        $(document).ready(function () {
+            ActionRunner.startActionFromLink('#indeterminate-action', '@Url.Action("Indeterminate")' );
         });
     </script>
 

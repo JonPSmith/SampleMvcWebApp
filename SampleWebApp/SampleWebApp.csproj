@@ -352,7 +352,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownListType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultiSelectListType.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Home\RunAction.cshtml" />
+    <Content Include="Views\Action\ActionNeedingData.cshtml" />
     <Content Include="Views\PostsAsync\Create.cshtml" />
     <Content Include="Views\PostsAsync\Details.cshtml" />
     <Content Include="Views\PostsAsync\Edit.cshtml" />

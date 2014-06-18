@@ -108,7 +108,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         actionChannel.on('Progress', function(serverTaskId, percentDone, message) {
             if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
-                actionRunner.updateProgress(actionGuid, percentDone, actionRunner.numErrorMessages);
+                actionRunner.updateProgress(percentDone, actionRunner.numErrorMessages);
                 logMessage(message);
             }
         });
@@ -123,7 +123,7 @@ var ActionRunner = (function (actionRunner, $, window) {
                 logMessage(message);
                 actionChannel.invoke('EndAction', actionGuid); //this cleans up the action at the server end
                 if (message.MessageTypeString === messageTypes.finished) {
-                    actionRunner.updateProgress(actionGuid, 100);
+                    actionRunner.updateProgress(100);
                     if (actionRunner.numErrorMessages === 0) {
                         actionRunner.setActionState(actionStates.finishedOk);
                     } else {
@@ -158,7 +158,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         if (actionMessage == null || !actionMessage.MessageTypeString || !actionMessage.MessageText) {
             return;
         }
-        actionRunner.addMessageToProgressList(actionGuid, actionMessage.MessageTypeString, actionMessage.MessageText);
+        actionRunner.addMessageToProgressList(actionMessage.MessageTypeString, actionMessage.MessageText);
     }
 
     //------------------------------------------------------
@@ -182,7 +182,7 @@ var ActionRunner = (function (actionRunner, $, window) {
             actionGuid = jsonContent.ActionGuid;
             setupTaskChannel();
 
-            actionRunner.createActionPanel(actionGuid); //this sets up the dialog display and show it
+            actionRunner.createActionPanel(); //this sets up the dialog display and show it
         } else {
             actionRunner.reportSystemError('bad call or bad json format data in response to ajax submit', true);
         }

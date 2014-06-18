@@ -36,7 +36,7 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         it('Should call createActionPanel in ui', function () {
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel(abcd)');
+            expect(ActionRunner.callLog[0]).toBe('createActionPanel()');
         });
 
         it('Should call various in SignalR', function () {
@@ -113,18 +113,17 @@ describe('Test05 - check ActionRunner.comms', function () {
                 var message = createMessage('Info');
                 mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 0)');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Info, This is a test)');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(55, 0)');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(Info, This is a test)');
             });
 
             it('Called Progress with Error message', function () {
                 var message = createMessage('Error');
                 mockSignalRClient.onFunctionDict.Progress('abcd', 55, message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[1]).toBe('updateProgress(abcd, 55, 1)');
-                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(abcd, Error, This is a test)');
+                expect(ActionRunner.callLog[1]).toBe('updateProgress(55, 1)');
+                expect(ActionRunner.callLog[2]).toBe('addMessageToProgressList(Error, This is a test)');
             });
-
         });
 
         it('Call connection.on( Started) should set state', function () {

@@ -94,21 +94,21 @@ describe('Test04 - check mock ActionRunner.ui', function () {
     describe('check other ui methods are logged', function () {
 
         it('mock createActionPanel exists', function () {
-            ActionRunner.createActionPanel('abcd');
+            ActionRunner.createActionPanel();
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel(abcd)');
+            expect(ActionRunner.callLog[0]).toBe('createActionPanel()');
         });
 
         it('mock removeActionPanel exists', function () {
-            ActionRunner.removeActionPanel('abcd');
+            ActionRunner.removeActionPanel();
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
+            expect(ActionRunner.callLog[0]).toBe('removeActionPanel()');
         });
 
         it('mock addMessageToProgressList exists', function () {
-            ActionRunner.addMessageToProgressList('abcd', 'info', 'Hello world');
+            ActionRunner.addMessageToProgressList('info', 'Hello world');
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('addMessageToProgressList(abcd, info, Hello world)');
+            expect(ActionRunner.callLog[0]).toBe('addMessageToProgressList(info, Hello world)');
         });
 
         it('mock updateProgress exists', function () {

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SampleWebApp.ActionProgress;
+using SampleWebApp.Infrastructure;
+using ServiceLayer.TestActionService;
+using ServiceLayer.TestActionService.Concrete;
 
 namespace SampleWebApp.Controllers
 {
@@ -20,6 +24,22 @@ namespace SampleWebApp.Controllers
             System.Threading.Thread.Sleep(5000);
 
             return Json("Message from Post action method.");
+        }
+
+        public ActionResult ActionNeedingData()
+        {
+            return View(new CommsTestActionData());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ActionNeedingData(CommsTestActionData data)
+        {
+            if (!ModelState.IsValid)
+                //model errors so we return a errorDict to the ajax call
+                return ModelState.ReturnModelErrorsAsJson();
+
+            return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
         }
     }
 }

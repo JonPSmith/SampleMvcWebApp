@@ -26,19 +26,19 @@ var ActionRunner = (function (actionRunner) {
     //----------------------------------------------------------------
     //now the ActionRunner ui public methods
     
-    actionRunner.createActionPanel = function (actionGuid) {
+    actionRunner.createActionPanel = function () {
         actionRunner.logStep('createActionPanel');
     };
 
-    actionRunner.removeActionPanel = function (actionGuid) {
+    actionRunner.removeActionPanel = function () {
         actionRunner.logStep('removeActionPanel');
     };
 
-    actionRunner.addMessageToProgressList = function (actionGuid, messageType, messageText) {
+    actionRunner.addMessageToProgressList = function (messageType, messageText) {
         actionRunner.logStep('addMessageToProgressList');
     };
 
-    actionRunner.updateProgress = function (actionGuid, percentage, numErrors) {
+    actionRunner.updateProgress = function (percentage, numErrors) {
         actionRunner.logStep('updateProgress');
     };
 

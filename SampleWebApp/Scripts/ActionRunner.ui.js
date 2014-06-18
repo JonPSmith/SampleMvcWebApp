@@ -21,17 +21,6 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     var titleForModalWindow;
 
-    //-----------------------------------------------------
-    //local methods to do with ajax call
-
-    function submitSuccess(responseContent, statusString, responseObject) {
-        actionRunner.runAction(responseContent);
-    }
-
-    function submitFailed(args) {
-        actionRunner.reportSystemError('submit failed. args =' + args, true);
-    }
-
     //------------------------------------------------------------------------------------------------
     //explicit methods to access the user interface elements. 
     //Put here to allow a the developer to replace the externally used UI elements with their own choice
@@ -44,7 +33,8 @@ var ActionRunner = (function (actionRunner, $, window) {
     var progressBarId = '#progressbar';
     var $progressBar = $(progressBarId);
     var messagesTableId = '#messages';
-    var $messagesContainer = $('#message-container');
+    var $messageContainer = $('#message-container');
+    var $actionlowermenu = $('.action-lower-menu');
     var $notification = $('#notification');
 
     //this uses the bootstrap label classes
@@ -64,8 +54,9 @@ var ActionRunner = (function (actionRunner, $, window) {
     var useNotify = $.notify && $notification.length > 0;
 
     //This takes the actionConfig and returns jQuery Ui Dialog options object
-    function CreatejQueryUiDialogOptions(actionConfig) {
+    function CreatejQueryUiDialogOptions() {
         this.modal = true;
+        this.buttons = [];                  //no buttons as must close via any other button
         this.draggable = true;
         this.resizable = false;             //resizable would be nice, but fiddly. Turn off for now.
         this.closeOnEscape = false;
@@ -77,13 +68,17 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     //This sets the ui dialog height, width and position relative to the screen
     //and sorts out the action message table height to make it useful
-    function setVariousHeightsEtc(dialogOptions) {
+    function setVariousHeightsEtc(dialogOptions, indeterminate) {
         var browserHeight = window.innerHeight;
         var browerWidth = window.innerWidth;
 
-        //we make the dialog 60% height and 60% width and place in middle of screen
-        dialogOptions.height = browserHeight * 0.6;
-        dialogOptions.width = browerWidth * 0.6;
+        if (indeterminate) {
+            dialogOptions.width = browerWidth * 0.4;
+        } else {
+            //we make the dialog 60% height and 60% width and place in middle of screen
+            dialogOptions.height = browserHeight * 0.6;
+            dialogOptions.width = browerWidth * 0.6;
+        }
         dialogOptions.position = [
             (browerWidth - dialogOptions.width) / 2,
             (browserHeight - dialogOptions.height) / 2          
@@ -95,25 +90,45 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     }
 
+    function setupPanelIndeterminate() {
+        $actionlowermenu.hide();
+        $progressBar.hide();
+        titleForModalWindow = 'The action is currently running...';
+        $messageContainer.html('<div class="centeredImage"><br /><img id="loading" alt="Running ..." src="../../Content/img/ajax-loader.gif" style="float:" /><p>&nbsp;</p></div>');
+    }
+
+    function setupPanelProgress() {
+        $actionlowermenu.show();
+        $actionButton.on('click', function (eventObject) {
+            actionRunner.respondToStateChangeRequest(eventObject.target.innerText);
+        });
+        $progressBar.show();
+        $progressBar.progressbar({ value: 0 });              //need to define this first as next function needs to know its height
+        $(progressBarId + ' > div').css({ 'background': '#468847' });   //we set the bar to bootstrap's success colour
+
+        $messageContainer.html('<table id="messages" class="table table-condensed"><tbody></tbody></table>');
+    }
+
     //------------------------------------------------------
     //public methods returned
 
     //This will setup a panel of some for. It must use the data in the actionConfig to define what sort of panel
     //to create and whether to display it
-    actionRunner.createActionPanel = function (actionGuid, actionConfig) {
+    actionRunner.createActionPanel = function (indeterminate) {
         $(messagesTableId + ' tr').remove();
-        $actionButton.unbind('click').on('click', function(eventObject) {
-            actionRunner.respondToStateChangeRequest(eventObject.target.innerText);
-        });
-        $progressBar.progressbar({ value: 0 });              //need to define this first as next function needs to know its height
-        $(progressBarId + ' > div').css({ 'background': '#468847' });   //we set the bar to bootstrap's success colour
-        var dialogOptions = new CreatejQueryUiDialogOptions(actionConfig);
-        setVariousHeightsEtc(dialogOptions);
+        $actionButton.unbind('click');
+        if (indeterminate) {
+            setupPanelIndeterminate();
+        } else { 
+            setupPanelProgress();
+        }
+        var dialogOptions = new CreatejQueryUiDialogOptions();
+        setVariousHeightsEtc(dialogOptions, indeterminate);
         $actionPanel.dialog(dialogOptions);
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.removeActionPanel = function(actionGuid) {
+    actionRunner.removeActionPanel = function() {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         $actionPanel.dialog('close');
@@ -121,7 +136,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $progressBar.progressbar('destroy');
     };
 
-    actionRunner.addMessageToProgressList = function (actionGuid, messageType, messageText) {
+    actionRunner.addMessageToProgressList = function (messageType, messageText) {
         var rowData = '<tr><td class="' + messageTypeClassLookup[messageType] + '">' + messageType + '</td><td>' + messageText + '</td></tr>';
         var $lastRow = $(messagesTableId + ' tr:last');
         if ($lastRow.length == 0) {
@@ -133,10 +148,10 @@ var ActionRunner = (function (actionRunner, $, window) {
             $lastRow.after(rowData);
         }
         var rowPos = $(messagesTableId + ' tr:last').position();
-        $messagesContainer.scrollTop(rowPos.top);
+        $messageContainer.scrollTop(rowPos.top);
     };
 
-    actionRunner.updateProgress = function(actionGuid, percentage, numErrors) {
+    actionRunner.updateProgress = function(percentage, numErrors) {
         if (typeof (percentage) !== 'number' || percentage > 100 || percentage < 0) {
             return;
         }
@@ -192,10 +207,26 @@ var ActionRunner = (function (actionRunner, $, window) {
         }
     };
 
+    //-----------------------------------------------------
+    //local methods to do with ajax call
+
+    function submitSuccess(responseContent, statusString, responseObject) {
+        actionRunner.runAction(responseContent);
+    }
+
+    function submitFailed(args) {
+        actionRunner.reportSystemError('submit failed. args =' + args, true);
+    }
+
+    //==========================================================
+    //now the functions that are called from the view
+
+    //1) Action which is supplied with setup data from a form and then runs
+    //
     //This sets up the form element on the page to use an Ajax submit method.
     //It runs the normal MVC validation on the form
     //This allows the result to be captured and then the appropriate progress form to be displayed
-    actionRunner.setupActionForm = function( overrideModalWindowTitle) {
+    actionRunner.startActionFromForm = function( overrideModalWindowTitle) {
 
         titleForModalWindow = overrideModalWindowTitle; //this allows the title of the Panel to be changed
 
@@ -216,6 +247,22 @@ var ActionRunner = (function (actionRunner, $, window) {
             }
             return false;       //needed to stop default form submit action
         });
+    };
+
+    //2) Action with is triggered from a link with optional properties in the 'data' part of the triggering element
+    //
+    actionRunner.startActionFromLink = function(jQueryElementSelector, actionUrl) {
+        $(jQueryElementSelector).unbind('click').on('click',
+                function (event) {
+                    //$('#indeterminate-panel').modal('show');
+                    actionRunner.createActionPanel(true);
+                    $.post( actionUrl, event.target.dataset,
+                        function (data) {
+                            actionRunner.removeActionPanel();
+                            //$('#indeterminate-panel').modal('hide');
+                        });
+                }
+            );
     };
 
     return actionRunner;
