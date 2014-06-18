@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="indeterminate-panel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content centeredImage">
+            <p>The action is currently running...</p>
+            <br />
+            <img id="loading" alt="Running ..." src="../../Content/img/ajax-loader.gif" style="float:" />
+            <p>&nbsp;</p>
+        </div>
+    </div>
+</div>
+
+<h2>Handling long running methods</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div>
+    <br />
+}
+<p>
+    This page shows a number of ways of running a long-running method. <br/>
+    Please click one of buttons below to try different options.
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Action
+        </th>
+        <th>
+            Explanation
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" id="indeterminate-action" class="btn btn-primary btn-sm" style="width: 120px;" data-id="123" data-foo="bar">Indeterminate</button>
+
+        </td>
+        <td>
+            This immediately runs a method while showing a rotating icon when running.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-primary btn-sm" onclick="" style="width: 120px;">Immediate, modal</button>
+        </td>
+        <td>
+            This immediately runs a method and shows a modal box with progress.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="btn btn-primary btn-sm" href="" style="width: 120px;">Input, then modal</a>
+        </td>
+        <td>
+            Enter data to hand to method before running in a modal panel with progress.
+        </td>
+    </tr>
+</table>
+
+@section Scripts {
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            $("#indeterminate-action").click(
+                function (event) {
+                    $('#indeterminate-panel').modal('show');
+                    $.post('@Url.Action("Indeterminate")', event.target.dataset,
+                        function(data) {
+                            //$('#result').html(data);
+                            $('#indeterminate-panel').modal('hide');
+                        });
+                }
+            );
+        });
+    </script>
+
+}
