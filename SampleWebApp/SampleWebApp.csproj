@@ -288,6 +288,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Log4Net.xml" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\ActionRunner.ui.js" />
     <Content Include="Scripts\ActionRunner.comms.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -295,6 +296,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\samplemvcwebapp.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
