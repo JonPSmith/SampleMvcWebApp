@@ -19,7 +19,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         private MemoryAppender _log4NetMemoryLog;
         private MockActionHubSend _mockHub;
 
-        private CommsTestAction _action;
+        private CommsTestActionNormal _action;
 
         [TestFixtureSetUp]
         public void FixtureSetUp()
@@ -36,9 +36,9 @@ namespace Tests.UnitTests.Group08ActionRunner
             _log4NetMemoryLog.Clear();
             _mockHub = new MockActionHubSend();
 
-            _action = new CommsTestAction();
+            _action = new CommsTestActionNormal();
             var builder = new ContainerBuilder();
-            builder.RegisterInstance(_action).As<ICommsTestAction>();
+            builder.RegisterInstance(_action).As<ICommsTestActionNormal>();
             var container = builder.Build();
             ActionHub.LifeTimeScopeProvider = () => new AutoFacActionHubResolver(container);
         }
@@ -51,7 +51,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             {
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             var lastMessage = hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -72,7 +72,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -95,7 +95,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -115,7 +115,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -138,7 +138,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 SecondsBetweenIterations = 0,
                 NumErrorsToExitWith = 1
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -159,7 +159,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -182,7 +182,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
@@ -205,7 +205,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
             
             //ATTEMPT
             hr.CancellationPending = true;
@@ -230,7 +230,7 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
 
             //ATTEMPT
             hr.RunActionSynchronously("aaa", "123", _mockHub);

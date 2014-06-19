@@ -107,6 +107,7 @@ var ActionRunner = (function (actionRunner, $, window) {
             //use spinning progress icon
             $progressBar.html('<div class="centeredImage"><br /><img id="loading" alt="Running ..." src="../../Content/img/ajax-loader.gif" style="float:" /><p>&nbsp;</p></div>');
         } else {
+            $progressBar.html('');          //clear a possible spinning logo
             $progressBar.progressbar({ value: 0 });              
             $(progressBarId + ' > div').css({ 'background': '#468847' });   //we set the bar to bootstrap's success colour
         }

@@ -21,9 +21,9 @@ namespace SampleWebApp.Controllers
         [HttpPost]
         public ActionResult Indeterminate(int id, string foo)
         {
-            System.Threading.Thread.Sleep(5000);
+            var data = new CommsTestActionData();
 
-            return Json("Message from Post action method.");
+            return RunnerSetupFactory<ICommsTestActionNoCancelEtc>.CreateRunnerAndReturnJsonNetResult(data);
         }
 
 
@@ -34,7 +34,7 @@ namespace SampleWebApp.Controllers
             {
                 NumIterations = iterations
             };
-            return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonNetResult(data);
         }
 
         public ActionResult ActionNeedingData()
@@ -50,7 +50,7 @@ namespace SampleWebApp.Controllers
                 //model errors so we return a errorDict to the ajax call
                 return ModelState.ReturnModelErrorsAsJson();
 
-            return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonNetResult(data);
         }
 
     }

@@ -17,7 +17,8 @@ namespace Tests.UnitTests.Group08ActionRunner
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<EmptyTestAction>().As<IEmptyTestAction>();
-            builder.RegisterType<CommsTestAction>().As<ICommsTestAction>();
+            builder.RegisterType<CommsTestActionNormal>().As<ICommsTestActionNormal>();
+            builder.RegisterType<CommsTestActionNoCancelEtc>().As<ICommsTestActionNoCancelEtc>();
             var container = builder.Build();
             ActionHub.LifeTimeScopeProvider = () => new AutoFacActionHubResolver(container);
         }
@@ -50,6 +51,9 @@ namespace Tests.UnitTests.Group08ActionRunner
             mockHub.ActionConfigFlags.ShouldEqual("NoProgressSent, NoMessagesSent, CancelNotSupported");
         }
 
+
+        //--------------------------
+
         [Test]
         public void Test10CheckDiCommsTestActionOk()
         {
@@ -58,7 +62,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             {
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
             var mockHub = new MockActionHubSend();
 
             //ATTEMPT
@@ -76,7 +80,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             {
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
             var mockHub = new MockActionHubSend();
 
             //ATTEMPT
@@ -94,7 +98,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             {
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
             var mockHub = new MockActionHubSend();
 
             //ATTEMPT
@@ -102,6 +106,44 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             //VERIFY
             mockHub.ActionConfigFlags.ShouldEqual("Normal");
+        }
+
+        //--------------------------------------
+
+        [Test]
+        public void Test15CheckDiCommsTestActionNoCancelEtcOk()
+        {
+            //SETUP
+            var data = new CommsTestActionData
+            {
+                SecondsBetweenIterations = 0
+            };
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNoCancelEtc), data);
+            var mockHub = new MockActionHubSend();
+
+            //ATTEMPT
+            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+
+            //VERIFY
+            lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
+        }
+
+        [Test]
+        public void Test16CheckCommsTestActionNoCancelEtcConfigNoMessagesOk()
+        {
+            //SETUP
+            var data = new CommsTestActionData
+            {
+                SecondsBetweenIterations = 0
+            };
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNoCancelEtc), data);
+            var mockHub = new MockActionHubSend();
+
+            //ATTEMPT
+            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+
+            //VERIFY
+            mockHub.ActionConfigFlags.ShouldEqual("ExitOnSuccess, NoProgressSent, NoMessagesSent, CancelNotSupported");
         }
 
     }
