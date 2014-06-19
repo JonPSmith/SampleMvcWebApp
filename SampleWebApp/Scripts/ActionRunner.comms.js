@@ -7,6 +7,8 @@ var ActionRunner = (function (actionRunner, $, window) {
         nojQuery: 'jQuery was not found. Please ensure jQuery is referenced before this ActionRinner JavaScript file.',
         noSignalR: 'SignalR was not found. Please ensure SignalR is referenced before this ActionRunner JavaScript file.',
         confirmExitOnRunningSys: 'The system is waiting for the server to respond. Do you want to exit anyway? Press OK to exit.',
+        confirmExitOnNonCancellable: 'The action is not cancellable and is still running. If you exit now you will the action will still continue?' +
+                                        ' Press OK if you really want to exit.',
     };
 
     if (typeof ($) !== 'function') {
@@ -32,6 +34,7 @@ var ActionRunner = (function (actionRunner, $, window) {
     //now add the states that are composites of the above.
     actionStates.connectingTransient = 'Connecting' + actionStates.transientSuffix; // the connection is set up but not finished
     actionStates.startingTransient = actionStates.startingPrefix + actionStates.transientSuffix; // action is being started. waiting for confirmation
+    actionStates.runningNoCancel = 'Running' + actionStates.transientSuffix; //This is put up if the action does not support cancel
     actionStates.cancellingTransient = actionStates.cancellingPrefix + actionStates.transientSuffix; // user cancelled the action; but cancel hasn't finished
     actionStates.failed = actionStates.failedPrefix;
     actionStates.failedLink = actionStates.failedPrefix + ' (link)'; // error with the SignalR link to the host 
@@ -61,6 +64,7 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     var actionGuid = null;
     var actionChannel = null;
+    var actionConfig = null;
 
     var startsWith = function(str, prefix) {
         return str.lastIndexOf(prefix, 0) === 0;
@@ -69,6 +73,15 @@ var ActionRunner = (function (actionRunner, $, window) {
     var endsWith = function(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     };
+
+    function decodeActionConfig(actionConfigFlags) {
+        //The action has started and we have the flags on what the action supports
+        actionConfig = {};
+        actionConfig.exitOnSuccess = actionConfigFlags.indexOf('ExitOnSuccess') > -1;
+        actionConfig.noProgressSent = actionConfigFlags.indexOf('NoProgressSent') > -1;
+        actionConfig.noMessagesSent = actionConfigFlags.indexOf('NoMessagesSent') > -1;
+        actionConfig.cancelNotSupported = actionConfigFlags.indexOf('CancelNotSupported') > -1;
+    }
 
     //------------------------------------------------------------------------
     //code to deal with the SignalR connections and events
@@ -112,9 +125,16 @@ var ActionRunner = (function (actionRunner, $, window) {
                 logMessage(message);
             }
         });
-        actionChannel.on('Started', function (serverActionId) {
+        actionChannel.on('Started', function (serverActionId, actionConfigFlags) {
             if (serverActionId === actionGuid) {
-                actionRunner.setActionState(actionStates.cancel);
+                decodeActionConfig(actionConfigFlags);
+                actionRunner.createActionPanel(actionConfig);
+                if (actionConfig.cancelNotSupported) {
+                    actionRunner.setActionState(actionStates.runningNoCancel);
+                } else {               
+                    actionRunner.setActionState(actionStates.cancel);
+                }
+
             }
         });
         actionChannel.on('Stopped', function (serverTaskId, message) {
@@ -126,6 +146,9 @@ var ActionRunner = (function (actionRunner, $, window) {
                     actionRunner.updateProgress(100);
                     if (actionRunner.numErrorMessages === 0) {
                         actionRunner.setActionState(actionStates.finishedOk);
+                        if (actionConfig.exitOnSuccess) {                          
+                            actionRunner.removeActionPanel();
+                        } 
                     } else {
                         actionRunner.setActionState(actionStates.finishedErrors);
                     }
@@ -182,7 +205,6 @@ var ActionRunner = (function (actionRunner, $, window) {
             actionGuid = jsonContent.ActionGuid;
             setupTaskChannel();
 
-            actionRunner.createActionPanel(); //this sets up the dialog display and show it
         } else {
             actionRunner.reportSystemError('bad call or bad json format data in response to ajax submit', true);
         }
@@ -196,7 +218,10 @@ var ActionRunner = (function (actionRunner, $, window) {
             cancelAction();
         } else if (endsWith(currentState, actionStates.transientSuffix)) {
             //The system is in the middle of an operation. Might be hung so give user chance to abandon, but only after confirmation.
-            if (confirm(commsResources.confirmExitOnRunningSys)) {
+            var messageToShow = currentState == actionStates.runningNoCancel ?
+                commsResources.confirmExitOnNonCancellable :
+                commsResources.confirmExitOnRunningSys;
+            if (confirm(messageToShow)) {
                 //If user says OK then we exit then remove modal panel
                 actionRunner.removeActionPanel(actionGuid);
             }

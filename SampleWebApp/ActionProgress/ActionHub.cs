@@ -78,9 +78,10 @@ namespace SampleWebApp.ActionProgress
         /// This is returned to client when the action is started. It confirms to the user that all is OK
         /// </summary>
         /// <param name="actionRunner"></param>
-        public void Started(IHubControl actionRunner)
+        /// <param name="actionConfig">a string of flags on what options the action supports</param>
+        public void Started(IHubControl actionRunner, string actionConfig)
         {
-            Clients.Client(actionRunner.UserConnectionId).Started(actionRunner.ActionGuid);
+            Clients.Client(actionRunner.UserConnectionId).Started(actionRunner.ActionGuid, actionConfig);
         }
 
         /// <summary>

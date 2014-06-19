@@ -106,9 +106,6 @@ namespace SampleWebApp.ActionProgress
                 return ProgressMessage.FinishedMessage(true, "Failed checks on ActionGuid");
             }
 
-            if (userConnectionId != null)
-                hubSendMethods.Started(this);
-
             IActionDefn<T> actionToRun = null;
 
             try
@@ -127,6 +124,10 @@ namespace SampleWebApp.ActionProgress
                 else
                 {
                     // Start the time-consuming operation.
+
+                    if (userConnectionId != null)
+                        hubSendMethods.Started(this, actionToRun.ActionConfig.ToString());
+
                     Logger.InfoFormat("Started action of type {0}", actionToRun.GetType().Name);
                     actionsResult = actionToRun.DoAction((userConnectionId == null ? null : this), _dto);
                 }

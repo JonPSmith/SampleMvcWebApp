@@ -95,5 +95,6 @@ namespace Tests.UnitTests.Group08ActionRunner
             logs[0].Level.ShouldEqual(log4net.Core.Level.Info);
             logs[1].Level.ShouldEqual(log4net.Core.Level.Warn);
         }
+
     }
 }

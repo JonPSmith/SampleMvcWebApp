@@ -37,7 +37,21 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Test02CheckDiCommsTestActionOk()
+        public void Test02CheckEmptyTestActionConfigOk()
+        {
+            //SETUP
+            var hr = new HubRunner<Tag>("aaa", typeof(IEmptyTestAction), new Tag());
+            var mockHub = new MockActionHubSend();
+
+            //ATTEMPT
+            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+
+            //VERIFY
+            mockHub.ActionConfigFlags.ShouldEqual("NoProgressSent, NoMessagesSent, CancelNotSupported");
+        }
+
+        [Test]
+        public void Test10CheckDiCommsTestActionOk()
         {
             //SETUP
             var data = new CommsTestActionData
@@ -52,6 +66,42 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             //VERIFY
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
+        }
+
+        [Test]
+        public void Test11CheckCommsTestActionConfigNormalOk()
+        {
+            //SETUP
+            var data = new CommsTestActionData
+            {
+                SecondsBetweenIterations = 0
+            };
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var mockHub = new MockActionHubSend();
+
+            //ATTEMPT
+            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+
+            //VERIFY
+            mockHub.ActionConfigFlags.ShouldEqual("Normal");
+        }
+
+        [Test]
+        public void Test12CheckCommsTestActionConfigNoMessagesOk()
+        {
+            //SETUP
+            var data = new CommsTestActionData
+            {
+                SecondsBetweenIterations = 0
+            };
+            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestAction), data);
+            var mockHub = new MockActionHubSend();
+
+            //ATTEMPT
+            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+
+            //VERIFY
+            mockHub.ActionConfigFlags.ShouldEqual("Normal");
         }
 
     }

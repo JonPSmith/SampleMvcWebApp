@@ -28,11 +28,13 @@ namespace SampleWebApp.Controllers
 
 
         [HttpPost]
-        public ActionResult Immediate(int id, string foo)
+        public ActionResult Immediate(int iterations)
         {
-            System.Threading.Thread.Sleep(5000);
-
-            return Json("Message from Post action method.");
+            var data = new CommsTestActionData
+            {
+                NumIterations = iterations
+            };
+            return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
         }
 
         public ActionResult ActionNeedingData()

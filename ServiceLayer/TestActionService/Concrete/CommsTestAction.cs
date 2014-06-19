@@ -10,53 +10,62 @@ namespace ServiceLayer.TestActionService.Concrete
     public class CommsTestAction : ActionBase, ICommsTestAction
     {
 
+        /// <summary>
+        /// This allows the action to configure what it supports, which then affects what the user sees
+        /// Note: it must be a constant as it is read just after the action is created
+        /// </summary>
+        public override ActionFlags ActionConfig
+        {
+            get { return ActionFlags.Normal; }
+        }
+
         public bool DisposeWasCalled { get; private set; }
 
-        public ISuccessOrErrors DoAction(IActionComms actionComms, CommsTestActionData dto)
+        public ISuccessOrErrors DoAction(IActionComms actionComms, CommsTestActionData data)
         {
             var result = new SuccessOrErrors();
 
-            if (dto.Mode == TestServiceModes.ThrowExceptionOnStart)
+            if (data.Mode == TestServiceModes.ThrowExceptionOnStart)
                 throw new Exception("Thrown exception at start.");
 
             DateTime startTime = DateTime.Now;
 
             ReportProgressAndThrowExceptionIfCancelPending(actionComms, 0, 
-                new ProgressMessage(ProgressMessageTypes.Info, "Task has started. Will run for {0:f1} seconds.", dto.NumIterations * dto.SecondsBetweenIterations));
+                new ProgressMessage(ProgressMessageTypes.Info, "Task has started. Will run for {0:f1} seconds.", data.NumIterations * data.SecondsBetweenIterations));
 
-            for (int i = 0; i < dto.NumIterations; i++)
+            for (int i = 0; i < data.NumIterations; i++)
             {
-                bool halfWayThroughOrMore = (i + 1)/2 >= dto.NumIterations/2;
-                if (dto.Mode == TestServiceModes.ThrowExceptionHalfWayThrough && halfWayThroughOrMore)
+                bool halfWayThroughOrMore = (i + 1)/2 >= data.NumIterations/2;
+                if (data.Mode == TestServiceModes.ThrowExceptionHalfWayThrough && halfWayThroughOrMore)
                     throw new Exception("Thrown exception half way through.");
-                if (dto.Mode == TestServiceModes.ThrowOperationCanceledExceptionHalfWayThrough && halfWayThroughOrMore)
+                if (data.Mode == TestServiceModes.ThrowOperationCanceledExceptionHalfWayThrough && halfWayThroughOrMore)
                     throw new OperationCanceledException();         //we simulate a cancel half way through work
 
-                ReportProgress(actionComms, (i + 1)*100/(dto.NumIterations + 1),
-                    new ProgressMessage(dto.Mode == TestServiceModes.RunButOutputErrors && (i%2 == 0)
+                ReportProgress(actionComms, (i + 1)*100/(data.NumIterations + 1),
+                    new ProgressMessage(data.Mode == TestServiceModes.RunButOutputErrors && (i%2 == 0)
                         ? ProgressMessageTypes.Error
-                        : dto.Mode == TestServiceModes.OutputButOutputWarnings && (i % 2 == 0) 
+                        : data.Mode == TestServiceModes.OutputButOutputWarnings && (i % 2 == 0) 
                             ? ProgressMessageTypes.Warning
                             : ProgressMessageTypes.Info,
-                        string.Format("Iteration {0} of {1} done.", i + 1, dto.NumIterations)));
+                        string.Format("Iteration {0} of {1} done.", i + 1, data.NumIterations)));
                 if (CancelPending(actionComms))
                 {
-                    if (!dto.FailToRespondToCancel)
+                    if (!data.FailToRespondToCancel)
                     {
                         //we will respond to cancel
-                        if (dto.SecondsDelayToRespondingToCancel > 0)
+                        if (data.SecondsDelayToRespondingToCancel > 0)
                             //... but with an additional delay
-                            Thread.Sleep((int)(dto.SecondsDelayToRespondingToCancel * 1000));
+                            Thread.Sleep((int)(data.SecondsDelayToRespondingToCancel * 1000));
                     }
                     break;
                 }
 
-                Thread.Sleep( (int)(dto.SecondsBetweenIterations * 1000));
+                Thread.Sleep( (int)(data.SecondsBetweenIterations * 1000));
             }
 
-            if (dto.NumErrorsToExitWith > 0)
+            if (data.NumErrorsToExitWith > 0)
             {
-                for (int i = 0; i < dto.NumErrorsToExitWith; i++)
+                for (int i = 0; i < data.NumErrorsToExitWith; i++)
                         result.AddSingleError(string.Format(
                             "Error {0}: You asked me to declare an error when finished.", i));
             }

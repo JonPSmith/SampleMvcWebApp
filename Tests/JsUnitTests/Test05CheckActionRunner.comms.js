@@ -34,11 +34,6 @@ describe('Test05 - check ActionRunner.comms', function () {
             ActionRunner.runAction(jsonData);
         });
 
-        it('Should call createActionPanel in ui', function () {
-            expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel()');
-        });
-
         it('Should call various in SignalR', function () {
             //for (var i = 0; i < mockSignalRClient.callLog.length; i++) {
             //    $('.results').append('<div>' + mockSignalRClient.callLog[i] + '</div>');
@@ -60,8 +55,8 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         it('Calling connection.error func should result in reportSystemError', function () {
             mockSignalRClient.errorFunc('test');
-            expect(ActionRunner.callLog.length).toBe(2);
-            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR error: test)');
+            expect(ActionRunner.callLog.length).toBe(1);
+            expect(ActionRunner.callLog[0]).toBe('reportSystemError(SignalR error: test)');
         });
 
         it('check connection.start.fail func is set', function () {
@@ -70,8 +65,8 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         it('Calling connection.start.fail func should result in reportSystemError', function () {
             mockSignalRClient.failFunc('test');
-            expect(ActionRunner.callLog.length).toBe(2);
-            expect(ActionRunner.callLog[1]).toBe('reportSystemError(SignalR connection error: test)');
+            expect(ActionRunner.callLog.length).toBe(1);
+            expect(ActionRunner.callLog[0]).toBe('reportSystemError(SignalR connection error: test)');
         });
 
         it('Calling connection.start.fail func should set actionState', function () {
@@ -106,7 +101,7 @@ describe('Test05 - check ActionRunner.comms', function () {
 
         describe('Check progress', function () {
             beforeEach(function () {
-                mockSignalRClient.onFunctionDict.Started('abcd');
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
             });
 
             it('Called Progress with Info message', function () {
@@ -126,37 +121,80 @@ describe('Test05 - check ActionRunner.comms', function () {
             });
         });
 
-        it('Call connection.on( Started) should set state', function () {
-            mockSignalRClient.onFunctionDict.Started('abcd');
-            expect(ActionRunner.getActionState()).toBe('Cancel');
+        describe('Call Started with configFlags', function () {
+
+            it('normal state should be cancel', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
+                expect(ActionRunner.getActionState()).toBe('Cancel');
+            });
+
+            it('if CancelNotSupported then state should be running...', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'CancelNotSupported');
+                expect(ActionRunner.getActionState()).toBe('Running...');
+            });
+
+            it('Should call createActionPanel in ui', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
+                expect(ActionRunner.callLog.length).toBe(1);
+                expect(ActionRunner.callLog[0]).toBe('createActionPanel([object Object])');
+            });
+
         });
 
-        it('Call connection.on( Stopped) with messagetype finished should set state', function () {
-            var message = {
-                MessageTypeString: 'Finished',
-                message: 'we have finished'
-            };
-            mockSignalRClient.onFunctionDict.Stopped('abcd', message );
-            expect(ActionRunner.getActionState()).toBe('Finished Ok');
-        });
+        describe('Call connection.on( Stopped)', function () {
 
-        it('Call connection.on( Stopped) with messagetype cancelled should set state', function () {
-            var message = {
-                MessageTypeString: 'Cancelled',
-                message: 'we have finished'
-            };
-            mockSignalRClient.onFunctionDict.Stopped('abcd', message);
-            expect(ActionRunner.getActionState()).toBe('Cancelled');
-        });
+            it('messagetype finished should set state', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
+                var message = {
+                    MessageTypeString: 'Finished',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                expect(ActionRunner.getActionState()).toBe('Finished Ok');
+            });
 
-        it('Call connection.on( Stopped) with messagetype failed should set state', function () {
-            var message = {
-                MessageTypeString: 'Failed',
-                message: 'we have finished'
-            };
-            mockSignalRClient.onFunctionDict.Stopped('abcd', message);
-            $('.results').append('<div>' + ActionRunner.getActionState() + '</div>');
-            expect(ActionRunner.getActionState()).toBe('Failed');
+            it('messagetype finished with normal start should not removePanel', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
+                var message = {
+                    MessageTypeString: 'Finished',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                expect(ActionRunner.callLog).toEqual(
+                ['createActionPanel([object Object])',
+                 'updateProgress(100)']);
+            });
+
+            it('messagetype finished with ExitOnSuccess start should remove Panel ', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'ExitOnSuccess');
+                var message = {
+                    MessageTypeString: 'Finished',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                expect(ActionRunner.callLog.length).toBe(3);
+                expect(ActionRunner.callLog[2]).toBe('removeActionPanel()');
+            });
+
+            it('messagetype cancelled should set state', function () {
+                var message = {
+                    MessageTypeString: 'Cancelled',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                expect(ActionRunner.getActionState()).toBe('Cancelled');
+            });
+
+            it('messagetype failed should set state', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'Normal');
+                var message = {
+                    MessageTypeString: 'Failed',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                $('.results').append('<div>' + ActionRunner.getActionState() + '</div>');
+                expect(ActionRunner.getActionState()).toBe('Failed');
+            });
         });
 
         describe('Call respondToStateChangeRequest with Cancel', function () {
@@ -178,20 +216,20 @@ describe('Test05 - check ActionRunner.comms', function () {
 
             it('Called respondToStateChangeRequest with Finished Ok should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Finished Ok');
-                expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog.length).toBe(1);
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
             });
 
             it('Called respondToStateChangeRequest with Cancelled should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Cancelled');
-                expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog.length).toBe(1);
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
             });
 
             it('Called respondToStateChangeRequest with Failed xxx should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Failed xxx');
-                expect(ActionRunner.callLog.length).toBe(2);
-                expect(ActionRunner.callLog[1]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog.length).toBe(1);
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
             });
 
         });

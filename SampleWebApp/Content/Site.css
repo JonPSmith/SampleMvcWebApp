@@ -20,14 +20,17 @@ textarea {
 * Items specific to SampleWebApp      
 */
 
+
+
+/* Items associated with ActionRunner */
+
+/* Used to put spinning progress bar in the centre of the panel*/
 .centeredImage {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 0px;
 }
-
-/* Items associated with ActionRunner */
 
 #progressbar {
     margin-top: 5px;
@@ -52,6 +55,13 @@ textarea {
     margin-bottom: 5px;
 }
 
-.message-type-verbose {
-    
+.message-bottom-left {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+    font-size:14px;
+    background: #CCC;
+    color: #333;
+    z-index: 999999;
 }

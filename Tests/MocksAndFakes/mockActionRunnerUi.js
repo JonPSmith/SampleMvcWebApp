@@ -26,7 +26,7 @@ var ActionRunner = (function (actionRunner) {
     //----------------------------------------------------------------
     //now the ActionRunner ui public methods
     
-    actionRunner.createActionPanel = function () {
+    actionRunner.createActionPanel = function ( actionConfig) {
         actionRunner.logStep('createActionPanel');
     };
 

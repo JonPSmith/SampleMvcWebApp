@@ -13,27 +13,6 @@ namespace SampleWebApp.Controllers
             return View();
         }
 
-        //-------------------------------------------------------
-
-        public ActionResult RunAction()
-        {
-            return View(new CommsTestActionData());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RunAction(CommsTestActionData data)
-        {
-            if (!ModelState.IsValid)
-                //model errors so we return a errorDict to the ajax call
-                return ModelState.ReturnModelErrorsAsJson();
-
-            return RunnerSetupFactory<ICommsTestAction>.CreateRunnerAndReturnJsonNetResult(data);
-        }
-
-        //-------------------------------------------------------
-
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
