@@ -1,6 +1,6 @@
 ﻿
 
-var ActionRunner = (function (actionRunner, $, window) {
+var ActionRunner = (function (actionRunner, $) {
     'use strict';
 
     var commsResources = {
@@ -21,26 +21,23 @@ var ActionRunner = (function (actionRunner, $, window) {
     }
 
     //The text in the $ActionButton button is the control for the state machine. The text consists of one of the actionsStates
-    //Note: some actionStates are only fragments
+    //Note: These states are shown via the button (if visible) so are set here to allow language changes.
     var actionStates = {
         transientSuffix: '...',         //if the state ends with this it is transitary. Used to convey that to user and also allow forced abort
-        startingPrefix: 'Starting',
-        cancel: 'Cancel',               // allows user to cancel action
-        cancellingPrefix: 'Cancelling', //prefix for transitory state where cancel has been sent by no response yet
-        cancelled: 'Cancelled',         //finished cancelling and user can exit.
-        failedPrefix: 'Failed',         //some sort of system error happend. Can have extra info on end
-        finishedPrefix: 'Finished',     //generalised finish. Can have extra info on end
+        //items that must end with transientSuffix
+        connectingTransient: 'Connecting...',
+        startingTransient: 'Starting...',
+        cancellingTransient: 'Cancelling...', 
+        runningNoCancel: 'Running...',      //this is shown when the method does not support cancel
+        //now normal states
+        cancel: 'Cancel',               //when method that supports cancelling is running then this allows user to cancel action
+        cancelled: 'Cancelled',
+        finishedOk: 'Finished Ok',     
+        finishedErrors: 'Finished (errors)',
+        failed: 'Failed',
+        failedLink: 'Failed (link)',   
+        failedConnecting: 'Failed (connecting)'
     };
-    //now add the states that are composites of the above.
-    actionStates.connectingTransient = 'Connecting' + actionStates.transientSuffix; // the connection is set up but not finished
-    actionStates.startingTransient = actionStates.startingPrefix + actionStates.transientSuffix; // action is being started. waiting for confirmation
-    actionStates.runningNoCancel = 'Running' + actionStates.transientSuffix; //This is put up if the action does not support cancel
-    actionStates.cancellingTransient = actionStates.cancellingPrefix + actionStates.transientSuffix; // user cancelled the action; but cancel hasn't finished
-    actionStates.failed = actionStates.failedPrefix;
-    actionStates.failedLink = actionStates.failedPrefix + ' (link)'; // error with the SignalR link to the host 
-    actionStates.failedConnecting = actionStates.failedPrefix + ' (connecting)'; // error when connecting to host via SignalR
-    actionStates.finishedOk = actionStates.finishedPrefix + ' Ok'; // The action has finished successfully and the user can exit. 
-    actionStates.finishedErrors = actionStates.finishedPrefix + ' (errors)'; // The action finished with errors
 
     //These are the ProgressMessageTypes defined in the ProgressMessage class at the Server end
     var messageTypes = {
@@ -63,12 +60,9 @@ var ActionRunner = (function (actionRunner, $, window) {
     }
 
     var actionGuid = null;
+    var connection = null;
     var actionChannel = null;
     var actionConfig = null;
-
-    var startsWith = function(str, prefix) {
-        return str.lastIndexOf(prefix, 0) === 0;
-    };
 
     var endsWith = function(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
@@ -83,6 +77,14 @@ var ActionRunner = (function (actionRunner, $, window) {
         actionConfig.cancelNotSupported = actionConfigFlags.indexOf('CancelNotSupported') > -1;
     }
 
+    function exitComms(successExit) {
+        if (connection != null)
+            //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
+            connection.stop();
+
+        actionRunner.removeActionPanel(successExit);    //close the panel
+    }
+
     //------------------------------------------------------------------------
     //code to deal with the SignalR connections and events
 
@@ -94,7 +96,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         actionRunner.numErrorMessages = 0;
 
         //Setup connection and actionChannel with the functions to call
-        var connection = $.hubConnection();
+        connection = $.hubConnection();
 
         //connection.logging = true;
         actionChannel = connection.createHubProxy('ActionHub');
@@ -147,7 +149,7 @@ var ActionRunner = (function (actionRunner, $, window) {
                     if (actionRunner.numErrorMessages === 0) {
                         actionRunner.setActionState(actionStates.finishedOk);
                         if (actionConfig.exitOnSuccess) {                          
-                            actionRunner.removeActionPanel();
+                            exitComms(true);
                         } 
                     } else {
                         actionRunner.setActionState(actionStates.finishedErrors);
@@ -222,15 +224,15 @@ var ActionRunner = (function (actionRunner, $, window) {
                 commsResources.confirmExitOnNonCancellable :
                 commsResources.confirmExitOnRunningSys;
             if (confirm(messageToShow)) {
-                //If user says OK then we exit then remove modal panel
-                actionRunner.removeActionPanel(actionGuid);
+                //If user says OK then we exit
+                exitComms(false);
             }
         } else {
             //we need to exit
-            actionRunner.removeActionPanel(actionGuid);
+            exitComms(currentState === actionStates.finishedOk);
         }
     };
 
     return actionRunner;
 
-}(ActionRunner || {}, window.jQuery, window));
+}(ActionRunner || {}, window.jQuery));

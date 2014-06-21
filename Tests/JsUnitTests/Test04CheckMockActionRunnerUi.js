@@ -100,9 +100,9 @@ describe('Test04 - check mock ActionRunner.ui', function () {
         });
 
         it('mock removeActionPanel exists', function () {
-            ActionRunner.removeActionPanel();
+            ActionRunner.removeActionPanel(true);
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('removeActionPanel()');
+            expect(ActionRunner.callLog[0]).toBe('removeActionPanel(true)');
         });
 
         it('mock addMessageToProgressList exists', function () {

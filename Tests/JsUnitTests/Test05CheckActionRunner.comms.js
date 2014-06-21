@@ -165,7 +165,22 @@ describe('Test05 - check ActionRunner.comms', function () {
                  'updateProgress(100)']);
             });
 
-            it('messagetype finished with ExitOnSuccess start should remove Panel ', function () {
+            it('messagetype finished with ExitOnSuccess start should close connection', function () {
+                mockSignalRClient.onFunctionDict.Started('abcd', 'ExitOnSuccess');
+                var message = {
+                    MessageTypeString: 'Finished',
+                    message: 'we have finished'
+                };
+                mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                //mockSignalRClient.onFunctionDict.Stopped('abcd', message);
+                //for (var i = 0; i < mockSignalRClient.callLog.length; i++) {
+                //    $('.results').append('<div>' + mockSignalRClient.callLog[i] + '</div>');
+                //}
+                expect(mockSignalRClient.callLog.length).toBe(10);
+                expect(mockSignalRClient.callLog[9]).toBe('connection.stop()');
+            });
+
+            it('messagetype finished with ExitOnSuccess start should remove Panel', function () {
                 mockSignalRClient.onFunctionDict.Started('abcd', 'ExitOnSuccess');
                 var message = {
                     MessageTypeString: 'Finished',
@@ -173,7 +188,7 @@ describe('Test05 - check ActionRunner.comms', function () {
                 };
                 mockSignalRClient.onFunctionDict.Stopped('abcd', message);
                 expect(ActionRunner.callLog.length).toBe(3);
-                expect(ActionRunner.callLog[2]).toBe('removeActionPanel()');
+                expect(ActionRunner.callLog[2]).toBe('removeActionPanel(true)');
             });
 
             it('messagetype cancelled should set state', function () {
@@ -217,19 +232,19 @@ describe('Test05 - check ActionRunner.comms', function () {
             it('Called respondToStateChangeRequest with Finished Ok should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Finished Ok');
                 expect(ActionRunner.callLog.length).toBe(1);
-                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(true)');
             });
 
             it('Called respondToStateChangeRequest with Cancelled should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Cancelled');
                 expect(ActionRunner.callLog.length).toBe(1);
-                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(false)');
             });
 
             it('Called respondToStateChangeRequest with Failed xxx should remove the panel', function () {
                 ActionRunner.respondToStateChangeRequest('Failed xxx');
                 expect(ActionRunner.callLog.length).toBe(1);
-                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(abcd)');
+                expect(ActionRunner.callLog[0]).toBe('removeActionPanel(false)');
             });
 
         });

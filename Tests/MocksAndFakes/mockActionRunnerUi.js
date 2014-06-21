@@ -30,7 +30,7 @@ var ActionRunner = (function (actionRunner) {
         actionRunner.logStep('createActionPanel');
     };
 
-    actionRunner.removeActionPanel = function () {
+    actionRunner.removeActionPanel = function (successfulEnd) {
         actionRunner.logStep('removeActionPanel');
     };
 

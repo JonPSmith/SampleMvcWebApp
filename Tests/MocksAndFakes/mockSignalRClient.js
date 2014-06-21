@@ -72,6 +72,10 @@ var mockSignalRClient = (function ($) {
         mock.logStep('connection.start');
         return doneFail;
     };
+    connection.stop = function () {
+        mock.logStep('connection.stop');
+        return doneFail;
+    };
 
     //now we run once the method to add the hubConnection function to jQuery
     $.hubConnection = function() {

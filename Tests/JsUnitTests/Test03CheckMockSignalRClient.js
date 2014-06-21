@@ -101,6 +101,10 @@ describe('Test03 - check mockSignalRClient', function () {
 
         });
 
+        it('check stop exists', function () {
+            expect(this.connection.stop).toBeDefined();
+        });
+
         it('check createProxy exists', function() {
             expect(this.connection.createHubProxy).toBeDefined();
         });

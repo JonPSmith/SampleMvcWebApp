@@ -21,8 +21,6 @@ var ActionRunner = (function (actionRunner, $, window) {
         throw uiResources.nojQueryUi;
     }
 
-    var titleForModalWindow;
-
     //------------------------------------------------------------------------------------------------
     //explicit methods to access the user interface elements. 
     //Put here to allow a the developer to replace the externally used UI elements with their own choice
@@ -46,6 +44,9 @@ var ActionRunner = (function (actionRunner, $, window) {
     var $messageContainer = $('#message-container');
     var $notification = $('#notification');
 
+    //we use the jQuery Notify plugin from http://www.vicreative.nl/Projects/Notify if present (otherwise alerts)
+    var useNotify = $.notify && $notification.length > 0;
+
     //this uses the bootstrap label classes
     //TODO: swap to SASS and have separate label classes
     var messageTypeClassLookup = {
@@ -59,8 +60,15 @@ var ActionRunner = (function (actionRunner, $, window) {
         Failed: 'label label-danger'
     };
 
-    //we use the jQuery Notify plugin from http://www.vicreative.nl/Projects/Notify if present (otherwise alerts)
-    var useNotify = $.notify && $notification.length > 0;
+    //Current options are:
+    var panelHeaderText = null;         //optional replacement text for the 
+    var successAction = null;           //optional url or function to call on successful exit
+
+    function setOptions(optionsObject) {
+        if (optionsObject == null) return;
+        panelHeaderText = optionsObject.header;
+        successAction = optionsObject.successAction
+    };
 
     //This takes the actionConfig and returns jQuery Ui Dialog options object
     function CreatejQueryUiDialogOptions() {
@@ -71,8 +79,8 @@ var ActionRunner = (function (actionRunner, $, window) {
         this.closeOnEscape = false;
 
         //now the optional items 
-        if (titleForModalWindow != null)
-            this.title = titleForModalWindow;
+        if (panelHeaderText != null)
+            this.title = panelHeaderText;
     }
 
     //This sets the ui dialog height, width and position relative to the screen
@@ -138,13 +146,19 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.removeActionPanel = function() {
+    actionRunner.removeActionPanel = function(successfulEnd) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         $actionPanel.dialog('close');
         $actionPanel.dialog('destroy');
         if ($progressBar.hasClass('ui-progressbar')) {           
             $progressBar.progressbar('destroy');
+        }
+        if (successfulEnd && successAction != null) {
+            //It was successful end and we have something to do
+
+            //delay as needs time for SignalR to stop (crude, but needs something)
+            setTimeout(function () { window.location.href = successAction; }, 200);
         }
     };
 
@@ -239,9 +253,10 @@ var ActionRunner = (function (actionRunner, $, window) {
     //This sets up the form element on the page to use an Ajax submit method.
     //It runs the normal MVC validation on the form
     //This allows the result to be captured and then the appropriate progress form to be displayed
-    actionRunner.startActionFromForm = function( overrideModalWindowTitle) {
+    //options 
+    actionRunner.startActionFromForm = function( options) {
 
-        titleForModalWindow = overrideModalWindowTitle; //this allows the title of the Panel to be changed
+        setOptions(options);
 
         $('form').submit(function() {
 
@@ -265,12 +280,12 @@ var ActionRunner = (function (actionRunner, $, window) {
     //2) Action with is triggered from a link
     //You must supply a jQueryElementSelector for the element to bind to the click
     //and a url that the post should be sent to.
-    //There is an optional dataObject if you want to send other properties in the post,
-    //otherwise it will look for 'data-xxx' items in the clicked element and include those
-    actionRunner.startActionFromLink = function (jQueryElementSelector, actionUrl, dataObject) {
+    //options allow seeting of various items - see setOptions method
+    actionRunner.startActionFromLink = function (jQueryElementSelector, actionUrl, options) {
         $(jQueryElementSelector).unbind('click').on('click',
                 function (event) {
-                    var data = dataObject || event.target.dataset;      //sent the data that the user supplied, else the data embedded in element
+                    setOptions(options);            //must only set options when triggered
+                    var data = event.target.dataset;
                     data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
                     $.post(actionUrl,
                         data,

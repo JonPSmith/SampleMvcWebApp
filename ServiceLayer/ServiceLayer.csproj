@@ -67,10 +67,12 @@
     <Compile Include="Startup\ServiceLayerInitialise.cs" />
     <Compile Include="Startup\ServiceLayerModule.cs" />
     <Compile Include="TestActionService\Concrete\CommsTestActionBase.cs" />
-    <Compile Include="TestActionService\Concrete\CommsTestActionNoCancelEtc.cs" />
+    <Compile Include="TestActionService\Concrete\CommsTestActionNoCancel.cs" />
+    <Compile Include="TestActionService\Concrete\CommsTestActionExitOnSuccess.cs" />
     <Compile Include="TestActionService\Concrete\CommsTestActionNormal.cs" />
     <Compile Include="TestActionService\Concrete\CommsTestActionData.cs" />
     <Compile Include="TestActionService\Concrete\CommsTestActionDto.cs" />
+    <Compile Include="TestActionService\ICommsTestActionExitOnSuccess.cs" />
     <Compile Include="TestActionService\ICommsTestActionNoCancelEtc.cs" />
     <Compile Include="TestActionService\ICommsTestActionNormal.cs" />
     <Compile Include="TestActionService\ICommsTestActionDto.cs" />

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading;
-using GenericServices;
-using GenericServices.Actions;
-using GenericServices.Services;
+﻿using GenericServices;
 
 namespace ServiceLayer.TestActionService.Concrete
 {
 
-    public class CommsTestActionNoCancelEtc : CommsTestActionBase, ICommsTestActionNoCancelEtc
+    public class CommsTestActionExitOnSuccess : CommsTestActionBase, ICommsTestActionExitOnSuccess
     {
 
         /// <summary>
@@ -16,7 +12,7 @@ namespace ServiceLayer.TestActionService.Concrete
         /// </summary>
         public override ActionFlags ActionConfig
         {
-            get { return ActionFlags.ExitOnSuccess | ActionFlags.NoProgressSent | ActionFlags.NoMessagesSent | ActionFlags.CancelNotSupported; }
+            get { return ActionFlags.ExitOnSuccess; }
         }
     
     }
