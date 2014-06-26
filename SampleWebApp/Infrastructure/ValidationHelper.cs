@@ -57,7 +57,7 @@ namespace SampleWebApp.Infrastructure
         /// <returns>It returns a JsonNetResult with one parameter called errors which contains key value pairs.
         /// The key is the name of the property which had the error, or is empty string if global error.
         /// The value is an array of error strings for that property key</returns>
-        public static JsonNetResult ReturnModelErrorsAsJson(this ModelStateDictionary modelState)
+        public static JsonResult ReturnModelErrorsAsJson(this ModelStateDictionary modelState)
         {
             if (modelState.IsValid)
                 throw new ArgumentException("You should only call this if there are model errors to return.");
@@ -76,9 +76,31 @@ namespace SampleWebApp.Infrastructure
             if (emptyNameErrors.Any())
                 dict[string.Empty] = new { errors = emptyNameErrors };
 
-            var result = new JsonNetResult { Data = new { errorsDict = dict } };
+            var result = new JsonResult { Data = new { errorsDict = dict } };
 
             return result;
+        }
+
+        /// <summary>
+        /// This returns and errorsDict with any errors in ISuccessOrErrors transferred
+        /// It looks for errors that have member names corresponding to the properties in the displayDto.
+        /// This means that errors assciated with a field on display will show next to the name. 
+        /// Other errors will be shown in the ValidationSummary
+        /// Should only be called if there is an error
+        /// </summary>
+        /// <param name="errorHolder">The interface that holds the errors</param>
+        /// <param name="displayDto">Dto that the error messages came from</param>
+        /// <returns>It returns a JsonNetResult with one parameter called errors which contains key value pairs.
+        /// The key is the name of the property which had the error, or is empty string if global error.
+        /// The value is an array of error strings for that property key</returns>
+        public static JsonResult ReturnErrorsAsJson<T>(this ISuccessOrErrors errorHolder, T displayDto)
+        {
+            if (errorHolder.IsValid)
+                throw new ArgumentException("You should only call ReturnErrorsAsJson when there are errors in the status", "errorHolder");
+
+            var modelState = new ModelStateDictionary();
+            errorHolder.CopyErrorsToModelState(modelState, displayDto);
+            return modelState.ReturnModelErrorsAsJson();
         }
 
         private static IList<string> PropertyNamesInDto<T> ( T objectToCheck)

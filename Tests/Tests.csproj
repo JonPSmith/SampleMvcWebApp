@@ -115,9 +115,13 @@
     <Compile Include="DependencyItems\MyDisposableClass.cs" />
     <Compile Include="DependencyItems\SimpleClass.cs" />
     <Compile Include="Helpers\DbSnapShot.cs" />
+    <Compile Include="Helpers\DummyIDbContextWithValidation.cs" />
     <Compile Include="Helpers\ExtendAsserts.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="MocksAndFakes\EmptyTestAction.cs" />
+    <Compile Include="Helpers\EmptyTestActionAsync.cs" />
+    <Compile Include="Helpers\EmptyTestAction.cs" />
+    <Compile Include="Helpers\SimpleTagDto.cs" />
+    <Compile Include="Helpers\SimpleTagDtoAsync.cs" />
     <Compile Include="MocksAndFakes\MockActionHubSend.cs" />
     <Compile Include="MocksAndFakes\MockHubDependencyResolver.cs" />
     <Compile Include="MocksAndFakes\MockActionComms.cs" />
@@ -132,6 +136,7 @@
     <Compile Include="UnitTests\Group08ActionRunner\Test05HubRunnerBasic.cs" />
     <Compile Include="UnitTests\Group08ActionRunner\Test06HubRunnerDi.cs" />
     <Compile Include="UnitTests\Group08ActionRunner\Test08HubRunnerRun.cs" />
+    <Compile Include="UnitTests\Group08ActionRunner\Test10RunnerSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

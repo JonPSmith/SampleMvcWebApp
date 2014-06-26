@@ -7,7 +7,7 @@ namespace ServiceLayer.TestActionService.Concrete
 
     public enum TestServiceModes
     {
-        RunSuccessfully, RunButOutputErrors, OutputButOutputWarnings,
+        RunSuccessfully, RunButOutputErrors, RunButOutputOneWarningAtEnd,
         ThrowExceptionOnStart, ThrowExceptionHalfWayThrough,
         ThrowOperationCanceledExceptionHalfWayThrough
     }

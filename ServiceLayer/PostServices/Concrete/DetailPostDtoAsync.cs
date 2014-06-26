@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
+using GenericServices.Core;
 using GenericServices.Services;
 using GenericServices.ServicesAsync;
 using ServiceLayer.UiClasses;

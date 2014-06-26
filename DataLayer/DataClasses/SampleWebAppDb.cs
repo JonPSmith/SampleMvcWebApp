@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.DataClasses.Concrete.Helpers;
 using GenericServices;
+using GenericServices.Core;
 using GenericServices.Services;
 
 namespace DataLayer.DataClasses

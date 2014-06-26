@@ -44,24 +44,24 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Test01RunCommsTestActionOk()
+        public async void Test01RunCommsTestActionOk()
         {
             //SETUP
             var data = new CommsTestActionData
             {
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            var lastMessage = hr.RunActionSynchronously("aaa", "123", _mockHub);
+            var lastMessage = await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
         }
 
         [Test]
-        public void Check01CheckProgressNumbersOk()
+        public async void Check01CheckProgressNumbersOk()
         {
 
             //SETUP
@@ -72,10 +72,10 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            hr.RunActionSynchronously("aaa", "123", _mockHub);
+            await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             _mockHub.ProgressWithMessages.Count.ShouldEqual(data.NumIterations + 2);
@@ -83,7 +83,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Check02RunSuccessfullyDifferentProgressBoundsOk()
+        public async void Check02RunSuccessfullyDifferentProgressBoundsOk()
         {
 
             //SETUP
@@ -95,10 +95,10 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            hr.RunActionSynchronously("aaa", "123", _mockHub);
+            await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             _mockHub.ProgressWithMessages.Count.ShouldEqual(data.NumIterations + 2);
@@ -106,7 +106,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Check05RunButOutputErrorsOk()
+        public async void Check05RunButOutputErrorsOk()
         {
             //SETUP
             var data = new CommsTestActionData
@@ -115,10 +115,10 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            hr.RunActionSynchronously("aaa", "123", _mockHub);
+            await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             _mockHub.ProgressWithMessages.Count.ShouldEqual(data.NumIterations + 2);
@@ -127,7 +127,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Check06RunButOutputErrorsAndFailOk()
+        public async void Check06RunButOutputErrorsAndFailOk()
         {
 
             //SETUP
@@ -138,10 +138,10 @@ namespace Tests.UnitTests.Group08ActionRunner
                 SecondsBetweenIterations = 0,
                 NumErrorsToExitWith = 1
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
+            var finalMess = await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             finalMess.MessageType.ShouldEqual(ProgressMessageTypes.Failed);
@@ -149,7 +149,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Check10ThrowExceptionOnStartOk()
+        public async void Check10ThrowExceptionOnStartOk()
         {
 
             //SETUP
@@ -159,20 +159,20 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
+            var finalMess = await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
-            finalMess.MessageText.ShouldEqual("Failed with 1 errors");
+            finalMess.MessageText.ShouldEqual("Failed with 1 error");
             finalMess.MessageType.ShouldEqual(ProgressMessageTypes.Failed);
             _mockHub.ProgressWithMessages.Count.ShouldEqual(2);
             _mockHub.ProgressWithMessages[0].OptionalMessage.MessageText.ShouldEqual("The running action has a system level problem.");
         }
 
         [Test]
-        public void Check11ThrowExceptionHalfWayThroughOk()
+        public async void Check11ThrowExceptionHalfWayThroughOk()
         {
 
             //SETUP
@@ -182,20 +182,20 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
+            var finalMess = await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
-            finalMess.MessageText.ShouldEqual("Failed with 1 errors");
+            finalMess.MessageText.ShouldEqual("Failed with 1 error");
             finalMess.MessageType.ShouldEqual(ProgressMessageTypes.Failed);
             _mockHub.ProgressWithMessages.Count.ShouldEqual(4);
             _mockHub.ProgressWithMessages[2].OptionalMessage.MessageText.ShouldEqual("The running action has a system level problem.");
         }
 
         [Test]
-        public void Check15CancelAtStartOk()
+        public async void Check15CancelAtStartOk()
         {
 
             //SETUP
@@ -205,11 +205,11 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
             
             //ATTEMPT
             hr.CancellationPending = true;
-            var finalMess = hr.RunActionSynchronously("aaa", "123", _mockHub);
+            var finalMess = await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             finalMess.MessageText.ShouldEqual("Cancelled by user.");
@@ -219,7 +219,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Check20DisposeWasCalledOk()
+        public async void Check20DisposeWasCalledOk()
         {
 
             //SETUP
@@ -230,10 +230,10 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0,
             };
-            var hr = new HubRunner<CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data);
+            var hr = new HubRunner<int,CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
 
             //ATTEMPT
-            hr.RunActionSynchronously("aaa", "123", _mockHub);
+            await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
             _action.DisposeWasCalled.ShouldEqual(true);

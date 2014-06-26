@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using GenericServices.Services;
+using GenericServices.Core;
 
 namespace ServiceLayer.TestActionService.Concrete
 {

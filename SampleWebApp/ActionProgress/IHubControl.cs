@@ -1,4 +1,5 @@
-﻿using GenericServices.Actions;
+﻿using System.Threading.Tasks;
+using GenericServices.Actions;
 
 namespace SampleWebApp.ActionProgress
 {
@@ -15,13 +16,13 @@ namespace SampleWebApp.ActionProgress
         string UserConnectionId { get; }
 
         /// <summary>
-        /// This runs the service in the background.
+        /// This runs the service as an async Task
         /// </summary>
         /// <param name="actionGuid"></param>
         /// <param name="userConnectionId"></param>
         /// <param name="hubSendMethods"></param>
         /// <returns>Final message, which says if there was a problem</returns>
-        ProgressMessage RunActionSynchronously(string actionGuid, string userConnectionId, IActionHubSend hubSendMethods);
+        Task<ProgressMessage> RunActionAsync(string actionGuid, string userConnectionId, IActionHubSend hubSendMethods);
 
         /// <summary>
         /// This will cancel a running action

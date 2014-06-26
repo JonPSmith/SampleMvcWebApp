@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using SampleWebApp.ActionProgress;
+using Tests.Helpers;
 
 namespace Tests.MocksAndFakes
 {

@@ -15,32 +15,32 @@ namespace SampleWebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Indeterminate(int id, string foo)
+        public JsonResult Indeterminate(int id, string foo)
         {
             var data = new CommsTestActionData();
 
-            return RunnerSetupFactory<ICommsTestActionNoCancelEtc>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionNoCancelEtc>.CreateRunnerAndReturnJsonResult(data);
         }
 
 
         [HttpPost]
-        public ActionResult Immediate(int iterations)
+        public JsonResult Immediate(int iterations)
         {
             var data = new CommsTestActionData
             {
                 NumIterations = iterations
             };
-            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonResult(data);
         }
 
         [HttpPost]
-        public ActionResult SuccessExit(int iterations)
+        public JsonResult SuccessExit(int iterations)
         {
             var data = new CommsTestActionData
             {
                 NumIterations = iterations
             };
-            return RunnerSetupFactory<ICommsTestActionExitOnSuccess>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionExitOnSuccess>.CreateRunnerAndReturnJsonResult(data);
         }
 
         public ActionResult ActionNeedingData()
@@ -50,13 +50,13 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ActionNeedingData(CommsTestActionData data)
+        public JsonResult ActionNeedingData(CommsTestActionData data)
         {
             if (!ModelState.IsValid)
                 //model errors so we return a errorDict to the ajax call
                 return ModelState.ReturnModelErrorsAsJson();
 
-            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonNetResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonResult(data);
         }
 
     }

@@ -36,13 +36,13 @@ namespace SampleWebApp.ActionProgress
         /// of calls 'Failed' if there was a problem.
         /// </summary>
         /// <param name="actionGuid">The actionGuid is used to look for a Action instance to run</param>
-        public void StartAction(string actionGuid)
+        public async void StartAction(string actionGuid)
         {
             var actionRunner = GetActionRunner(actionGuid);
 
             if (actionRunner != null)
                 //If this succeeds then this Hub is paused for the duration of the action
-                actionRunner.RunActionSynchronously(actionGuid, Context.ConnectionId, this);
+                await actionRunner.RunActionAsync(actionGuid, Context.ConnectionId, this);
         }
 
         /// <summary>

@@ -10,12 +10,17 @@ namespace Tests.Helpers
     static class JsonHelper
     {
 
-        public static string SerialiseToJsonIndentedUsingJsonNet(this object data)
-        {
-            return JsonConvert.SerializeObject(data, Formatting.Indented);
-        }
+        //public static string SerialiseToJsonUsingJson(this object data)
+        //{
+        //    return Json.Encode(data);
+        //}
 
-        public static string SerialiseToJsonUsingJsonNet(this object data)
+        //public static string SerialiseToJsonIndentedUsingJsonNet(this object data)
+        //{
+        //    return JsonConvert.SerializeObject(data, Formatting.Indented);
+        //}
+
+        public static string SerialiseToJson(this object data)
         {
             return JsonConvert.SerializeObject(data);
         }

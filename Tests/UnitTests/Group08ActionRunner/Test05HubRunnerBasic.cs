@@ -39,7 +39,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             //SETUP
 
             //ATTEMPT
-            var hr = new HubRunner<Tag>("aaa", typeof(IEmptyTestAction), new Tag());
+            var hr = new HubRunner<int,Tag>("aaa", typeof(IEmptyTestAction), new Tag(), false);
 
             //VERIFY
             hr.ShouldNotEqualNull(); 
@@ -52,7 +52,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             ActionHub.LifeTimeScopeProvider = null;
 
             //ATTEMPT
-            var ex = Assert.Throws<NullReferenceException>( () => new HubRunner<Tag>("aaa", typeof(IEmptyTestAction), new Tag()));
+            var ex = Assert.Throws<NullReferenceException>( () => new HubRunner<int,Tag>("aaa", typeof(IEmptyTestAction), new Tag(), false));
 
             //VERIFY
             ex.Message.ShouldStartWith("You must set up the static varable HubRunner.LifeTimeScopeProvider");
@@ -61,14 +61,14 @@ namespace Tests.UnitTests.Group08ActionRunner
         //----------------------------------------------------------
 
         [Test]
-        public void Test05CheckRunActionSynchronouslyOk()
+        public async void Test05CheckRunActionOk()
         {
             //SETUP
-            var hr = new HubRunner<Tag>("aaa", typeof(IEmptyTestAction), new Tag());
+            var hr = new HubRunner<int,Tag>("aaa", typeof(IEmptyTestAction), new Tag(), false);
             var mockHub = new MockActionHubSend();
 
             //ATTEMPT
-            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+            var lastMessage = await hr.RunActionAsync("aaa", "123", mockHub);
 
             //VERIFY
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
@@ -79,14 +79,14 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public void Test06CheckRunActionSynchronouslyFail()
+        public async void Test06CheckRunActionFail()
         {
             //SETUP
-            var hr = new HubRunner<Tag>("aaa", typeof(IEmptyTestAction), new Tag{ TagId = 2});      //TagId = 2 means force fail
+            var hr = new HubRunner<int,Tag>("aaa", typeof(IEmptyTestAction), new Tag{ TagId = 2}, false);      //TagId = 2 means force fail
             var mockHub = new MockActionHubSend();
 
             //ATTEMPT
-            var lastMessage = hr.RunActionSynchronously("aaa", "123", mockHub);
+            var lastMessage = await hr.RunActionAsync("aaa", "123", mockHub);
 
             //VERIFY
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Failed);

@@ -203,9 +203,6 @@
     </Compile>
     <Compile Include="Infrastructure\AutofacDi.cs" />
     <Compile Include="Infrastructure\DiModelBinder.cs" />
-    <Compile Include="Infrastructure\JsonNetResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

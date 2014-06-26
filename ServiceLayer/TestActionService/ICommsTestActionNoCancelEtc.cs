@@ -4,7 +4,7 @@ using ServiceLayer.TestActionService.Concrete;
 
 namespace ServiceLayer.TestActionService
 {
-    public interface ICommsTestActionNoCancelEtc : IActionDefn<CommsTestActionData>, IDisposable
+    public interface ICommsTestActionNoCancelEtc : IActionDefn<int,CommsTestActionData>, IDisposable
     {
 
     }

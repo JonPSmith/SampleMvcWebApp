@@ -1,15 +1,23 @@
 ﻿using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using GenericServices.Actions;
-using GenericServices.Services;
+using GenericServices.Core;
 
-namespace Tests.MocksAndFakes
+namespace Tests.Helpers
 {
-    public interface IEmptyTestAction : IActionDefn<Tag> {}
-
+    public interface IEmptyTestAction : IActionDefn<int, Tag>
+    {
+    }
 
     public class EmptyTestAction : ActionBase, IEmptyTestAction
     {
+
+        /// <summary>
+        /// If true then the caller should call EF SubmitChanges if the method exited with status IsValid and
+        /// it looks to see if the data part has a ICheckIfWarnings and if the WriteEvenIfWarning is false
+        /// and there are warnings then it does not call SubmitChanges
+        /// </summary>
+        public override bool SubmitChangesOnSuccess { get { return false; } }
 
         /// <summary>
         /// This allows the action to configure what it supports, which then affects what the user sees
@@ -20,9 +28,11 @@ namespace Tests.MocksAndFakes
             get { return ActionFlags.NoProgressSent | ActionFlags.NoMessagesSent | ActionFlags.CancelNotSupported; }
         }
 
-        public ISuccessOrErrors DoAction(IActionComms actionComms, Tag actionData)
+        //-------------------------------------------
+
+        public ISuccessOrErrors<int> DoAction(IActionComms actionComms, Tag actionData)
         {
-            var status = new SuccessOrErrors();
+            ISuccessOrErrors<int> status = new SuccessOrErrors<int>();
 
             //we use the TagId for testing
             //0 means success
@@ -33,7 +43,7 @@ namespace Tests.MocksAndFakes
                 status.AddWarning("This is a warning message");
 
             return actionData.TagId <= 1
-                ? status.SetSuccessMessage("Successful")
+                ? status.SetSuccessWithResult(actionData.TagId, "Successful")
                 : status.AddSingleError("forced fail");
         }
     }

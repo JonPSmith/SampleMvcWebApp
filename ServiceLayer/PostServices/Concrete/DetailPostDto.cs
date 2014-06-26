@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
+using GenericServices.Core;
 using GenericServices.Services;
 using ServiceLayer.UiClasses;
 

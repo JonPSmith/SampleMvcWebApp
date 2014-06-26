@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
+using GenericServices.Core;
 using GenericServices.Services;
 
 namespace ServiceLayer.BlogServices.Concrete

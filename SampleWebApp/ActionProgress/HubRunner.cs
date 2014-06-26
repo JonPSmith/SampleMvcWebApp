@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 using GenericServices;
 using GenericServices.Actions;
+using GenericServices.Core;
 using GenericServices.Logger;
-using GenericServices.Services;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace SampleWebApp.ActionProgress
 {
 
-    public class HubRunner<T> : IActionComms, IHubControl where T : class
+    public class HubRunner<TActionOut, TActionIn> : IActionComms, IHubControl where TActionIn : class
     {
         private static readonly IGenericLogger Logger;
 
@@ -26,10 +28,12 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         private readonly Type _actionType;
 
+        private readonly bool _isAsync;
+
         /// <summary>
         /// The user data to be handed to the action
         /// </summary>
-        private readonly T _dto;
+        private readonly TActionIn _dto;
 
         //--------------------------------------------------
         //IAction Comms items
@@ -76,7 +80,7 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         public string ActionGuid { get; private set; }
 
-        public HubRunner(string actionGuid, Type actionType, T dto)
+        public HubRunner(string actionGuid, Type actionType, TActionIn dto, bool isAsync)
         {
             if (ActionHub.LifeTimeScopeProvider == null)
                 throw new NullReferenceException("You must set up the static varable HubRunner.LifeTimeScopeProvider before using ActionSetup etc.");
@@ -84,6 +88,7 @@ namespace SampleWebApp.ActionProgress
             ActionGuid = actionGuid;
             _actionType = actionType;
             _dto = dto;
+            _isAsync = isAsync;
         }
 
         /// <summary>
@@ -93,10 +98,10 @@ namespace SampleWebApp.ActionProgress
         /// <param name="actionGuid">Id of the action. Used for checking and security</param>
         /// <param name="userConnectionId">If null then does not communicate via ActionHub</param>
         /// <param name="hubSendMethods"></param>
-        public ProgressMessage RunActionSynchronously(string actionGuid, string userConnectionId, IActionHubSend hubSendMethods)
+        public async Task<ProgressMessage> RunActionAsync(string actionGuid, string userConnectionId, IActionHubSend hubSendMethods)
         {
             IActionHubDependencyResolver diContainer = null;
-            ISuccessOrErrors actionsResult = new SuccessOrErrors();
+            ISuccessOrErrors status = new SuccessOrErrors();
             UserConnectionId = userConnectionId;
             _hubSendMethods = hubSendMethods;                   //we get a link the the ActionHub for the progress message to use
 
@@ -106,42 +111,40 @@ namespace SampleWebApp.ActionProgress
                 return ProgressMessage.FinishedMessage(true, "Failed checks on ActionGuid");
             }
 
-            IActionDefn<T> actionToRun = null;
+            dynamic actionToRun = null;
 
             try
             {
                 //We use DI to resolve the service
                 diContainer = ActionHub.LifeTimeScopeProvider();
-                //AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope("httpRequest");
-                actionToRun = diContainer.Resolve(_actionType) as IActionDefn<T>;
+                actionToRun = diContainer.Resolve(_actionType);
+                
+                // Start the time-consuming operation.
+                if (userConnectionId != null)
+                    hubSendMethods.Started(this, actionToRun.ActionConfig.ToString());
 
-                if (actionToRun == null)
-                {
-                    Logger.Error("Could not resolve interface or interface did not resolve to IActionDefn<T>");
-                    actionsResult =
-                        actionsResult.AddSingleError("The system had a problem finding the service you requested.");
-                }
-                else
-                {
-                    // Start the time-consuming operation.
-
-                    if (userConnectionId != null)
-                        hubSendMethods.Started(this, actionToRun.ActionConfig.ToString());
-
-                    Logger.InfoFormat("Started action of type {0}", actionToRun.GetType().Name);
-                    actionsResult = actionToRun.DoAction((userConnectionId == null ? null : this), _dto);
-                }
+                Logger.InfoFormat("Started action of type {0}", actionToRun.GetType().Name);
+                status = _isAsync
+                    ? await actionToRun.DoActionAsync((userConnectionId == null ? null : this), _dto).ConfigureAwait(false)
+                    : actionToRun.DoAction((userConnectionId == null ? null : this), _dto);
             }
             catch (OperationCanceledException)
             {
                 //This is how we catch a user cancellation. 
-                actionsResult.SetSuccessMessage("Cancelled by user.");  //set as success as cancel is not an error
-                CancellationPending = true;                 //We set the flag in case they called the exception by hand
+                status.SetSuccessMessage("Cancelled by user."); //set as success as cancel is not an error
+                CancellationPending = true; //We set the flag in case they called the exception by hand
+            }
+            catch (RuntimeBinderException ex)
+            {
+                Logger.Critical(string.Format("The interface '{0}' did not resolve to IActionDefn<{1},{2}>",
+                    _actionType.Name, typeof(TActionOut).Name, typeof(TActionIn).Name), ex);
+                status =
+                    status.AddSingleError("The system had a problem finding the service you requested.");
             }
             catch (Exception e)
             {
-                Logger.Critical(string.Format("Action {0} had exception.", typeof(T).Name), e);
-                actionsResult = actionsResult.AddSingleError("The running action has a system level problem.");
+                Logger.Critical(string.Format("Action of interface type '{0}' had an exception.", _actionType.Name), e);
+                status = status.AddSingleError("The running action has a system level problem.");
             }
             finally
             {
@@ -153,10 +156,10 @@ namespace SampleWebApp.ActionProgress
                     disposable.Dispose();
             }
 
-            if (!actionsResult.IsValid)
+            if (!status.IsValid)
             {
                 //we need to send over all the error messages to the user
-                foreach (var error in actionsResult.Errors)
+                foreach (var error in status.Errors)
                 {
                     Logger.WarnFormat("Action error: {0}", error.ErrorMessage);
                     hubSendMethods.Progress(this, 100,
@@ -164,25 +167,25 @@ namespace SampleWebApp.ActionProgress
                 }
             }
 
-            ProgressMessage actionStatus;
+            ProgressMessage finishMessage;
             if (CancellationPending)
             {
                 Logger.InfoFormat("Cancelled by user.");
-                actionStatus = ProgressMessage.CancelledMessage("Cancelled by user.");
+                finishMessage = ProgressMessage.CancelledMessage("Cancelled by user.");
             }
             else
             {
-                Logger.InfoFormat("Finished: {0}", actionsResult);
-                actionStatus = ProgressMessage.FinishedMessage(!actionsResult.IsValid, actionsResult.ToString());
+                Logger.InfoFormat("Finished: {0}", status);
+                finishMessage = ProgressMessage.FinishedMessage(!status.IsValid, status.ToString());
             }
 
             if (userConnectionId != null)
-                hubSendMethods.Stopped(this, actionStatus);
+                hubSendMethods.Stopped(this, finishMessage);
 
             //Always remove at end
             ActionHub.RemoveActionRunner(actionGuid);
 
-            return actionStatus;
+            return finishMessage;
         }
 
         /// <summary>

@@ -2,67 +2,84 @@
 using System.Threading;
 using GenericServices;
 using GenericServices.Actions;
-using GenericServices.Services;
+using GenericServices.Core;
 
 namespace ServiceLayer.TestActionService.Concrete
 {
     public abstract class CommsTestActionBase : ActionBase
     {
 
+        /// <summary>
+        /// This allows the action to configure what it supports, which then affects what the user sees
+        /// Note: it must be a constant as it is read just after the action is created
+        /// </summary>
+        public override ActionFlags ActionConfig
+        {
+            get { return ActionFlags.Normal; }
+        }
+
+        /// <summary>
+        /// If true then the caller should call EF SubmitChanges if the method exited with status IsValid and
+        /// it looks to see if the data part has a ICheckIfWarnings and if the WriteEvenIfWarning is false
+        /// and there are warnings then it does not call SubmitChanges
+        /// </summary>
+        public override bool SubmitChangesOnSuccess { get { return false; } }
+
         public bool DisposeWasCalled { get; private set; }
 
-        public ISuccessOrErrors DoAction(IActionComms actionComms, CommsTestActionData data)
+        public ISuccessOrErrors<int> DoAction(IActionComms actionComms, CommsTestActionData dto)
         {
-            var result = new SuccessOrErrors();
+            ISuccessOrErrors<int> result = new SuccessOrErrors<int>();
 
-            if (data.Mode == TestServiceModes.ThrowExceptionOnStart)
+            if (dto.Mode == TestServiceModes.ThrowExceptionOnStart)
                 throw new Exception("Thrown exception at start.");
 
             DateTime startTime = DateTime.Now;
 
             ReportProgressAndThrowExceptionIfCancelPending(actionComms, 0,
-                new ProgressMessage(ProgressMessageTypes.Info, "Task has started. Will run for {0:f1} seconds.", data.NumIterations * data.SecondsBetweenIterations));
+                new ProgressMessage(ProgressMessageTypes.Info, "Action has started. Will run for {0:f1} seconds.", dto.NumIterations * dto.SecondsBetweenIterations));
 
-            for (int i = 0; i < data.NumIterations; i++)
+            for (int i = 0; i < dto.NumIterations; i++)
             {
-                bool halfWayThroughOrMore = (i + 1) / 2 >= data.NumIterations / 2;
-                if (data.Mode == TestServiceModes.ThrowExceptionHalfWayThrough && halfWayThroughOrMore)
+                if (dto.Mode == TestServiceModes.ThrowExceptionHalfWayThrough && (i + 1) / 2 >= dto.NumIterations / 2)
                     throw new Exception("Thrown exception half way through.");
-                if (data.Mode == TestServiceModes.ThrowOperationCanceledExceptionHalfWayThrough && halfWayThroughOrMore)
+                if (dto.Mode == TestServiceModes.ThrowOperationCanceledExceptionHalfWayThrough && (i + 1) / 2 >= dto.NumIterations / 2)
                     throw new OperationCanceledException();         //we simulate a cancel half way through work
 
-                ReportProgress(actionComms, (i + 1) * 100 / (data.NumIterations + 1),
-                    new ProgressMessage(data.Mode == TestServiceModes.RunButOutputErrors && (i % 2 == 0)
+                ReportProgress(actionComms, (i + 1) * 100 / (dto.NumIterations + 1),
+                    new ProgressMessage(dto.Mode == TestServiceModes.RunButOutputErrors && (i % 2 == 0)
                         ? ProgressMessageTypes.Error
-                        : data.Mode == TestServiceModes.OutputButOutputWarnings && (i % 2 == 0)
-                            ? ProgressMessageTypes.Warning
-                            : ProgressMessageTypes.Info,
-                        string.Format("Iteration {0} of {1} done.", i + 1, data.NumIterations)));
+                        : ProgressMessageTypes.Info,
+                        string.Format("Iteration {0} of {1} done.", i + 1, dto.NumIterations)));
                 if (CancelPending(actionComms))
                 {
-                    if (!data.FailToRespondToCancel)
+                    if (!dto.FailToRespondToCancel)
                     {
                         //we will respond to cancel
-                        if (data.SecondsDelayToRespondingToCancel > 0)
+                        if (dto.SecondsDelayToRespondingToCancel > 0)
                             //... but with an additional delay
-                            Thread.Sleep((int)(data.SecondsDelayToRespondingToCancel * 1000));
-                    }
-                    break;
-                }
+                            Thread.Sleep((int)(dto.SecondsDelayToRespondingToCancel * 1000));
 
-                Thread.Sleep((int)(data.SecondsBetweenIterations * 1000));
+                        return result.AddSingleError("Cancelled by user.");
+                    }
+                }
+                Thread.Sleep( (int)(dto.SecondsBetweenIterations * 1000));
             }
 
-            if (data.NumErrorsToExitWith > 0)
+            if (dto.Mode == TestServiceModes.RunButOutputOneWarningAtEnd)
+                result.AddWarning("The mode was set to RunButOutputOneWarningAtEnd.");
+
+            if (dto.NumErrorsToExitWith > 0)
             {
-                for (int i = 0; i < data.NumErrorsToExitWith; i++)
+                for (int i = 0; i < dto.NumErrorsToExitWith; i++)
                     result.AddSingleError(string.Format(
                         "Error {0}: You asked me to declare an error when finished.", i));
             }
             else
             {
-                result.SetSuccessMessage(string.Format("Have completed the task in {0:F2} seconds",
-                                                           DateTime.Now.Subtract(startTime).TotalSeconds));
+                result.SetSuccessWithResult(dto.NumIterations,
+                    string.Format("Have completed the action in {0:F2} seconds",
+                    DateTime.Now.Subtract(startTime).TotalSeconds));
             }
 
             return result;

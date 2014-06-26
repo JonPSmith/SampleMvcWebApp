@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using GenericServices.Core;
 using NUnit.Framework;
 using SampleWebApp.Infrastructure;
 using Tests.Helpers;
@@ -132,7 +133,7 @@ namespace Tests.UnitTests.Group06Mvc
             var jsonResult = model.ReturnModelState().ReturnModelErrorsAsJson();
 
             //VERIFY
-            var json = jsonResult.Data.SerialiseToJsonUsingJsonNet();
+            var json = jsonResult.Data.SerialiseToJson();
             json.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"This is a top level error caused by CreateValidationError being set.\",\"This is a top level error caused by MyInt having value 50.\"]}}}");
         }
 
@@ -146,7 +147,7 @@ namespace Tests.UnitTests.Group06Mvc
             var jsonResult = model.ReturnModelState().ReturnModelErrorsAsJson();
 
             //VERIFY
-            var json = jsonResult.Data.SerialiseToJsonUsingJsonNet();
+            var json = jsonResult.Data.SerialiseToJson();
             json.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"This is a top level error caused by CreateValidationError being set.\"]}}}");
         }
 
@@ -161,7 +162,7 @@ namespace Tests.UnitTests.Group06Mvc
             var jsonResult = model.ReturnModelState().ReturnModelErrorsAsJson();
 
             //VERIFY
-            var json = jsonResult.Data.SerialiseToJsonUsingJsonNet();
+            var json = jsonResult.Data.SerialiseToJson();
             json.ShouldEqual("{\"errorsDict\":{\"MyInt\":{\"errors\":[\"The field MyInt must be between 0 and 100.\"]}}}");
         }
 
@@ -175,7 +176,7 @@ namespace Tests.UnitTests.Group06Mvc
             var jsonResult = model.ReturnModelState().ReturnModelErrorsAsJson();
 
             //VERIFY
-            var json = jsonResult.Data.SerialiseToJsonUsingJsonNet();
+            var json = jsonResult.Data.SerialiseToJson();
             const string order1 = "{\"errorsDict\":{\"MyString\":{\"errors\":[\"The field MyString must be a string or array type with a minimum length of '2'.\",\"The MyString field is required.\"]}}}";
             const string order2 = "{\"errorsDict\":{\"MyString\":{\"errors\":[\"The MyString field is required.\",\"The field MyString must be a string or array type with a minimum length of '2'.\"]}}}";
             (json == order1 || json == order2).ShouldEqual(true);
@@ -192,11 +193,47 @@ namespace Tests.UnitTests.Group06Mvc
             var jsonResult = model.ReturnModelState().ReturnModelErrorsAsJson();
 
             //VERIFY
-            var json = jsonResult.Data.SerialiseToJsonUsingJsonNet();
+            var json = jsonResult.Data.SerialiseToJson();
             const string order1 = "{\"errorsDict\":{\"MyString\":{\"errors\":[\"The field MyString must be a string or array type with a minimum length of '2'.\",\"The MyString field is required.\"]},";
             const string order2 = "{\"errorsDict\":{\"MyString\":{\"errors\":[\"The MyString field is required.\",\"The field MyString must be a string or array type with a minimum length of '2'.\"]},";
             const string part2 = "\"MyInt\":{\"errors\":[\"The field MyInt must be between 0 and 100.\"]}}}";
             (json == order1+part2 || json == order2+part2).ShouldEqual(true);
         }
+
+        //-------------------------------------------------------------------
+        //now the ReturnErrorsAsJson
+
+        [Test]
+        public void Check20StatusToJsonTopLevel()
+        {
+            //SETUP  
+            var status = new SuccessOrErrors();
+            var dto = new {MyInt = 1};
+
+            //ATTEMPT
+            status.AddSingleError("This is a top level error.");
+            var jsonResult = status.ReturnErrorsAsJson(dto);
+
+            //VERIFY
+            var json = jsonResult.Data.SerialiseToJson();
+            json.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"This is a top level error.\"]}}}");
+        }
+
+        [Test]
+        public void Check21StatusToJsonProperty()
+        {
+            //SETUP  
+            var status = new SuccessOrErrors();
+            var dto = new { MyInt = 1 };
+
+            //ATTEMPT
+            status.AddNamedParameterError("MyInt", "This is a property level error.");
+            var jsonResult = status.ReturnErrorsAsJson(dto);
+
+            //VERIFY
+            var json = jsonResult.Data.SerialiseToJson();
+            json.ShouldEqual("{\"errorsDict\":{\"MyInt\":{\"errors\":[\"This is a property level error.\"]}}}");
+        }
+
     }
 }
