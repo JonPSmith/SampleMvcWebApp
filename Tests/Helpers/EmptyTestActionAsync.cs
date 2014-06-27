@@ -6,7 +6,7 @@ using GenericServices.Core;
 
 namespace Tests.Helpers
 {
-    public interface IEmptyTestActionAsync : IActionDefnAsync<int, Tag>
+    public interface IEmptyTestActionAsync : IActionAsync<int, Tag>
     {
     }
 

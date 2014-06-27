@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web.Helpers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -10,9 +11,10 @@ namespace Tests.Helpers
     static class JsonHelper
     {
 
-        //public static string SerialiseToJsonUsingJson(this object data)
+        //public static string SerialiseToJsonUsingJsonNet(this object data)
         //{
-        //    return Json.Encode(data);
+        //    JsonConvert.SerializeObject(data);
+        //    
         //}
 
         //public static string SerialiseToJsonIndentedUsingJsonNet(this object data)
@@ -22,7 +24,7 @@ namespace Tests.Helpers
 
         public static string SerialiseToJson(this object data)
         {
-            return JsonConvert.SerializeObject(data);
+            return Json.Encode(data);
         }
 
         public static string AssertJsonPropertyPresentAndReturnValue<TSource, TProperty>

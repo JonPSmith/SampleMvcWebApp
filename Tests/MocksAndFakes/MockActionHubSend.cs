@@ -18,6 +18,8 @@ namespace Tests.MocksAndFakes
 
         public IEnumerable<int> PercentagesOnly { get { return _logOfCalls.Select(x => x.PercentageDone); } }
 
+        public string FinalJsonData { get; private set; }
+
         public void Started(IHubControl actionRunner, string actionConfig)
         {
             ActionConfigFlags = actionConfig;
@@ -29,9 +31,10 @@ namespace Tests.MocksAndFakes
             _logOfCalls.Add(new ProgressWithOptionalMessage(percentageDone, message));
         }
 
-        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage)
+        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, string jsonToSend)
         {
             _logOfCalls.Add(new ProgressWithOptionalMessage(101, finalMessage));
+            FinalJsonData = jsonToSend;
         }
     }
 }

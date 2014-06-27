@@ -5,7 +5,7 @@ using GenericServices.Core;
 
 namespace Tests.Helpers
 {
-    public interface IEmptyTestAction : IActionDefn<int, Tag>
+    public interface IEmptyTestAction : IActionSync<int, Tag>
     {
     }
 

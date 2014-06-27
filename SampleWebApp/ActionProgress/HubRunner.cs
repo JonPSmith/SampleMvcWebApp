@@ -5,6 +5,7 @@ using GenericServices.Actions;
 using GenericServices.Core;
 using GenericServices.Logger;
 using Microsoft.CSharp.RuntimeBinder;
+using Newtonsoft.Json;
 
 namespace SampleWebApp.ActionProgress
 {
@@ -117,16 +118,28 @@ namespace SampleWebApp.ActionProgress
             {
                 //We use DI to resolve the service
                 diContainer = ActionHub.LifeTimeScopeProvider();
-                actionToRun = diContainer.Resolve(_actionType);
-                
-                // Start the time-consuming operation.
-                if (userConnectionId != null)
+                actionToRun = diContainer.Resolve(_actionType) as IActionBase;
+
+                if (actionToRun == null)
+                {
+                    Logger.ErrorFormat("The interface '{0}' did not resolve to IActionBase>", _actionType.Name);
+                    status =
+                        status.AddSingleError("The system could not find the service you requested.");
+
+                }
+                else
+                {                 
+                    // Start the time-consuming operation.
                     hubSendMethods.Started(this, actionToRun.ActionConfig.ToString());
 
-                Logger.InfoFormat("Started action of type {0}", actionToRun.GetType().Name);
-                status = _isAsync
-                    ? await actionToRun.DoActionAsync((userConnectionId == null ? null : this), _dto).ConfigureAwait(false)
-                    : actionToRun.DoAction((userConnectionId == null ? null : this), _dto);
+                    Logger.InfoFormat("Started action of type {0}", actionToRun.GetType().Name);
+                    status = _isAsync
+                        ? await actionToRun.DoActionAsync(this, _dto).ConfigureAwait(false)
+                        : actionToRun.DoAction(this, _dto);
+
+                    if (CheckIfSumbitChangesShouldBeCalled(status, actionToRun, _dto))
+                        status = await CallSubmitChanges(status, diContainer);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -156,34 +169,7 @@ namespace SampleWebApp.ActionProgress
                     disposable.Dispose();
             }
 
-            if (!status.IsValid)
-            {
-                //we need to send over all the error messages to the user
-                foreach (var error in status.Errors)
-                {
-                    Logger.WarnFormat("Action error: {0}", error.ErrorMessage);
-                    hubSendMethods.Progress(this, 100,
-                                                    new ProgressMessage(ProgressMessageTypes.Error, error.ErrorMessage));
-                }
-            }
-
-            ProgressMessage finishMessage;
-            if (CancellationPending)
-            {
-                Logger.InfoFormat("Cancelled by user.");
-                finishMessage = ProgressMessage.CancelledMessage("Cancelled by user.");
-            }
-            else
-            {
-                Logger.InfoFormat("Finished: {0}", status);
-                finishMessage = ProgressMessage.FinishedMessage(!status.IsValid, status.ToString());
-            }
-
-            if (userConnectionId != null)
-                hubSendMethods.Stopped(this, finishMessage);
-
-            //Always remove at end
-            ActionHub.RemoveActionRunner(actionGuid);
+            var finishMessage = SendStoppedMessage(actionGuid, hubSendMethods, status);
 
             return finishMessage;
         }
@@ -204,6 +190,113 @@ namespace SampleWebApp.ActionProgress
             CancellationPending = true;
             return false;
         }
+
+        //--------------------------------------------------------
+        //private methods
+
+        /// <summary>
+        /// This handles sending the closing message to the JavaScript client side
+        /// </summary>
+        /// <param name="actionGuid"></param>
+        /// <param name="hubSendMethods"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        private ProgressMessage SendStoppedMessage(string actionGuid, IActionHubSend hubSendMethods, ISuccessOrErrors status)
+        {
+            if (!status.IsValid)
+            {
+                //we need to send over all the error messages to the user
+                foreach (var error in status.Errors)
+                {
+                    Logger.WarnFormat("Action error: {0}", error.ErrorMessage);
+                    hubSendMethods.Progress(this, 100,
+                        new ProgressMessage(ProgressMessageTypes.Error, error.ErrorMessage));
+                }
+            }
+
+            ProgressMessage finishMessage;
+            string jsonToSend = null;
+            if (CancellationPending)
+            {
+                Logger.InfoFormat("Cancelled by user.");
+                finishMessage = ProgressMessage.CancelledMessage("Cancelled by user.");
+            }
+            else if (!status.IsValid)
+            {
+                Logger.InfoFormat("Finished with errors: {0}", status);
+                finishMessage = ProgressMessage.FinishedMessage(true, status.ToString());
+            }
+            else
+            {
+                Logger.InfoFormat("Finished OK: {0}", status);
+                finishMessage = ProgressMessage.FinishedMessage(false, status.ToString());
+
+                jsonToSend = ExtractAndDecodeResultFromStatus<TActionOut>(status);
+            }
+
+            hubSendMethods.Stopped(this, finishMessage, jsonToSend);
+
+            //Always remove at end
+            ActionHub.RemoveActionRunner(actionGuid);
+            return finishMessage;
+        }
+
+        /// <summary>
+        /// This will extract a result from the final status and encode it as json.
+        /// We use the Newtonsoft Json converter as it allows attributes for handling enums etc.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        private string ExtractAndDecodeResultFromStatus<T>(ISuccessOrErrors status)
+        {
+            var resultStatus = status as ISuccessOrErrors<T>;
+            if (resultStatus == null)
+                return null;                //Shouldn't happen, but safe way of handling this
+
+            return JsonConvert.SerializeObject(resultStatus.Result);
+        }
+
+        //----------------------
+        //method for handling the writing out of data
+
+        private static bool CheckIfSumbitChangesShouldBeCalled(ISuccessOrErrors status, IActionBase action, TActionIn actionData)
+        {
+            if (!status.IsValid || !action.SubmitChangesOnSuccess) return false;     //nothing to do
+
+            if (ShouldStopAsWarningsMatter(status.HasWarnings, actionData))
+            {
+                //There were warnings and we are asked to not write to the database
+                status.SetSuccessMessage("{0}... but NOT written to database as warnings.", status.SuccessMessage);
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private static bool ShouldStopAsWarningsMatter<T>(bool hasWarnings, T classToCheck)
+        {
+            if (!hasWarnings) return false;
+            var flagClass = classToCheck as ICheckIfWarnings;
+            return (flagClass != null && !flagClass.WriteEvenIfWarning);
+        }
+
+
+        private static async Task<ISuccessOrErrors> CallSubmitChanges(ISuccessOrErrors status, IActionHubDependencyResolver diContainer)
+        {
+
+            //we now need to save the changes to the database
+            var db = diContainer.Resolve(typeof(IDbContextWithValidation)) as IDbContextWithValidation;
+            if (db == null)
+                throw new NullReferenceException("IDbContextWithValidation must resolve via DI for HubRunner db to work.");
+            
+            var dataStatus = await db.SaveChangesWithValidationAsync();
+            return dataStatus.IsValid
+                ? status.SetSuccessMessage("{0}... and written to database.", status.SuccessMessage)
+                : dataStatus;
+        }
+
 
     }
 }

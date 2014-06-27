@@ -4,7 +4,7 @@ using ServiceLayer.TestActionService.Concrete;
 
 namespace ServiceLayer.TestActionService
 {
-    public interface ICommsTestActionExitOnSuccess : IActionDefn<int,CommsTestActionData>, IDisposable
+    public interface ICommsTestActionExitOnSuccess : IActionSync<int,CommsTestActionData>, IDisposable
     {
 
     }

@@ -57,7 +57,7 @@ namespace SampleWebApp.ActionProgress
 
             if (actionRunner == null || actionRunner.CancelRunningAction(actionGuid)) 
                 //It wasn't there or wasn't running so we send a cancelled message straght away to stop a potential hangup
-                Stopped(actionRunner, ProgressMessage.CancelledMessage("Action had already finished (or there was a problem)."));
+                Stopped(actionRunner, ProgressMessage.CancelledMessage("Action had already finished (or there was a problem)."), null);
         }
 
         /// <summary>
@@ -100,9 +100,10 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         /// <param name="actionRunner"></param>
         /// <param name="finalMessage">The finalMessage must be present as the MessageType property carries the type of stop</param>
-        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage)
+        /// <param name="jsonToSend">This is a json string to send at the end of the process. Will be null if errors or not supplied.</param>
+        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, string jsonToSend)
         {
-            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage);
+            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage, jsonToSend);
         }
 
         #endregion

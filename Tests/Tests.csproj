@@ -116,6 +116,7 @@
     <Compile Include="DependencyItems\SimpleClass.cs" />
     <Compile Include="Helpers\DbSnapShot.cs" />
     <Compile Include="Helpers\DummyIDbContextWithValidation.cs" />
+    <Compile Include="Helpers\EmptyTestActionWithSubmit.cs" />
     <Compile Include="Helpers\ExtendAsserts.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\EmptyTestActionAsync.cs" />

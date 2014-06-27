@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
+using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using GenericServices.Actions;
 using GenericServices.Logger;
@@ -20,6 +21,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         private MockActionHubSend _mockHub;
 
         private CommsTestActionNormal _action;
+        private DummyIDbContextWithValidation _dummyDb;
 
         [TestFixtureSetUp]
         public void FixtureSetUp()
@@ -35,16 +37,20 @@ namespace Tests.UnitTests.Group08ActionRunner
         {
             _log4NetMemoryLog.Clear();
             _mockHub = new MockActionHubSend();
+            _dummyDb = new DummyIDbContextWithValidation();
 
             _action = new CommsTestActionNormal();
             var builder = new ContainerBuilder();
             builder.RegisterInstance(_action).As<ICommsTestActionNormal>();
+            builder.RegisterInstance(_dummyDb).As<IDbContextWithValidation>();
+            builder.RegisterType<EmptyTestAction>().As<IEmptyTestAction>();
+            builder.RegisterType<EmptyTestActionWithSubmit>().As<IEmptyTestActionWithSubmit>();
             var container = builder.Build();
             ActionHub.LifeTimeScopeProvider = () => new AutoFacActionHubResolver(container);
         }
 
         [Test]
-        public async void Test01RunCommsTestActionOk()
+        public async void Check01RunCommsTestActionOk()
         {
             //SETUP
             var data = new CommsTestActionData
@@ -58,10 +64,11 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             //VERIFY
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
+            lastMessage.MessageText.ShouldStartWith("Have completed the action in ");
         }
 
         [Test]
-        public async void Check01CheckProgressNumbersOk()
+        public async void Check02CheckProgressNumbersOk()
         {
 
             //SETUP
@@ -83,7 +90,28 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public async void Check02RunSuccessfullyDifferentProgressBoundsOk()
+        public async void Check03CheckFinalJsonOutOk()
+        {
+
+            //SETUP
+
+            var data = new CommsTestActionData
+            {
+                Mode = TestServiceModes.RunSuccessfully,
+                NumIterations = 2,
+                SecondsBetweenIterations = 0
+            };
+            var hr = new HubRunner<int, CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
+
+            //ATTEMPT
+            await hr.RunActionAsync("aaa", "123", _mockHub);
+
+            //VERIFY
+            _mockHub.FinalJsonData.ShouldEqual(data.NumIterations.ToString());
+        }
+
+        [Test]
+        public async void Check04RunSuccessfullyDifferentProgressBoundsOk()
         {
 
             //SETUP
@@ -145,7 +173,7 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             //VERIFY
             finalMess.MessageType.ShouldEqual(ProgressMessageTypes.Failed);
-
+            _mockHub.FinalJsonData.ShouldEqual(null);
         }
 
         [Test]
@@ -239,7 +267,45 @@ namespace Tests.UnitTests.Group08ActionRunner
             _action.DisposeWasCalled.ShouldEqual(true);
         }
 
+        //-------------------------------------
+        //check sumbit called
 
+        [Test]
+        public async void Test30RunEmptyTestActionNoSubmitOk()
+        {
+            //SETUP
+            var data = new Tag
+            {
+                TagId = 0
+            };
+            var hr = new HubRunner<int, Tag>("aaa", typeof(IEmptyTestAction), data, false);
 
+            //ATTEMPT
+            var lastMessage = await hr.RunActionAsync("aaa", "123", _mockHub);
+
+            //VERIFY
+            lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
+            lastMessage.MessageText.ShouldEqual("Successful");
+            _dummyDb.SaveChangesWithValidationCalled.ShouldEqual(false);
+        }
+
+        [Test]
+        public async void Test31RunEmptyTestActionWithSubmitOk()
+        {
+            //SETUP
+            var data = new Tag
+            {
+                TagId = 0
+            };
+            var hr = new HubRunner<int, Tag>("aaa", typeof(IEmptyTestActionWithSubmit), data, false);
+
+            //ATTEMPT
+            var lastMessage = await hr.RunActionAsync("aaa", "123", _mockHub);
+
+            //VERIFY
+            lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Finished);
+            lastMessage.MessageText.ShouldEqual("Successful... and written to database.");
+            _dummyDb.SaveChangesWithValidationCalled.ShouldEqual(true);
+        }
     }
 }
