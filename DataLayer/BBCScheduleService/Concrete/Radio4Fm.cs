@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -15,8 +16,9 @@ namespace DataLayer.BBCScheduleService
         public async Task<string> GetSchedule(DateTime day)
         {
             var request = WebRequest.CreateHttp(FormUrl(day));
-            var ws = await request.GetResponseAsync();
-            return ws.ResponseUri.ToString();
+            var response = await request.GetResponseAsync();
+            using (var stIn = new StreamReader(response.GetResponseStream()))
+                return stIn.ReadToEnd();
         }
 
         private string FormUrl(DateTime day)

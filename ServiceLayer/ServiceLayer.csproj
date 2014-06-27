@@ -84,7 +84,6 @@
     <Compile Include="TestActionService\ICommsTestActionExitOnSuccess.cs" />
     <Compile Include="TestActionService\ICommsTestActionNoCancelEtc.cs" />
     <Compile Include="TestActionService\ICommsTestActionNormal.cs" />
-    <Compile Include="TestActionService\ICommsTestActionDto.cs" />
     <Compile Include="UiClasses\DropDownListType.cs" />
     <Compile Include="UiClasses\MultiSelectListType.cs" />
   </ItemGroup>

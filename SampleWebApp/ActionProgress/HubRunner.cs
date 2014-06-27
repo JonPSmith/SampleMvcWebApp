@@ -122,7 +122,7 @@ namespace SampleWebApp.ActionProgress
 
                 if (actionToRun == null)
                 {
-                    Logger.ErrorFormat("The interface '{0}' did not resolve to IActionBase>", _actionType.Name);
+                    Logger.ErrorFormat("The interface '{0}' did not resolve to IActionBase", _actionType.Name);
                     status =
                         status.AddSingleError("The system could not find the service you requested.");
 

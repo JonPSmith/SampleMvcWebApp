@@ -7,7 +7,7 @@ namespace ServiceLayer.TestActionService.Concrete
     /// <summary>
     /// This is a copy of CommsTestActionDto just so we can try the TActionData to TDto versions
     /// </summary>
-    public class CommsTestActionDto : InstrumentedEfGenericDto<CommsTestActionData, CommsTestActionDto>, ICommsTestActionDto
+    public class CommsTestActionDto : InstrumentedEfGenericDto<CommsTestActionData, CommsTestActionDto>
     {
         private double _secondsBetweenIterations = 1;
         private int _numIterations = 5;

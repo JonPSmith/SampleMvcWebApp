@@ -351,13 +351,14 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownListType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultiSelectListType.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Action\ActionNeedingData.cshtml" />
+    <Content Include="Views\Action\CommsWithData.cshtml" />
     <Content Include="Views\PostsAsync\Create.cshtml" />
     <Content Include="Views\PostsAsync\Details.cshtml" />
     <Content Include="Views\PostsAsync\Edit.cshtml" />
     <Content Include="Views\PostsAsync\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Action\Index.cshtml" />
+    <Content Include="Views\Action\Radio4Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

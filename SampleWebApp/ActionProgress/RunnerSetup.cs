@@ -40,8 +40,8 @@ namespace SampleWebApp.ActionProgress
             if (_actionInterface == null || !_actionInterface.IsGenericType)
                 throw new InvalidOperationException("The interface must have IActionDefn<TOut,Tin> or IActionDefnAsync<TOut,Tin> as the first sub-interface.");
 
-            _isAsync = _actionInterface.Name == "IActionDefnAsync`2";
-            if (!_isAsync && _actionInterface.Name != "IActionDefn`2")
+            _isAsync = _actionInterface.Name == "IActionAsync`2";
+            if (!_isAsync && _actionInterface.Name != "IActionSync`2")
                 throw new InvalidOperationException("The interface must have IActionDefn<TOut,Tin> or IActionDefnAsync<TOut,Tin> as the first sub-interface.");
 
             _data = data;

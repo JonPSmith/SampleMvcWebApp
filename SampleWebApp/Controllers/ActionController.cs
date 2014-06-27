@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using SampleWebApp.ActionProgress;
 using SampleWebApp.Infrastructure;
+using ServiceLayer.BBCScheduleService;
+using ServiceLayer.BBCScheduleService.Concrete;
 using ServiceLayer.TestActionService;
 using ServiceLayer.TestActionService.Concrete;
 
@@ -19,7 +21,7 @@ namespace SampleWebApp.Controllers
         {
             var data = new CommsTestActionData();
 
-            return RunnerSetupFactory<ICommsTestActionNoCancelEtc>.CreateRunnerAndReturnJsonResult(data);
+            return RunnerSetupFactory<ICommsTestActionNoCancelEtc>.SetupRunner(data);
         }
 
 
@@ -30,7 +32,7 @@ namespace SampleWebApp.Controllers
             {
                 NumIterations = iterations
             };
-            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.SetupRunner(data);
         }
 
         [HttpPost]
@@ -40,23 +42,39 @@ namespace SampleWebApp.Controllers
             {
                 NumIterations = iterations
             };
-            return RunnerSetupFactory<ICommsTestActionExitOnSuccess>.CreateRunnerAndReturnJsonResult(data);
+            return RunnerSetupFactory<ICommsTestActionExitOnSuccess>.SetupRunner(data);
         }
 
-        public ActionResult ActionNeedingData()
+        public ActionResult CommsWithData()
         {
             return View(new CommsTestActionData());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult ActionNeedingData(CommsTestActionData data)
+        public JsonResult CommsWithData(CommsTestActionData data)
         {
             if (!ModelState.IsValid)
                 //model errors so we return a errorDict to the ajax call
                 return ModelState.ReturnModelErrorsAsJson();
 
-            return RunnerSetupFactory<ICommsTestActionNormal>.CreateRunnerAndReturnJsonResult(data);
+            return RunnerSetupFactory<ICommsTestActionNormal>.SetupRunner(data);
+        }
+
+        public ActionResult Radio4Search()
+        {
+            return View(new ScheduleSearcherData());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Radio4Search(ScheduleSearcherData data)
+        {
+            if (!ModelState.IsValid)
+                //model errors so we return a errorDict to the ajax call
+                return ModelState.ReturnModelErrorsAsJson();
+
+            return RunnerSetupFactory<IScheduleSearcherAsync>.SetupRunner(data);
         }
 
     }

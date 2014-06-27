@@ -15,7 +15,7 @@ namespace SampleWebApp.ActionProgress
         /// <param name="data">data to pass to the action. If a dto then it copies it over</param>
         /// <param name="db">optional. Needed if the input data is a dto, which will need copying</param>
         /// <returns>The json to sent to the action javascript</returns>
-        public static JsonResult CreateRunnerAndReturnJsonResult<TData>(TData data, IDbContextWithValidation db = null) where TData : class
+        public static JsonResult SetupRunner<TData>(TData data, IDbContextWithValidation db = null) where TData : class
         {
 
             var runner = new RunnerSetup<TData>(typeof (TActionI), data);

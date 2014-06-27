@@ -1,0 +1,69 @@
+﻿@model ServiceLayer.BBCScheduleService.Concrete.ScheduleSearcherData
+
+@{
+    ViewBag.Title = "Radio4Search";
+}
+
+<h2>Radio4Search</h2>
+
+<div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
+    <div id="progressbar"></div>
+    <div id="message-container" class="overflow-auto">
+        <table id="messages" class="table table-condensed">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="action-lower-menu">
+        <button id="action-button" class="btn btn-default">Invalid</button>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ScheduleSearcherData</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumDaysAhead, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumDaysAhead, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumDaysAhead, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TitleWordSearch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TitleWordSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleWordSearch, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ActionRunner")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            ActionRunner.startActionFromForm({ header: 'Searching Radio4 Schedule'});
+        });
+
+    </script>
+}

@@ -130,6 +130,7 @@
     <Compile Include="Helpers\ModelStateTester.cs" />
     <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Tests10Radio4Fm.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests01Setup.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests02Validation.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWrite.cs" />

@@ -78,9 +78,9 @@ var ActionRunner = (function (actionRunner, $) {
     }
 
     function exitComms(successExit) {
-        if (connection != null)
-            //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
-            connection.stop();
+        //if (connection != null)
+        //    //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
+        //    connection.stop();
 
         actionRunner.removeActionPanel(successExit);    //close the panel
     }
@@ -98,7 +98,7 @@ var ActionRunner = (function (actionRunner, $) {
         //Setup connection and actionChannel with the functions to call
         connection = $.hubConnection();
 
-        //connection.logging = true;
+        connection.logging = true;
         actionChannel = connection.createHubProxy('ActionHub');
         setupTaskFunctions();
 
@@ -139,7 +139,7 @@ var ActionRunner = (function (actionRunner, $) {
 
             }
         });
-        actionChannel.on('Stopped', function (serverTaskId, message) {
+        actionChannel.on('Stopped', function (serverTaskId, message, jsonResult) {
             if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
                 logMessage(message);

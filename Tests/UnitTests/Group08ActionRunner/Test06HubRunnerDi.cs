@@ -91,8 +91,8 @@ namespace Tests.UnitTests.Group08ActionRunner
             lastMessage.MessageType.ShouldEqual(ProgressMessageTypes.Failed);
             lastMessage.MessageText.ShouldEqual("Failed with 1 error");
             var logs = _log4NetMemoryLog.GetEvents();
-            logs[0].Level.ShouldEqual(Level.Fatal);
-            logs[0].RenderedMessage.ShouldEqual("The interface 'ISimpleClass' did not resolve to IActionDefn<Int32,Tag>");
+            logs[0].Level.ShouldEqual(Level.Error);
+            logs[0].RenderedMessage.ShouldEqual("The interface 'ISimpleClass' did not resolve to IActionBase");
         }
 
         [Test]
