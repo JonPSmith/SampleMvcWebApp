@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\GenericServices\GenericServices\bin\Release\GenericServices.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -53,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BBCScheduleService\Concrete\DayOfProgrammes.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ProgrammeDetails.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearchResult.cs" />
+    <Compile Include="BBCScheduleService\IScheduleSearcherAsync.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherAsync.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherData.cs" />
     <Compile Include="BlogServices\Concrete\BlogDto.cs" />
     <Compile Include="BlogServices\IBlogDto.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDtoAsync.cs" />

@@ -123,14 +123,17 @@
     <Compile Include="Helpers\EmptyTestAction.cs" />
     <Compile Include="Helpers\SimpleTagDto.cs" />
     <Compile Include="Helpers\SimpleTagDtoAsync.cs" />
+    <Compile Include="Helpers\TestFileHelpers.cs" />
     <Compile Include="MocksAndFakes\MockActionHubSend.cs" />
     <Compile Include="MocksAndFakes\MockHubDependencyResolver.cs" />
     <Compile Include="MocksAndFakes\MockActionComms.cs" />
     <Compile Include="Helpers\ModelStateTester.cs" />
+    <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests01Setup.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests02Validation.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWrite.cs" />
+    <Compile Include="UnitTests\Group03ServiceLayer\Test02ScheduleSearcher.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test10DiSimple.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test11AutoFacModules.cs" />
     <Compile Include="UnitTests\Group06Mvc\Test02Validation.cs" />
@@ -170,6 +173,7 @@
     <Content Include="MocksAndFakes\mockActionRunnerUi.js" />
     <Content Include="MocksAndFakes\mockSignalRClient.js" />
     <Content Include="TestData\actionRunnerData - default.js" />
+    <Content Include="TestData\TestRadio4 schedule 2014-7-3.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

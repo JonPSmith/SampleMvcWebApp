@@ -1,0 +1,2375 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<schedule>
+  <service type="radio" key="radio4">
+    <title>BBC Radio 4</title>
+    <outlet key="fm">
+      <title>FM</title>
+    </outlet>
+  </service>
+  <day date="2014-07-03" has_next="1" has_previous="1">
+    <broadcasts>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khy6</pid>
+        <start>2014-07-03T00:00:00+01:00</start>
+        <end>2014-07-03T00:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b047w7gj</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>The latest national and international news from BBC Radio 4.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcbf6</pid>
+          </image>
+          <display_titles>
+            <title>Midnight News</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T00:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b00cs19l</pid>
+            <title>Midnight News</title>
+            <position/>
+            <image>
+              <pid>p01lcbf6</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-03T00:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021khy7</pid>
+        <start>2014-07-03T00:30:00+01:00</start>
+        <end>2014-07-03T00:48:00+01:00</end>
+        <duration>1080</duration>
+        <programme type="episode">
+          <pid>b047zlbz</pid>
+          <position>3</position>
+          <title>How El Valero Got Its Name</title>
+          <short_synopsis>A moving story from pal Rogelio, convinces Chris to compile an anthology of such stories.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021gf7t</pid>
+          </image>
+          <display_titles>
+            <title>Book of the Week</title>
+            <subtitle>Last Days of the Bus Club, How El Valero Got Its Name</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-02T09:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490f3d</pid>
+            <title>Last Days of the Bus Club</title>
+            <position/>
+            <image>
+              <pid>p021gf7t</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T09:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qftk</pid>
+              <title>Book of the Week</title>
+              <position/>
+              <image>
+                <pid>p01lc1rh</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-01T09:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khy8</pid>
+        <start>2014-07-03T00:48:00+01:00</start>
+        <end>2014-07-03T01:00:00+01:00</end>
+        <duration>720</duration>
+        <programme type="episode">
+          <pid>b047w7gl</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>The latest shipping forecast.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>660</duration>
+          <image>
+            <pid>p01lc1xj</pid>
+          </image>
+          <display_titles>
+            <title>Shipping Forecast</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T00:48:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qfvv</pid>
+            <title>Shipping Forecast</title>
+            <position/>
+            <image>
+              <pid>p01lc1xj</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T00:48:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khy9</pid>
+        <start>2014-07-03T01:00:00+01:00</start>
+        <end>2014-07-03T05:20:00+01:00</end>
+        <duration>15600</duration>
+        <programme type="episode">
+          <pid>b047w7gn</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>BBC Radio 4 joins the BBC World Service.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>15600</duration>
+          <image>
+            <pid>p01lchw0</pid>
+          </image>
+          <display_titles>
+            <title>Selection of BBC World Service Programmes</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T01:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_world_service" key="worldserviceradio">
+              <title>BBC World Service</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006s54y</pid>
+            <title>Selection of BBC World Service Programmes</title>
+            <position/>
+            <image>
+              <pid>p01lchw0</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T01:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_world_service" key="worldserviceradio">
+                <title>BBC World Service</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khyb</pid>
+        <start>2014-07-03T05:20:00+01:00</start>
+        <end>2014-07-03T05:30:00+01:00</end>
+        <duration>600</duration>
+        <programme type="episode">
+          <pid>b047w7gq</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>The latest shipping forecast.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>600</duration>
+          <image>
+            <pid>p01lc1xj</pid>
+          </image>
+          <display_titles>
+            <title>Shipping Forecast</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T05:20:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qfvv</pid>
+            <title>Shipping Forecast</title>
+            <position/>
+            <image>
+              <pid>p01lc1xj</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T00:48:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khyd</pid>
+        <start>2014-07-03T05:30:00+01:00</start>
+        <end>2014-07-03T05:43:00+01:00</end>
+        <duration>780</duration>
+        <programme type="episode">
+          <pid>b047w7gs</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>News from BBC Radio 4.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01lc375</pid>
+          </image>
+          <display_titles>
+            <title>News Briefing</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T05:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b007rhyn</pid>
+            <title>News Briefing</title>
+            <position/>
+            <image>
+              <pid>p01lc375</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-03T05:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khyf</pid>
+        <start>2014-07-03T05:43:00+01:00</start>
+        <end>2014-07-03T05:45:00+01:00</end>
+        <duration>120</duration>
+        <programme type="episode">
+          <pid>b0483p66</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>A spiritual comment and prayer to begin the day with Sheikh Michael Mumisa.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p01lc206</pid>
+          </image>
+          <display_titles>
+            <title>Prayer for the Day</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T05:43:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qmpj</pid>
+            <title>Prayer for the Day</title>
+            <position/>
+            <image>
+              <pid>p01lc206</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T05:43:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khyg</pid>
+        <start>2014-07-03T05:45:00+01:00</start>
+        <end>2014-07-03T05:58:00+01:00</end>
+        <duration>780</duration>
+        <programme type="episode">
+          <pid>b048033l</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>The latest news about food, farming and the countryside. Presented by Charlotte Smith.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01wrdlh</pid>
+          </image>
+          <display_titles>
+            <title>Farming Today</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T05:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qj8q</pid>
+            <title>Farming Today</title>
+            <position/>
+            <image>
+              <pid>p01lcqw7</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T06:35:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021khyh</pid>
+        <start>2014-07-03T05:58:00+01:00</start>
+        <end>2014-07-03T06:00:00+01:00</end>
+        <duration>120</duration>
+        <programme type="episode">
+          <pid>b0378sqk</pid>
+          <position/>
+          <title>Stonechat</title>
+          <short_synopsis>Michaela Strachan presents the story and sound of the stonechat.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p01k03yg</pid>
+          </image>
+          <display_titles>
+            <title>Tweet of the Day</title>
+            <subtitle>Stonechat</subtitle>
+          </display_titles>
+          <first_broadcast_date>2013-08-01T05:58:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b01s6xyk</pid>
+            <title>Tweet of the Day</title>
+            <position/>
+            <expected_child_count>265</expected_child_count>
+            <first_broadcast_date>2013-05-06T05:58:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <actual_start>2013-08-01T06:37:09+01:00</actual_start>
+          <is_available_mediaset_pc_sd>1</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+          <media format="audio">
+            <expires/>
+            <availability>Available to listen</availability>
+          </media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021khyj</pid>
+        <start>2014-07-03T06:00:00+01:00</start>
+        <end>2014-07-03T09:00:00+01:00</end>
+        <duration>10800</duration>
+        <programme type="episode">
+          <pid>b048033n</pid>
+          <position>21027</position>
+          <title>03/07/2014</title>
+          <short_synopsis>Morning news. Includes Sports Desk; Yesterday in Parliament; Weather; Thought for the Day.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>10800</duration>
+          <image>
+            <pid>p01lc1m2</pid>
+          </image>
+          <display_titles>
+            <title>Today</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T06:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qj9z</pid>
+            <title>Today</title>
+            <position/>
+            <image>
+              <pid>p01lc1m2</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>1966-10-27T07:15:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfnr</pid>
+        <start>2014-07-03T09:00:00+01:00</start>
+        <end>2014-07-03T09:45:00+01:00</end>
+        <duration>2700</duration>
+        <programme type="episode">
+          <pid>b048033q</pid>
+          <position>637</position>
+          <title>Mrs Dalloway</title>
+          <short_synopsis>Melvyn Bragg and his guests discuss Virginia Woolf&#39;s novel Mrs Dalloway.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2580</duration>
+          <image>
+            <pid>p021n60h</pid>
+          </image>
+          <display_titles>
+            <title>In Our Time</title>
+            <subtitle>Mrs Dalloway</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T09:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qykl</pid>
+            <title>In Our Time</title>
+            <position/>
+            <image>
+              <pid>p01lc1r8</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>1998-10-15T09:02:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfns</pid>
+        <start>2014-07-03T09:45:00+01:00</start>
+        <end>2014-07-03T10:00:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b048033s</pid>
+          <position>4</position>
+          <title>The Rain in Spain: Part 1</title>
+          <short_synopsis>Andalucia is a region racked with droughts, but one winter the downpour was biblical.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021gf7t</pid>
+          </image>
+          <display_titles>
+            <title>Book of the Week</title>
+            <subtitle>Last Days of the Bus Club, The Rain in Spain: Part 1</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T09:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490f3d</pid>
+            <title>Last Days of the Bus Club</title>
+            <position/>
+            <image>
+              <pid>p021gf7t</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T09:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qftk</pid>
+              <title>Book of the Week</title>
+              <position/>
+              <image>
+                <pid>p01lc1rh</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-01T09:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfnt</pid>
+        <start>2014-07-03T10:00:00+01:00</start>
+        <end>2014-07-03T10:45:00+01:00</end>
+        <duration>2700</duration>
+        <programme type="episode">
+          <pid>b048033v</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Jenni Murray presents the programme that offers a female perspective on the world.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2700</duration>
+          <image>
+            <pid>p01slb15</pid>
+          </image>
+          <display_titles>
+            <title>Woman&#39;s Hour</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T10:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b007qlvb</pid>
+            <title>Woman&#39;s Hour</title>
+            <position/>
+            <image>
+              <pid>p01svhcp</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>1948-02-02T14:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfnv</pid>
+        <start>2014-07-03T10:45:00+01:00</start>
+        <end>2014-07-03T11:00:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b048033x</pid>
+          <position>4</position>
+          <title>Episode 4</title>
+          <short_synopsis>By Scott Cherry. Ian has suddenly returned, claiming he went to help his mother.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021gkyj</pid>
+          </image>
+          <display_titles>
+            <title>15 Minute Drama</title>
+            <subtitle>A Small Town Murder, Episode 4</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T10:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490f8r</pid>
+            <title>A Small Town Murder</title>
+            <position/>
+            <image>
+              <pid>p021gkyj</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T10:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qy2s</pid>
+              <title>15 Minute Drama</title>
+              <position/>
+              <image>
+                <pid>p01ynknj</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-19T19:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfnx</pid>
+        <start>2014-07-03T11:00:00+01:00</start>
+        <end>2014-07-03T11:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048033z</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Reports from writers and journalists around the world. Presented by Kate Adie.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcg42</pid>
+          </image>
+          <display_titles>
+            <title>From Our Own Correspondent</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T11:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qjlq</pid>
+            <title>From Our Own Correspondent</title>
+            <position/>
+            <image>
+              <pid>p01lcg42</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T11:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfnz</pid>
+        <start>2014-07-03T11:30:00+01:00</start>
+        <end>2014-07-03T12:00:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b0480341</pid>
+          <position/>
+          <title>Terry Wogan</title>
+          <short_synopsis>Sir Terry Wogan chooses his favourite words and music, with readings by actor David Jason.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1680</duration>
+          <image>
+            <pid>p021n5wh</pid>
+          </image>
+          <display_titles>
+            <title>With Great Pleasure</title>
+            <subtitle>Terry Wogan</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T11:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qrx7</pid>
+            <title>With Great Pleasure</title>
+            <position/>
+            <image>
+              <pid>p01lchhp</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-01T11:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp0</pid>
+        <start>2014-07-03T12:00:00+01:00</start>
+        <end>2014-07-03T12:57:00+01:00</end>
+        <duration>3420</duration>
+        <programme type="episode">
+          <pid>b0480343</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Consumer news.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>3360</duration>
+          <image>
+            <pid>p01lc1qq</pid>
+          </image>
+          <display_titles>
+            <title>You and Yours</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T12:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qps9</pid>
+            <title>You and Yours</title>
+            <position/>
+            <image>
+              <pid>p01lc1qq</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T12:00:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp2</pid>
+        <start>2014-07-03T12:57:00+01:00</start>
+        <end>2014-07-03T13:00:00+01:00</end>
+        <duration>180</duration>
+        <programme type="episode">
+          <pid>b047w7gv</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>The latest weather forecast.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>180</duration>
+          <image>
+            <pid>p01lc36f</pid>
+          </image>
+          <display_titles>
+            <title>Weather</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T12:57:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b007rn05</pid>
+            <title>Weather</title>
+            <position/>
+            <image>
+              <pid>p01lc36f</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T12:57:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp3</pid>
+        <start>2014-07-03T13:00:00+01:00</start>
+        <end>2014-07-03T13:45:00+01:00</end>
+        <duration>2700</duration>
+        <programme type="episode">
+          <pid>b0480345</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>National and international news with Shaun Ley.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2700</duration>
+          <image>
+            <pid>p01lcjyc</pid>
+          </image>
+          <display_titles>
+            <title>World at One</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T13:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qptc</pid>
+            <title>World at One</title>
+            <position/>
+            <image>
+              <pid>p01lcjyc</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-19T13:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp5</pid>
+        <start>2014-07-03T13:45:00+01:00</start>
+        <end>2014-07-03T14:00:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b0480347</pid>
+          <position>4</position>
+          <title>Cambridge</title>
+          <short_synopsis>Town and gown provide the inspiration, as Simon Preston creates a new dish for Cambridge.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021hxgd</pid>
+          </image>
+          <display_titles>
+            <title>The Town Is the Menu</title>
+            <subtitle>Cambridge</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T13:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490hzy</pid>
+            <title>The Town Is the Menu</title>
+            <position/>
+            <image>
+              <pid>p021hxgd</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T13:45:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfp6</pid>
+        <start>2014-07-03T14:00:00+01:00</start>
+        <end>2014-07-03T14:15:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b047zrl3</pid>
+          <position>17395</position>
+          <title>02/07/2014</title>
+          <short_synopsis>Susan&#39;s not satisfied.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01t7xy8</pid>
+          </image>
+          <display_titles>
+            <title>The Archers</title>
+            <subtitle>02/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-02T19:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qpgr</pid>
+            <title>The Archers</title>
+            <position/>
+            <image>
+              <pid>p01t7xy8</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-19T14:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp8</pid>
+        <start>2014-07-03T14:15:00+01:00</start>
+        <end>2014-07-03T15:00:00+01:00</end>
+        <duration>2700</duration>
+        <programme type="episode">
+          <pid>b0480349</pid>
+          <position/>
+          <title>Blurred</title>
+          <short_synopsis>By Frazer Flintham. Old university friends Nikki and Hannah meet up after a ten-year gap.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2700</duration>
+          <image>
+            <pid>p021n8mh</pid>
+          </image>
+          <display_titles>
+            <title>Afternoon Drama</title>
+            <subtitle>Blurred</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T14:15:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qrzz</pid>
+            <title>Afternoon Drama</title>
+            <position/>
+            <image>
+              <pid>p01ynb8q</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2002-06-02T15:00:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfp9</pid>
+        <start>2014-07-03T15:00:00+01:00</start>
+        <end>2014-07-03T15:27:00+01:00</end>
+        <duration>1620</duration>
+        <programme type="episode">
+          <pid>b048034c</pid>
+          <position/>
+          <title>Tour de Yorkshire</title>
+          <short_synopsis>Helen Mark explores the route of the opening leg of the Tour De France in Yorkshire.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1500</duration>
+          <image>
+            <pid>p021nxzk</pid>
+          </image>
+          <display_titles>
+            <title>Open Country</title>
+            <subtitle>Tour de Yorkshire</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T15:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qgft</pid>
+            <title>Open Country</title>
+            <position/>
+            <image>
+              <pid>p01lcfyg</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-06T13:30:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfpc</pid>
+        <start>2014-07-03T15:27:00+01:00</start>
+        <end>2014-07-03T15:30:00+01:00</end>
+        <duration>180</duration>
+        <programme type="episode">
+          <pid>b047w8k7</pid>
+          <position/>
+          <title>Excellent Development</title>
+          <short_synopsis>Alison Bell presents an appeal for Excellent Development.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p0219rxb</pid>
+          </image>
+          <display_titles>
+            <title>Radio 4 Appeal</title>
+            <subtitle>Excellent Development</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-06-29T07:55:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qnc7</pid>
+            <title>Radio 4 Appeal</title>
+            <position/>
+            <image>
+              <pid>p01lyjsv</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-01T15:27:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfpd</pid>
+        <start>2014-07-03T15:30:00+01:00</start>
+        <end>2014-07-03T16:00:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b047wb68</pid>
+          <position/>
+          <title>29/06/2014</title>
+          <short_synopsis>News and features from the world of books, presented by Mariella Frostrup.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p021np5m</pid>
+          </image>
+          <display_titles>
+            <title>Open Book</title>
+            <subtitle>29/06/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-06-29T16:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qp6p</pid>
+            <title>Open Book</title>
+            <position/>
+            <image>
+              <pid>p01lc1zt</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2003-02-23T16:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpg</pid>
+        <start>2014-07-03T16:00:00+01:00</start>
+        <end>2014-07-03T16:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048034f</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Looking at the latest cinema releases, DVDs and films on TV.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1680</duration>
+          <image>
+            <pid>p01m630v</pid>
+          </image>
+          <display_titles>
+            <title>The Film Programme</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T16:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006r5jt</pid>
+            <title>The Film Programme</title>
+            <position/>
+            <image>
+              <pid>p01m630v</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2004-06-05T17:30:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfph</pid>
+        <start>2014-07-03T16:30:00+01:00</start>
+        <end>2014-07-03T16:55:00+01:00</end>
+        <duration>1500</duration>
+        <programme type="episode">
+          <pid>b048034h</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Adam Rutherford investigates the news in science and science in the news.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01tbgxt</pid>
+          </image>
+          <display_titles>
+            <title>Inside Science</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T16:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b036f7w2</pid>
+            <title>Inside Science</title>
+            <position/>
+            <image>
+              <pid>p01tbgxt</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2013-07-04T16:30:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpk</pid>
+        <start>2014-07-03T16:55:00+01:00</start>
+        <end>2014-07-03T17:00:00+01:00</end>
+        <duration>300</duration>
+        <programme type="episode">
+          <pid>b048034k</pid>
+          <position/>
+          <title>3rd July</title>
+          <short_synopsis>The funeral of Archduke Franz Ferdinand in Vienna.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>300</duration>
+          <image>
+            <pid>p01qlg3g</pid>
+          </image>
+          <display_titles>
+            <title>1914: Day by Day</title>
+            <subtitle>3rd July</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T16:55:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b03t8m6h</pid>
+            <title>1914: Day by Day</title>
+            <position/>
+            <image>
+              <pid>p01qlg3g</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2014-06-27T16:55:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpm</pid>
+        <start>2014-07-03T17:00:00+01:00</start>
+        <end>2014-07-03T18:00:00+01:00</end>
+        <duration>3600</duration>
+        <programme type="episode">
+          <pid>b048034m</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Eddie Mair presents coverage and analysis of the day&#39;s news.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>3600</duration>
+          <image>
+            <pid>p01vf6q0</pid>
+          </image>
+          <display_titles>
+            <title>PM</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T17:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qskw</pid>
+            <title>PM</title>
+            <position/>
+            <image>
+              <pid>p01vf6q0</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-19T17:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpp</pid>
+        <start>2014-07-03T18:00:00+01:00</start>
+        <end>2014-07-03T18:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b047w7gx</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>National and international news from BBC Radio 4.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lc357</pid>
+          </image>
+          <display_titles>
+            <title>Six O&#39;Clock News</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T18:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qjxt</pid>
+            <title>Six O&#39;Clock News</title>
+            <position/>
+            <image>
+              <pid>p01lc357</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T18:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfpr</pid>
+        <start>2014-07-03T18:30:00+01:00</start>
+        <end>2014-07-03T19:00:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b01gg7g4</pid>
+          <position>4</position>
+          <title>Making a Difference</title>
+          <short_synopsis>Ed finds himself an unlikely star of local radio.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcmpy</pid>
+          </image>
+          <display_titles>
+            <title>Ed Reardon&#39;s Week</title>
+            <subtitle>Series 8, Making a Difference</subtitle>
+          </display_titles>
+          <first_broadcast_date>2012-04-24T18:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b01fjvry</pid>
+            <title>Series 8</title>
+            <position>8</position>
+            <image>
+              <pid>p01lcmpy</pid>
+            </image>
+            <expected_child_count>6</expected_child_count>
+            <first_broadcast_date>2012-04-03T18:30:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006r5ck</pid>
+              <title>Ed Reardon&#39;s Week</title>
+              <position/>
+              <image>
+                <pid>p01lcmpy</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2006-12-15T11:30:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpt</pid>
+        <start>2014-07-03T19:00:00+01:00</start>
+        <end>2014-07-03T19:15:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b048034p</pid>
+          <position>17396</position>
+          <title>03/07/2014</title>
+          <short_synopsis>Elizabeth and Shula have a heart to heart.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01t7xy8</pid>
+          </image>
+          <display_titles>
+            <title>The Archers</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T19:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qpgr</pid>
+            <title>The Archers</title>
+            <position/>
+            <image>
+              <pid>p01t7xy8</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-19T14:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpw</pid>
+        <start>2014-07-03T19:15:00+01:00</start>
+        <end>2014-07-03T19:45:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048034r</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Live daily magazine programme on the worlds of arts, literature, film, media and music.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01n47p5</pid>
+          </image>
+          <display_titles>
+            <title>Front Row</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T19:15:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qsq5</pid>
+            <title>Front Row</title>
+            <position/>
+            <image>
+              <pid>p01n47p5</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>1998-12-28T19:15:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfpx</pid>
+        <start>2014-07-03T19:45:00+01:00</start>
+        <end>2014-07-03T20:00:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b048033x</pid>
+          <position>4</position>
+          <title>Episode 4</title>
+          <short_synopsis>By Scott Cherry. Ian has suddenly returned, claiming he went to help his mother.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021gkyj</pid>
+          </image>
+          <display_titles>
+            <title>15 Minute Drama</title>
+            <subtitle>A Small Town Murder, Episode 4</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T10:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490f8r</pid>
+            <title>A Small Town Murder</title>
+            <position/>
+            <image>
+              <pid>p021gkyj</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T10:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qy2s</pid>
+              <title>15 Minute Drama</title>
+              <position/>
+              <image>
+                <pid>p01ynknj</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-19T19:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfpz</pid>
+        <start>2014-07-03T20:00:00+01:00</start>
+        <end>2014-07-03T20:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048034t</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Combining original insights into major news stories with topical investigations.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1680</duration>
+          <image>
+            <pid>p01lykqh</pid>
+          </image>
+          <display_titles>
+            <title>The Report</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T20:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b00jkr1q</pid>
+            <title>The Report</title>
+            <position/>
+            <image>
+              <pid>p01lykqh</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2009-04-02T20:00:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq1</pid>
+        <start>2014-07-03T20:30:00+01:00</start>
+        <end>2014-07-03T21:00:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048034w</pid>
+          <position/>
+          <title>Mental Health</title>
+          <short_synopsis>Evan Davis and guests discuss coping with depression and business success at the same time</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcmg7</pid>
+          </image>
+          <display_titles>
+            <title>The Bottom Line</title>
+            <subtitle>Mental Health</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T20:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006sz6t</pid>
+            <title>The Bottom Line</title>
+            <position/>
+            <image>
+              <pid>p01lcmg7</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-03T17:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfq2</pid>
+        <start>2014-07-03T21:00:00+01:00</start>
+        <end>2014-07-03T21:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b048034h</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Adam Rutherford investigates the news in science and science in the news.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01tbgxt</pid>
+          </image>
+          <display_titles>
+            <title>Inside Science</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T16:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b036f7w2</pid>
+            <title>Inside Science</title>
+            <position/>
+            <image>
+              <pid>p01tbgxt</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2013-07-04T16:30:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfq4</pid>
+        <start>2014-07-03T21:30:00+01:00</start>
+        <end>2014-07-03T21:58:00+01:00</end>
+        <duration>1680</duration>
+        <programme type="episode">
+          <pid>b048033q</pid>
+          <position>637</position>
+          <title>Mrs Dalloway</title>
+          <short_synopsis>Melvyn Bragg and his guests discuss Virginia Woolf&#39;s novel Mrs Dalloway.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2580</duration>
+          <image>
+            <pid>p021n60h</pid>
+          </image>
+          <display_titles>
+            <title>In Our Time</title>
+            <subtitle>Mrs Dalloway</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T09:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qykl</pid>
+            <title>In Our Time</title>
+            <position/>
+            <image>
+              <pid>p01lc1r8</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>1998-10-15T09:02:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq5</pid>
+        <start>2014-07-03T21:58:00+01:00</start>
+        <end>2014-07-03T22:00:00+01:00</end>
+        <duration>120</duration>
+        <programme type="episode">
+          <pid>b047w7gz</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Weather information.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p01lc36f</pid>
+          </image>
+          <display_titles>
+            <title>Weather</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T21:58:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b007rn05</pid>
+            <title>Weather</title>
+            <position/>
+            <image>
+              <pid>p01lc36f</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T12:57:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq6</pid>
+        <start>2014-07-03T22:00:00+01:00</start>
+        <end>2014-07-03T22:45:00+01:00</end>
+        <duration>2700</duration>
+        <programme type="episode">
+          <pid>b048034y</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>In-depth reporting and analysis from a global perspective.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>2700</duration>
+          <image>
+            <pid>p01z0ls6</pid>
+          </image>
+          <display_titles>
+            <title>The World Tonight</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T22:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qtl3</pid>
+            <title>The World Tonight</title>
+            <position/>
+            <image>
+              <pid>p01z0ls6</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T22:00:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq7</pid>
+        <start>2014-07-03T22:45:00+01:00</start>
+        <end>2014-07-03T23:00:00+01:00</end>
+        <duration>900</duration>
+        <programme type="episode">
+          <pid>b0480350</pid>
+          <position>9</position>
+          <title>Episode 9</title>
+          <short_synopsis>Eric and Cecil have decided to take matters into their own hands.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p02128k8</pid>
+          </image>
+          <display_titles>
+            <title>Book at Bedtime</title>
+            <subtitle>Remember Me Like This, Episode 9</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T22:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b048329v</pid>
+            <title>Remember Me Like This</title>
+            <position/>
+            <image>
+              <pid>p02128k8</pid>
+            </image>
+            <expected_child_count>10</expected_child_count>
+            <first_broadcast_date>2014-06-23T22:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qtlx</pid>
+              <title>Book at Bedtime</title>
+              <position/>
+              <image>
+                <pid>p01lcmpc</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-19T22:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq8</pid>
+        <start>2014-07-03T23:00:00+01:00</start>
+        <end>2014-07-03T23:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b0480352</pid>
+          <position>3</position>
+          <title>Episode 3</title>
+          <short_synopsis>A pair of American tourists visit St Paul&#39;s cathedral to confess their sins.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p0217xw4</pid>
+          </image>
+          <display_titles>
+            <title>Trodd en Bratt Say &#39;Well Done You&#39;</title>
+            <subtitle>Episode 3</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T23:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0480h31</pid>
+            <title>Trodd en Bratt Say &#39;Well Done You&#39;</title>
+            <position/>
+            <image>
+              <pid>p0217xw4</pid>
+            </image>
+            <expected_child_count>4</expected_child_count>
+            <first_broadcast_date>2014-06-19T23:00:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfq9</pid>
+        <start>2014-07-03T23:30:00+01:00</start>
+        <end>2014-07-04T00:00:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b0480354</pid>
+          <position/>
+          <title>03/07/2014</title>
+          <short_synopsis>Sean Curran reports from Westminster.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcfy2</pid>
+          </image>
+          <display_titles>
+            <title>Today in Parliament</title>
+            <subtitle>03/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T23:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qtqd</pid>
+            <title>Today in Parliament</title>
+            <position/>
+            <image>
+              <pid>p01lcfy2</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-19T23:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqb</pid>
+        <start>2014-07-04T00:00:00+01:00</start>
+        <end>2014-07-04T00:30:00+01:00</end>
+        <duration>1800</duration>
+        <programme type="episode">
+          <pid>b047w7ht</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>The latest national and international news from BBC Radio 4.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>1800</duration>
+          <image>
+            <pid>p01lcbf6</pid>
+          </image>
+          <display_titles>
+            <title>Midnight News</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T00:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b00cs19l</pid>
+            <title>Midnight News</title>
+            <position/>
+            <image>
+              <pid>p01lcbf6</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-03T00:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfqc</pid>
+        <start>2014-07-04T00:30:00+01:00</start>
+        <end>2014-07-04T00:48:00+01:00</end>
+        <duration>1080</duration>
+        <programme type="episode">
+          <pid>b048033s</pid>
+          <position>4</position>
+          <title>The Rain in Spain: Part 1</title>
+          <short_synopsis>Andalucia is a region racked with droughts, but one winter the downpour was biblical.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>900</duration>
+          <image>
+            <pid>p021gf7t</pid>
+          </image>
+          <display_titles>
+            <title>Book of the Week</title>
+            <subtitle>Last Days of the Bus Club, The Rain in Spain: Part 1</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-03T09:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="series">
+            <pid>b0490f3d</pid>
+            <title>Last Days of the Bus Club</title>
+            <position/>
+            <image>
+              <pid>p021gf7t</pid>
+            </image>
+            <expected_child_count>5</expected_child_count>
+            <first_broadcast_date>2014-06-30T09:45:00+01:00</first_broadcast_date>
+            <programme type="brand">
+              <pid>b006qftk</pid>
+              <title>Book of the Week</title>
+              <position/>
+              <image>
+                <pid>p01lc1rh</pid>
+              </image>
+              <expected_child_count/>
+              <first_broadcast_date>2007-01-01T09:45:00Z</first_broadcast_date>
+              <ownership>
+                <service type="radio" id="bbc_radio_four" key="radio4">
+                  <title>BBC Radio 4</title>
+                </service>
+              </ownership>
+            </programme>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqd</pid>
+        <start>2014-07-04T00:48:00+01:00</start>
+        <end>2014-07-04T01:00:00+01:00</end>
+        <duration>720</duration>
+        <programme type="episode">
+          <pid>b047w7hw</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>The latest shipping forecast.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>660</duration>
+          <image>
+            <pid>p01lc1xj</pid>
+          </image>
+          <display_titles>
+            <title>Shipping Forecast</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T00:48:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qfvv</pid>
+            <title>Shipping Forecast</title>
+            <position/>
+            <image>
+              <pid>p01lc1xj</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T00:48:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqf</pid>
+        <start>2014-07-04T01:00:00+01:00</start>
+        <end>2014-07-04T05:20:00+01:00</end>
+        <duration>15600</duration>
+        <programme type="episode">
+          <pid>b047w7hy</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>BBC Radio 4 joins the BBC World Service.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>15600</duration>
+          <image>
+            <pid>p01lchw0</pid>
+          </image>
+          <display_titles>
+            <title>Selection of BBC World Service Programmes</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T01:00:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_world_service" key="worldserviceradio">
+              <title>BBC World Service</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006s54y</pid>
+            <title>Selection of BBC World Service Programmes</title>
+            <position/>
+            <image>
+              <pid>p01lchw0</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T01:00:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_world_service" key="worldserviceradio">
+                <title>BBC World Service</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqg</pid>
+        <start>2014-07-04T05:20:00+01:00</start>
+        <end>2014-07-04T05:30:00+01:00</end>
+        <duration>600</duration>
+        <programme type="episode">
+          <pid>b047w7j2</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>The latest shipping forecast.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>600</duration>
+          <image>
+            <pid>p01lc1xj</pid>
+          </image>
+          <display_titles>
+            <title>Shipping Forecast</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T05:20:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qfvv</pid>
+            <title>Shipping Forecast</title>
+            <position/>
+            <image>
+              <pid>p01lc1xj</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2006-04-05T00:48:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqh</pid>
+        <start>2014-07-04T05:30:00+01:00</start>
+        <end>2014-07-04T05:43:00+01:00</end>
+        <duration>780</duration>
+        <programme type="episode">
+          <pid>b047w7j4</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>News from BBC Radio 4.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01lc375</pid>
+          </image>
+          <display_titles>
+            <title>News Briefing</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T05:30:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b007rhyn</pid>
+            <title>News Briefing</title>
+            <position/>
+            <image>
+              <pid>p01lc375</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-02-03T05:30:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfqj</pid>
+        <start>2014-07-04T05:43:00+01:00</start>
+        <end>2014-07-04T05:45:00+01:00</end>
+        <duration>120</duration>
+        <programme type="episode">
+          <pid>b0483pkw</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>A spiritual comment and prayer to begin the day with Sheikh Michael Mumisa.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p01lc206</pid>
+          </image>
+          <display_titles>
+            <title>Prayer for the Day</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T05:43:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qmpj</pid>
+            <title>Prayer for the Day</title>
+            <position/>
+            <image>
+              <pid>p01lc206</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T05:43:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="0" is_blanked="0">
+        <pid>p021mfql</pid>
+        <start>2014-07-04T05:45:00+01:00</start>
+        <end>2014-07-04T05:58:00+01:00</end>
+        <duration>780</duration>
+        <programme type="episode">
+          <pid>b04807h6</pid>
+          <position/>
+          <title>04/07/2014</title>
+          <short_synopsis>The latest news about food, farming and the countryside. Presented by Charlotte Smith.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>780</duration>
+          <image>
+            <pid>p01lqyv0</pid>
+          </image>
+          <display_titles>
+            <title>Farming Today</title>
+            <subtitle>04/07/2014</subtitle>
+          </display_titles>
+          <first_broadcast_date>2014-07-04T05:45:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b006qj8q</pid>
+            <title>Farming Today</title>
+            <position/>
+            <image>
+              <pid>p01lcqw7</pid>
+            </image>
+            <expected_child_count/>
+            <first_broadcast_date>2007-01-06T06:35:00Z</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <is_available_mediaset_pc_sd>0</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+        </programme>
+      </broadcast>
+      <broadcast is_repeat="1" is_blanked="0">
+        <pid>p021mfqn</pid>
+        <start>2014-07-04T05:58:00+01:00</start>
+        <end>2014-07-04T06:00:00+01:00</end>
+        <duration>120</duration>
+        <programme type="episode">
+          <pid>b0378srp</pid>
+          <position/>
+          <title>House Sparrow</title>
+          <short_synopsis>Michaela Strachan presents the story and sound of the house sparrow.</short_synopsis>
+          <media_type>audio</media_type>
+          <duration>120</duration>
+          <image>
+            <pid>p01k03ym</pid>
+          </image>
+          <display_titles>
+            <title>Tweet of the Day</title>
+            <subtitle>House Sparrow</subtitle>
+          </display_titles>
+          <first_broadcast_date>2013-08-02T05:58:00+01:00</first_broadcast_date>
+          <ownership>
+            <service type="radio" id="bbc_radio_four" key="radio4">
+              <title>BBC Radio 4</title>
+            </service>
+          </ownership>
+          <programme type="brand">
+            <pid>b01s6xyk</pid>
+            <title>Tweet of the Day</title>
+            <position/>
+            <expected_child_count>265</expected_child_count>
+            <first_broadcast_date>2013-05-06T05:58:00+01:00</first_broadcast_date>
+            <ownership>
+              <service type="radio" id="bbc_radio_four" key="radio4">
+                <title>BBC Radio 4</title>
+              </service>
+            </ownership>
+          </programme>
+          <actual_start>2013-08-02T06:45:19+01:00</actual_start>
+          <is_available_mediaset_pc_sd>1</is_available_mediaset_pc_sd>
+          <is_legacy_media>0</is_legacy_media>
+          <media format="audio">
+            <expires/>
+            <availability>Available to listen</availability>
+          </media>
+        </programme>
+      </broadcast>
+    </broadcasts>
+  </day>
+</schedule>
