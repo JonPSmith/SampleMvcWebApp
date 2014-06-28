@@ -36,7 +36,7 @@ namespace SampleWebApp.ActionProgress
         /// of calls 'Failed' if there was a problem.
         /// </summary>
         /// <param name="actionGuid">The actionGuid is used to look for a Action instance to run</param>
-        public async void StartAction(string actionGuid)
+        public async Task StartAction(string actionGuid)
         {
             var actionRunner = GetActionRunner(actionGuid);
 

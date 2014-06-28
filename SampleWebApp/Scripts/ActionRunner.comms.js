@@ -7,8 +7,9 @@ var ActionRunner = (function (actionRunner, $) {
         nojQuery: 'jQuery was not found. Please ensure jQuery is referenced before this ActionRinner JavaScript file.',
         noSignalR: 'SignalR was not found. Please ensure SignalR is referenced before this ActionRunner JavaScript file.',
         confirmExitOnRunningSys: 'The system is waiting for the server to respond. Do you want to exit anyway? Press OK to exit.',
-        confirmExitOnNonCancellable: 'The action is not cancellable and is still running. If you exit now you will the action will still continue?' +
-                                        ' Press OK if you really want to exit.',
+        confirmExitOnNonCancellable: 'The action is not cancellable and is still running.\n' +
+            'If you exit now the action will still continue,\n' +
+            'but its output lost. Press OK if you really want to exit.',
     };
 
     if (typeof ($) !== 'function') {
@@ -98,7 +99,7 @@ var ActionRunner = (function (actionRunner, $) {
         //Setup connection and actionChannel with the functions to call
         connection = $.hubConnection();
 
-        connection.logging = true;
+        //connection.logging = true;
         actionChannel = connection.createHubProxy('ActionHub');
         setupTaskFunctions();
 

@@ -149,8 +149,10 @@ var ActionRunner = (function (actionRunner, $, window) {
     actionRunner.removeActionPanel = function(successfulEnd) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
-        $actionPanel.dialog('close');
-        $actionPanel.dialog('destroy');
+        if ($actionPanel.hasClass('ui-dialog-content')) {        
+            $actionPanel.dialog('close');
+            $actionPanel.dialog('destroy');
+        }
         if ($progressBar.hasClass('ui-progressbar')) {           
             $progressBar.progressbar('destroy');
         }

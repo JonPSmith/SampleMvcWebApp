@@ -18,7 +18,7 @@ namespace DataLayer.BBCScheduleService
             var request = WebRequest.CreateHttp(FormUrl(day));
             var response = await request.GetResponseAsync();
             using (var stIn = new StreamReader(response.GetResponseStream()))
-                return stIn.ReadToEnd();
+                return await stIn.ReadToEndAsync();
         }
 
         private string FormUrl(DateTime day)

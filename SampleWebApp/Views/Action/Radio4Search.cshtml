@@ -4,7 +4,18 @@
     ViewBag.Title = "Radio4Search";
 }
 
-<h2>Radio4Search</h2>
+<h2>BBC Radio4 Schedule Search</h2>
+
+<p>This is an example of a real asynchronous task that processes data and shows the results. The steps are:</p>
+<ol>
+    <li>The form data is sent to the task which works out what is needed</li>
+    <li>It then loops calls a asycn method in the data layer for each day.</li>
+    <li>This async method makes a web request for the Radio4 schedule of a given day.</li>
+    <li>The task then applies any fitering to the the data and returns it.</li>
+    <li>This data is then sent back to the ActionRunner as the final result.</li>
+    <li>The local JavaScript function supplied to the ActionRunner is then called with that data.</li>
+    <li>This function hides the form and shows the results as a table.</li>
+</ol> 
 
 <div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
     <div id="progressbar"></div>
@@ -23,7 +34,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ScheduleSearcherData</h4>
+        <h4>Search information</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
