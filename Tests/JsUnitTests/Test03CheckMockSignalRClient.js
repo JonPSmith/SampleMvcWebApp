@@ -18,29 +18,11 @@ describe('Test03 - check mockSignalRClient', function () {
 
     it('that callLog works with named function', function () {
         function test(str, val) {
-            mockSignalRClient.logStep();
+            mockSignalRClient.logStep('test');
         };
         test('xxx', 456);
         expect(mockSignalRClient.callLog.length).toBe(1);
         expect(mockSignalRClient.callLog[0]).toBe('test(xxx, 456)');
-    });
-
-    it('that callLog works with anonymous function', function () {
-        var test = function (str, val) {
-            mockSignalRClient.logStep('anonymousFunc');
-        };
-        test('xxx', 456);
-        expect(mockSignalRClient.callLog.length).toBe(1);
-        expect(mockSignalRClient.callLog[0]).toBe('anonymousFunc(xxx, 456)');
-    });
-
-    it('that callLog works with function as argument', function () {
-        function test(func) {
-            mockSignalRClient.logStep();
-        };
-        test(function () { return 'xxx'; });
-        expect(mockSignalRClient.callLog.length).toBe(1);
-        expect(mockSignalRClient.callLog[0]).toBe('test(function)');
     });
 
     describe('with connection', function() {

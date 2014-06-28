@@ -4,11 +4,9 @@ var ActionRunner = (function (actionRunner) {
 
     actionRunner.callLog = null;
     //This logs a string with the caller's function name and the parameters
-    //Include a funcName parameter if the function is anonymous or 
-    //if you want to better define the function name, e.g. connection.on
+    //you must provide the function name, bit it finds the function arguments itself
     actionRunner.logStep = function (funcName) {
-        var log = funcName || arguments.callee.caller.name;
-        log += '(';
+        var log = funcName + '(';
         var callerArgs = arguments.callee.caller.arguments;
         for (var i = 0; i < callerArgs.length; i++) {
             log += (typeof callerArgs[i] === 'function') ? 'function, ' : callerArgs[i] + ', ';
@@ -26,12 +24,12 @@ var ActionRunner = (function (actionRunner) {
     //----------------------------------------------------------------
     //now the ActionRunner ui public methods
     
-    actionRunner.createActionPanel = function ( actionConfig) {
-        actionRunner.logStep('createActionPanel');
+    actionRunner.startActionUi = function ( actionConfig) {
+        actionRunner.logStep('startActionUi');
     };
 
-    actionRunner.removeActionPanel = function (successfulEnd, jsonData) {
-        actionRunner.logStep('removeActionPanel');
+    actionRunner.endActionUi = function (successfulEnd, jsonData) {
+        actionRunner.logStep('endActionUi');
     };
 
     actionRunner.addMessageToProgressList = function (messageType, messageText) {
@@ -45,6 +43,11 @@ var ActionRunner = (function (actionRunner) {
     actionRunner.displayGlobalMessage = function (message, stayUp, messageType) {
         actionRunner.logStep('displayGlobalMessage');
     };
+
+    actionRunner.confirmDialog = function(message) {
+        actionRunner.logStep('confirmDialog');
+        return true;
+    }
 
     //This sets the text in the ui element, which is also the state of the state machine
     actionRunner.setActionState = function (text) {

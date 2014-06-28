@@ -84,7 +84,7 @@ var ActionRunner = (function (actionRunner, $) {
         //    //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
         //    connection.stop();
 
-        actionRunner.removeActionPanel(successExit, jsonResult);    //close the panel
+        actionRunner.endActionUi(successExit, jsonResult);    //close the panel
     }
 
     //------------------------------------------------------------------------
@@ -132,7 +132,7 @@ var ActionRunner = (function (actionRunner, $) {
         actionChannel.on('Started', function (serverActionId, actionConfigFlags) {
             if (serverActionId === actionGuid) {
                 decodeActionConfig(actionConfigFlags);
-                actionRunner.createActionPanel(actionConfig);
+                actionRunner.startActionUi(actionConfig);
                 if (actionConfig.cancelNotSupported) {
                     actionRunner.setActionState(actionStates.runningNoCancel);
                 } else {               
@@ -226,7 +226,7 @@ var ActionRunner = (function (actionRunner, $) {
             var messageToShow = currentState == actionStates.runningNoCancel ?
                 commsResources.confirmExitOnNonCancellable :
                 commsResources.confirmExitOnRunningSys;
-            if (confirm(messageToShow)) {
+            if (actionRunner.confirmDialog(messageToShow)) {
                 //If user says OK then we exit
                 exitComms(false);
             }

@@ -104,6 +104,7 @@ namespace SampleWebApp.ActionProgress
         /// <param name="sendAsJson">This is object to send as json to the client. Will be null if errors.</param>
         public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, object sendAsJson)
         {
+            //Note that SignalR uses the Json.Net for serialising data, not the .NET json serialiser. 
             Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage, sendAsJson);
         }
 

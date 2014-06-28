@@ -13,29 +13,11 @@ describe('Test04 - check mock ActionRunner.ui', function () {
 
     it('that callLog works with named function', function () {
         function test(str, val) {
-            ActionRunner.logStep();
+            ActionRunner.logStep('test');
         };
         test('xxx', 456);
         expect(ActionRunner.callLog.length).toBe(1);
         expect(ActionRunner.callLog[0]).toBe('test(xxx, 456)');
-    });
-
-    it('that callLog works with anonymous function', function () {
-        var test = function (str, val) {
-            ActionRunner.logStep('anonymousFunc');
-        };
-        test('xxx', 456);
-        expect(ActionRunner.callLog.length).toBe(1);
-        expect(ActionRunner.callLog[0]).toBe('anonymousFunc(xxx, 456)');
-    });
-
-    it('that callLog works with function as argument', function () {
-        function test(func) {
-            ActionRunner.logStep();
-        };
-        test(function () { return 'xxx'; });
-        expect(ActionRunner.callLog.length).toBe(1);
-        expect(ActionRunner.callLog[0]).toBe('test(function)');
     });
 
     describe('check actionState works', function () {
@@ -65,12 +47,12 @@ describe('Test04 - check mock ActionRunner.ui', function () {
 
     describe('check other ui methods exist', function () {
 
-        it('mock createActionPanel exists', function () {
-            expect(ActionRunner.createActionPanel).toBeDefined();
+        it('mock startActionUi exists', function () {
+            expect(ActionRunner.startActionUi).toBeDefined();
         });
 
-        it('mock removeActionPanel exists', function () {
-            expect(ActionRunner.removeActionPanel).toBeDefined();
+        it('mock endActionUi exists', function () {
+            expect(ActionRunner.endActionUi).toBeDefined();
         });
 
         it('mock addMessageToProgressList exists', function () {
@@ -89,20 +71,24 @@ describe('Test04 - check mock ActionRunner.ui', function () {
             expect(ActionRunner.reportSystemError).toBeDefined();
         });
 
+        it('mock confirmDialog exists', function () {
+            expect(ActionRunner.confirmDialog).toBeDefined();
+        });
+
     });
 
     describe('check other ui methods are logged', function () {
 
-        it('mock createActionPanel exists', function () {
-            ActionRunner.createActionPanel();
+        it('mock startActionUi exists', function () {
+            ActionRunner.startActionUi();
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('createActionPanel()');
+            expect(ActionRunner.callLog[0]).toBe('startActionUi()');
         });
 
-        it('mock removeActionPanel exists', function () {
-            ActionRunner.removeActionPanel(true);
+        it('mock endActionUi exists', function () {
+            ActionRunner.endActionUi(true);
             expect(ActionRunner.callLog.length).toBe(1);
-            expect(ActionRunner.callLog[0]).toBe('removeActionPanel(true)');
+            expect(ActionRunner.callLog[0]).toBe('endActionUi(true)');
         });
 
         it('mock addMessageToProgressList exists', function () {
@@ -127,6 +113,12 @@ describe('Test04 - check mock ActionRunner.ui', function () {
             ActionRunner.reportSystemError('This is a test', false);
             expect(ActionRunner.callLog.length).toBe(1);
             expect(ActionRunner.callLog[0]).toBe('reportSystemError(This is a test, false)');
+        });
+
+        it('mock confirmDialog exists', function () {
+            ActionRunner.confirmDialog('This is a test');
+            expect(ActionRunner.callLog.length).toBe(1);
+            expect(ActionRunner.callLog[0]).toBe('confirmDialog(This is a test)');
         });
 
     });

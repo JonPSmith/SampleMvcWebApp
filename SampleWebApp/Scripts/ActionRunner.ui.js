@@ -132,8 +132,8 @@ var ActionRunner = (function (actionRunner, $, window) {
     //------------------------------------------------------
     //public methods returned
 
-    //we create the panel. The indeterminate flag swaps between two sorts of panel.
-    actionRunner.createActionPanel = function (configFromStartMessage) {
+    //This creates and shows a modal panel
+    actionRunner.startActionUi = function (configFromStartMessage) {
         actionConfig = configFromStartMessage;
         $(messagesTableId + ' tr').remove();
         $actionButton.unbind('click');
@@ -146,7 +146,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.removeActionPanel = function(successfulEnd, jsonResult) {
+    actionRunner.endActionUi = function(successfulEnd, jsonResult) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         if ($actionPanel.hasClass('ui-dialog-content')) {        
@@ -204,6 +204,10 @@ var ActionRunner = (function (actionRunner, $, window) {
             //use a very simple alter to warn the user
             alert(message);
         }
+    };
+
+    actionRunner.confirmDialog = function(message) {
+        return window.confirm(message);
     };
 
     //This takes an error dictionary in the form of object with keys that hold arrays of errors
