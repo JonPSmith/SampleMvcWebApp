@@ -13,6 +13,20 @@
 }
 
 <p>
+    This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
+    database CRUD (Create, Read, Update/Edit and Delete) services done synchronously, i.e no wait states to improve web site capacity.
+    (See @Html.ActionLink("Posts Async", "Index", "PostsAsync") for async versions of the same commands).
+</p>
+<p>
+    Below you will see a table of posts which can be manipulated. We have chosen a POST as an example as it has the following attributes: 
+</p>
+<ul>
+    <li>When we list them we want 'shape' what the user sees, i.e. we leave out the post content but include the blogger Name and Tags.</li>
+    <li>The create and edit commands are non-trivial because Posts links to other tables, like who the blogger is and what tags it needs.</li>
+</ul> 
+<hr/>
+
+<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -58,4 +72,8 @@
 
 @Html.ActionLink("Reset Database", "Reset")
 <br />
-@Html.ActionLink("Delay for 500ms", "Delay")
+
+<span>
+    @Html.ActionLink("Delay for 500ms (Sync)", "Delay")
+     Useful for checking capacity of web server
+</span>

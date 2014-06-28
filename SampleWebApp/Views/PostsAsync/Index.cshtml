@@ -11,7 +11,22 @@
     <div class="text-success">@TempData["message"]</div>
     <br />
 }
-
+<p>
+    This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
+    database CRUD (Create, Read, Update/Edit and Delete) services done asynchronously, i.e. using 
+    <a href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc">Entity Framework 6's</a> Async commands. 
+    Async commands are designed to free up the current thread while something outside the web server is running, in this case a database access. 
+    This should make the site able to handle more users, but the individual action takes a little bit longer.
+    (See @Html.ActionLink("Posts", "Index", "Posts") for normal versions of the same commands).
+</p>
+<p>
+    Below you will see a table of posts which can be manipulated. We have chosen a POST as an example as it has the following attributes:
+</p>
+<ul>
+    <li>When we list them we want 'shape' what the user sees, i.e. we leave out the content but include the blogger Name and Tags.</li>
+    <li>The create and edit commands are non-trivial because Posts links to other tables, like who the blogger is and what tags it needs.</li>
+</ul>
+<hr />
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -58,4 +73,7 @@
 
 @Html.ActionLink("Reset Database", "Reset")
 <br />
-@Html.ActionLink("Delay for 500ms (async)", "Delay")
+<span>
+    @Html.ActionLink("Delay for 500ms (async)", "Delay")
+    Useful for checking capacity of web server
+</span>

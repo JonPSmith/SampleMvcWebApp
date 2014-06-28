@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-@*This isn't used anuy more, but its how a modal panel is done in bootstrap*@
+@*This isn't used any more, but its how a modal panel is done in bootstrap*@
 <div id="indeterminate-panel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm">
         <div class="modal-content centeredImage">
@@ -47,6 +47,15 @@
     </tr>
     <tr>
         <td>
+            <a class="btn btn-primary btn-default" href="@Url.Action("Radio4Search")" style="width: 150px;">Radio4 Search</a>
+        </td>
+        <td>
+            This action requests data from Radio4 and searches it for your selection.<br />
+            <em>Redirects user to page to enter data before running the action async.</em>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <button type="button" id="immediate-action" class="btn btn-primary btn-sm" onclick="" style="width: 150px;" data-iterations="3">Immediate, modal</button>
         </td>
         <td>
@@ -56,11 +65,11 @@
     </tr>
     <tr>
         <td>
-            <button type="button" id="successExit-action" class="btn btn-primary btn-sm" onclick="" style="width: 150px;" data-iterations="4">Immediate, jump after</button>
+            <a class="btn btn-primary btn-sm" href="@Url.Action("CommsWithData")" style="width: 150px;">Input, then modal</a>
         </td>
         <td>
-            This immediately runs a method and shows a modal box with progress. Jumps to home on finish.<br />
-            <em>Runs immediately with progress and messages. Button says 'Cancel'. Jumps to home on finish.</em>
+            Enter data to hand to method before running in a modal panel with progress.<br />
+            <em>Redirects user to page to enter data before running the action.</em>
         </td>
     </tr>
     <tr>
@@ -76,20 +85,11 @@
     </tr>
     <tr>
         <td>
-            <a class="btn btn-primary btn-sm" href="@Url.Action("CommsWithData")" style="width: 150px;">Input, then modal</a>
+            <button type="button" id="successExit-action" class="btn btn-primary btn-sm" onclick="" style="width: 150px;" data-iterations="4">Immediate, jump after</button>
         </td>
         <td>
-            Enter data to hand to method before running in a modal panel with progress.<br />
-            <em>Redirects user to page to enter data before running the action.</em>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a class="btn btn-primary btn-sm" href="@Url.Action("Radio4Search")" style="width: 150px;">Radio4 Search</a>
-        </td>
-        <td>
-            This action requests data from Radio4 and searches it for your selection.<br />
-            <em>Redirects user to page to enter data before running the action async.</em>
+            This immediately runs a method and shows a modal box with progress. Jumps to home on finish.<br />
+            <em>Runs immediately with progress and messages. Button says 'Cancel'. Jumps to home on finish.</em>
         </td>
     </tr>
 </table>
