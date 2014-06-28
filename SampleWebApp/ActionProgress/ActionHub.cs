@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using GenericServices.Actions;
 using GenericServices.Logger;
 using Microsoft.AspNet.SignalR;
@@ -100,10 +101,10 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         /// <param name="actionRunner"></param>
         /// <param name="finalMessage">The finalMessage must be present as the MessageType property carries the type of stop</param>
-        /// <param name="jsonToSend">This is a json string to send at the end of the process. Will be null if errors or not supplied.</param>
-        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, string jsonToSend)
+        /// <param name="sendAsJson">This is object to send as json to the client. Will be null if errors.</param>
+        public void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, object sendAsJson)
         {
-            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage, jsonToSend);
+            Clients.Client(actionRunner.UserConnectionId).Stopped(actionRunner.ActionGuid, finalMessage, sendAsJson);
         }
 
         #endregion

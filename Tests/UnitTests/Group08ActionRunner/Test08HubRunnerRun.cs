@@ -90,7 +90,7 @@ namespace Tests.UnitTests.Group08ActionRunner
         }
 
         [Test]
-        public async void Check03CheckFinalJsonOutOk()
+        public async void Check03CheckResultOutOk()
         {
 
             //SETUP
@@ -101,13 +101,15 @@ namespace Tests.UnitTests.Group08ActionRunner
                 NumIterations = 2,
                 SecondsBetweenIterations = 0
             };
-            var hr = new HubRunner<int, CommsTestActionData>("aaa", typeof(ICommsTestActionNormal), data, false);
+            var hr = new HubRunner<int, CommsTestActionData>("aaa", typeof (ICommsTestActionNormal), data, false);
 
             //ATTEMPT
             await hr.RunActionAsync("aaa", "123", _mockHub);
 
             //VERIFY
-            _mockHub.FinalJsonData.ShouldEqual(data.NumIterations.ToString());
+            ExtendAsserts.IsA<int>(_mockHub.FinalJsonData);
+            ((int)_mockHub.FinalJsonData).ShouldEqual(data.NumIterations);
+
         }
 
         [Test]

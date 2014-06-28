@@ -64,6 +64,7 @@ var ActionRunner = (function (actionRunner, $) {
     var connection = null;
     var actionChannel = null;
     var actionConfig = null;
+    var jsonResult = null;
 
     var endsWith = function(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
@@ -83,7 +84,7 @@ var ActionRunner = (function (actionRunner, $) {
         //    //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
         //    connection.stop();
 
-        actionRunner.removeActionPanel(successExit);    //close the panel
+        actionRunner.removeActionPanel(successExit, jsonResult);    //close the panel
     }
 
     //------------------------------------------------------------------------
@@ -140,10 +141,11 @@ var ActionRunner = (function (actionRunner, $) {
 
             }
         });
-        actionChannel.on('Stopped', function (serverTaskId, message, jsonResult) {
+        actionChannel.on('Stopped', function (serverTaskId, message, jsonFromServer) {
             if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
                 logMessage(message);
+                jsonResult = jsonFromServer;
                 actionChannel.invoke('EndAction', actionGuid); //this cleans up the action at the server end
                 if (message.MessageTypeString === messageTypes.finished) {
                     actionRunner.updateProgress(100);

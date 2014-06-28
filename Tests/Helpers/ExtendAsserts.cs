@@ -76,5 +76,10 @@ namespace Tests.Helpers
         {
             Assert.NotNull( actualValue);
         }
+
+        internal static void IsA<T>(this object actualValue, string errorMessage = null)
+        {
+            Assert.True(actualValue.GetType() == typeof(T));
+        }
     }
 }

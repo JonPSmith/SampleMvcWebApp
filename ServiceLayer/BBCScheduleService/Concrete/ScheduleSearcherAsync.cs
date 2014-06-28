@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -70,7 +71,8 @@ namespace ServiceLayer.BBCScheduleService.Concrete
 
         private bool FilterByTitle(string title)
         {
-            return title.Contains(_searchString);
+            //case insensitive search
+            return title.IndexOf(_searchString, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

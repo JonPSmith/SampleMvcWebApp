@@ -215,7 +215,7 @@ namespace SampleWebApp.ActionProgress
             }
 
             ProgressMessage finishMessage;
-            string jsonToSend = null;
+            object jsonToSend = null;
             if (CancellationPending)
             {
                 Logger.InfoFormat("Cancelled by user.");
@@ -242,19 +242,18 @@ namespace SampleWebApp.ActionProgress
         }
 
         /// <summary>
-        /// This will extract a result from the final status and encode it as json.
-        /// We use the Newtonsoft Json converter as it allows attributes for handling enums etc.
+        /// This will extract a result from the final status
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="status"></param>
-        /// <returns></returns>
-        private string ExtractAndDecodeResultFromStatus<T>(ISuccessOrErrors status)
+        /// <returns>dynamic object</returns>
+        private object ExtractAndDecodeResultFromStatus<T>(ISuccessOrErrors status)
         {
             var resultStatus = status as ISuccessOrErrors<T>;
             if (resultStatus == null)
                 return null;                //Shouldn't happen, but safe way of handling this
 
-            return JsonConvert.SerializeObject(resultStatus.Result);
+            return resultStatus.Result;
         }
 
         //----------------------

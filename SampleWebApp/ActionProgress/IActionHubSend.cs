@@ -24,8 +24,8 @@ namespace SampleWebApp.ActionProgress
         /// </summary>
         /// <param name="actionRunner"></param>
         /// <param name="finalMessage">The finalMessage must be present as the MessageType property carries the type of stop</param>
-        /// <param name="jsonToSend">This is a json string to send at the end of the process. Will be null if errors or not supplied.</param>
-        void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, string jsonToSend);
+        /// <param name="sendAsJson">This is object to send as json to the client. Will be null if errors.</param>
+        void Stopped(IHubControl actionRunner, ProgressMessage finalMessage, object sendAsJson);
 
     }
 }

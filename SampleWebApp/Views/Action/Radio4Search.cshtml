@@ -6,16 +6,18 @@
 
 <h2>BBC Radio4 Schedule Search</h2>
 
-<p>This is an example of a real asynchronous task that processes data and shows the results. The steps are:</p>
-<ol>
-    <li>The form data is sent to the task which works out what is needed</li>
-    <li>It then loops calls a asycn method in the data layer for each day.</li>
-    <li>This async method makes a web request for the Radio4 schedule of a given day.</li>
-    <li>The task then applies any fitering to the the data and returns it.</li>
-    <li>This data is then sent back to the ActionRunner as the final result.</li>
-    <li>The local JavaScript function supplied to the ActionRunner is then called with that data.</li>
-    <li>This function hides the form and shows the results as a table.</li>
-</ol> 
+<div id="explanation">
+    <p>This is a real example of an asynchronous task that processes data and sends the result to JavaScript to show.</p>
+    <p>
+        The example uses a async web request to the BBC's web site to obtain the Radio4 schedule for the next 'n' days, which is by the form's NumDaysAhead value.
+        (You will see one progress message loop per day requested in the form).
+    </p>
+    <p>
+        That business logic in the server filters the data and returns it as a result. Because this is being run by the ActionRunner code
+        the result is then encoded as json and sent back to the client for a local JavaScript function to display that data.
+    </p>
+</div>
+
 
 <div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
     <div id="progressbar"></div>
@@ -28,6 +30,8 @@
         <button id="action-button" class="btn btn-default">Invalid</button>
     </div>
 </div>
+
+<div id="schedule-display" class="hidden"></div>
 
 @using (Html.BeginForm())
 {
@@ -72,9 +76,55 @@
 
     <script type="text/javascript">
 
+        //Eaxmple method to hide form and the show the data as tables
+        function ShowData(jsonResult) {
+            var $scheduleDiv = $('#schedule-display');
+            $('form').hide();
+            $('#explanation').hide();
+            $scheduleDiv.html('@Html.ActionLink("Back to Search", "Radio4Search") <br/>');
+            for (var i = 0; i < jsonResult.FoundDaysCollection.length; i++) {
+                var date = new Date(Date.parse(jsonResult.FoundDaysCollection[i].Day));
+                $scheduleDiv.append('<h3>' + niceDisplayDate(date) + '<h3>');
+                var dayProgrammes = jsonResult.FoundDaysCollection[i].Programmes;
+                if (dayProgrammes.length === 0) {
+                    $scheduleDiv.append('<p>--- None found ---</p>');
+                } else {
+                    var htmlToAdd = '<table class="table table-condensed"><tbody>' +
+                        '<tr><th>Title</th><th>Synopsis</th><th>Start Time</th><th>Duration</th></tr>';
+                    for (var j = 0; j < dayProgrammes.length; j++) {
+                        htmlToAdd += '<tr><td>' + dayProgrammes[j].Title +
+                            '</td><td>' + dayProgrammes[j].Synopsis +
+                            '</td><td>' + dayProgrammes[j].StartTime +
+                            '</td><td>' + dayProgrammes[j].Duration + '</td></tr>';
+                }
+                htmlToAdd += '</tbody></table>';
+                $scheduleDiv.append(htmlToAdd);
+            }
+        }
+
+        $scheduleDiv.removeClass('hidden');
+
+        function niceDisplayDate(date) {
+            var today = new Date();
+            var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+            if (today.toLocaleDateString() === date.toLocaleDateString()) {
+                return 'today';
+            } else if (date.toLocaleDateString() === tomorrow.toLocaleDateString()) {
+                return 'tomorrow';
+            } else {
+                return date.toLocaleDateString();
+            }
+        }
+    };
+
         $(document).ready(function () {
-            ActionRunner.startActionFromForm({ header: 'Searching Radio4 Schedule'});
+            ActionRunner.startActionFromForm({
+                header: 'Searching Radio4 Schedule',
+                successAction: ShowData
+            });
         });
+
+
 
     </script>
 }

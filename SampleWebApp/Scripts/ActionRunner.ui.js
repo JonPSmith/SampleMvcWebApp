@@ -146,7 +146,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.removeActionPanel = function(successfulEnd) {
+    actionRunner.removeActionPanel = function(successfulEnd, jsonResult) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         if ($actionPanel.hasClass('ui-dialog-content')) {        
@@ -159,8 +159,15 @@ var ActionRunner = (function (actionRunner, $, window) {
         if (successfulEnd && successAction != null) {
             //It was successful end and we have something to do
 
-            //delay as needs time for SignalR to stop (crude, but needs something)
-            setTimeout(function () { window.location.href = successAction; }, 200);
+            if (typeof successAction === 'function') {
+                successAction(jsonResult);
+            } else if (typeof successAction === 'string') {
+                //Assume url, so jump to it
+
+                //delay as needs time for SignalR to stop (crude, but needs something)
+                setTimeout(function () { window.location.href = successAction; }, 200);
+            }
+
         }
     };
 
