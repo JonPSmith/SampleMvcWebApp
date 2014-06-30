@@ -2,39 +2,39 @@
 <Content>
   <Tags>
     <Tag>
-      <Name>business</Name>
-      <Slug>business</Slug>
+      <Name>Business</Name>
+      <Slug>biz</Slug>
     </Tag>
     <Tag>
-      <Name>opinion</Name>
+      <Name>My Opinion</Name>
       <Slug>opinion</Slug>
     </Tag>
     <Tag>
-      <Name>education</Name>
-      <Slug>education</Slug>
+      <Name>Education</Name>
+      <Slug>edu</Slug>
     </Tag>
     <Tag>
-      <Name>mystery</Name>
+      <Name>Mystery</Name>
       <Slug>mystery</Slug>
     </Tag>
     <Tag>
-      <Name>entertainment</Name>
-      <Slug>entertainment</Slug>
+      <Name>Entertainment</Name>
+      <Slug>entertain</Slug>
     </Tag>
     <Tag>
-      <Name>vices</Name>
+      <Name>Vices and Foibles</Name>
       <Slug>vices</Slug>
     </Tag>
     <Tag>
-      <Name>personal</Name>
+      <Name>Personal</Name>
       <Slug>personal</Slug>
     </Tag>
     <Tag>
-      <Name>murder</Name>
+      <Name>Murder and Mayhem</Name>
       <Slug>murder</Slug>
     </Tag>
     <Tag>
-      <Name>programming</Name>
+      <Name>Programming</Name>
       <Slug>programming</Slug>
     </Tag>
   </Tags>
@@ -69,7 +69,7 @@
             mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
             Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
           </Content>
-          <TagSlugs>programming,education</TagSlugs>
+          <TagSlugs>programming,edu</TagSlugs>
         </Post>
         <Post>
           <Title>An algrorithm for winning on the horses</Title>
@@ -117,7 +117,7 @@
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
           </Content>
-          <TagSlugs>entertainment,personal</TagSlugs>
+          <TagSlugs>entertain,personal</TagSlugs>
         </Post>
         <Post>
           <Title>Using urchins as an information source</Title>
@@ -131,7 +131,7 @@
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
           </Content>
-          <TagSlugs>business</TagSlugs>
+          <TagSlugs>biz</TagSlugs>
         </Post>
         <Post>
           <Title>My considered option on the TV adaptions of my life</Title>
@@ -145,7 +145,7 @@
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
           </Content>
-          <TagSlugs>opinion,entertainment</TagSlugs>
+          <TagSlugs>opinion,entertain</TagSlugs>
         </Post>
         <Post>
           <Title>Professor Moriarty's habits and acquaintances</Title>
@@ -159,7 +159,7 @@
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
           </Content>
-          <TagSlugs>education,business</TagSlugs>
+          <TagSlugs>edu,biz</TagSlugs>
         </Post>
       </Posts>
     </Blog>
@@ -193,7 +193,7 @@
             ligula eu dolor posuere sagittis. Curabitur id ligula non dolor consectetur elementum. Proin tincidunt
             feugiat lacinia.
           </Content>
-          <TagSlugs>education</TagSlugs>
+          <TagSlugs>edu</TagSlugs>
         </Post>
       </Posts>
     </Blog>

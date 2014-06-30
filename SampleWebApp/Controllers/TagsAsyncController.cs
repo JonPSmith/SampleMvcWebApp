@@ -55,6 +55,8 @@ namespace SampleWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
+            //else errors, so copy the errors over to the ModelState and return to view
+            response.CopyErrorsToModelState(ModelState, tag);
             return View(tag);
         }
 
@@ -78,6 +80,8 @@ namespace SampleWebApp.Controllers
                 return RedirectToAction("Index");
             }
 
+            //else errors, so copy the errors over to the ModelState and return to view
+            response.CopyErrorsToModelState(ModelState, tag);
             return View(tag);
         }
 

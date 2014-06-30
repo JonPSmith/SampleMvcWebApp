@@ -84,7 +84,7 @@ namespace DataLayer.DataClasses
                                                         new List<DbValidationError>
                                                             {
                                                                 new DbValidationError( "Slug",
-                                                                    string.Format( "The Slug on tag '{0}' must be unique.", tagToCheck.Name))
+                                                                    string.Format( "The Slug on tag '{0}' must be unique and is already being used.", tagToCheck.Name))
                                                             });
             }
 
