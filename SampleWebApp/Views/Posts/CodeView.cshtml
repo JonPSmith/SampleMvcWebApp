@@ -6,16 +6,17 @@
 
 <p>
     <strong>
-        Here are the top level summary of the main parts used to list, detail, create, edit and delete Post entries. They all have links to the code on GitHub for you to look at.
-        For most of you that will be sufficient, but if something doesn't make sense then click on the panel titles for more information.
+        Here is a summary of the main parts used to list, detail, create, edit and delete Post entries. They all have links to the code on GitHub for you to look at.
+        For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
     </strong>
 </p>
 
-<h3>The Controller</h3>
+<h3>The Post Controller</h3>
 <p>
     The <code>PostController</code>
     (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsController.cs" target="_blank">code on GitHub</a>)
     uses the GenericService's <abbr title="Data Transfer Object">DTO</abbr> version of the database commands, which are injected into each action as a parameter.
+    The PostController has <code>List</code>, <code>Detail</code>, <code>Create</code>, <code>Update</code> and <code>Delete</code> actions on the Post data class.
 </p>
 <p>
     Click on the panel below to get more details about how this works.
@@ -24,7 +25,7 @@
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#PostController">
-                PostController
+                PostController Database Actions
             </a>
         </h4>
         <div id="PostController" class="panel-collapse collapse">
@@ -46,7 +47,7 @@
                         <p>Things to note:</p>
                         <ul>
                             <li>
-                                Notice that the service is injected by DI into the action as a parameter. 
+                                Notice that the service is injected by DI into the action as a parameter.
                                 This is the standard way that all services are created in SampleMvcWebApp.
                                 It is explained in more detail in <a href="#di-section">Dependency Injection</a> section.
                             </li>
@@ -63,22 +64,63 @@
                             </li>
                         </ul>
                     </dd>
+                    <dt>One stage actions List, Detail and Delete</dt>
+                    <dd>
+                        <p>
+                            List, Detail and Delete have only have one stage as there is no setup needed. 
+                            <em>Detail and Delete do need a reference to the entry to act on, but that normally comes from a list entry or a link.</em>
+                        </p>
+                    </dd>
                     <dt>Two stage actions like Edit and Create</dt>
                     <dd>
                         <p>
-                            Edit and Create are always a two stage action: first you get the data to show the user in a form and
-                            when they press the Submit button a HttpPost sends the data to a method to either update or create 
-                            the item. (see more about this under <a href="#GenericService-two-stage">Generic Services, two stage services</a>)
+                            Edit and Create are always a two stage action:
                         </p>
+                        <ol>
+                            <li>
+                                The <code>xxxSetupService</code> is run to get the data to show in a Html Form ready for input or edit by the user.
+                            </li>
+                            <li>
+                                When the form is Submitted then the main part of the service, either <code>UpdateService</code> or <code>CreateService</code>
+                                takes that data and updates the data item.
+                                <em>see more about this under <a href="#generic-services-section">Generic Services</a>, two stage services.</em>
+                            </li>
+                        </ol>
+
                     </dd>
                     <dt>Handling errors</dt>
                     <dd>
                         <p>
-                            In robust applications you should check data as it moves deeping into the system as you can't be sure 
-                            that the data you got from the web is valid. GenericServices is designed to handle errors at each level.
-                            In fact I have purposely 
-
+                            In robust applications you should check data as it moves deeping into the system as you can't be sure
+                            that the data you got from the web is valid. GenericServices is designed to check and report errors at each level.
+                            
                         </p>
+                        <p>
+                            In the Create and Edit Actions you will see checks happening at two stages:
+                        </p>
+                        <ol>
+                            <li>
+                                Checking that the data that came in from the HttpPost is correct. If it isn't it calls
+                                <code>service.ResetDto(dto)</code> which makes sure that any lists used in the UI are refilled
+                                before the dto is redisplayed with model errors
+                            </li>
+                            <li>
+                                After the service has run the status, which may contain errors raised by the <abbr title="Entity Framework">EF</abbr> validation,
+                                which are returned in the status. In the case of Create or Edit these are then copied into the ModelState of the dto before
+                                it is redisplayed.
+                                <em>
+                                    Note that the service internally runs the <code>service.ResetDto(dto)</code>
+                                    method if it finds an error so that the dto is ready to display.
+                                </em>
+                            </li>
+                        </ol>
+                        <em>
+                            The SampleMvcWepApps DbContext purposely includes a test inside
+                            <abbr title="Entity Framework">EF</abbr>'s <code>SaveChanges()</code> method to check that the
+                            Tag property <code>Slug</code> is unique to show this in action. Also the <code>Post</code> class
+                            (<a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/DataLayer/DataClasses/Concrete/Post.cs">code</a>)
+                            is a <code>IValidatableObject</code> with some unusual valdation about sheep and cows (?!) rules to check where errors are reported.
+                        </em>
                     </dd>
                 </dl>
             </div>
@@ -86,7 +128,7 @@
     </div>
 </div>
 
-<h3>The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
+<h3 id="generic-services-section">The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
 <p>
     In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
     <code>ListService</code>
@@ -115,13 +157,16 @@
         <div id="GenericService" class="panel-collapse collapse">
             <div class="panel-body">
                 <dl>
-                    <dt>Basic, one stage services, i.e. 
+                    <dt>
+                        Basic, one stage services, i.e.
                         <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
                         and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">DetailService</a>
-                    <br/>
+
                     </dt>
                     <dd>
+                        <p>                     
                         These services have only one stage, i.e. the production of data. Therefore they are nice and simple.
+                        </p>
                     </dd>
                     <dt id="GenericService-two-stage">
                         The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">CreateService</a>
@@ -129,7 +174,7 @@
                         need two stages.
                     </dt>
                     <dd>
-                        These services have a setup stage to provide the initial data to display to the user. Therefore there is:
+                        <p>These services have a setup stage to provide the initial data to display to the user. Therefore there is:</p>
                         <ul>
                             <li>
                                 A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateSetupService.cs" target="_blank">CreateSetupService</a>
@@ -137,20 +182,20 @@
                             </li>
                             <li>
                                 A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateSetupService.cs" target="_blank">UpdateSetupService</a>
-                                which has a <code>GetOriginal(Expression&lt;func&lt;Tdata, bool&gt;&gt; whereExpression)</code> method, where you have to 
+                                which has a <code>GetOriginal(Expression&lt;func&lt;Tdata, bool&gt;&gt; whereExpression)</code> method, where you have to
                                 supply a LINQ expression which will select one item from the database (normally using the Primary key).
                             </li>
-                        </ul> 
-
+                        </ul>
                     </dd>
                     <dt>
-                        The 
+                        The
                         <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
                         returns IQueryable
                     </dt>
                     <dd>
-                        This is really important, as it means the actual SQL command has not been fianlised yet. This means you can use LINQ
+                        This is really important, as the actual SQL command has not been created yet. This means you can use LINQ
                         command like <code>.Take(n)</code> or <code>.Skip(m)</code> to do paging, or apply further filters etc.
+                        and they will become part of the SQL request. That is really important for producing efficient database access commands.
                     </dd>
                 </dl>
             </div>
@@ -163,7 +208,7 @@
     The <code>DetailPostDto</code>
     (<a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/DetailPostDto.cs" target="_blank">code</a>)
     is at the heart of how the Create and Edit actions allows the user to setup or change a Post's author or tags. It inherits the abstract class <code>EfGenericDto</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDto.cs" target="_blank">code</a>) and overrides a few 
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDto.cs" target="_blank">code</a>) and overrides a few
     methods to handle the Post's <code>BlogId</code> and <code>Tag</code> Collection.
 </p>
 <p>
@@ -221,7 +266,7 @@
                             The <code>DetailPostDto</code> also overrides the <code>CopyDtoToData</code> method. In this new method it has code to
                             obtain the user's choices from the Bloggers and UserChosenTags lists and then updates the
                             properties <code>BlogId</code> and <code>Tags</code>. It then calls the base <code>CopyDtoToData</code> to copy the updated
-                            properties back into the <code>Post</code> class prior to EF's SubmitChanges method being called.
+                            properties back into the <code>Post</code> class prior to <abbr title="Entity Framework">EF</abbr>'s SubmitChanges method being called.
                         </p>
                     </dd>
                     <dt>Other interesting stuff</dt>
@@ -231,23 +276,23 @@
                                 The property <code>SupportedFunctions</code> has to be overrriden and says what services the DTO can support.
                                 See the different setting in
                                 <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/DetailPostDto.cs" target="_blank">DetailPostDto</a>
-                            and
-                            <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/SimplePostDto.cs" target="_blank">DetailPostDto</a> 
+                                and
+                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/SimplePostDto.cs" target="_blank">DetailPostDto</a>
                             </li>
                             <li>
                                 When doing a Create or Edit(Update) the <code>CopyDtoToData</code> is called.
-                                Only properties that have a public setter, e.g. <code>public int BlogId { get; set; }</code> 
+                                Only properties that have a public setter, e.g. <code>public int BlogId { get; set; }</code>
                                 are copied to the data. This means you can exclude items that either
-                                you don't want to change or EF is responsible for setting.
-                                (see <code>LastUpdated</code> property in <code>Post</code> class which is filled in by EF.)
+                                you don't want to change or <abbr title="Entity Framework">EF</abbr> is responsible for setting.
+                                (see <code>LastUpdated</code> property in <code>Post</code> class which is filled in by <abbr title="Entity Framework">EF</abbr>.)
                             </li>
                             <li>
                                 I would have liked all the references to the data classes and the DTO to be via interfaces
-                                as I think this gives better separation of classes, e.g. 
-                                <code>IxxxService&lt;IPost, IDetailedPostDto&gt;</code> instead of 
+                                as I think this gives better separation of classes, e.g.
+                                <code>IxxxService&lt;IPost, IDetailedPostDto&gt;</code> instead of
                                 <code>IxxxService&lt;Post, DetailedPostDto&gt;</code>.
-                                I did try to get Interfaces to work but EF does not support Interfaces, and using a interface for the DTOs had a few problems too.
-                                Nice aim to use interfaces, but I think the classes are simple enough to use direct. 
+                                I did try to get Interfaces to work but <abbr title="Entity Framework">EF</abbr> does not support Interfaces, and using a interface for the DTOs had a few problems too.
+                                Nice aim to use interfaces, but I think the classes are simple enough to use direct.
                                 (Note: when it comes to running business level actions I do use interfaces for obviosu reasons.)
                             </li>
                         </ul>
@@ -284,18 +329,18 @@
                 <dl>
                     <dt>How we inject the action Parameter</dt>
                     <dd>
-                        <p>                  
+                        <p>
                             Many years ago I came across an
-                            <a href="http://alexmg.com/introducing-action-injection-with-autofac-aspnet-mvc-integration/">interesting blog post</a> 
-                            by by Alex Meyer-Gleaves who is one of the main people involved in AutoFac. 
-                            In Alex’s post he was proposing injecting method via each Action method in a controller rather 
-                            than the more normal constructor injection. 
+                            <a href="http://alexmg.com/introducing-action-injection-with-autofac-aspnet-mvc-integration/">interesting blog post</a>
+                            by by Alex Meyer-Gleaves who is one of the main people involved in AutoFac.
+                            In Alex’s post he was proposing injecting method via each Action method in a controller rather
+                            than the more normal constructor injection.
                         </p>
                         <p>
                             I thought that was a great idea which solved so many problems so I implemented it, but in a different way to Alex’s post.
-                            I create a new MVC 
+                            I create a new MVC
                             <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Infrastructure/DiModelBinder.cs">Model Binder</a>
-                            which is assigned in the Default Model Binder in the 
+                            which is assigned in the Default Model Binder in the
                             <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Global.asax.cs">Global.asax.cs</a>
                             using the command <code>ModelBinders.Binders.DefaultBinder = new DiModelBinder();</code>
                         </p>
@@ -303,14 +348,15 @@
                     <dt>Creating Generic instances on the fly</dt>
                     <dd>
                         <p>
-                            The second part using DI to create the right Generic service type at runtime. 
+                            The second part using DI to create the right Generic service type at runtime.
                             This is a fairly standard DI capability, but it is key to the GenericServices framework being easy to use.
                         </p>
                     </dd>
                     <dt>... however you can use GenericServices without DI</dt>
                     <dd>
                         <p>
-                            Having said all that the GenericServices framework does NOT rely on DI at all. It just makes things much easier. 
+                            Having said all that the GenericServices framework does NOT rely on DI at all. It just makes creating these services much easier.
+                            However if you can't use DI then GenericServices may still be useful to you.
                         </p>
                     </dd>
                 </dl>

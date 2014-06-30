@@ -29,9 +29,11 @@
 </ul> 
 <hr/>
 
-<p>
-    @Html.ActionLink("Create New Post", "Create") | @Html.ActionLink("Go to Tags Page", "Index", "Tags")
-</p>
+<div>
+    <span>@Html.ActionLink("Create New Post", "Create") | @Html.ActionLink("Go to Tags Page", "Index", "Tags")</span>
+    <span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>
+
+</div>
 <table class="table">
     <tr>
         <th>
