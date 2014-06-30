@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SampleWebApp.Models.TagListModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tags (Async)</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<p>
+    This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
+    database CRUD (Create, Read, Update/Edit and Delete) services done asynchronously, i.e. using
+    <a href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc">Entity Framework 6's</a> Async commands.
+    Async commands are designed to free up the current thread while something outside the web server is running, in this case a database access.
+    This should make the site able to handle more users, but the individual action takes a little bit longer.
+    (See @Html.ActionLink("Tags", "Index", "Tags") for normal versions of the same commands).
+</p>
+<p>
+    Below you will see a table of Tags which can be manipulated. Tags are really simple so we use the direct GenericServices rather than 
+    the DTO GenericServices used for Posts. 
+</p>
+<p>
+    However we do use a simple dto in the list to show how many posts use the tag. Also note that a validation check is done 
+    inside the EF SaveChanges methed to ensure that the slug is unique.
+</p>
+<hr />
+
+<p>
+    @Html.ActionLink("Create New Tag", "Create") | @Html.ActionLink("Return To PostsAsync", "Index", "PostsAsync")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Slug)
+        </th>
+        <th>
+            Num Posts Used In
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Slug)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumPosts)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TagId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TagId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TagId })
+        </td>
+    </tr>
+}
+
+</table>

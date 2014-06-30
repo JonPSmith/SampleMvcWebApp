@@ -86,8 +86,10 @@ namespace SampleWebApp.Controllers
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else
-                //else errors, so copy the errors over to the ModelState and return to view
-                response.CopyErrorsToModelState(ModelState);
+            {
+                //else errors, so set up as error message
+                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
+            }
             return RedirectToAction("Index");
         }
 

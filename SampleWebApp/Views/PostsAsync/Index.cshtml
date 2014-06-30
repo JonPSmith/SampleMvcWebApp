@@ -8,9 +8,13 @@
 
 @if (TempData["message"] != null)
 {
-    <div class="text-success">@TempData["message"]</div>
-    <br />
+    <div class="text-success">@TempData["message"]</div><br />
 }
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
 <p>
     This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
     database CRUD (Create, Read, Update/Edit and Delete) services done asynchronously, i.e. using 
@@ -24,11 +28,11 @@
 </p>
 <ul>
     <li>When we list them we want 'shape' what the user sees, i.e. we leave out the content but include the blogger Name and Tags.</li>
-    <li>The create and edit commands are non-trivial because Posts links to other tables, like who the blogger is and what tags it needs.</li>
+    <li>The create and edit commands are non-trivial because Posts links to other tables, like author and the tags.</li>
 </ul>
 <hr />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Post", "Create")  | @Html.ActionLink("Go to TagsAsync Page", "Index", "TagsAsync")
 </p>
 <table class="table">
     <tr>

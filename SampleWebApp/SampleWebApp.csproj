@@ -198,6 +198,8 @@
     <Compile Include="Controllers\PostsAsyncController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\TagsAsyncController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +209,7 @@
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\TagListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -359,6 +362,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Action\Index.cshtml" />
     <Content Include="Views\Action\Radio4Search.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Tags\Details.cshtml" />
+    <Content Include="Views\Tags\Edit.cshtml" />
+    <Content Include="Views\Tags\Create.cshtml" />
+    <Content Include="Views\TagsAsync\Create.cshtml" />
+    <Content Include="Views\TagsAsync\Details.cshtml" />
+    <Content Include="Views\TagsAsync\Edit.cshtml" />
+    <Content Include="Views\TagsAsync\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

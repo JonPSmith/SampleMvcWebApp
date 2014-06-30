@@ -8,8 +8,7 @@ namespace Tests.Helpers
     {
 
         private ServiceFunctions _supportedFunctionsToUse = ServiceFunctions.AllCrud |
-                                                    ServiceFunctions.DoAction |
-                                                    ServiceFunctions.DoDbAction;
+                                                    ServiceFunctions.DoAction;
 
         public SimpleTagDtoAsync()
         {

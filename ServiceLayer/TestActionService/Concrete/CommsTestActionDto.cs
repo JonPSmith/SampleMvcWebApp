@@ -36,7 +36,7 @@ namespace ServiceLayer.TestActionService.Concrete
 
         protected override ServiceFunctions SupportedFunctions
         {
-            get { return ServiceFunctions.DoAction | ServiceFunctions.DoDbAction; }
+            get { return ServiceFunctions.DoAction; }
         }
     }
 }

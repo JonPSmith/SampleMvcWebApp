@@ -1,0 +1,32 @@
+﻿@model DataLayer.DataClasses.Concrete.Tag
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TagId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

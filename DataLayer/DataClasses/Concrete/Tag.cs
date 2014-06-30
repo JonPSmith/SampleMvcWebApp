@@ -5,6 +5,7 @@ namespace DataLayer.DataClasses.Concrete
 {
     public class Tag
     {
+        [UIHint("HiddenInput")]
         public int TagId { get; set; }
 
         [MaxLength(64)]
