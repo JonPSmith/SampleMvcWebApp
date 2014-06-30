@@ -7,7 +7,8 @@ using GenericServices;
 using GenericServices.Services;
 using NUnit.Framework;
 using SampleWebApp.Infrastructure;
-using ServiceLayer.PostServices;
+using ServiceLayer.BBCScheduleService;
+using ServiceLayer.BBCScheduleService.Concrete;
 using ServiceLayer.PostServices.Concrete;
 using ServiceLayer.Startup;
 using Tests.Helpers;
@@ -216,11 +217,11 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 //(bizclass1 is DecodeBuildTestScheme).ShouldEqual(true);
 
                 //ServiceLayer - simple
-                var example1 = lifetimeScope.Resolve<ISimplePostDto>();
-                var example2 = lifetimeScope.Resolve<ISimplePostDto>();
+                var example1 = lifetimeScope.Resolve<IScheduleSearcherAsync>();
+                var example2 = lifetimeScope.Resolve<IScheduleSearcherAsync>();
                 Assert.NotNull(example1);
                 Assert.AreNotSame(example1, example2);                       //check transient
-                (example1 is SimplePostDto).ShouldEqual(true);
+                (example1 is ScheduleSearcherAsync).ShouldEqual(true);
 
                 //ServiceLayer - complex
                 var service1 = lifetimeScope.Resolve<IListService<Post>>();

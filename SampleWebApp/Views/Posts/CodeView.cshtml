@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "CodeView";
+}
+
+<h2>Posts: A explanation of the code</h2>
+
+<h3>The Controller</h3>
+<p>
+    The <code>PostController</code>
+    (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsController.cs" target="_blank">code on GitHub</a>)
+    uses the GenericService's <abbr title="Data Transfer Object">DTO</abbr> version of the database commands, which are injected into each action as a parameter.
+</p>
+<p>
+    Click on the panel below to get more details about how this works.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#postController">
+                PostController
+            </a>         
+        </h4>
+        <div id="postController" class="panel-collapse collapse">
+            <div class="panel-body">
+                <dl>
+
+                    <dt>Index Action - List of Posts</dt>
+                    <dd>
+                        <p>Let's look at the Index action in a bit of detail. Although its the simplest action it has some standard patterns you will see on other actions.</p>
+                        <p>
+                            The Index action's job is to produce a list of posts, but using a <abbr title="Data Transfer Object">DTO</abbr>
+                            to combine data from linked tables to produce a user-friendly display. In this case I have listed the code here as its really short:
+                        </p>
+                        <code>
+                            public ActionResult Index(IListService&lt;Post, SimplePostDto&gt;service)<br />
+                            {<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;View(service.GetList().ToList());<br />
+                            }<br />
+                        </code>
+                        <p>Things to note:</p>
+                        <ul>
+                            <li>
+                                Notice that the service is injected by DI into the action as a parameter. This is the standard way that all services are created in SampleMvcWebApp.
+                                It is explained in more detail <a href="#">ADD LINK LATER</a>.
+                            </li>
+                            <li>
+                                The service is called <code>IListService</code> with two parameters
+                                <ol>
+                                    <li>The class <code>Post</code>, which is the database class.</li>
+                                    <li>The class <code>SimplePostDto</code>, which is the DTO that combines the data (more on that later)</li>
+                                </ol>
+                            </li>
+                            <li>
+                                This service has one command, <code>.GetList()</code>, which returns <code>IQueryable&lt;SimplePostDto&gt;</code>.
+                                In this case the <code>IQueryable</code> result is turned into a List to show in the view.
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
+<p>
+    In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
+    <code>ListService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>),
+    <code>DetailService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">code</a>),
+    <code>UpdateService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">code</a>),
+    <code>CreateService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">code</a>) and
+    <code>DeleteService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DeleteService.cs" target="_blank">code</a>)
+    are called. 
+    <br/><em>NOTE: If you are looking at the code then scroll down until you see &quot;//DTO version&quot;.</em>
+</p>
+<p>
+    Click on the panel below to get more details about how these work.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#genericService">
+                GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions
+            </a> 
+        </h4>
+        <div id="genericService" class="panel-collapse collapse">
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>The DetailPostDto <abbr title="Data Transfer Object">DTO</abbr></h3>
+<p>
+    The <code>DetailPostDto</code> 
+    
+    is at the heart of how the Post Create, Edit and Update actions work. 
+    This DTO inherits from the <code>EfGenericDto</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDto.cs" target="_blank">code</a>)
+    and overrides 
+
+</p>
+<p>
+    Click on the panel below to get more details about how these work.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#genericService">
+                GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions
+            </a>
+        </h4>
+        <div id="genericService" class="panel-collapse collapse">
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -14,7 +14,7 @@ using ServiceLayer.UiClasses;
 
 namespace ServiceLayer.PostServices.Concrete
 {
-    public class DetailPostDto : EfGenericDto<Post, DetailPostDto>, IDetailPostDto
+    public class DetailPostDto : EfGenericDto<Post, DetailPostDto>
     {
 
         [UIHint("HiddenInput")]

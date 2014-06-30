@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
@@ -18,7 +14,7 @@ namespace SampleWebApp.Controllers
     {
         public ActionResult Index(IListService<Post, SimplePostDto> service)
         {
-            return View(service.GetList());
+            return View(service.GetList().ToList());
         }
 
         public ActionResult Details(int id, IDetailService<Post, DetailPostDto> service)
@@ -91,6 +87,13 @@ namespace SampleWebApp.Controllers
                 TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
             }
             return RedirectToAction("Index");
+        }
+
+        //--------------------------------------------
+
+        public ActionResult CodeView()
+        {
+            return View();
         }
 
         public ActionResult Delay()

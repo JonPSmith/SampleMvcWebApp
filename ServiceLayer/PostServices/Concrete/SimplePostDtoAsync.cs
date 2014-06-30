@@ -13,7 +13,7 @@ using GenericServices.ServicesAsync;
 
 namespace ServiceLayer.PostServices.Concrete
 {
-    public class SimplePostDtoAsync : EfGenericDtoAsync<Post, SimplePostDtoAsync>, ISimplePostDtoAsync
+    public class SimplePostDtoAsync : EfGenericDtoAsync<Post, SimplePostDtoAsync>
     {
 
         [UIHint("HiddenInput")]

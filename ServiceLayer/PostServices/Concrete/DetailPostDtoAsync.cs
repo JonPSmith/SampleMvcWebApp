@@ -17,7 +17,7 @@ using ServiceLayer.UiClasses;
 
 namespace ServiceLayer.PostServices.Concrete
 {
-    public class DetailPostDtoAsync : EfGenericDtoAsync<Post, DetailPostDtoAsync>, IDetailPostDtoAsync
+    public class DetailPostDtoAsync : EfGenericDtoAsync<Post, DetailPostDtoAsync>
     {
 
         [UIHint("HiddenInput")]

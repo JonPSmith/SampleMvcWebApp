@@ -5,11 +5,10 @@ using System.Linq;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using GenericServices.Core;
-using GenericServices.Services;
 
 namespace ServiceLayer.BlogServices.Concrete
 {
-    public class BlogDto : EfGenericDto<Blog,BlogDto>, IBlogDto
+    public class BlogDto : EfGenericDto<Blog,BlogDto>
     {
         [Key]
         public int BlogId { get; set; }

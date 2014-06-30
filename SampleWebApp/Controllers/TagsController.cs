@@ -17,7 +17,7 @@ namespace SampleWebApp.Controllers
                 Name = x.Name,
                 Slug = x.Slug,
                 NumPosts = x.Posts.Count()
-            }));
+            }).ToList());
         }
 
         public ActionResult Details(int id, IDetailService<Tag> service)

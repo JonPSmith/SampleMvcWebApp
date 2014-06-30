@@ -63,14 +63,9 @@
     <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherAsync.cs" />
     <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherData.cs" />
     <Compile Include="BlogServices\Concrete\BlogDto.cs" />
-    <Compile Include="BlogServices\IBlogDto.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDtoAsync.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDto.cs" />
-    <Compile Include="PostServices\IDetailPostDtoAsync.cs" />
-    <Compile Include="PostServices\ISimplePostDtoAsync.cs" />
     <Compile Include="PostServices\Concrete\SimplePostDtoAsync.cs" />
-    <Compile Include="PostServices\IDetailPostDto.cs" />
-    <Compile Include="PostServices\ISimplePostDto.cs" />
     <Compile Include="PostServices\Concrete\SimplePostDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup\ServiceLayerInitialise.cs" />
