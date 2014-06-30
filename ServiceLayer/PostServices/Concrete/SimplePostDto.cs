@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer.DataClasses.Concrete;
-using GenericServices;
 using GenericServices.Core;
-using GenericServices.Services;
 
 [assembly: InternalsVisibleTo("Tests")]
 
@@ -22,7 +20,7 @@ namespace ServiceLayer.PostServices.Concrete
         public string BloggerName { get; internal set; }
 
         [MinLength(2), MaxLength(128)]
-        public string Title { get; set; }                   //only the Title can be updated
+        public string Title { get; set; }
 
         public ICollection<Tag> Tags { get; internal set; }
 
@@ -40,7 +38,7 @@ namespace ServiceLayer.PostServices.Concrete
 
         protected override ServiceFunctions SupportedFunctions
         {
-            get { return ServiceFunctions.AllCrudButCreate | ServiceFunctions.DoesNotNeedSetup; }
+            get { return ServiceFunctions.List | ServiceFunctions.DoesNotNeedSetup; }
         }
     }
 }
