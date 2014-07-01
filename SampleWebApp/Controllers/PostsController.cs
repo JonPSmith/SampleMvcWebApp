@@ -8,8 +8,13 @@ using GenericServices;
 using SampleWebApp.Infrastructure;
 using ServiceLayer.PostServices.Concrete;
 
+
 namespace SampleWebApp.Controllers
 {
+    /// <summary>
+    /// This is an example of a Controller using GenericServices database commands with a DTO.
+    /// In this case we are using normal, non-async commands
+    /// </summary>
     public class PostsController : Controller
     {
         public ActionResult Index(IListService<Post, SimplePostDto> service)

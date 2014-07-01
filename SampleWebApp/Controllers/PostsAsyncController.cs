@@ -12,6 +12,10 @@ namespace SampleWebApp.Controllers
 {
     public class PostsAsyncController : Controller
     {
+        /// <summary>
+        /// This is an example of a Controller using GenericServices database commands with a DTO.
+        /// In this case we are using async commands
+        /// </summary>
         public async Task<ActionResult> Index(IListService<Post, SimplePostDto> service)
         {
             return View(await service.GetList().ToListAsync());

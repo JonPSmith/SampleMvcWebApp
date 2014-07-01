@@ -28,6 +28,7 @@ namespace ServiceLayer.PostServices.Concrete
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Content { get; set; }
 
         //-------------------------------------------

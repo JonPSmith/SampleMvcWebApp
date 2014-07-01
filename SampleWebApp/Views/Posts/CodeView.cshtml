@@ -91,9 +91,9 @@
                     <dt>Handling errors</dt>
                     <dd>
                         <p>
-                            In robust applications you should check data as it moves deeping into the system as you can't be sure
-                            that the data you got from the web is valid. GenericServices is designed to check and report errors at each level.
-                            
+                            In robust applications you should check data as it moves deeping into the system so that 
+                            bad or bogus is not let through. MVC is the first validation but GenericServices, in 
+                            conjunction with <abbr title="Entity Framework">EF</abbr> carries out further checks.
                         </p>
                         <p>
                             In the Create and Edit Actions you will see checks happening at two stages:
@@ -105,8 +105,9 @@
                                 before the dto is redisplayed with model errors
                             </li>
                             <li>
-                                After the service has run the status, which may contain errors raised by the <abbr title="Entity Framework">EF</abbr> validation,
-                                which are returned in the status. In the case of Create or Edit these are then copied into the ModelState of the dto before
+                                After the service has run if raised by the <abbr title="Entity Framework">EF</abbr> validation,
+                                then they are returned in the status. 
+                                In the case of Create or Edit these are then copied into the ModelState of the dto before
                                 it is redisplayed.
                                 <em>
                                     Note that the service internally runs the <code>service.ResetDto(dto)</code>
@@ -308,7 +309,6 @@
     Using <abbr title="Dependency Injection">DI</abbr> to inject Action parameters (see
     <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Infrastructure/DiModelBinder.cs">MVC module that does this</a>)
     in a Controller is a short and efficient way of injecting specific services to each action.
-    <br />
     Also by using Generic DI binding
     (see <a href="https://github.com/autofac/Autofac/wiki/Open-Generics">example from AutoFac</a>) means that the DI can define all the
     possible service options quickly in its registartion file
@@ -355,8 +355,9 @@
                     <dt>... however you can use GenericServices without DI</dt>
                     <dd>
                         <p>
-                            Having said all that the GenericServices framework does NOT rely on DI at all. It just makes creating these services much easier.
-                            However if you can't use DI then GenericServices may still be useful to you.
+                            While we talk a lot about DI the GenericServices framework does NOT rely on DI at all. 
+                            It just makes creating these services much easier and clearer.
+                            So, if you can't use DI then GenericServices may still be useful to you.
                         </p>
                     </dd>
                 </dl>

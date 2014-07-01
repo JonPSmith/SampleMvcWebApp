@@ -1,0 +1,69 @@
+﻿<div class="small">
+    <h4>Tag Validation rules</h4>
+    <p>
+        The Tag data class, i.e. the one that is linked to the database, a number of validation rules,
+        including one that is checked inside the EF SaveChanges.
+    </p>
+
+    <h5>Validation rules in Tag class, and inside EF SaveChanges</h5>
+    <table class="table">
+        <tr>
+            <th>Property</th>
+            <th>Validation rule</th>
+            <th>Where shown?</th>
+            <th>Where Checked*</th>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>Must not be empty</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>Must not be longer than 128 characters</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Slug</td>
+            <td>Must not be empty</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Slug</td>
+            <td>Must not be longer than 128 characters</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Slug</td>
+            <td>Must not be empty</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Slug</td>
+            <td>Must not contain spaces or non-alphanumeric characters</td>
+            <td>By property</td>
+            <td>MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Slug</td>
+            <td>Must be unique, i.e. must not exist in any other tag entry in the database</td>
+            <td>By property</td>
+            <td>SaveChanges</td>
+        </tr>
+    </table>
+
+    <p>
+        Note*: The 'Where Checked' terms are
+    </p>
+    <ul>
+        <li>Browser: in browser using javascript validation library</li>
+        <li>MVC: by statement <code>if (!ModelState.IsValid)</code> in Controller actions</li>
+        <li>EF: by Entity Framework validation phase</li>
+        <li>SaveChanges: Special validaton code added to EF's SaveChanges</li>
+    </ul>
+</div>

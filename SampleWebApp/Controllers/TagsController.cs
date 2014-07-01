@@ -9,6 +9,10 @@ namespace SampleWebApp.Controllers
 {
     public class TagsController : Controller
     {
+        /// <summary>
+        /// This is an example of a Controller using GenericServices database commands directly to the data class.
+        /// In this case we are using normal, non-async commands
+        /// </summary>
         public ActionResult Index(IListService<Tag> service)
         {
             return View(service.GetList().Select( x => new TagListModel

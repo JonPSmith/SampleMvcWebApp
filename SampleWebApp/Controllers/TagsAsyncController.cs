@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
-using DataLayer.Startup;
 using GenericServices;
 using SampleWebApp.Infrastructure;
 using SampleWebApp.Models;
-using ServiceLayer.PostServices.Concrete;
 
 namespace SampleWebApp.Controllers
 {
+    /// <summary>
+    /// This is an example of a Controller using GenericServices database commands directly to the data class.
+    /// In this case we are using async commands
+    /// </summary>
     public class TagsAsyncController : Controller
     {
         // GET: TagsAsync

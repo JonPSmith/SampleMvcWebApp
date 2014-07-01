@@ -1,0 +1,83 @@
+﻿<div class="small">
+    <h4>Post Validation rules</h4>
+    <p>
+        To help with testing the Post data class, i.e. the one that is linked to the database, has extra rules over the DetailPostDto.
+        This means that more tests are done when the database is updated, which are then caught by SaveChanges and sent back as errors.
+    </p>
+
+    <h5>Rules in both DetailPostDto and Post</h5>
+    <table class="table">
+        <tr>
+            <th>Property</th>
+            <th>Validation rule</th>
+            <th>Where shown?</th>
+            <th>Where Checked*</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>Must have between 2 and 128 characters in it</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td>Cannot be empty</td>
+            <td>By property</td>
+            <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Blog (Author)</td>
+            <td>Must have a blogger assigned to the post</td>
+            <td>By property</td>
+            <td>DTO,EF</td>
+        </tr>
+        <tr>
+            <td>Tags</td>
+            <td>Must have at least one tag assigned to the Post</td>
+            <td>By property</td>
+            <td>DTO,EF</td>
+        </tr>
+    </table>
+
+    <h5>Rules only in Post</h5>
+    <p><em>Note that these strange rules have been added to allow testing of different error conditions</em></p>
+    <table class="table">
+        <tr>
+            <th>Property</th>
+            <th>Validation rule</th>
+            <th>Where shown?</th>
+            <th>Where Checked*</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>Must not include an exclamation mark, i.e '!'</td>
+            <td>By property</td>
+            <td>EF</td>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>Must not end with a question mark, i.e '?'</td>
+            <td>By property</td>
+            <td>EF</td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td>
+                A sentence must not end with the following words:<br />
+                ' sheep', ' lamb', ' cow' or ' calf'
+            </td>
+            <td>At top</td>
+            <td>EF</td>
+        </tr>
+    </table>
+
+    <p>
+        Note*: The 'Where Checked' terms are
+    </p>
+    <ul>
+        <li>Browser: in browser using javascript validation library</li>
+        <li>MVC: by statement <code>if (!ModelState.IsValid)</code> in Controller actions</li>
+        <li>EF: by Entity Framework validation phase</li>
+        <li>DTO: By the code inside the DetailPostDto class</li>
+    </ul>
+</div>

@@ -371,9 +371,12 @@
     <Content Include="Views\TagsAsync\Edit.cshtml" />
     <Content Include="Views\TagsAsync\Index.cshtml" />
     <Content Include="Views\Posts\CodeView.cshtml" />
+    <Content Include="Views\Shared\PostValidation.cshtml" />
+    <Content Include="Views\Shared\TagValidation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Docs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
