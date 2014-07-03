@@ -9,6 +9,7 @@ using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
 using SampleWebApp.ActionProgress;
+using SampleWebApp.Infrastructure;
 using ServiceLayer.TestActionService;
 using ServiceLayer.TestActionService.Concrete;
 using Tests.DependencyItems;

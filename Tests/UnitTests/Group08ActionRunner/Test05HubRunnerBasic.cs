@@ -8,6 +8,7 @@ using log4net.Appender;
 using log4net.Config;
 using NUnit.Framework;
 using SampleWebApp.ActionProgress;
+using SampleWebApp.Infrastructure;
 using Tests.Helpers;
 using Tests.MocksAndFakes;
 
