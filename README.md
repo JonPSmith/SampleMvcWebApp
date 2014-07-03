@@ -29,7 +29,6 @@ The specific features in this code are:
  The GenericService framework is designed specifically to work with Dependency Injection (DI). DI is used throughout this web site, but specific examples are:
 
  - Inserting the required services into a controller by action parameter injection.
- This is a powerful, but unusual usage and is explained in insert blog link
  - DI is also used for creating the GenericService etc. See Code Explanation for more information.
 
  Note that the SampleMvcWebApp uses AutoFac dependency injection framework, but the framework allows you to replace AutoFac with your own favourite DI tool.
