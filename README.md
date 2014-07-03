@@ -15,7 +15,6 @@ The specific features in this code are:
  - See new EF6 async access using a DTO for shaping in the [PostsAsync Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsAsyncController.cs)
  - See normal, synchronous access directly via data class in the [Tags Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsController.cs)
  - See new EF6 async access directly via data class in the [TagsAsync Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsAsyncController.cs)
-
 2. Handling long running tasks
 
  Having long running tasks on a web site without feedback is not what users expect. My mathematic modelling applications have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
@@ -23,7 +22,6 @@ The specific features in this code are:
  - See the [ActionController](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/ActionController.cs) for a number of action methods
  - You can find a [BBC Radio schedule searcher task](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/BBCScheduleService/Concrete/ScheduleSearcherAsync.cs) being called from [this view](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Action/Radio4Search.cshtml)
  - Other variations of long running actions can be found in [this view](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Action/Index.cshtml)
-
 3. Use of Dependency Injection
 
  The GenericService framework is designed specifically to work with Dependency Injection (DI). DI is used throughout this web site, but specific examples are:
