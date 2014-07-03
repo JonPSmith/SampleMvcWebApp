@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "CodeView";
+}
+
+<h2>Tags: A explanation of Tags code</h2>
+
+<p>
+    <strong>
+        This is a summary of the main parts used to list, detail, create, edit and delete Tags entries directly.
+        This type of services are useful for simple data classes that do not have dependent foreign keys that need to be
+        manipulated before the data class can be written to the database.        
+    </strong>
+</p>
+<p>
+    The headers contain links to the code on GitHub for you to look at.
+    For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
+</p>
+
+<h3>The Tag Controller</h3>
+<p>
+    The <code>TagsController</code>
+    (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsController.cs" target="_blank">code on GitHub</a>)
+    uses the GenericService's database commands that work directly on the <abbr title="Entity Framework">EF</abbr> data class.
+    The services are injected into each <code>TagsController</code> actions as a parameter and consist of 
+    <code>List</code>, <code>Detail</code>, <code>Create</code>, <code>Update</code> and <code>Delete</code> actions that work directly with the <code>Tag</code> data class.
+</p>
+<p>
+    Click on the panel below to get more details about how this works.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#TagsController">
+                PostsController Database Actions
+            </a>
+        </h4>
+        <div id="TagsController" class="panel-collapse collapse">
+            <div class="panel-body">
+                <dl>
+                    <dt>Index Action - List of Posts</dt>
+                    <dd>
+                        <p>The Tag list differs from the Post List action (see 
+                            <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsController.cs" target="_blank">PostsController</a>)
+                            in that the List method returns <code>IQueryable&lt;Tag&gt;</code> result.
+                            That result isn't quite in the form we need to display it, so we use a simple 
+                            <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Models/TagListModel.cs">TagListModel</a> to
+                            hold the number of posts that this tag is used on.
+                        </p>
+                        <p>
+                            For simple examples like that a basic class placed in the MVC Models directory is a good idea. 
+                            It is only worth swapping the the DTO version of the list command, as seen in the <code>PostsController</code>
+                            when you have other commands that might use the DTO.
+                        </p>
+                    </dd>
+                    <dt>One stage actions List, Detail and Delete</dt>
+                    <dd>
+                        <p>
+                            List, Detail and Delete have only have one stage as there is no setup needed.<br/>
+                            <em>Note: Detail and Delete do need a reference to the entry to act on, but that normally comes from a list entry or a link.</em>
+                        </p>
+                    </dd>
+                    <dt>The Edit command</dt>
+                    <dd>
+                        For the edit command we need to get the original data to show in the form. We use the <code>DetailService</code>
+                        to do that (see <code>Edit</code> action in 
+                        <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsController.cs" target="_blank">TagsController</a>).
+                    </dd>
+                    <dt>The Create command</dt>
+                    <dd>
+                        The Create command needs a <code>Tag</code> instance to put in the form to create the new Tag.
+                        We simple use <code>return View(new Tag());</code> to do that.
+                    </dd>
+                    <dt>Handling errors</dt>
+                    <dd>
+                        Error handling is the same as described in the PostsController section of the
+                        @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 id="generic-services-section">The GenericService Actions</h3>
+<p>
+    In the Controller the direct version of the
+    <code>ListService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>),
+    <code>DetailService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">code</a>),
+    <code>UpdateService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">code</a>),
+    <code>CreateService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">code</a>) and
+    <code>DeleteService</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DeleteService.cs" target="_blank">code</a>)
+    are called.
+    <br /><em>NOTE: These come at the start of each file before the &quot;//DTO version&quot; comment.</em>
+</p>
+<p>
+    Click on the panel below to get more details about how these work.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#GenericService">
+                Direct GenericService Actions
+            </a>
+        </h4>
+        <div id="GenericService" class="panel-collapse collapse">
+            <div class="panel-body">
+                <dl>
+                    <dt>
+                        Basic, one stage services, i.e.
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
+                        and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">DetailService</a>
+
+                    </dt>
+                    <dd>
+                        <p>
+                            These services have only one stage, i.e. the production of data. Therefore they are nice and simple.
+                        </p>
+                    </dd>
+                    <dt id="GenericService-two-stage">
+                        The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">CreateService</a>
+                        and the <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">UpdateService</a>
+                        need two stages.
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>As explained in the TagsController Panel the <code>CreateService</code> simply uses <code>new Tag()</code> to provide
+                                the initial class for the input form.
+                            </li>
+                            <li>
+                                For the edit command we need to get the original data to show in the form. We use the <code>DetailService</code>
+                                to do that (see <code>Edit</code> action in
+                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsController.cs" target="_blank">TagsController</a>).
+                            </li>
+                        </ul>
+                    </dd>
+                    <dt>
+                        The
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
+                        
+                    </dt>
+                    <dd>
+                        The service's <code>.GetList()</code> method returns an IQueryable result
+                         which we shape using LINQ <code>.Select</code> method in conjunction with a
+                        simple class <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Models/TagListModel.cs">TagListModel</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 id="di-section">How <abbr title="Dependency Injection">DI</abbr> is used in SampleMvcWebApp</h3>
+<p>
+    Using <abbr title="Dependency Injection">DI</abbr> to inject Action parameters (see
+    <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Infrastructure/DiModelBinder.cs">MVC module that does this</a>)
+    in a Controller is a short and efficient way of injecting specific services to each action.
+    Also by using Generic DI binding
+    (see <a href="https://github.com/autofac/Autofac/wiki/Open-Generics">example from AutoFac</a>) means that the DI can define all the
+    possible service options quickly in its registartion file
+    (see <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/Startup/ServiceLayerModule.cs">in SampleMvcWebApp</a>)
+</p>
+<p>
+    See the DI section in @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page as the rules are the same for both normal and async services.
+</p>
+
+

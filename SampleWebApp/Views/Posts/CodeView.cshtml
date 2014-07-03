@@ -2,21 +2,26 @@
     ViewBag.Title = "CodeView";
 }
 
-<h2>Posts: A explanation of the code</h2>
+<h2>Posts: A explanation of Post code</h2>
 
 <p>
     <strong>
-        Here is a summary of the main parts used to list, detail, create, edit and delete Post entries. They all have links to the code on GitHub for you to look at.
-        For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
+        This is a summary of the main parts used to list, detail, create, edit and delete Post entries via a <abbr title="Data Transfer Object">DTO</abbr>
+        This type of services that needs a <abbr title="Data Transfer Object">DTO</abbr> are used then the data class have dependent foreign keys that 
+        need to be manipulated before the data class can be written to the database.
     </strong>
 </p>
-
-<h3>The Post Controller</h3>
 <p>
-    The <code>PostController</code>
+    The headers contain links to the code on GitHub for you to look at.
+    For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
+</p>
+
+<h3>The Posts Controller</h3>
+<p>
+    The <code>PostsController</code>
     (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsController.cs" target="_blank">code on GitHub</a>)
     uses the GenericService's <abbr title="Data Transfer Object">DTO</abbr> version of the database commands, which are injected into each action as a parameter.
-    The PostController has <code>List</code>, <code>Detail</code>, <code>Create</code>, <code>Update</code> and <code>Delete</code> actions on the Post data class.
+    The PostsController has <code>List</code>, <code>Detail</code>, <code>Create</code>, <code>Update</code> and <code>Delete</code> actions on the Post data class.
 </p>
 <p>
     Click on the panel below to get more details about how this works.
@@ -24,11 +29,11 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" href="#PostController">
-                PostController Database Actions
+            <a data-toggle="collapse" href="#PostsController">
+                PostsController Database Actions
             </a>
         </h4>
-        <div id="PostController" class="panel-collapse collapse">
+        <div id="PostsController" class="panel-collapse collapse">
             <div class="panel-body">
                 <dl>
                     <dt>Index Action - List of Posts</dt>

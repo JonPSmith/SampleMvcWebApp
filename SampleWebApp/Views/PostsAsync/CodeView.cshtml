@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "CodeView";
+}
+
+<h2>PostsAsync: A explanation of the PostAsync code</h2>
+
+<p>
+    <strong>
+        This is a summary of the main parts used to list, detail, create, edit and delete Post entries using async commands.
+        This type of services that needs a <abbr title="Data Transfer Object">DTO</abbr> are used then the data class have dependent foreign keys that
+        need to be manipulated before the data class can be written to the database. Also the async approach is designed to release the web site
+        during database accesses so that it can be more scalable.
+    </strong>
+</p>
+<p>
+    In most cases we detail how PostAsync commands are different to the normal Post access. You should therefore read the
+    @Html.ActionLink("Posts Explanation", "CodeView", "Posts") to give you that background first.
+    The headers contain links to the code on GitHub for you to look at.
+    For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
+</p>
+
+<h3>The PostAsync Controller</h3>
+<p>
+    The <code>PostAsyncController</code>
+    (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsAsyncController.cs" target="_blank">code on GitHub</a>)
+    uses the GenericService's <abbr title="Data Transfer Object">DTO</abbr> version of the database commands, 
+    which are injected into each action as a parameter.
+    It differs from the PostsController in that it uses async commands which release the web thread while database actions are running.
+    Async methods are designed to make the web site more scaleable, but they are slightly slower because they create and use multitasking internally.
+</p>
+<p>
+    Click on the panel below to get more details about how this works.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#PostsController">
+                PostsAsyncController Database Actions
+            </a>
+        </h4>
+        <div id="PostsController" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    The @Html.ActionLink("explanation of the post controller", "CodeView", "Posts") describes certain standard parts.
+                    In this section we point out what is the same between the PostsController and the PostAsyncController.
+                </p>
+                <dl>
+                    <dt>Items that are the same as PostsController</dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                The service is injected by DI into the action as a parameter. 
+                                See the Dependency Injection section in the @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page.
+                            </li>
+                            <li>The basic form of the services is the same, i.e. 
+                                <ol>
+                                    <li>One stage actions List, Detail and Delete.</li>
+                                    <li>Two stage actions like Edit and Create.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                Error handling is the same as described on @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page
+                            </li>
+                        </ul>
+                    </dd>
+                    <dt>Things that are different from PostsController</dt>
+                    <dd>
+                        <ol>
+                            <li>All the database access actions are marked as <code>async</code> and return Task&lt;ActionResult&gt;</li>
+                            <li>All the GenericServices commands are called xxxAsync, apart from IListService (see explanation at end)</li>
+                            <li>All the service methods have Async on the end, apart from IListService (see explanation at end)</li>
+                            <li>The service method calls have an <code>await</code> in front of them to release control while waiting</li>
+                            <li>
+                                The DTO inherits from the abstract class <code>EfGenericDtoAsync</code>
+                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDtoAsync.cs" target="_blank">code</a>)
+                                rather than <code>EfGenericDto</code>
+                            </li>
+                        </ol>
+                        <em>
+                            Note that there is not specific IListServiceAsync service. This is because the standard IListService 
+                            returns an <code>IQueryable</code> result and whether it is normal or async is defined by the LINQ
+                            method on the end. In the PostAsync Controller we use the method .ToListAsync() which returns an async result.
+                            Also IListService can work with DTOs that inherit from both <code>EfGenericDto</code> and <code>EfGenericDtoAsync</code>.
+                        </em>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 id="generic-services-section">The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
+<p>
+    In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
+    <code>DetailServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>),
+    <code>UpdateServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateServiceAsync.cs" target="_blank">code</a>),
+    <code>CreateServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateServiceAsync.cs" target="_blank">code</a>) and
+    <code>DeleteServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DeleteServiceAsync.cs" target="_blank">code</a>)
+    are called.
+    NOTEs: 
+    <ul>
+        <li><em>If you are looking at the code then scroll down until you see &quot;//DTO version&quot;.</em></li>
+        <li>
+            <em>
+                As explained in the PostAsync Controller panel the <code>ListService</code>
+                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
+                can handle both normal and async commands depending on the LINQ method appended on the end.
+            </em>
+        </li>
+    </ul>    
+    
+</p>
+<p>
+    Click on the panel below to get more details about how these work.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#GenericService">
+                GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions
+            </a>
+        </h4>
+        <div id="GenericService" class="panel-collapse collapse">
+            <div class="panel-body">
+                <dl>
+                    <p>
+                        The @Html.ActionLink("explanation of the post controller", "CodeView", "Posts") describes certain standard parts.
+                        In this section we point out what is the same between the PostsController and the PostAsyncController.
+                    </p>
+                    <dt>Items that different from the PostsController</dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                The <code>ListService</code>
+                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
+                has the LINQ method .AsListAsync() appended to it to return a async result;
+                            </li>
+                            <li>The <code>DetailServiceAsync</code>
+                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>)
+                                services is a one stage service.
+                            </li>
+
+                            <li>The Update and Create services are two stage:
+                                <ul>
+                                    <li>There is an <code>UpdateSetupServiceAsync</code>
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateSetupServiceAsync.cs" target="_blank">code</a>)
+                                        followed by the 
+                                        <code>UpdateServiceAsync</code>
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateServiceAsync.cs" target="_blank">code</a>)
+                                        service.
+                                    </li> 
+                                    <li>
+                                        There is an <code>CreateSetupServiceAsync</code>
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateSetupServiceAsync.cs" target="_blank">code</a>)
+                                        followed by the
+                                        <code>CreateServiceAsync</code>
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateServiceAsync.cs" target="_blank">code</a>)
+                                        service.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>All the methods are async and have Async on the end of the method name.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>The DetailPostDtoAsync <abbr title="Data Transfer Object">DTO</abbr></h3>
+<p>
+    The <code>DetailPostDtoAsync</code>
+    (<a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/DetailPostDtoAsync.cs" target="_blank">code</a>)
+    is at the heart of how the Create and Edit actions allows the user to setup or change a Post's author or tags. 
+    It inherits the abstract class <code>EfGenericDtoAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDtoAsync.cs" target="_blank">code</a>) and overrides a few
+    methods to handle the Post's <code>BlogId</code> and <code>Tag</code> Collection.
+</p>
+<p>
+    See the DetailPostDtoAsync section in @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page as the approach is
+    exactly the same, but the names of all the method  are async and have Async on the end of their name.
+</p>
+
+<h3 id="di-section">How <abbr title="Dependency Injection">DI</abbr> is used in SampleMvcWebApp</h3>
+<p>
+    Using <abbr title="Dependency Injection">DI</abbr> to inject Action parameters (see
+    <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Infrastructure/DiModelBinder.cs">MVC module that does this</a>)
+    in a Controller is a short and efficient way of injecting specific services to each action.
+    Also by using Generic DI binding
+    (see <a href="https://github.com/autofac/Autofac/wiki/Open-Generics">example from AutoFac</a>) means that the DI can define all the
+    possible service options quickly in its registartion file
+    (see <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/Startup/ServiceLayerModule.cs">in SampleMvcWebApp</a>)
+</p>
+<p>
+    See the DI section in @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page as the rules are the same for both normal and async services.
+</p>
+
+

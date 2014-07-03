@@ -31,9 +31,10 @@
     <li>The create and edit commands are non-trivial because Posts links to other tables, like author and the tags.</li>
 </ul>
 <hr />
-<p>
-    @Html.ActionLink("Create New Post", "Create")  | @Html.ActionLink("Go to TagsAsync Page", "Index", "TagsAsync")
-</p>
+<div>
+    <span>@Html.ActionLink("Create New Post", "Create")  | @Html.ActionLink("Go to TagsAsync Page", "Index", "TagsAsync")</span>
+    <span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>
+</div>
 <table class="table">
     <tr>
         <th>

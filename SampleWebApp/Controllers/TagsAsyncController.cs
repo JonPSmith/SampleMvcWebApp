@@ -98,5 +98,12 @@ namespace SampleWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //--------------------------------------------
+
+        public ActionResult CodeView()
+        {
+            return View();
+        }
+
     }
 }

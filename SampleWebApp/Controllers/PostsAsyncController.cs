@@ -93,6 +93,13 @@ namespace SampleWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //--------------------------------------------
+
+        public ActionResult CodeView()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> Delay()
         {
             await Task.Delay(500);

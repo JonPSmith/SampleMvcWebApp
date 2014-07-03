@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "CodeView";
+}
+
+<h2>Tags: A explanation of Tags code</h2>
+
+<p>
+    <strong>
+        This is a summary of the main parts used to list, detail, create, edit and delete Tags entries directly.
+        This type of services are useful for simple data classes that do not have dependent foreign keys that need to be
+        manipulated before the data class can be written to the database.
+    </strong>
+</p>
+<p>
+    In most cases we detail how TagsAsync commands are different to the normal Tag access. You should therefore read the
+    @Html.ActionLink("Tags Explanation", "CodeView", "Tags") to give you that background first.
+    The headers contain links to the code on GitHub for you to look at.
+    For most of you the links to the code will be sufficient, but more information is available by clicking on the panel titles.
+</p>
+
+<h3>The TagAsync Controller</h3>
+<p>
+    The <code>TagsAsyncController</code>
+    (see here for <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsAsyncController.cs" target="_blank">code on GitHub</a>)
+    uses the GenericService's database commands that work directly on the <abbr title="Entity Framework">EF</abbr> data class.
+    It differs from the TagsController in that it uses async commands which release the web thread while database actions are running.
+    Async methods are designed to make the web site more scaleable, but they are slightly slower because they create and use multitasking internally.
+</p>
+<p>
+    Click on the panel below to get more details about how this works.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#TagsController">
+                TagsAsyncController Database Actions
+            </a>
+        </h4>
+        <div id="TagsController" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    The @Html.ActionLink("explanation of the Tags controller", "CodeView", "Tags") describes certain standard parts.
+                    In this section we point out what is the same between the TagsController and the TagsAsyncController.
+                </p>
+                <dl>
+                    <dt>Items that are the same as TagsController</dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                The service is injected by DI into the action as a parameter.
+                                See the Dependency Injection section in the @Html.ActionLink("Posts Explanation", "CodeView", "Tags") page.
+                            </li>
+                            <li>
+                                The basic form of the services is the same, i.e.
+                                <ol>
+                                    <li>One stage actions List, Detail and Delete.</li>
+                                    <li>Two stage actions like Edit and Create.</li>
+                                </ol>
+                            </li>
+                            <li>
+                                Error handling is the same as described on @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page
+                            </li>
+                        </ul>
+                    </dd>
+                    <dt>Things that are different from PostsController</dt>
+                    <dd>
+                        <ol>
+                            <li>All the database access actions are marked as <code>async</code> and return Task&lt;ActionResult&gt;</li>
+                            <li>All the GenericServices commands are called xxxAsync, apart from IListService (see explanation at end)</li>
+                            <li>All the service methods have Async on the end, apart from IListService (see explanation at end)</li>
+                            <li>The service method calls have an <code>await</code> in front of them to release control while waiting</li>
+                        </ol>
+                        <em>
+                            Note that there is not specific IListServiceAsync service. This is because the standard IListService
+                            returns an <code>IQueryable</code> result and whether it is normal or async is defined by the LINQ
+                            method on the end. In the PostAsync Controller we use the method .ToListAsync() which returns an async result.
+                        </em>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 id="generic-services-section">The GenericService Actions</h3>
+<p>
+    In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
+    <code>DetailServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>),
+    <code>UpdateServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateServiceAsync.cs" target="_blank">code</a>),
+    <code>CreateServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateServiceAsync.cs" target="_blank">code</a>) and
+    <code>DeleteServiceAsync</code>
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DeleteServiceAsync.cs" target="_blank">code</a>)
+    are called.
+    NOTEs:
+    <ul>
+        <li><em>NOTE: These come at the start of each file before the &quot;//DTO version&quot; comment.</em></li>
+        <li>
+            <em>
+                As explained in the PostAsync Controller panel the <code>ListService</code>
+                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
+                can handle both normal and async commands depending on the LINQ method appended on the end.
+            </em>
+        </li>
+    </ul>
+
+</p>
+<p>
+    Click on the panel below to get more details about how these work.
+</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#GenericService">
+                GenericService Actions
+            </a>
+        </h4>
+        <div id="GenericService" class="panel-collapse collapse">
+            <div class="panel-body">
+                <dl>
+                    <p>
+                        The @Html.ActionLink("explanation of the Tags controller", "CodeView", "Tags") describes certain standard parts.
+                        In this section we point out what is the same between the PostsController and the PostAsyncController.
+                    </p>
+                    <dt>Items that different from the TagsController</dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                The <code>ListService</code>
+                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
+                                has the LINQ method .AsListAsync() appended to it to return a async result;
+                            </li>
+                            <li>
+                                The <code>DetailServiceAsync</code>
+                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>)
+                                services is a one stage service.
+                            </li>
+
+                            <li>
+                                The Update and Create services are two stage:
+                                <ul>
+                                    <li>
+                                        As explained in the TagsController Panel the <code>CreateServiceAsync</code> simply uses <code>new Tag()</code> to provide
+                                        the initial class for the input form.
+                                    </li>
+                                    <li>
+                                        For the edit command we need to get the original data to show in the form. We use the <code>DetailServiceAsync</code>
+                                        to do that (see <code>Edit</code> action in
+                                        <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsAsyncController.cs" target="_blank">TagsController</a>).
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>All the methods are async and have Async on the end of the method name.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 id="di-section">How <abbr title="Dependency Injection">DI</abbr> is used in SampleMvcWebApp</h3>
+<p>
+    Using <abbr title="Dependency Injection">DI</abbr> to inject Action parameters (see
+    <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Infrastructure/DiModelBinder.cs">MVC module that does this</a>)
+    in a Controller is a short and efficient way of injecting specific services to each action.
+    Also by using Generic DI binding
+    (see <a href="https://github.com/autofac/Autofac/wiki/Open-Generics">example from AutoFac</a>) means that the DI can define all the
+    possible service options quickly in its registartion file
+    (see <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/Startup/ServiceLayerModule.cs">in SampleMvcWebApp</a>)
+</p>
+<p>
+    See the DI section in @Html.ActionLink("Posts Explanation", "CodeView", "Posts") page as the rules are the same for both normal and async services.
+</p>
+
+
+

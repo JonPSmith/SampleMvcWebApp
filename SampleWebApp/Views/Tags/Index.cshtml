@@ -29,10 +29,10 @@
     inside the EF SaveChanges methed to ensure that the slug is unique.
 </p>
 <hr />
-
-<p>
-    @Html.ActionLink("Create New Tag", "Create") | @Html.ActionLink("Return To Posts", "Index", "Posts")
-</p>
+<div>
+    <span>@Html.ActionLink("Create New Tag", "Create") | @Html.ActionLink("Return To Posts", "Index", "Posts")</span>
+    <span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>
+</div>
 <table class="table">
     <tr>
         <th>
