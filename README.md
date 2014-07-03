@@ -6,6 +6,7 @@ SampleMvcWebApp is a ASP.NET MVC5 web site designed to show number of useful met
 The GenericService Framework is available on [GitHub](https://github.com/JonPSmith/GenericServices) and soon via NuGet (when the release is stable).
 
 The specific features in this code are:
+
 1. Simple, but robust database services
 
   Database accesses are normally a big part of enterprise systems build with APS.NET MVC. However, my experience is that creating these services in a robust and comprehensive form can lead to a lot of repetative code that does the same thing, but for different data. My aim has been to produce a generic framework that handles most of the cases, and is easily extensible when special handling is required. Examples of there use on this web site are:
