@@ -9,7 +9,7 @@ The specific features in this code are:
 
 ### 1. Simple, but robust database services
 
-  Database accesses are normally a big part of enterprise systems build with APS.NET MVC. However, my experience is that creating these services in a robust and comprehensive form can lead to a lot of repetative code that does the same thing, but for different data. My aim has been to produce a generic framework that handles most of the cases, and is easily extensible when special handling is required. Examples of there use on this web site are:
+Database accesses are normally a big part of enterprise systems build with APS.NET MVC. However, my experience is that creating these services in a robust and comprehensive form can lead to a lot of repetative code that does the same thing, but for different data. My aim has been to produce a generic framework that handles most of the cases, and is easily extensible when special handling is required. Examples of there use on this web site are:
 
  - See normal, synchronous access using a DTO for shaping in the [Posts Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsController.cs)
  - See new EF6 async access using a DTO for shaping in the [PostsAsync Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/PostsAsyncController.cs)
@@ -18,7 +18,7 @@ The specific features in this code are:
 
 ### 2. Handling long running tasks
 
- Having long running tasks on a web site without feedback is not what users expect. My mathematic modelling applications have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
+Having long running tasks on a web site without feedback is not what users expect. My mathematic modelling applications have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
 
  - See the [ActionController](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/ActionController.cs) for a number of action methods
  - You can find a [BBC Radio schedule searcher task](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/BBCScheduleService/Concrete/ScheduleSearcherAsync.cs) being called from [this view](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Action/Radio4Search.cshtml)
@@ -31,4 +31,4 @@ The specific features in this code are:
  - Inserting the required services into a controller by action parameter injection.
  - DI is also used for creating the GenericService etc. See Code Explanation for more information.
 
- Note that the SampleMvcWebApp uses AutoFac dependency injection framework, but the framework allows you to replace AutoFac with your own favourite DI tool.
+Note that the SampleMvcWebApp uses AutoFac dependency injection framework, but the framework allows you to replace AutoFac with your own favourite DI tool.
