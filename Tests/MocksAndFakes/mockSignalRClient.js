@@ -14,7 +14,7 @@ var mockSignalRClient = (function ($) {
     mock.failFunc = null;
     mock.errorFunc = null;
     //This logs a string with the caller's function name and the parameters
-    //you must provide the function name, bit it finds the function arguments itself
+    //you must provide the function name, but it finds the function arguments itself
     mock.logStep = function (funcName) {
         var log = funcName + '(';
         var callerArgs = arguments.callee.caller.arguments;

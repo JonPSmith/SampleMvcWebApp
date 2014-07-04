@@ -3,6 +3,8 @@ SampleMvcWebApp
 
 SampleMvcWebApp is a ASP.NET MVC5 web site designed to show number of useful methods for building enterprise grade web applications using ASP.NET MVC5 and Entity Framework 6. The code for this sample MVC web application, and the associated [GenericServices Framework](https://github.com/JonPSmith/GenericServices) are both an open source project by [Jon Smith](http://www.thereformedprogrammer.net/about-me/) under the [MIT licence](http://opensource.org/licenses/MIT).
 
+This code is available as a [live web site](http://samplemvcwebapp.net/) which includes explanations of the code - see an example of this on the [Posts code explanation](http://samplemvcwebapp.net/Posts/CodeView) page.
+
 The GenericService Framework is available on [GitHub](https://github.com/JonPSmith/GenericServices) and soon via NuGet (when the release is stable).
 
 The specific features in this code are:
