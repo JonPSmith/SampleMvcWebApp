@@ -32,7 +32,7 @@
 </ul>
 <hr />
 <div>
-    <span>@Html.ActionLink("Create New Post", "Create")  | @Html.ActionLink("Go to TagsAsync Page", "Index", "TagsAsync")</span>
+    <span>@Html.ActionLink("Create New Post", "Create")  | @Html.ActionLink("Go to TagsAsync Page", "Index", "TagsAsync") | @Html.ActionLink("Reset Database", "Reset")</span>
     <span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>
 </div>
 <table class="table">
@@ -76,8 +76,6 @@
 
 </table>
 
-@Html.ActionLink("Reset Database", "Reset")
-<br />
 <span>
     @Html.ActionLink("Delay for 500ms (async)", "Delay")
     Useful for checking capacity of web server
