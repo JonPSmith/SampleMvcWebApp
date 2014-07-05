@@ -1,8 +1,4 @@
 ﻿using System.Web.Mvc;
-using SampleWebApp.ActionProgress;
-using SampleWebApp.Infrastructure;
-using ServiceLayer.TestActionService;
-using ServiceLayer.TestActionService.Concrete;
 
 namespace SampleWebApp.Controllers
 {
@@ -24,6 +20,11 @@ namespace SampleWebApp.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult CodeView()
+        {
             return View();
         }
     }

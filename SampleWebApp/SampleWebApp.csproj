@@ -377,6 +377,7 @@
     <Content Include="Views\PostsAsync\CodeView.cshtml" />
     <Content Include="Views\Tags\CodeView.cshtml" />
     <Content Include="Views\TagsAsync\CodeView.cshtml" />
+    <Content Include="Views\Home\CodeView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

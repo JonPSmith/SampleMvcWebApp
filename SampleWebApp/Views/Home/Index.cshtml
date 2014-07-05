@@ -3,71 +3,60 @@
 }
 
 <h2>Welcome to the Sample MVC Web Application</h2>
-<div>
-    <p>
-        This web site is designed to show a number of useful methods for building enterprise grade web applications using
-        <a href="http://www.asp.net/mvc/tutorials/mvc-5/introduction/getting-started">ASP.NET MVC5</a> and
-        <a href="http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc">Entity Framework 6</a>.
-        The code for this sample MVC web application, and the associated GenericServices Framework are both open source projects by
+
+<p>
+    <strong>
+        This web site is designed to demonstrate GenericServices Framework's commands
+        by showing them working in an ASP.NET MVC web site.
+        The <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices Framework</a>
+        and this <a href="https://github.com/JonPSmith/SampleMvcWebApp" target="_blank">example web site</a>
+        are both open source projects by
         <a href="http://www.thereformedprogrammer.net/about-me/" target="_blank">Jon Smith</a> under the
         <a href="http://opensource.org/licenses/MIT" target="_blank">MIT licence</a>.
-        <ul>
-            <li>The Sample MVC Web App software is available on <a href="https://github.com/JonPSmith/SampleMvcWebApp" target="_blank">GitHub</a>.</li>
-            <li>The GenericService Framework is available on <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GitHub</a> and soon via NuGet (when the release is stable).</li>
-        </ul>
-        While you might not want to use the GenericFramework hopefully these examples will give you some new ideas to improve your own code.
-    </p>
-    <h3>The specific features in highlighted on this web site are:</h3>
+    </strong>
+</p>
+<p>
+    Go to @Html.ActionLink("this page", "CodeView") for more detail on what code features are shown on this site.
+    Below is a short introduction to this example web site and what it is, and is not.
+</p>
 
-    <h4>1. Simple, but robust database services</h4>
-    <p>
-        Database accesses are normally a big part of enterprise systems build with APS.NET MVC. However, my experience is that creating these services
-        in a robust and comprehensive form can lead to a lot of repetative code that does the same thing, but for different data.
-        My aim has been to produce a generic framework that handles most of the cases, and is easily extensible when special handling is required.
-        Examples of there use on this web site are:
-    </p>
-    <ul>
-        <li>See normal, synchronous access using a <abbr title="Data Transfer Object">DTO</abbr> for shaping in the @Html.ActionLink("Posts", "Index", "Posts") Controller</li>
-        <li>See new EF6 async access using a <abbr title="Data Transfer Object">DTO</abbr> for shaping in the @Html.ActionLink("PostsAsync", "Index", "PostsAsync") Controller</li>
-        <li>See normal, synchronous access directly via data class in the @Html.ActionLink("Tags", "Index", "Tags") Controller</li>
-        <li>See new EF6 async access directly via data class in the @Html.ActionLink("TagsAsync", "Index", "TagsAsync") Controller</li>
-    </ul>
+<hr/>
 
-    <h4>2. Handling long running tasks</h4>
-    <p>
-        Having long running tasks on a web site without feedback is not what users expect. 
-        My <a href="http://selectiveanalytics.com/" target="_blank">mathematic modelling applications</a> 
-        have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
-        Examples on this web site are:
-    </p>
-    <ul>
-        <li>A @Html.ActionLink("BBC Radio schedule searcher", "Radio4Search", "Action") shows an async task in action.</li>
-        <li>Other examples of usage can be found on @Html.ActionLink("Action", "Index", "Action") page</li>
-        @*<li>See <a href="#" target="_blank">insert blog link</a> for an explanation of this code.</li>*@
-    </ul>
-    
-    <h4>3. Use of Dependency Injection</h4>
+<h3 class="text-info">This site is about programming, not styling</h3>
+<h4 class="text-muted">
+    The site introduces the GenericServices Framework for back-end development.
+</h4>
+<p>
+    As much as possible the site uses the standard MVC5 BootStrap style and templates, because the main emphasis is on the back-end code. <br />
+    I have made the styling as basic as possible, which should make it easier for you to restyle it the way you want it.
+</p>
+<small>Of course I have tried to stop it looking ugly. You can decide whether I succeeded.</small>
 
-    <p>
-        <a href="http://www.codeproject.com/Articles/615139/An-Absolute-Beginners-Tutorial-on-Dependency-Inver" target="_blank">Dependency Injection</a> (DI) 
-        makes it much easier to create GenericServices commands. 
-        While you can do this manually I find DI so useful I wouldn't build a project without it.
-        Therefore DI is used throughout this web site, but specific examples are:
-    </p>
-    <ul>
-        <li>
-            Inserting the required services into a controller by action parameter injection. <br />
-            This is a powerful, but unusual usage and is explained in the DI section on @Html.ActionLink("Code Explanation", "CodeView", "Posts") page.
-        </li>
-        <li>
-            DI is also used for creating the GenericService etc.
-            See @Html.ActionLink("Code Explanation", "CodeView", "Posts") for more information.
-        </li>
-    </ul>
-    <p>
-        Note that the SampleMvcWebApp uses <a href="https://github.com/autofac/Autofac/wiki/Getting-Started" target="_blank">AutoFac</a>
-        dependency injection framework, but the framework allows you to replace AutoFac with your own favourite DI tool.
-    </p>
+<h3 class="text-info">The pages are examples, not solutions</h3>
+<h4 class="text-muted">
+    The site demos framework commands. The data is irrelevant.
+</h4>
+<p>
+    The aim is to show how you can use the GenericServices commands to manipulate data. <br />
+    I have used fictitious, but credible data classes to do this. Some of the data validation rules are a somewhat bizarre to make a point.
+</p>
+<small>I have tried to make the data interesting. Enjoy.</small>
 
-</div>
+<h3 class="text-info">The pages contain explanations</h3>
+<h4 class="text-muted">
+    As well as showing the framework in action it includes links to explanations of the code.
+</h4>
+<p>
+    On most pages you will see a @Html.ActionLink("Explanation of the code", "CodeView") link. It is normally on the right hand side above the data.<br />
+    This takes you to a page that a) has links to the actual source on GitHub and b) tries to explain how it all hangs together.
+</p>
+<small>Remember, the links to the code on GitHub are always the best documentation.</small>
 
+
+<h3 class="text-info">Where should I start?</h3>
+<ul>
+    <li>You can get a summary of what demos are on @Html.ActionLink("this page", "CodeView").</li>
+    <li>You dive right in by clicking one of the menu links at the top of this page. Try @Html.ActionLink("Posts", "Index", "Posts") as a start.</li>
+    <li>You can look at the the GenericServices's <a href="https://github.com/JonPSmith/GenericServices/blob/master/README.md" target="_blank">read.me</a> file
+    or SampleMvcWebApp's <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/README.md" target="_blank">read.me</a> file on GitHub.</li>
+</ul>
