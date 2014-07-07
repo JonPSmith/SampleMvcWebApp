@@ -1,6 +1,6 @@
 ﻿
 
-var ActionRunner = (function (actionRunner, $, window) {
+var ActionRunnerUi = (function ($, window) {
     'use strict';
 
     var uiResources = {
@@ -64,10 +64,13 @@ var ActionRunner = (function (actionRunner, $, window) {
     var panelHeaderText = null;         //optional replacement text for the 
     var successAction = null;           //optional url or function to call on successful exit
 
+    //this holds the actionComms object created at the start
+    var actionComms = null;
+
     function setOptions(optionsObject) {
         if (optionsObject == null) return;
         panelHeaderText = optionsObject.header;
-        successAction = optionsObject.successAction
+        successAction = optionsObject.successAction;
     };
 
     //This takes the actionConfig and returns jQuery Ui Dialog options object
@@ -107,7 +110,7 @@ var ActionRunner = (function (actionRunner, $, window) {
 
     }
 
-    var actionConfig = null;            //this holds the flags saying what functions the started action supports
+    var actionConfig = null;            //this holds the object saying what functions the started action supports
 
     //This shows a panel with a progress bar and a message area, plus a button to cancel with
     function setupPanelProgress() {
@@ -125,15 +128,17 @@ var ActionRunner = (function (actionRunner, $, window) {
         }
         
         $actionButton.on('click', function (eventObject) {
-            actionRunner.respondToStateChangeRequest(eventObject.target.innerText);
+            actionComms.respondToStateChangeRequest(eventObject.target.innerText);
         });
     }
 
     //------------------------------------------------------
-    //public methods returned
+    //UI methods handed to the ActionRunnerComms
+
+    var actionUi = {};
 
     //This creates and shows a modal panel
-    actionRunner.startActionUi = function (configFromStartMessage) {
+    actionUi.startActionUi = function (configFromStartMessage) {
         actionConfig = configFromStartMessage;
         $(messagesTableId + ' tr').remove();
         $actionButton.unbind('click');
@@ -146,7 +151,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $actionPanel.removeClass('hidden');
     };
 
-    actionRunner.endActionUi = function(successfulEnd, jsonResult) {
+    actionUi.endActionUi = function (successfulEnd, jsonResult) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
         if ($actionPanel.hasClass('ui-dialog-content')) {        
@@ -156,6 +161,9 @@ var ActionRunner = (function (actionRunner, $, window) {
         if ($progressBar.hasClass('ui-progressbar')) {           
             $progressBar.progressbar('destroy');
         }
+
+        actionComms = null;             //we have finished with this actionComms
+
         if (successfulEnd && successAction != null) {
             //It was successful end and we have something to do
 
@@ -167,11 +175,10 @@ var ActionRunner = (function (actionRunner, $, window) {
                 //delay as needs time for SignalR to stop (crude, but needs something)
                 setTimeout(function () { window.location.href = successAction; }, 200);
             }
-
         }
     };
 
-    actionRunner.addMessageToProgressList = function (messageType, messageText) {
+    actionUi.addMessageToProgressList = function (messageType, messageText) {
         if (actionConfig.noMessagesSent) return;
         var rowData = '<tr><td class="' + messageTypeClassLookup[messageType] + '">' + messageType + '</td><td>' + messageText + '</td></tr>';
         var $lastRow = $(messagesTableId + ' tr:last');
@@ -187,7 +194,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $messageContainer.scrollTop(rowPos.top);
     };
 
-    actionRunner.updateProgress = function (percentage, numErrors) {
+    actionUi.updateProgress = function (percentage, numErrors) {
         if (actionConfig.noProgressSent) return;
         if (typeof (percentage) !== 'number' || percentage > 100 || percentage < 0) return;
 
@@ -196,7 +203,7 @@ var ActionRunner = (function (actionRunner, $, window) {
         $progressBar.progressbar("value", percentage);
     };
 
-    actionRunner.displayGlobalMessage = function (message, stayUp, notifyType) {       
+    actionUi.displayGlobalMessage = function (message, stayUp, notifyType) {
         if (useNotify) {
             var type = notifyType || 'error';
             $notification.notify({ appendTo: '.???', opacity: 0.8, adjustScroll: false, type: type, sticky: stayUp });
@@ -206,20 +213,20 @@ var ActionRunner = (function (actionRunner, $, window) {
         }
     };
 
-    actionRunner.confirmDialog = function(message) {
+    actionUi.confirmDialog = function (message) {
         return window.confirm(message);
     };
 
     //This takes an error dictionary in the form of object with keys that hold arrays of errors
     //This version simply concatentates the error messages and shows them in the global message
-    actionRunner.displayValidationErrors = function (errorDict) {
+    actionUi.displayValidationErrors = function (errorDict) {
         var combinedErrors = 'Validation errors:\n';
         for (var property in errorDict) {
             for (var i = 0; i < errorDict[property].errors.length; i++) {
                 combinedErrors += errorDict[property].errors[i] + '\n';
             }
         }
-        actionRunner.displayGlobalMessage(combinedErrors, true);
+        actionUi.displayGlobalMessage(combinedErrors, true);
     };
 
     //----------------------------------------------------
@@ -227,22 +234,22 @@ var ActionRunner = (function (actionRunner, $, window) {
     //The text controls the state machine inside ActionRunner.comms.js
 
     //This sets the text in the ui element, which is also the state of the state machine
-    actionRunner.setActionState = function(text) {
+    actionUi.setActionState = function (text) {
         $actionButton.text(text);
     };
 
     //Gets the current action state
-    actionRunner.getActionState = function() {
+    actionUi.getActionState = function () {
         return $actionButton.text();
     };
     //----------------------------------------------------
     
     //support routine for reporting an error
-    actionRunner.reportSystemError = function(additionalInfo, tryAgain) {
+    actionUi.reportSystemError = function (additionalInfo, tryAgain) {
         if (tryAgain) {
-            actionRunner.displayGlobalMessage(uiResources.pleaseTryLater);
+            actionUi.displayGlobalMessage(uiResources.pleaseTryLater);
         } else {
-            actionRunner.displayGlobalMessage(uiResources.systemError, true);
+            actionUi.displayGlobalMessage(uiResources.systemError, true);
             console.log('ActionRunning system error: ' + additionalInfo);
         }
     };
@@ -251,53 +258,56 @@ var ActionRunner = (function (actionRunner, $, window) {
     //local methods to do with ajax call
 
     function submitSuccess(responseContent, statusString, responseObject) {
-        actionRunner.runAction(responseContent);
+        actionComms = new ActionRunnerComms(actionUi);
+        actionComms.runAction(responseContent);
     }
 
     function submitFailed(args) {
-        actionRunner.reportSystemError('submit failed. args =' + args, true);
+        actionUi.reportSystemError('submit failed. args =' + args, true);
     }
 
     //==========================================================
     //now the functions that are called from the view
 
-    //1) Action which is supplied with setup data from a form and then runs
-    //
-    //This sets up the form element on the page to use an Ajax submit method.
-    //It runs the normal MVC validation on the form
-    //This allows the result to be captured and then the appropriate progress form to be displayed
-    //options 
-    actionRunner.startActionFromForm = function( options) {
+    return {
 
-        setOptions(options);
+        //1) Action which is supplied with setup data from a form and then runs
+        //
+        //This sets up the form element on the page to use an Ajax submit method.
+        //It runs the normal MVC validation on the form
+        //This allows the result to be captured and then the appropriate progress form to be displayed
+        //options 
+        startActionFromForm: function(options) {
 
-        $('form').submit(function() {
+            setOptions(options);
 
-            $.validator.unobtrusive.parse($('form'));
-            var data = $('form').serialize();
-            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            $('form').submit(function() {
 
-            if ($('form').valid()) {
-                $.ajax({
-                    url: this.action,
-                    type: 'POST',
-                    data: data,
-                    success: submitSuccess,
-                    fail: submitFailed
-                });
-            }
-            return false;       //needed to stop default form submit action
-        });
-    };
+                $.validator.unobtrusive.parse($('form'));
+                var data = $('form').serialize();
+                data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
 
-    //2) Action with is triggered from a link
-    //You must supply a jQueryElementSelector for the element to bind to the click
-    //and a url that the post should be sent to.
-    //options allow seeting of various items - see setOptions method
-    actionRunner.startActionFromLink = function (jQueryElementSelector, actionUrl, options) {
-        $(jQueryElementSelector).unbind('click').on('click',
-                function (event) {
-                    setOptions(options);            //must only set options when triggered
+                if ($('form').valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: 'POST',
+                        data: data,
+                        success: submitSuccess,
+                        fail: submitFailed
+                    });
+                }
+                return false; //needed to stop default form submit action
+            });
+        },
+
+        //2) Action with is triggered from a link
+        //You must supply a jQueryElementSelector for the element to bind to the click
+        //and a url that the post should be sent to.
+        //options allow seeting of various items - see setOptions method
+        startActionFromLink: function(jQueryElementSelector, actionUrl, options) {
+            $(jQueryElementSelector).unbind('click').on('click',
+                function(event) {
+                    setOptions(options); //must only set options when triggered
                     var data = event.target.dataset;
                     data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
                     $.post(actionUrl,
@@ -305,8 +315,8 @@ var ActionRunner = (function (actionRunner, $, window) {
                         submitSuccess);
                 }
             );
+        }
     };
+  
 
-    return actionRunner;
-
-}(ActionRunner || {}, window.jQuery, window));
+}(window.jQuery, window));

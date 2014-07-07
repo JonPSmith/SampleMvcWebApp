@@ -100,10 +100,10 @@
 
     <script type="text/javascript" language="javascript">
     $(document).ready(function () {
-        ActionRunner.startActionFromLink('#immediate-action', '@Url.Action("Immediate")');
-        ActionRunner.startActionFromLink('#successExit-action', '@Url.Action("SuccessExit")',
+        ActionRunnerUi.startActionFromLink('#immediate-action', '@Url.Action("Immediate")');
+        ActionRunnerUi.startActionFromLink('#successExit-action', '@Url.Action("SuccessExit")',
             { header: 'Will goto Home when finished', successAction: '@Url.Action("Index", "Home")' });
-        ActionRunner.startActionFromLink('#indeterminate-action', '@Url.Action("Indeterminate")');
+        ActionRunnerUi.startActionFromLink('#indeterminate-action', '@Url.Action("Indeterminate")');
     });
     </script>
 

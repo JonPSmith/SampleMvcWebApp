@@ -1,11 +1,12 @@
-﻿//This is a mock for the ActionRunner.ui.js file
+﻿//This is a mock for the ActionRunnerUi.js file
 
-var ActionRunner = (function (actionRunner) {
+var ActionRunnerUi = (function () {
 
-    actionRunner.callLog = null;
+    var actionRunnerUi = {};
+    actionRunnerUi.callLog = null;
     //This logs a string with the caller's function name and the parameters
     //you must provide the function name, bit it finds the function arguments itself
-    actionRunner.logStep = function (funcName) {
+    actionRunnerUi.logStep = function (funcName) {
         var log = funcName + '(';
         var callerArgs = arguments.callee.caller.arguments;
         for (var i = 0; i < callerArgs.length; i++) {
@@ -13,59 +14,59 @@ var ActionRunner = (function (actionRunner) {
         };
         if (callerArgs.length > 0)
             log = log.substr(0, log.length - 2);
-        actionRunner.callLog.push(log + ')');
+        actionRunnerUi.callLog.push(log + ')');
     };
-    actionRunner.reset = function () {
-        actionRunner.callLog = [];
-        actionRunner.actionState = null;
+    actionRunnerUi.reset = function () {
+        actionRunnerUi.callLog = [];
+        actionRunnerUi.actionState = null;
     }
-    actionRunner.actionState = null;
+    actionRunnerUi.actionState = null;
 
     //----------------------------------------------------------------
     //now the ActionRunner ui public methods
     
-    actionRunner.startActionUi = function ( actionConfig) {
-        actionRunner.logStep('startActionUi');
+    actionRunnerUi.startActionUi = function ( actionConfig) {
+        actionRunnerUi.logStep('startActionUi');
     };
 
-    actionRunner.endActionUi = function (successfulEnd, jsonData) {
-        actionRunner.logStep('endActionUi');
+    actionRunnerUi.endActionUi = function (successfulEnd, jsonData) {
+        actionRunnerUi.logStep('endActionUi');
     };
 
-    actionRunner.addMessageToProgressList = function (messageType, messageText) {
-        actionRunner.logStep('addMessageToProgressList');
+    actionRunnerUi.addMessageToProgressList = function (messageType, messageText) {
+        actionRunnerUi.logStep('addMessageToProgressList');
     };
 
-    actionRunner.updateProgress = function (percentage, numErrors) {
-        actionRunner.logStep('updateProgress');
+    actionRunnerUi.updateProgress = function (percentage, numErrors) {
+        actionRunnerUi.logStep('updateProgress');
     };
 
-    actionRunner.displayGlobalMessage = function (message, stayUp, messageType) {
-        actionRunner.logStep('displayGlobalMessage');
+    actionRunnerUi.displayGlobalMessage = function (message, stayUp, messageType) {
+        actionRunnerUi.logStep('displayGlobalMessage');
     };
 
-    actionRunner.confirmDialog = function(message) {
-        actionRunner.logStep('confirmDialog');
+    actionRunnerUi.confirmDialog = function(message) {
+        actionRunnerUi.logStep('confirmDialog');
         return true;
     }
 
     //This sets the text in the ui element, which is also the state of the state machine
-    actionRunner.setActionState = function (text) {
-        actionRunner.actionState = text;
+    actionRunnerUi.setActionState = function (text) {
+        actionRunnerUi.actionState = text;
     };
 
     //Gets the current action state
-    actionRunner.getActionState = function () {
-        return actionRunner.actionState;
+    actionRunnerUi.getActionState = function () {
+        return actionRunnerUi.actionState;
     };
     //----------------------------------------------------
 
     //support routine for reporting an error
-    actionRunner.reportSystemError = function (additionalInfo, tryAgain) {
-        actionRunner.logStep('reportSystemError');
+    actionRunnerUi.reportSystemError = function (additionalInfo, tryAgain) {
+        actionRunnerUi.logStep('reportSystemError');
     };
 
     //Return the mock base which the ui methods in it plus the test items
-    return actionRunner;
+    return actionRunnerUi;
 
-}(ActionRunner || {}));
+}());

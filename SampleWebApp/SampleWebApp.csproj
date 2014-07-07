@@ -296,8 +296,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Log4Net.xml" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\ActionRunner.ui.js" />
-    <Content Include="Scripts\ActionRunner.comms.js" />
+    <Content Include="Scripts\ActionRunnerUi.js" />
+    <Content Include="Scripts\ActionRunnerComms.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />

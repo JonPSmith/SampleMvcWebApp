@@ -1,8 +1,14 @@
-﻿
+﻿/*
+  The ActionRunnerComms is a global Ctor which creates a new connection instance to the ActionHub via SignalR
+  The ActionRunnerComms object handles all the comms between the client (browser) and the long-running task
+  running on the service (MVC application).
+*/
 
-var ActionRunner = (function (actionRunner, $) {
+//The first parameter is the UI part of the ActionRunner
+function ActionRunnerComms(actionUi) {
     'use strict';
 
+    //These are all the text messages output by this module. Placed in one place to allow localisation
     var commsResources = {
         nojQuery: 'jQuery was not found. Please ensure jQuery is referenced before this ActionRinner JavaScript file.',
         noSignalR: 'SignalR was not found. Please ensure SignalR is referenced before this ActionRunner JavaScript file.',
@@ -12,6 +18,7 @@ var ActionRunner = (function (actionRunner, $) {
             'but its output lost. Press OK if you really want to exit.',
     };
 
+    //contructor checks
     if (typeof ($) !== 'function') {
         // no jQuery!
         throw commsResources.nojQuery;
@@ -21,22 +28,24 @@ var ActionRunner = (function (actionRunner, $) {
         throw commsResources.noSignalR;
     }
 
+    //more private 'constants' 
+
     //The text in the $ActionButton button is the control for the state machine. The text consists of one of the actionsStates
     //Note: These states are shown via the button (if visible) so are set here to allow language changes.
     var actionStates = {
-        transientSuffix: '...',         //if the state ends with this it is transitary. Used to convey that to user and also allow forced abort
+        transientSuffix: '...', //if the state ends with this it is transitary. Used to convey that to user and also allow forced abort
         //items that must end with transientSuffix
         connectingTransient: 'Connecting...',
         startingTransient: 'Starting...',
-        cancellingTransient: 'Cancelling...', 
-        runningNoCancel: 'Running...',      //this is shown when the method does not support cancel
+        cancellingTransient: 'Cancelling...',
+        runningNoCancel: 'Running...', //this is shown when the method does not support cancel
         //now normal states
-        cancel: 'Cancel',               //when method that supports cancelling is running then this allows user to cancel action
+        cancel: 'Cancel', //when method that supports cancelling is running then this allows user to cancel action
         cancelled: 'Cancelled',
-        finishedOk: 'Finished Ok',     
+        finishedOk: 'Finished Ok',
         finishedErrors: 'Finished (errors)',
         failed: 'Failed',
-        failedLink: 'Failed (link)',   
+        failedLink: 'Failed (link)',
         failedConnecting: 'Failed (connecting)'
     };
 
@@ -52,93 +61,87 @@ var ActionRunner = (function (actionRunner, $) {
         failed: 'Failed'
     };
 
-    //We use this to check if the message type is an error
     var messageTypesThatAreErrors = ['Error', 'Critical', 'Failed'];
 
-    function incNumErrorsIfMessageTypeIsError(messageType) {
-        if ($.inArray(messageType, messageTypesThatAreErrors) > -1)
-            actionRunner.numErrorMessages++;
-    }
+    //----------------------------
+    //private variables
 
-    var actionGuid = null;
-    var connection = null;
+    var that = this;
+
     var actionChannel = null;
-    var actionConfig = null;
+    var actionGuid = null;
+
+    var actionConfig = null;           //this is set to an object containing various information about what the server action supports
     var jsonResult = null;
 
-    var endsWith = function(str, suffix) {
+    //----------------------------
+    //private functions
+
+    function endsWith(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     };
 
-    function decodeActionConfig(actionConfigFlags) {
-        //The action has started and we have the flags on what the action supports
+    //This decodes actionConfigString into cleaner booleans and returns the object
+    //This places all actionConfig flags/decodes in one place
+    function decodeActionConfig(actionConfigString) {
         actionConfig = {};
-        actionConfig.exitOnSuccess = actionConfigFlags.indexOf('ExitOnSuccess') > -1;
-        actionConfig.noProgressSent = actionConfigFlags.indexOf('NoProgressSent') > -1;
-        actionConfig.noMessagesSent = actionConfigFlags.indexOf('NoMessagesSent') > -1;
-        actionConfig.cancelNotSupported = actionConfigFlags.indexOf('CancelNotSupported') > -1;
+        actionConfig.exitOnSuccess = actionConfigString.indexOf('ExitOnSuccess') > -1;
+        actionConfig.noProgressSent = actionConfigString.indexOf('NoProgressSent') > -1;
+        actionConfig.noMessagesSent = actionConfigString.indexOf('NoMessagesSent') > -1;
+        actionConfig.cancelNotSupported = actionConfigString.indexOf('CancelNotSupported') > -1;
     }
-
-    function exitComms(successExit) {
-        //if (connection != null)
-        //    //need to clean up the connection in case the user wants to run again (doesn't work if you don't do this)
-        //    connection.stop();
-
-        actionRunner.endActionUi(successExit, jsonResult);    //close the panel
-    }
-
-    //------------------------------------------------------------------------
-    //code to deal with the SignalR connections and events
 
     //This deals with setting up the SignalR connections and events
     function setupTaskChannel() {
 
-        actionRunner.setActionState(actionStates.connectingTransient);
+        actionUi.setActionState(actionStates.connectingTransient);
 
-        actionRunner.numErrorMessages = 0;
+        that.numErrorMessages = 0;
 
         //Setup connection and actionChannel with the functions to call
-        connection = $.hubConnection();
+        var connection = $.hubConnection();
 
         //connection.logging = true;
         actionChannel = connection.createHubProxy('ActionHub');
         setupTaskFunctions();
 
         //Now make sure connection errors are handled
-        connection.error(function(error) {
-            actionRunner.setActionState(actionStates.failedLink);
-            actionRunner.reportSystemError('SignalR error: ' + error);
+        connection.error(function (error) {
+            actionUi.setActionState(actionStates.failedLink);
+            actionUi.reportSystemError('SignalR error: ' + error);
         });
         //and start the connection and send the start message
         connection.start()
-            .done(function() {
+            .done(function () {
                 startAction();
             })
-            .fail(function(error) {
-                actionRunner.setActionState(actionStates.failedConnecting);
-                actionRunner.reportSystemError('SignalR connection error: ' + error);
+            .fail(function (error) {
+                actionUi.setActionState(actionStates.failedConnecting);
+                actionUi.reportSystemError('SignalR connection error: ' + error);
             });
     }
 
+    //------------------------------------------------------------------------
+    //code to deal with the SignalR connections and events
+
     //This is called by setupTaskChannel to link to the SignalR events
     function setupTaskFunctions() {
-        actionChannel.on('Progress', function(serverTaskId, percentDone, message) {
+        actionChannel.on('Progress', function (serverTaskId, percentDone, message) {
             if (serverTaskId === actionGuid) {
                 incNumErrorsIfMessageTypeIsError(message.MessageTypeString);
-                actionRunner.updateProgress(percentDone, actionRunner.numErrorMessages);
+                actionUi.updateProgress(percentDone, that.numErrorMessages);
                 logMessage(message);
             }
         });
         actionChannel.on('Started', function (serverActionId, actionConfigFlags) {
             if (serverActionId === actionGuid) {
                 decodeActionConfig(actionConfigFlags);
-                actionRunner.startActionUi(actionConfig);
+                actionUi.startActionUi(actionConfig);
                 if (actionConfig.cancelNotSupported) {
-                    actionRunner.setActionState(actionStates.runningNoCancel);
-                } else {               
-                    actionRunner.setActionState(actionStates.cancel);
+                    actionUi.setActionState(actionStates.runningNoCancel);
+                } else {
+                    actionUi.setActionState(actionStates.cancel);
                 }
-
             }
         });
         actionChannel.on('Stopped', function (serverTaskId, message, jsonFromServer) {
@@ -148,19 +151,19 @@ var ActionRunner = (function (actionRunner, $) {
                 jsonResult = jsonFromServer;
                 actionChannel.invoke('EndAction', actionGuid); //this cleans up the action at the server end
                 if (message.MessageTypeString === messageTypes.finished) {
-                    actionRunner.updateProgress(100);
-                    if (actionRunner.numErrorMessages === 0) {
-                        actionRunner.setActionState(actionStates.finishedOk);
-                        if (actionConfig.exitOnSuccess) {                          
+                    actionUi.updateProgress(100);
+                    if (that.numErrorMessages === 0) {
+                        actionUi.setActionState(actionStates.finishedOk);
+                        if (actionConfig.exitOnSuccess) {
                             exitComms(true);
-                        } 
+                        }
                     } else {
-                        actionRunner.setActionState(actionStates.finishedErrors);
+                        actionUi.setActionState(actionStates.finishedErrors);
                     }
                 } else if (message.MessageTypeString === messageTypes.cancelled) {
-                    actionRunner.setActionState(actionStates.cancelled);
+                    actionUi.setActionState(actionStates.cancelled);
                 } else {
-                    actionRunner.setActionState(actionStates.failed);
+                    actionUi.setActionState(actionStates.failed);
                 }
             }
         });
@@ -168,32 +171,40 @@ var ActionRunner = (function (actionRunner, $) {
 
     function startAction() {
         //we set the state first so that if the invoke fails the user can exit
-        actionRunner.setActionState(actionStates.startingTransient);
+        actionUi.setActionState(actionStates.startingTransient);
         actionChannel.invoke('StartAction', actionGuid);
     }
 
     function cancelAction() {
         //we set the state first so that if the invoke fails the user can exit
-        actionRunner.setActionState(actionStates.cancellingTransient);
+        actionUi.setActionState(actionStates.cancellingTransient);
         actionChannel.invoke('CancelAction', actionGuid);
-
     }
 
     //------------------------------------------------------------
-    //button and window items
+    //messages and stuff
+
+    //This increments the numErrorMessages if the message was deemed to be an error
+    function incNumErrorsIfMessageTypeIsError (messageType) {
+        if ($.inArray(messageType, messageTypesThatAreErrors) > -1)
+            that.numErrorMessages++;
+    }
 
     function logMessage(actionMessage) {
         if (actionMessage == null || !actionMessage.MessageTypeString || !actionMessage.MessageText) {
             return;
         }
-        actionRunner.addMessageToProgressList(actionMessage.MessageTypeString, actionMessage.MessageText);
+        actionUi.addMessageToProgressList(actionMessage.MessageTypeString, actionMessage.MessageText);
     }
 
-    //------------------------------------------------------
-    //public variables and  methods
+    function exitComms(successExit) {
+        actionUi.endActionUi(successExit, jsonResult);    //close the panel
+    }
 
-    actionRunner.numErrorMessages = 0;
+    //------------------------------------------------------------
+    //public variables and methods
 
+    this.numErrorMessages = 0;          //number of error messages send from server
 
     //This will show the action window as a modal window and then starts the action.
     //It then monitors the action channel for feeback to the user, and can send a cancel command
@@ -201,24 +212,23 @@ var ActionRunner = (function (actionRunner, $) {
     //
     //It expects the jsonContent to contain TaskId (for communication) and TaskName, to show the user
     //if it has a setup error it returns that error, else returns null
-    actionRunner.runAction = function (jsonContent) {
+    this.runAction = function (jsonContent) {
         if (jsonContent.errorsDict) {
             //there are validation errors so ask ui to display them
-            actionRunner.displayValidationErrors(jsonContent.errorsDict);
+            actionUi.displayValidationErrors(jsonContent.errorsDict);
         } else if (jsonContent.ActionGuid) {
             //Got back a sensible content so we run start the action 
             actionGuid = jsonContent.ActionGuid;
             setupTaskChannel();
-
         } else {
-            actionRunner.reportSystemError('bad call or bad json format data in response to ajax submit', true);
+            actionUi.reportSystemError('bad call or bad json format data in response to ajax submit', true);
         }
     };
 
     //This should be called when the user wants to execute the state that is currently shown
     //It recieves the current state and steps on to the next state, e.g. Cancel moves to Cancelling...
     //If the new state means that the action has finished the  the finishAction method is called
-    actionRunner.respondToStateChangeRequest = function (currentState) {
+    this.respondToStateChangeRequest = function (currentState) {
         if (currentState === actionStates.cancel) {
             cancelAction();
         } else if (endsWith(currentState, actionStates.transientSuffix)) {
@@ -226,7 +236,7 @@ var ActionRunner = (function (actionRunner, $) {
             var messageToShow = currentState == actionStates.runningNoCancel ?
                 commsResources.confirmExitOnNonCancellable :
                 commsResources.confirmExitOnRunningSys;
-            if (actionRunner.confirmDialog(messageToShow)) {
+            if (actionUi.confirmDialog(messageToShow)) {
                 //If user says OK then we exit
                 exitComms(false);
             }
@@ -236,6 +246,7 @@ var ActionRunner = (function (actionRunner, $) {
         }
     };
 
-    return actionRunner;
+};
 
-}(ActionRunner || {}, window.jQuery));
+
+
