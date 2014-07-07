@@ -57,7 +57,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
                 status.Errors.Count.ShouldEqual(1);
-                status.Errors[0].ErrorMessage.ShouldEqual("The Slug on tag 'duplicate slug' must be unique.");
+                status.Errors[0].ErrorMessage.ShouldEqual("The Slug on tag 'duplicate slug' must be unique and is already being used.");
             }
         }
 

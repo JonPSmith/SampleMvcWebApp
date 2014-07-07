@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DataLayer.DataClasses;
-using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup.Internal;
 using GenericServices;
 using GenericServices.Logger;
@@ -15,7 +14,7 @@ namespace DataLayer.Startup
     public static class DataLayerInitialise
     {
 
-        private static IGenericLogger Logger;
+        private static IGenericLogger _logger;
 
         private static readonly Dictionary<TestDataSelection, string> XmlDataFileManifestPath = new Dictionary<TestDataSelection, string>
             {
@@ -28,7 +27,7 @@ namespace DataLayer.Startup
         /// </summary>
         public static void InitialiseThis()
         {
-            Logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
+            _logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
             //Initialise the database
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SampleWebAppDb>());
         }
@@ -47,7 +46,7 @@ namespace DataLayer.Startup
             var status = context.SaveChangesWithValidation();
             if (!status.IsValid)
             {
-                Logger.CriticalFormat("Error when resetting database to data selection {0}. Error:\n{1}", selection, 
+                _logger.CriticalFormat("Error when resetting database to data selection {0}. Error:\n{1}", selection, 
                     string.Join(",", status.Errors));
                 throw new FormatException("xml derived data did not load well.");
             }

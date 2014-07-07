@@ -117,7 +117,12 @@ namespace Tests.UnitTests.Group08ActionRunner
         public void Test20RunnerDecodeDtoOk()
         {
             //SETUP
-            var rs = new RunnerSetup<SimpleTagDto>(typeof(IEmptyTestAction), new SimpleTagDto());
+            var data = new SimpleTagDto
+            {
+                Name = "Must Exist",
+                Slug = "MustExistNoSpaces"
+            };
+            var rs = new RunnerSetup<SimpleTagDto>(typeof(IEmptyTestAction), data);
 
             //ATTEMPT
             var json = rs.SetupAndReturnJsonResult(new DummyIDbContextWithValidation());
@@ -131,7 +136,13 @@ namespace Tests.UnitTests.Group08ActionRunner
         public void Test21RunnerAsyncDecodeDtoOk()
         {
             //SETUP
-            var rs = new RunnerSetup<SimpleTagDtoAsync>(typeof(IEmptyTestActionAsync), new SimpleTagDtoAsync());
+            //SETUP
+            var data = new SimpleTagDtoAsync
+            {
+                Name = "Must Exist",
+                Slug = "MustExistNoSpaces"
+            };
+            var rs = new RunnerSetup<SimpleTagDtoAsync>(typeof(IEmptyTestActionAsync), data);
 
             //ATTEMPT
             var json = rs.SetupAndReturnJsonResult(new DummyIDbContextWithValidation());
