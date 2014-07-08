@@ -115,7 +115,7 @@ var ActionRunnerUi = (function ($, window) {
 
         //now we need to work out the height of the other elements inside the panel to get the right size for message table
         var sumOtherHeights = 38 /* ui top height */ + $progressBar.height() + $('.action-lower-menu').height();
-        var messageHeight = dialogOptions.height - sumOtherHeights - 70;
+        var messageHeight = dialogOptions.height - sumOtherHeights - 35;
         if (actionConfig.noMessagesSent || messageHeight < 0) {
             $messageContainer.hide();         
         }
