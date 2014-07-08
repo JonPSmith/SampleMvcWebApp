@@ -25,6 +25,10 @@ textarea {
 /* Items associated with ActionRunner */
 
 /* Used to put spinning progress bar in the centre of the panel*/
+.actionPanel {
+    z-index: 100000;
+}
+
 .centeredImage {
     text-align: center;
     margin-top: 0px;

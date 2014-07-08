@@ -18,118 +18,112 @@
     </p>
 </div>
 
-<hr/>
+<hr />
 <h5>Notes</h5>
 <ul title="Notes">
     <li>Enter 1 to 7 in NumDaysAhead to look forward from today. Default of zero means just look at today. (try 7 as you see more progress messages)</li>
     <li>Enter search string to look in title, e.g. news. Default of empty means it lists everything for that day.</li>
 </ul>
-    <div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
-        <div id="progressbar"></div>
-        <div id="message-container" class="overflow-auto">
-            <table id="messages" class="table table-condensed">
-                <tbody></tbody>
-            </table>
+<div id="action-panel" class="hidden overflow-hidden" title="Action Progress">
+    <div id="progressbar"></div>
+    <div id="message-container" class="overflow-auto">
+    </div>
+    <div class="action-lower-menu">
+        <button id="action-button" class="btn btn-default">Invalid</button>
+    </div>
+</div>
+
+<div id="schedule-display" class="hidden"></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Search information</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumDaysAhead, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumDaysAhead, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumDaysAhead, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="action-lower-menu">
-            <button id="action-button" class="btn btn-default">Invalid</button>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TitleWordSearch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TitleWordSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleWordSearch, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div id="schedule-display" class="hidden"></div>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Search information</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumDaysAhead, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NumDaysAhead, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NumDaysAhead, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TitleWordSearch, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TitleWordSearch, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TitleWordSearch, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Search" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
+}
 
 
-    <div>
-        @Html.ActionLink("Other examples", "Index")
-    </div>
+<div>
+    @Html.ActionLink("Other examples", "Index")
+</div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/ActionRunner")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ActionRunner")
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            //Eaxmple method to hide form and the show the data as tables
-            function ShowData(jsonResult) {
-                var $scheduleDiv = $('#schedule-display');
-                $('form').hide();
-                $('#explanation').hide();
-                $scheduleDiv.html('@Html.ActionLink("Back to Search", "Radio4Search") <br/>');
-                for (var i = 0; i < jsonResult.FoundDaysCollection.length; i++) {
-                    var date = new Date(Date.parse(jsonResult.FoundDaysCollection[i].Day));
-                    $scheduleDiv.append('<h3>' + niceDisplayDate(date) + '<h3>');
-                    var dayProgrammes = jsonResult.FoundDaysCollection[i].Programmes;
-                    if (dayProgrammes.length === 0) {
-                        $scheduleDiv.append('<p>--- None found ---</p>');
-                    } else {
-                        var htmlToAdd = '<table class="table table-condensed"><tbody>' +
-                            '<tr><th>Title</th><th>Synopsis</th><th>Start Time</th><th>Duration</th></tr>';
-                        for (var j = 0; j < dayProgrammes.length; j++) {
-                            htmlToAdd += '<tr><td>' + dayProgrammes[j].Title +
-                                '</td><td>' + dayProgrammes[j].Synopsis +
-                                '</td><td>' + dayProgrammes[j].StartTime +
-                                '</td><td>' + dayProgrammes[j].Duration + '</td></tr>';
-                        }
-                        htmlToAdd += '</tbody></table>';
-                        $scheduleDiv.append(htmlToAdd);
+        //Eaxmple method to hide form and the show the data as tables
+        function ShowData(jsonResult) {
+            var $scheduleDiv = $('#schedule-display');
+            $('form').hide();
+            $('#explanation').hide();
+            $scheduleDiv.html('@Html.ActionLink("Back to Search", "Radio4Search") <br/>');
+            for (var i = 0; i < jsonResult.FoundDaysCollection.length; i++) {
+                var date = new Date(Date.parse(jsonResult.FoundDaysCollection[i].Day));
+                $scheduleDiv.append('<h3>' + niceDisplayDate(date) + '<h3>');
+                var dayProgrammes = jsonResult.FoundDaysCollection[i].Programmes;
+                if (dayProgrammes.length === 0) {
+                    $scheduleDiv.append('<p>--- None found ---</p>');
+                } else {
+                    var htmlToAdd = '<table class="table table-condensed"><tbody>' +
+                        '<tr><th>Title</th><th>Synopsis</th><th>Start Time</th><th>Duration</th></tr>';
+                    for (var j = 0; j < dayProgrammes.length; j++) {
+                        htmlToAdd += '<tr><td>' + dayProgrammes[j].Title +
+                            '</td><td>' + dayProgrammes[j].Synopsis +
+                            '</td><td>' + dayProgrammes[j].StartTime +
+                            '</td><td>' + dayProgrammes[j].Duration + '</td></tr>';
                     }
+                    htmlToAdd += '</tbody></table>';
+                    $scheduleDiv.append(htmlToAdd);
                 }
+            }
 
-                $scheduleDiv.removeClass('hidden');
+            $scheduleDiv.removeClass('hidden');
 
-                function niceDisplayDate(date) {
-                    var today = new Date();
-                    var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-                    if (today.toLocaleDateString() === date.toLocaleDateString()) {
-                        return 'today';
-                    } else if (date.toLocaleDateString() === tomorrow.toLocaleDateString()) {
-                        return 'tomorrow';
-                    } else {
-                        return date.toLocaleDateString();
-                    }
+            function niceDisplayDate(date) {
+                var today = new Date();
+                var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+                if (today.toLocaleDateString() === date.toLocaleDateString()) {
+                    return 'today';
+                } else if (date.toLocaleDateString() === tomorrow.toLocaleDateString()) {
+                    return 'tomorrow';
+                } else {
+                    return date.toLocaleDateString();
                 }
-            };
+            }
+        };
 
-            $(document).ready(function () {
-                ActionRunnerUi.startActionFromForm({
-                    header: 'Searching Radio4 Schedule',
-                    successAction: ShowData
-                });
+        $(document).ready(function () {
+            ActionRunnerUi.startActionFromForm({
+                header: 'Searching Radio4 Schedule',
+                successAction: ShowData
             });
-
-
-
-        </script>
-    }
+        });
+    </script>
+}

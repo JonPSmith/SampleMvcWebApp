@@ -1,4 +1,15 @@
-﻿
+﻿/*
+  The ActionRunnerUi provides public methods for linking a form or button/link to starting an action (see return items at end)
+  Internally it provides a number of UI methods handed to the ActionRunnerComms when it is created (see actionUI object)
+  which the ActionRunnerComms uses to communicate between the user and the task running on the server.
+
+  The ActionRunnerUi can be linked to multiple items on a page, but obviously only one can run at a time.
+
+  This version of ActionRunnerUi uses JQuery UI Dialog and Progress bar widgets to provide the user interface.
+  If you wish to write your own then you need to replace these functions, and the createPanelBasic() function called at the start.
+  The code assuems you will put up a modal panel fo some kind. This seems sensible but is also needed to stop any button(s) linking 
+  to ActionRunnerUi being pressed, which would cause problems dialogs being overwritten.
+*/
 
 var ActionRunnerUi = (function ($, window) {
     'use strict';
@@ -64,8 +75,10 @@ var ActionRunnerUi = (function ($, window) {
     var panelHeaderText = null;         //optional replacement text for the 
     var successAction = null;           //optional url or function to call on successful exit
 
-    //this holds the actionComms object created at the start
-    var actionComms = null;
+    
+    var actionComms = null;             //this holds the actionComms object created at the start
+    var actionConfig = null;            //this holds the object saying what functions the started action supports
+    var jQueryDialogOptions = null;     //holds the options set on the jQuery Dialog panel
 
     function setOptions(optionsObject) {
         if (optionsObject == null) return;
@@ -80,10 +93,8 @@ var ActionRunnerUi = (function ($, window) {
         this.draggable = true;
         this.resizable = false;             //resizable would be nice, but quite fiddly. Turn off for now.
         this.closeOnEscape = false;
-
-        //now the optional items 
-        if (panelHeaderText != null)
-            this.title = panelHeaderText;
+        this.maxWidth = 800;                //stops it being too big on desktop (this din't have any effect so fixed in setVariousHeightsEtc)
+        this.dialogClass = 'actionPanel';
     }
 
     //This sets the ui dialog height, width and position relative to the screen
@@ -95,28 +106,33 @@ var ActionRunnerUi = (function ($, window) {
         if (actionConfig.noMessagesSent) {
             dialogOptions.width = 350;      //wide enough for default header text and auto height
         } else {
-            //we make the dialog 60% height and 60% width. This gives room for messages
-            dialogOptions.height = browserHeight * 0.6;
-            dialogOptions.width = browerWidth * 0.6;
+            //we make the dialog almost fill the width for mobile, but limit on desktop (option maxWidth didn't work)
+            var calcedHeight = browserHeight * 0.8;
+            var calcedWidth = browerWidth * 0.8;
+            dialogOptions.height = calcedHeight < 100 ? browserHeight * 0.95 : calcedHeight;
+            dialogOptions.width = calcedWidth > dialogOptions.maxWidth ? dialogOptions.maxWidth : calcedWidth;
         }
-        dialogOptions.position = [
-            (browerWidth - dialogOptions.width) / 2,
-            (browserHeight - dialogOptions.height) / 2          
-        ];
 
         //now we need to work out the height of the other elements inside the panel to get the right size for message table
         var sumOtherHeights = 38 /* ui top height */ + $progressBar.height() + $('.action-lower-menu').height();
-        $('#message-container').css( 'max-height', dialogOptions.height - sumOtherHeights - 70);       //last number allows for padding
+        var messageHeight = dialogOptions.height - sumOtherHeights - 70;
+        if (actionConfig.noMessagesSent || messageHeight < 0) {
+            $messageContainer.hide();         
+        }
+        else {
+            $('#message-container').css('max-height', messageHeight);       //last number allows for padding
+        }      
 
+        //change the panel header title to proper text
+        dialogOptions.title = panelHeaderText || 'Action Progress';
     }
 
-    var actionConfig = null;            //this holds the object saying what functions the started action supports
 
     //This shows a panel with a progress bar and a message area, plus a button to cancel with
-    function setupPanelProgress() {
+    function modifyPanelContent() {
         if (actionConfig.noProgressSent) {
             //use spinning progress icon
-            $progressBar.html('<div class="centeredImage"><br /><img id="loading" alt="Running ..." src="../../Content/img/ajax-loader.gif" style="float:" /><p>&nbsp;</p></div>');
+            $progressBar.html('<div class="centeredImage"><br /><img id="loading" alt="Running ..." src="../../Content/img/task-progress.gif" style="float:" /><p>&nbsp;</p></div>');
         } else {
             $progressBar.html('');          //clear a possible spinning logo
             $progressBar.progressbar({ value: 0 });              
@@ -124,12 +140,47 @@ var ActionRunnerUi = (function ($, window) {
         }
 
         if (!actionConfig.noMessagesSent) {
+            $messageContainer.show();
             $messageContainer.html('<table id="messages" class="table table-condensed"><tbody></tbody></table>');
+        } else {
+            $messageContainer.hide();
         }
-        
-        $actionButton.on('click', function (eventObject) {
+
+    }
+
+    //This shows a panel with a progress bar and a message area, plus a button to cancel with
+    function setupStartupPanel(dialogOptions) {
+        $progressBar.html(//'<div class="text-center">Initialising</div>' +
+            '<div class="centeredImage"><br /><img id="loading" alt="Running ..." src="../../Content/img/setup-progress.gif" style="float:" /><p>&nbsp;</p></div>');
+        $messageContainer.html('');
+        dialogOptions.width = 350;
+        dialogOptions.title = 'Initialising...';
+    }
+
+    function createPanelBasic() {
+        $actionButton.unbind('click').on('click', function (eventObject) {
             actionComms.respondToStateChangeRequest(eventObject.target.innerText);
         });
+        jQueryDialogOptions = new CreatejQueryUiDialogOptions();
+        setupStartupPanel(jQueryDialogOptions);       
+        $actionPanel.dialog(jQueryDialogOptions);
+        //now some changes to the dialog
+        $actionPanel.dialog('widget').removeClass('ui-front');//we remove the ui-front so that the z-index of (note: this has effects on stacking, but not important in this case)
+        $('.ui-dialog-titlebar-close').hide();          //setting dialog buttons to empty array didn't stop the top rigth close button appearing!    
+        $actionPanel.removeClass('hidden');
+    }
+
+    //-----------------------------------------------------
+    //local methods to do with ajax call
+
+    function submitSuccess(responseContent, statusString, responseObject) {
+        actionComms = new ActionRunnerComms(actionUi);
+        createPanelBasic();
+        actionComms.runAction(responseContent);
+    }
+
+    function submitFailed(args) {
+        actionUi.reportSystemError('submit failed. args =' + args, true);
     }
 
     //------------------------------------------------------
@@ -140,25 +191,19 @@ var ActionRunnerUi = (function ($, window) {
     //This creates and shows a modal panel
     actionUi.startActionUi = function (configFromStartMessage) {
         actionConfig = configFromStartMessage;
-        $(messagesTableId + ' tr').remove();
-        $actionButton.unbind('click');
-        setupPanelProgress(actionConfig);
-        var dialogOptions = new CreatejQueryUiDialogOptions();
-        //setVariousHeightsEtc must be called after the setupPanelProgress and CreatejQueryUiDialogOptions
-        setVariousHeightsEtc(dialogOptions);
-        $actionPanel.dialog(dialogOptions);
-        $('.ui-dialog-titlebar-close').hide();          //setting dialog buttons to empty array didn't stop the top rigth close button appearing!
-        $actionPanel.removeClass('hidden');
+        modifyPanelContent();
+        setVariousHeightsEtc(jQueryDialogOptions);
+        $actionPanel.dialog('option', jQueryDialogOptions);
     };
 
     actionUi.endActionUi = function (successfulEnd, jsonResult) {
         $actionButton.unbind('click');
         $actionPanel.addClass('hidden');
-        if ($actionPanel.hasClass('ui-dialog-content')) {        
+        if ($actionPanel.hasClass('ui-dialog-content')) {
             $actionPanel.dialog('close');
             $actionPanel.dialog('destroy');
         }
-        if ($progressBar.hasClass('ui-progressbar')) {           
+        if ($progressBar.hasClass('ui-progressbar')) {
             $progressBar.progressbar('destroy');
         }
 
@@ -253,18 +298,6 @@ var ActionRunnerUi = (function ($, window) {
             console.log('ActionRunning system error: ' + additionalInfo);
         }
     };
-
-    //-----------------------------------------------------
-    //local methods to do with ajax call
-
-    function submitSuccess(responseContent, statusString, responseObject) {
-        actionComms = new ActionRunnerComms(actionUi);
-        actionComms.runAction(responseContent);
-    }
-
-    function submitFailed(args) {
-        actionUi.reportSystemError('submit failed. args =' + args, true);
-    }
 
     //==========================================================
     //now the functions that are called from the view

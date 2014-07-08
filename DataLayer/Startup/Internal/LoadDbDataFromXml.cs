@@ -45,11 +45,13 @@ namespace DataLayer.Startup.Internal
 
                 foreach (var postXml in blogXml.Element("Posts").Elements("Post"))
                 {
+                    var content = postXml.Element("Content").Value;
+                    var trimmedContent = string.Join("\n", content.Split('\n').Select(x => x.Trim()));
                     var newPost = new Post()
                     {
                         Blogger = newBlogger,
                         Title = postXml.Element("Title").Value,
-                        Content = postXml.Element("Content").Value,
+                        Content = trimmedContent,
                         Tags = postXml.Element("TagSlugs").Value.Split(',').Select(x => tagsDict[x.Trim()]).ToList()
                     };
                     newBlogger.Posts.Add(newPost );
