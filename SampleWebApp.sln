@@ -56,7 +56,6 @@ Global
 		{6D9E7904-B2AC-49E3-83A7-6B48876F46B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D9E7904-B2AC-49E3-83A7-6B48876F46B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D9E7904-B2AC-49E3-83A7-6B48876F46B9}.WebWizRelease|Any CPU.ActiveCfg = WebWizRelease|Any CPU
-		{6D9E7904-B2AC-49E3-83A7-6B48876F46B9}.WebWizRelease|Any CPU.Build.0 = WebWizRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

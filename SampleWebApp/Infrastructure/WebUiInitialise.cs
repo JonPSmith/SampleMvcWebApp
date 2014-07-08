@@ -49,7 +49,7 @@ namespace SampleWebApp.Infrastructure
         private static HostTypes DecodeHostType(string hostTypeString)
         {
             HostTypes hostType ;
-            Enum.TryParse(hostTypeString, out hostType);
+            Enum.TryParse(hostTypeString, true, out hostType);
             return hostType;
         }
 
