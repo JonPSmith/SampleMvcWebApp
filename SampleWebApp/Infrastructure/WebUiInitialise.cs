@@ -76,8 +76,6 @@ namespace SampleWebApp.Infrastructure
                 default:
                     throw new ArgumentOutOfRangeException("hostType");
             }
-
         }
-
     }
 }
