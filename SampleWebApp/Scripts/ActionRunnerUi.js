@@ -53,7 +53,8 @@ var ActionRunnerUi = (function ($, window) {
     var $progressBar = $(progressBarId);
     var messagesTableId = '#messages';
     var $messageContainer = $('#message-container');
-    var $notification = $('#notification');
+    var notificationId = '#notification';
+    var $notification = $(notificationId);
 
     //we use the jQuery Notify plugin from http://www.vicreative.nl/Projects/Notify if present (otherwise alerts)
     var useNotify = $.notify && $notification.length > 0;
@@ -251,7 +252,7 @@ var ActionRunnerUi = (function ($, window) {
     actionUi.displayGlobalMessage = function (message, stayUp, notifyType) {
         if (useNotify) {
             var type = notifyType || 'error';
-            $notification.notify({ appendTo: '.???', opacity: 0.8, adjustScroll: false, type: type, sticky: stayUp });
+            $.notify.create(message, { appendTo: notificationId, adjustScroll: false, type: type, sticky: stayUp });
         } else {
             //use a very simple alter to warn the user
             alert(message);

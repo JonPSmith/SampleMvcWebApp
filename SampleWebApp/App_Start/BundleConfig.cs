@@ -15,8 +15,8 @@ namespace SampleWebApp
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/ActionRunner").Include(
-                "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/jquery-notify.js",
+                "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/jquery.signalR-{version}.js",
                 "~/Scripts/ActionRunnerComms.js",
                 "~/Scripts/ActionRunnerUi.js"));
@@ -32,6 +32,7 @@ namespace SampleWebApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/notify.css",
                       "~/Content/site.css"));
 
             //Commented out the parts that are not used from the jQuery UI

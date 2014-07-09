@@ -26,7 +26,11 @@ textarea {
 
 /* Used to put spinning progress bar in the centre of the panel*/
 .actionPanel {
-    z-index: 100000;
+    z-index: 10000;
+}
+
+#notification {
+    z-index: 10001;
 }
 
 .centeredImage {
