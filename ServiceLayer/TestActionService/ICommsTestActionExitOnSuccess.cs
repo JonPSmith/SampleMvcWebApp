@@ -1,10 +1,10 @@
 ﻿using System;
-using GenericServices;
+using GenericServices.ActionComms;
 using ServiceLayer.TestActionService.Concrete;
 
 namespace ServiceLayer.TestActionService
 {
-    public interface ICommsTestActionExitOnSuccess : IActionSync<int,CommsTestActionData>, IDisposable
+    public interface ICommsTestActionExitOnSuccess : IActionCommsSync<int,CommsTestActionData>, IDisposable
     {
 
     }

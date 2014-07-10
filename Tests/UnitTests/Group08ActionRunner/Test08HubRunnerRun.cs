@@ -2,8 +2,7 @@
 using Autofac;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
-using GenericServices.Actions;
-using GenericServices.Logger;
+using GenericServices.ActionComms;
 using log4net.Appender;
 using log4net.Config;
 using NUnit.Framework;

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using GenericServices;
+using GenericServices.ActionComms;
 using GenericServices.Actions;
 
 namespace Tests.MocksAndFakes

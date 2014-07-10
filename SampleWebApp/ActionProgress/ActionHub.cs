@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using GenericServices.ActionComms;
 using GenericServices.Actions;
 using GenericServices.Logger;
 using Microsoft.AspNet.SignalR;

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 
 namespace SampleWebApp.ActionProgress
 {

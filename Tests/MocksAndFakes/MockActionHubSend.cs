@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 using SampleWebApp.ActionProgress;
 
 namespace Tests.MocksAndFakes

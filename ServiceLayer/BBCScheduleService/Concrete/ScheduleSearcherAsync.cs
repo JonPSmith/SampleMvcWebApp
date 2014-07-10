@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using DataLayer.BBCScheduleService;
 using GenericServices;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 using GenericServices.Core;
-using GenericServices.ServicesAsync;
 
 namespace ServiceLayer.BBCScheduleService.Concrete
 {
-    public class ScheduleSearcherAsync : ActionBase, IScheduleSearcherAsync
+    public class ScheduleSearcherAsync : ActionCommsBase, IScheduleSearcherAsync
     {
-        private IRadio4Fm _reader;
+        private readonly IRadio4Fm _reader;
         private string _searchString;
 
         public override bool SubmitChangesOnSuccess { get { return false; } }

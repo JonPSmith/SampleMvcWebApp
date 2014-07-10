@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using GenericServices;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 using GenericServices.Core;
 using GenericServices.Logger;
 using Microsoft.CSharp.RuntimeBinder;
-using Newtonsoft.Json;
 
 namespace SampleWebApp.ActionProgress
 {

@@ -1,15 +1,15 @@
 ﻿using DataLayer.DataClasses.Concrete;
 using GenericServices;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 using GenericServices.Core;
 
 namespace Tests.Helpers
 {
-    public interface IEmptyTestAction : IActionSync<int, Tag>
+    public interface IEmptyTestAction : IActionCommsSync<int, Tag>
     {
     }
 
-    public class EmptyTestAction : ActionBase, IEmptyTestAction
+    public class EmptyTestAction : ActionCommsBase, IEmptyTestAction
     {
 
         /// <summary>

@@ -1,16 +1,16 @@
 ﻿using System.Threading.Tasks;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
-using GenericServices.Actions;
+using GenericServices.ActionComms;
 using GenericServices.Core;
 
 namespace Tests.Helpers
 {
-    public interface IEmptyTestActionAsync : IActionAsync<int, Tag>
+    public interface IEmptyTestActionAsync : IActionCommsAsync<int, Tag>
     {
     }
 
-    public class EmptyTestActionAsync : ActionBase, IEmptyTestActionAsync
+    public class EmptyTestActionAsync : ActionCommsBase, IEmptyTestActionAsync
     {
 
         /// <summary>

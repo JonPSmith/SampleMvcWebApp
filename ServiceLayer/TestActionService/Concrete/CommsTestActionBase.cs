@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using GenericServices;
+using GenericServices.ActionComms;
 using GenericServices.Actions;
 using GenericServices.Core;
 
 namespace ServiceLayer.TestActionService.Concrete
 {
-    public abstract class CommsTestActionBase : ActionBase
+    public abstract class CommsTestActionBase : ActionCommsBase
     {
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using GenericServices;
+using GenericServices.ActionComms;
 using SampleWebApp.Infrastructure;
 
 namespace SampleWebApp.ActionProgress
@@ -40,8 +41,8 @@ namespace SampleWebApp.ActionProgress
             if (_actionInterface == null || !_actionInterface.IsGenericType)
                 throw new InvalidOperationException("The interface must have IActionDefn<TOut,Tin> or IActionDefnAsync<TOut,Tin> as the first sub-interface.");
 
-            _isAsync = _actionInterface.Name == typeof (IActionAsync<,>).Name;
-            if (!_isAsync && _actionInterface.Name != typeof(IActionSync<,>).Name)
+            _isAsync = _actionInterface.Name == typeof (IActionCommsAsync<,>).Name;
+            if (!_isAsync && _actionInterface.Name != typeof(IActionCommsSync<,>).Name)
                 throw new InvalidOperationException("The interface must have IActionDefn<TOut,Tin> or IActionDefnAsync<TOut,Tin> as the first sub-interface.");
 
             _data = data;
