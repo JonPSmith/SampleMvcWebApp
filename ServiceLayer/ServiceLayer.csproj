@@ -86,7 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogServices\Concrete\BlogDto.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDtoAsync.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDto.cs" />
     <Compile Include="PostServices\Concrete\SimplePostDtoAsync.cs" />

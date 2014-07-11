@@ -39,7 +39,7 @@ namespace BizLayer.BlogsAnalysis.Concrete
                 return
                     status.AddSingleError("Could not find the blogger reference you asked for. Have they been deleted?");
 
-            return status.SetSuccessWithResult(new AnalysisResult(bloggerWithPostsAndTags), "Analysis of blogger '{0}",
+            return status.SetSuccessWithResult(new AnalysisResult(bloggerWithPostsAndTags), "Analysis of blogger '{0}'.",
                 bloggerWithPostsAndTags.Name);
 
         }

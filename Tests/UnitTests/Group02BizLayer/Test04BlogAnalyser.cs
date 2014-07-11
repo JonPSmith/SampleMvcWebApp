@@ -52,7 +52,7 @@ namespace Tests.UnitTests.Group02BizLayer
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
-                status.Result.Blogger.Name.ShouldEqual(firstBlogger.Name);
+                status.Result.BloggerName.ShouldEqual(firstBlogger.Name);
                 status.Result.NumPosts.ShouldEqual(2);
                 status.Result.LongestWordCount.ShouldEqual(13);
                 status.Result.ShortestWordCount.ShouldEqual(8);

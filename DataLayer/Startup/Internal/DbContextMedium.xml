@@ -2,6 +2,10 @@
 <Content>
   <Tags>
     <Tag>
+      <Name>About Me</Name>
+      <Slug>about</Slug>
+    </Tag>
+    <Tag>
       <Name>Business</Name>
       <Slug>biz</Slug>
     </Tag>
@@ -44,8 +48,44 @@
       <Email>ada@nospam.com</Email>
       <Posts>
         <Post>
+          <Title>About Ada Lovelace</Title>
+          <Content>
+            The following was taken from Wikipedia, the free encyclopedia
+
+            Augusta Ada King, Countess of Lovelace (10 December 1815 – 27 November 1852), born Augusta Ada Byron and now
+            commonly known as Ada Lovelace, was an English mathematician and writer chiefly known for her work on
+            Charles Babbage's early mechanical general-purpose computer, the Analytical Engine. Her notes on the engine
+            include what is recognised as the first algorithm intended to be carried out by a machine. Because of this,
+            she is often described as the world's first computer programmer.
+
+            Lovelace was born 10 December 1815 as the only child of the poet Lord Byron and his wife Anne Isabella Byron.
+            All Byron's other children were born out of wedlock to other women.
+            Byron separated from his wife a month after Ada was born and left England forever four months later,
+            eventually dying of disease in the Greek War of Independence when Ada was eight years old.
+            Ada's mother remained bitter at Lord Byron and promoted Ada's interest in mathematics and logic in an
+            effort to prevent her from developing what she saw as the insanity seen in her father, but Ada remained
+            interested in him despite this (and was, upon her eventual death, buried next to him at her request).
+
+            -------
+            Personal note:
+
+            My wife, Dr. Honora Smith, is related to Ada Lovelace, which is why she appears in this blog post.
+          </Content>
+          <TagSlugs>about</TagSlugs>
+        </Post>
+        <Post>
           <Title>Thoughts on programming with a spanner</Title>
-          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
             Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
             ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
             Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
@@ -58,7 +98,44 @@
         </Post>
         <Post>
           <Title>Babbage engine - the internals</Title>
-          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+          <Content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
             Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
             ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
             Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
@@ -71,27 +148,32 @@
         </Post>
         <Post>
           <Title>An algrorithm for winning on the horses</Title>
-          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
-            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
-            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
-            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
-            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
-            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          <Content>
+            The following was paraphrased from Wikipedia, the free encyclopedia
+
+            Ada Lovelack has a love of gambling. This led to her forming a syndicate with male friends, and an ambitious attempt in 1851 
+            to create a mathematical model for successful large bets. This went disastrously wrong, leaving her thousands of pounds in debt 
+            to the syndicate, forcing her to admit it all to her husband.
+
           </Content>
           <TagSlugs>programming,vices,personal</TagSlugs>
         </Post>
         <Post>
           <Title>Women in programming - we got here first</Title>
-          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
-            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
-            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
-            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
-            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
-            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+          <Content>
+            The following was taken from Wikipedia, the free encyclopedia
+
+            Ada described her approach as "poetical science" and herself as an "Analyst (and Metaphysician)".
+            As a young adult, her mathematical talents led her to an ongoing working relationship and friendship 
+            with fellow British mathematician Charles Babbage, and in particular Babbage's work on the Analytical Engine. 
+            Between 1842 and 1843, she translated an article by Italian military engineer Luigi Menabrea on the engine, 
+            which she supplemented with an elaborate set of notes of her own, simply called Notes. 
+            These notes contain what many consider to be the first computer program—that is, an algorithm designed 
+            to be carried out by a machine. Lovelace's notes are important in the early history of computers. 
+            She also developed a vision on the capability of computers to go beyond mere calculating or number-crunching while others, 
+            including Babbage himself, focused only on those capabilities. Her mind-set of "poetical science" led her to 
+            ask basic questions about the Analytical Engine (as shown in her notes) examining how individuals and society 
+            relate to technology as a collaborative tool.
           </Content>
           <TagSlugs>programming,personal,opinion</TagSlugs>
         </Post>
@@ -102,8 +184,27 @@
       <Email>sherlock@nospam.com</Email>
       <Posts>
         <Post>
+          <Title>About Sherlock Holmes</Title>
+          <Content>
+            The following was taken from Wikipedia, the free encyclopedia
+
+            Sherlock Holmes is a fictional detective created by Scottish author and physician Sir Arthur Conan Doyle.
+            A London-based "consulting detective" whose abilities border on the fantastic, Holmes is famous for his 
+            astute logical reasoning, his ability to adopt almost any disguise, and his use of forensic science skills to solve difficult cases.
+
+            Holmes, who first appeared in publication in 1887, was featured in four novels and 56 short stories. 
+            The first novel, A Study in Scarlet, appeared in Beeton's Christmas Annual in 1887 and the second, 
+            The Sign of the Four, in Lippincott's Monthly Magazine in 1890. The character grew tremendously in 
+            popularity with the first series of short stories in The Strand Magazine, beginning with 
+            "A Scandal in Bohemia" in 1891; further series of short stories and two novels published in serial 
+            form appeared between then and 1927. The stories cover a period from around 1880 up to 1914.
+          </Content>
+          <TagSlugs>about</TagSlugs>
+        </Post>
+        <Post>
           <Title>Sound qualities of 221b Baker Street</Title>
-          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -111,12 +212,22 @@
             dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
           </Content>
           <TagSlugs>entertain,personal</TagSlugs>
         </Post>
         <Post>
           <Title>Using urchins as an information source</Title>
-          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -124,25 +235,51 @@
             dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
+            
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
+            ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
           </Content>
           <TagSlugs>biz</TagSlugs>
         </Post>
         <Post>
           <Title>My considered option on the TV adaptions of my life</Title>
-          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
-            non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
-            ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
-            bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
-            laoreet dignissim. Nulla rhoncus, leo ac sollicitudin egestas, nunc nisi cursus augue, rutrum pellentesque
-            dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
-            semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
-            Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+          <Content>
+            I enjoy "Elementary" on Sky, although the person portraying my is a little dull comparied to me.
+            Watson however is rather grand, and in my opinion more intelligent than my poor Waston I had to work with.
+
+            The BBC "Sherlock" is entertaining but later versions have become more darker than I would like.
+            I realise we are dealing with the dregs of society, but we must not be pulled down to their level you know.
           </Content>
           <TagSlugs>opinion,entertain</TagSlugs>
         </Post>
         <Post>
           <Title>Professor Moriarty's habits and acquaintances</Title>
-          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>
+            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -150,38 +287,58 @@
             dolor lacus et odio. Curabitur ac iaculis justo. In nec ullamcorper mi. Donec arcu quam, posuere id magna
             semper, mattis imperdiet augue. Aenean interdum massa sed tincidunt tempor. Nam mollis laoreet ante.
             Phasellus faucibus condimentum massa, at euismod ligula. Maecenas facilisis mi sed consectetur consequat.
+
+            - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+            - Vivamus id enim orci. Duis vitae aliquet risus. 
+            - Sed lorem felis, mattis non elementum rhoncus, ultricies in mauris. Aliquam erat volutpat. 
+            - Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            - Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. 
+            
+            Sed et ante sapien. Phasellus convallis
+            in quam ut posuere. Mauris rhoncus et orci in lobortis. Duis velit diam, semper sit amet mollis non,
+            sollicitudin nec turpis. Cras semper sem ligula, non porta odio ornare at. Vestibulum in odio vel est
+            mollis aliquam vel non elit. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            Mauris aliquet mauris commodo dui vehicula viverra. Nam dignissim cursus arcu, non tincidunt est posuere quis.
           </Content>
           <TagSlugs>edu,biz</TagSlugs>
         </Post>
       </Posts>
     </Blog>
     <Blog>
-      <Name>Homer Simsom</Name>
+      <Name>Homer Simpson</Name>
       <Email>doh@nospam.com</Email>
       <Posts>
         <Post>
+          <Title>About Homer Simpson</Title>
+          <Content>
+            The following was taken from Wikipedia, the free encyclopedia
+            
+            Homer Jay Simpson is a cartoon character in the animated television series The Simpsons as the 
+            patriarch of the eponymous family. He is voiced by Dan Castellaneta and first appeared on television, 
+            along with the rest of his family, in The Tracey Ullman Show short "Good Night" on April 19, 1987. 
+            Homer was created and designed by cartoonist Matt Groening while he was waiting in the lobby of 
+            James L. Brooks' office. Groening had been called to pitch a series of shorts based on his comic strip 
+            Life in Hell but instead decided to create a new set of characters. He named the character after his father, 
+            Homer Groening. After appearing for three seasons on The Tracey Ullman Show, the Simpson family got their 
+            own series on Fox that debuted December 17, 1989.
+
+            Homer and his wife Marge have three children: Bart, Lisa, and Maggie. As the family's provider, 
+            he works at the Springfield Nuclear Power Plant. Homer embodies several American working class stereotypes: 
+            he is crude, bald, overweight, incompetent, clumsy, lazy, a heavy drinker, and ignorant; however, he is 
+            essentially a decent man and fiercely devoted to his family. Despite the suburban blue-collar routine of 
+            his life, he has had a number of remarkable experiences.
+          </Content>
+          <TagSlugs>about</TagSlugs>
+        </Post>
+        <Post>
           <Title>I am in love with Beer, oh sorry I meant Marge</Title>
-          <Content>Curabitur id vulputate lectus, in ullamcorper arcu. Donec vitae libero sit amet tellus pretium ornare.
-            Nunc auctor tempus neque sit amet tempor. Maecenas ipsum tellus, consequat sed bibendum vitae, placerat
-            at nulla. Sed posuere nisl mi, non semper eros vulputate nec. Nam blandit lorem sapien, a auctor lectus
-            placerat nec. Nulla lobortis erat et nibh cursus imperdiet. Aliquam in massa ut justo consequat venenatis.
-            Nulla facilisi. Nulla facilisi. Ut fringilla leo vitae pharetra interdum. Donec ullamcorper diam
-            vitae scelerisque faucibus. Fusce in est bibendum, tincidunt quam quis, ullamcorper sem. Aliquam sed
-            ligula eu dolor posuere sagittis. Curabitur id ligula non dolor consectetur elementum. Proin tincidunt
-            feugiat lacinia.
+          <Content>I don't say much other than Beer is good.
           </Content>
           <TagSlugs>vices,personal</TagSlugs>
         </Post>
         <Post>
           <Title>Homer's Php... No, pph... D'oh, PhD.</Title>
-          <Content>Curabitur id vulputate lectus, in ullamcorper arcu. Donec vitae libero sit amet tellus pretium ornare.
-            Nunc auctor tempus neque sit amet tempor. Maecenas ipsum tellus, consequat sed bibendum vitae, placerat
-            at nulla. Sed posuere nisl mi, non semper eros vulputate nec. Nam blandit lorem sapien, a auctor lectus
-            placerat nec. Nulla lobortis erat et nibh cursus imperdiet. Aliquam in massa ut justo consequat venenatis.
-            Nulla facilisi. Nulla facilisi. Ut fringilla leo vitae pharetra interdum. Donec ullamcorper diam
-            vitae scelerisque faucibus. Fusce in est bibendum, tincidunt quam quis, ullamcorper sem. Aliquam sed
-            ligula eu dolor posuere sagittis. Curabitur id ligula non dolor consectetur elementum. Proin tincidunt
-            feugiat lacinia.
+          <Content>What's a PhD.?
           </Content>
           <TagSlugs>edu</TagSlugs>
         </Post>
@@ -192,13 +349,18 @@
       <Email>yoni@nospam.com</Email>
       <Posts>
         <Post>
+          <Title>About Yoni the cat</Title>
+          <Content>Yoni the cat gracously stays with our son Josh and his partner Katie in London, UK.
+          He had a nasty accident and now only has three legs. 
+          </Content>
+          <TagSlugs>about</TagSlugs>
+        </Post>
+        <Post>
           <Title>Why I only have three legs</Title>
-          <Content>Ut malesuada nibh quis velit tincidunt sollicitudin cursus placerat lorem. Praesent laoreet,
-            erat vel viverra euismod, massa nunc vehicula lectus, imperdiet convallis nisi nisl in felis.
-            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam laoreet scelerisque nulla.
-            Phasellus eleifend erat vitae blandit porta. Maecenas sed congue mi. Vivamus felis neque, iaculis
-            sit amet sollicitudin ac, rhoncus et enim. Etiam non ullamcorper elit. Phasellus convallis nibh ut
-            mollis aliquet. Nullam commodo mauris vel mauris hendrerit aliquet.
+          <Content>
+            I don't remember much about the accident, but I was out on the town and something nasty happened.
+            My human servants fixed me up and I am still able to get around, although I do need more fuss because of this
+            traumatic event.
           </Content>
           <TagSlugs>personal</TagSlugs>
         </Post>
@@ -206,10 +368,6 @@
           <Title>I might allow you to pet me...</Title>
           <Content>Ut malesuada nibh quis velit tincidunt sollicitudin cursus placerat lorem. Praesent laoreet,
             erat vel viverra euismod, massa nunc vehicula lectus, imperdiet convallis nisi nisl in felis.
-            Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam laoreet scelerisque nulla.
-            Phasellus eleifend erat vitae blandit porta. Maecenas sed congue mi. Vivamus felis neque, iaculis
-            sit amet sollicitudin ac, rhoncus et enim. Etiam non ullamcorper elit. Phasellus convallis nibh ut
-            mollis aliquet. Nullam commodo mauris vel mauris hendrerit aliquet.
           </Content>
           <TagSlugs>personal,vices</TagSlugs>
         </Post>

@@ -13,6 +13,7 @@ namespace DataLayer.DataClasses.Concrete
 
         [MaxLength(256)]
         [Required]
+        [EmailAddress]
         public string EmailAddress { get; set; }
 
         public ICollection<Post> Posts { get; set; }

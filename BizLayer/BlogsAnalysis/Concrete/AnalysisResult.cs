@@ -8,7 +8,7 @@ namespace BizLayer.BlogsAnalysis.Concrete
     public class AnalysisResult
     {
 
-        public Blog Blogger { get; private set; }
+        public string BloggerName { get; private set; }
 
         public int NumPosts { get; private set; }
 
@@ -29,7 +29,7 @@ namespace BizLayer.BlogsAnalysis.Concrete
 
             var postWithWordCount = bloggerWithPostsAndTags.Posts.Select(x => new PostWithWordCount(x)).OrderBy( x => x.WordCount).ToList();
 
-            Blogger = bloggerWithPostsAndTags;
+            BloggerName = bloggerWithPostsAndTags.Name;
             NumPosts = bloggerWithPostsAndTags.Posts.Count;
 
             LongestPost = postWithWordCount.Last().ActualPost;

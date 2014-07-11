@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SampleWebApp.Models.BlogListModel>
+
+
+<h2>Blogs</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
+<p>
+    This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
+    database CRUD (Create, Read, Update/Edit and Delete) services done synchronously, i.e no wait states to improve web site capacity.
+    (See @Html.ActionLink("Tags Async", "Index", "TagsAsync") for async versions of the same commands).
+</p>
+<p>
+    Below you will see a table of Blogs which can be manipulated, and analysed. Tags are really simple so we use the direct GenericServices rather than
+    the DTO GenericServices used for Posts.
+</p>
+<p>
+    However we do use a simple dto in the list to show how many posts the blogger has. 
+    Also see the Analyse link, which calls an business method to analyse all the post owned by this blogger.
+</p>
+<hr />
+<div>
+    <span>@Html.ActionLink("Create New Blogger", "Create") | @Html.ActionLink("Return To Posts", "Index", "Posts")</span>
+    @*<span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>*@
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumPosts)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.HiddenFor(modelItem => item.BlogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumPosts)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BlogId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BlogId }) |
+            @Html.ActionLink("Analyse", "Analyse", new { id=item.BlogId })
+        </td>
+    </tr>
+}
+
+</table>
