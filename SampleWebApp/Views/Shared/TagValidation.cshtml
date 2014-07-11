@@ -26,6 +26,12 @@
             <td>Browser,MVC,EF</td>
         </tr>
         <tr>
+            <td>Name</td>
+            <td>Must not contain HTML symbols, e.g. &lt;, &gt; </td>
+            <td>Exception</td>
+            <td>MVC</td>
+        </tr>
+        <tr>
             <td>Slug</td>
             <td>Must not be empty</td>
             <td>By property</td>
@@ -66,4 +72,5 @@
         <li>EF: by Entity Framework validation phase</li>
         <li>SaveChanges: Special validaton code added to EF's SaveChanges</li>
     </ul>
+    <p>The test for HTML symbols is done by MVC and throws an exception, which in the release version goe to the default error page.</p>
 </div>

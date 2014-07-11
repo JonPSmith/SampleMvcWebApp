@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
-namespace ServiceLayer.BBCScheduleService.Concrete
+namespace BizLayer.BBCScheduleService.Concrete
 {
     public class DayOfProgrammes
     {

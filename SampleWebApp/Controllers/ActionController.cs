@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
+using BizLayer.BBCScheduleService;
+using BizLayer.BBCScheduleService.Concrete;
 using SampleWebApp.ActionProgress;
 using SampleWebApp.Infrastructure;
-using ServiceLayer.BBCScheduleService;
-using ServiceLayer.BBCScheduleService.Concrete;
 using ServiceLayer.TestActionService;
 using ServiceLayer.TestActionService.Concrete;
 

@@ -78,7 +78,7 @@ namespace DataLayer.DataClasses
             {
                 var tagToCheck = ((Tag)entityEntry.Entity);
 
-                //check for uniqueness of Service shortName (note: because we may alter a service we need to exclude check against itself)
+                //check for uniqueness of Tag's Slug property (note: because we may alter a Tag we need to exclude check against itself)
                 if (Tags.Any(x => x.TagId != tagToCheck.TagId && x.Slug == tagToCheck.Slug))
                     return new DbEntityValidationResult(entityEntry,
                                                         new List<DbValidationError>

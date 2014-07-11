@@ -57,14 +57,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,12 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBCScheduleService\Concrete\DayOfProgrammes.cs" />
-    <Compile Include="BBCScheduleService\Concrete\ProgrammeDetails.cs" />
-    <Compile Include="BBCScheduleService\Concrete\ScheduleSearchResult.cs" />
-    <Compile Include="BBCScheduleService\IScheduleSearcherAsync.cs" />
-    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherAsync.cs" />
-    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherData.cs" />
     <Compile Include="BlogServices\Concrete\BlogDto.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDtoAsync.cs" />
     <Compile Include="PostServices\Concrete\DetailPostDto.cs" />
@@ -115,6 +112,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\BizLayer\BizLayer.csproj">
+      <Project>{19592a8f-7c58-4221-8124-d38acd8f5e31}</Project>
+      <Name>BizLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{264e1878-12de-4099-b8d7-cc53a73fea49}</Project>
       <Name>DataLayer</Name>

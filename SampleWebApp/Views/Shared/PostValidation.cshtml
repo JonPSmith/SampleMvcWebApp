@@ -20,10 +20,22 @@
             <td>Browser,MVC,EF</td>
         </tr>
         <tr>
+            <td>Title</td>
+            <td>Must not contain HTML symbols, e.g. &lt;, &gt; </td>
+            <td>Exception</td>
+            <td>MVC</td>
+        </tr>
+        <tr>
             <td>Content</td>
             <td>Cannot be empty</td>
             <td>By property</td>
             <td>Browser,MVC,EF</td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td>Must not contain HTML symbols, e.g. &lt;, &gt; </td>
+            <td>Exception</td>
+            <td>MVC</td>
         </tr>
         <tr>
             <td>Blog (Author)</td>
@@ -64,7 +76,7 @@
             <td>Content</td>
             <td>
                 A sentence must not end with the following words:<br />
-                ' sheep', ' lamb', ' cow' or ' calf'
+                ' sheep.', ' lamb.', ' cow.' or ' calf.'
             </td>
             <td>At top</td>
             <td>EF</td>
@@ -80,4 +92,5 @@
         <li>EF: by Entity Framework validation phase</li>
         <li>DTO: By the code inside the DetailPostDto class</li>
     </ul>
+    <p>The test for HTML symbols is done by MVC and throws an exception, which in the release version goe to the default error page.</p>
 </div>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{264E1878-12DE-4099-B8D7-CC53A73FEA49}</ProjectGuid>
+    <ProjectGuid>{19592A8F-7C58-4221-8124-D38ACD8F5E31}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataLayer</RootNamespace>
-    <AssemblyName>DataLayer</AssemblyName>
+    <RootNamespace>BizLayer</RootNamespace>
+    <AssemblyName>BizLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,48 +29,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseAzure|AnyCPU'">
-    <OutputPath>bin\ReleaseAzure\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AzureRelease|AnyCPU'">
-    <OutputPath>bin\AzureRelease\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WebWizRelease|AnyCPU'">
-    <OutputPath>bin\WebWizRelease\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GenericServices">
       <HintPath>..\..\GenericServices\GenericServices\bin\Release\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -83,28 +53,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBCScheduleService\IRadio4Fm.cs" />
-    <Compile Include="BBCScheduleService\Concrete\Radio4Fm.cs" />
-    <Compile Include="DataClasses\Concrete\Blog.cs" />
-    <Compile Include="DataClasses\Concrete\Helpers\TrackUpdate.cs" />
-    <Compile Include="DataClasses\Concrete\Post.cs" />
-    <Compile Include="DataClasses\Concrete\Tag.cs" />
-    <Compile Include="Startup\DataLayerInitialise.cs" />
-    <Compile Include="DataClasses\SampleWebAppDb.cs" />
+    <Compile Include="BBCScheduleService\Concrete\DayOfProgrammes.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ProgrammeDetails.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherAsync.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearcherData.cs" />
+    <Compile Include="BBCScheduleService\Concrete\ScheduleSearchResult.cs" />
+    <Compile Include="BBCScheduleService\IScheduleSearcherAsync.cs" />
+    <Compile Include="BlogsAnalysis\Concrete\BlogAnalyser.cs" />
+    <Compile Include="BlogsAnalysis\Concrete\AnalysisResult.cs" />
+    <Compile Include="BlogsAnalysis\IBlogAnalyser.cs" />
+    <Compile Include="BlogsAnalysis\Internal\PostWithWordCount.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup\DataLayerModule.cs" />
-    <Compile Include="Startup\Internal\LoadDbDataFromXml.cs" />
+    <Compile Include="Startup\BizLayerInitialise.cs" />
+    <Compile Include="Startup\BizLayerModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Startup\Internal\DbContentSimple.xml" />
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{264e1878-12de-4099-b8d7-cc53a73fea49}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Startup\Internal\DbContextMedium.xml" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ServiceLayer.BBCScheduleService.Concrete
+namespace BizLayer.BBCScheduleService.Concrete
 {
     public class ScheduleSearcherData 
     {

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using BizLayer.Startup;
 using DataLayer.Startup;
 using GenericServices;
 using GenericServices.Services;
@@ -20,7 +21,7 @@ namespace ServiceLayer.Startup
             builder.RegisterModule(new DataLayerModule());
 
             //Reigister the BizLayer
-            //builder.RegisterModule(new BizLayerModule());
+            builder.RegisterModule(new BizLayerModule());
 
             //---------------------------
             //Register service layer: autowire all 

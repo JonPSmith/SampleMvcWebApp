@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using BizLayer.BBCScheduleService.Concrete;
 using NUnit.Framework;
-using ServiceLayer.BBCScheduleService.Concrete;
 using Tests.Helpers;
 using Tests.MocksAndFakes;
 
-namespace Tests.UnitTests.Group03ServiceLayer
+namespace Tests.UnitTests.Group02BizLayer
 {
     class Test02ScheduleSearcher
     {

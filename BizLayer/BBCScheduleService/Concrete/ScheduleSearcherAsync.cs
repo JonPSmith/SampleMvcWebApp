@@ -7,7 +7,7 @@ using GenericServices;
 using GenericServices.ActionComms;
 using GenericServices.Core;
 
-namespace ServiceLayer.BBCScheduleService.Concrete
+namespace BizLayer.BBCScheduleService.Concrete
 {
     public class ScheduleSearcherAsync : ActionCommsBase, IScheduleSearcherAsync
     {

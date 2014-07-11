@@ -1,5 +1,10 @@
 ﻿using System.Linq;
 using Autofac;
+using BizLayer.BBCScheduleService;
+using BizLayer.BBCScheduleService.Concrete;
+using BizLayer.BlogsAnalysis;
+using BizLayer.BlogsAnalysis.Concrete;
+using BizLayer.Startup;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
@@ -7,8 +12,6 @@ using GenericServices;
 using GenericServices.Services;
 using NUnit.Framework;
 using SampleWebApp.Infrastructure;
-using ServiceLayer.BBCScheduleService;
-using ServiceLayer.BBCScheduleService.Concrete;
 using ServiceLayer.PostServices.Concrete;
 using ServiceLayer.Startup;
 using Tests.Helpers;
@@ -52,44 +55,45 @@ namespace Tests.UnitTests.Group03ServiceLayer
             }
         }
 
-        //[Test]
-        //public void CheckSetupDataLayerNonLifetimeScopeItems()
-        //{
-        //    //SETUP
-        //    var builder = new ContainerBuilder();
-        //    builder.RegisterModule(new DataLayerModule());
-        //    var container = builder.Build();
+        [Test]
+        public void CheckSetupDbContextLifetimeScopeViaSampleWebAppDb()
+        {
+            //SETUP
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new DataLayerModule());
+            var container = builder.Build();
 
-        //    //ATTEMPT & VERIFY
-        //    using (var lifetimeScope = container.BeginLifetimeScope())
-        //    {
-        //        var example1 = lifetimeScope.Resolve<ISmService>();
-        //        var example2 = lifetimeScope.Resolve<ISmService>();
-        //        Assert.NotNull(example1);
-        //        Assert.AreNotSame(example1, example2);                       //check transient
-        //        (example1 is SmService).ShouldEqual(true);
-        //    }
-        //}
+            //ATTEMPT & VERIFY
+            using (var lifetimeScope = container.BeginLifetimeScope())
+            {
+                var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                var instance2 = lifetimeScope.Resolve<SampleWebAppDb>();
+                Assert.NotNull(instance1);
+                (instance1 is SampleWebAppDb).ShouldEqual(true);
+                Assert.AreSame(instance1, instance2);                       //check the two different items are the same
+            }
+        }
 
-        //[Test]
-        //public void CheckSetupBizLayerScopeItems()
-        //{
-        //    //SETUP
-        //    var builder = new ContainerBuilder();
-        //    builder.RegisterModule(new BizLayerModule());
-        //    var container = builder.Build();
+        [Test]
+        public void CheckSetupBizLayerScopeItems()
+        {
+            //SETUP
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new DataLayerModule());
+            builder.RegisterModule(new BizLayerModule());
+            var container = builder.Build();
 
-        //    //ATTEMPT & VERIFY
-        //    using (var lifetimeScope = container.BeginLifetimeScope())
-        //    {
-        //        var example1 = lifetimeScope.Resolve<IShapefileConvert>();
-        //        var example2 = lifetimeScope.Resolve<IShapefileConvert>();
-        //        Assert.NotNull(example1);
-        //        Assert.AreNotSame(example1, example2);                       //check transient
-        //        (example1 is ShapefileConvert).ShouldEqual(true);
-        //    }
+            //ATTEMPT & VERIFY
+            using (var lifetimeScope = container.BeginLifetimeScope())
+            {
+                var example1 = lifetimeScope.Resolve<IBlogAnalyser>();
+                var example2 = lifetimeScope.Resolve<IBlogAnalyser>();
+                Assert.NotNull(example1);
+                Assert.AreNotSame(example1, example2);                       //check transient
+                (example1 is BlogAnalyser).ShouldEqual(true);
+            }
 
-        //}
+        }
 
         //---------------------------------------------
         //ServiceLayer, which also resolves DataLayer

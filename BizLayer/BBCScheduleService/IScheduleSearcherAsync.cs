@@ -1,8 +1,7 @@
-﻿using GenericServices;
+﻿using BizLayer.BBCScheduleService.Concrete;
 using GenericServices.ActionComms;
-using ServiceLayer.BBCScheduleService.Concrete;
 
-namespace ServiceLayer.BBCScheduleService
+namespace BizLayer.BBCScheduleService
 {
     public interface IScheduleSearcherAsync : IActionCommsAsync<ScheduleSearchResult, ScheduleSearcherData>
     {
