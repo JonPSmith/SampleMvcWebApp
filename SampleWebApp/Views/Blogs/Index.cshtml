@@ -13,21 +13,14 @@
 }
 
 <p>
-    This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
-    database CRUD (Create, Read, Update/Edit and Delete) services done synchronously, i.e no wait states to improve web site capacity.
-    (See @Html.ActionLink("Tags Async", "Index", "TagsAsync") for async versions of the same commands).
+    Below you will see a table of Blogs which can be manipulated, and analysed. 
 </p>
 <p>
-    Below you will see a table of Blogs which can be manipulated, and analysed. Tags are really simple so we use the direct GenericServices rather than
-    the DTO GenericServices used for Posts.
-</p>
-<p>
-    However we do use a simple dto in the list to show how many posts the blogger has. 
-    Also see the Analyse link, which calls an business method to analyse all the post owned by this blogger.
+    The point of this page is to provide a simple demonstration of calling a business method - click the Analyse link to trigger this.
 </p>
 <hr />
 <div>
-    <span>@Html.ActionLink("Create New Blogger", "Create") | @Html.ActionLink("Return To Posts", "Index", "Posts")</span>
+    <span>@Html.ActionLink("Create New Blogger", "Create") | @Html.ActionLink("Posts", "Index", "Posts")</span>
     @*<span class="pull-right"><strong>@Html.ActionLink("Explanation of the code", "CodeView")</strong></span>*@
 </div>
 
@@ -64,7 +57,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BlogId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.BlogId }) |
-            @Html.ActionLink("Analyse", "Analyse", new { id=item.BlogId })
+            @Html.ActionLink("Analyse", "Analyse", new { id=item.BlogId }) |
+            @Html.ActionLink("List Posts", "Index", "Posts", new { id = item.BlogId }, null)
         </td>
     </tr>
 }

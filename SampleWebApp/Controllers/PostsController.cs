@@ -17,16 +17,26 @@ namespace SampleWebApp.Controllers
     /// </summary>
     public class PostsController : Controller
     {
-        public ActionResult Index(IListService<Post, SimplePostDto> service)
+        /// <summary>
+        /// Note that is Index is different in that it has an optional id to filter the list on.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        public ActionResult Index(int? id, IListService<Post, SimplePostDto> service)
         {
-            return View(service.GetList().ToList());
+            var filtered = id != null && id != 0;
+            var query = filtered ? service.GetList().Where(x => x.BlogId == id) : service.GetList();
+            if (filtered)
+                TempData["message"] = "Filtered list";
+
+            return View(query.ToList());
         }
 
         public ActionResult Details(int id, IDetailService<Post, DetailPostDto> service)
         {
             return View(service.GetDetail(x => x.PostId == id));
         }
-
 
         public ActionResult Edit(int id, IUpdateSetupService<Post, DetailPostDto> service)
         {

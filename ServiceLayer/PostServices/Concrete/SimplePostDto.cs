@@ -17,6 +17,9 @@ namespace ServiceLayer.PostServices.Concrete
         [Key]
         public int PostId { get; set; }
 
+        [UIHint("HiddenInput")]
+        public int BlogId { get; internal set; }
+
         public string BloggerName { get; internal set; }
 
         [MinLength(2), MaxLength(128)]

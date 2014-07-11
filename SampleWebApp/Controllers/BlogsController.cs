@@ -8,13 +8,14 @@ using SampleWebApp.Models;
 
 namespace SampleWebApp.Controllers
 {
+
+    /// <summary>
+    /// This is an example of a Controller using GenericServices database commands directly to the data class.
+    /// In this case we are using normal, non-async commands
+    /// </summary>
     public class BlogsController : Controller
     {
-
-        /// <summary>
-        /// This is an example of a Controller using GenericServices database commands directly to the data class.
-        /// In this case we are using normal, non-async commands
-        /// </summary>
+       
         public ActionResult Index(IListService<Blog> service)
         {
             return View(service.GetList().Select(x => new BlogListModel
