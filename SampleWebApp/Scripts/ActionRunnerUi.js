@@ -95,7 +95,7 @@ var ActionRunnerUi = (function ($, window) {
         this.resizable = false;             //resizable would be nice, but quite fiddly. Turn off for now.
         this.closeOnEscape = false;
         this.maxWidth = 800;                //stops it being too big on desktop (this din't have any effect so fixed in setVariousHeightsEtc)
-        this.dialogClass = 'actionPanel';
+        this.dialogClass = 'action-panel';
     }
 
     //This sets the ui dialog height, width and position relative to the screen
@@ -164,10 +164,7 @@ var ActionRunnerUi = (function ($, window) {
         });
         jQueryDialogOptions = new CreatejQueryUiDialogOptions();
         setupStartupPanel(jQueryDialogOptions);       
-        $actionPanel.dialog(jQueryDialogOptions);
-        //now some changes to the dialog
-        $actionPanel.dialog('widget').removeClass('ui-front');//we remove the ui-front so that the z-index of (note: this has effects on stacking, but not important in this case)
-        $('.ui-dialog-titlebar-close').hide();          //setting dialog buttons to empty array didn't stop the top rigth close button appearing!    
+        $actionPanel.dialog(jQueryDialogOptions);   
         $actionPanel.removeClass('hidden');
     }
 

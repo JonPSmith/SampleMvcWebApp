@@ -24,15 +24,20 @@ textarea {
 
 /* Items associated with ActionRunner */
 
-/* Used to put spinning progress bar in the centre of the panel*/
-.actionPanel {
-    z-index: 10000;
+
+.action-panel {
+    z-index: 10000 !important;
+}
+
+.action-panel .ui-dialog-titlebar-close {
+    display: none;          /* Stops close button appearing in top right of dialog box*/
 }
 
 #notification {
     z-index: 10001;
 }
 
+/* Used to put spinning progress bar in the centre of the panel*/
 .centeredImage {
     text-align: center;
     margin-top: 0px;
