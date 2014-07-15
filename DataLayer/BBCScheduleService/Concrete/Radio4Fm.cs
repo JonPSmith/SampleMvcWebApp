@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace DataLayer.BBCScheduleService
+namespace DataLayer.BBCScheduleService.Concrete
 {
     public class Radio4Fm : IRadio4Fm
     {

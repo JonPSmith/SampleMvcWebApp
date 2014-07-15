@@ -212,6 +212,7 @@
     <Compile Include="Infrastructure\Log4NetGenericLogger.cs" />
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
+    <Compile Include="Models\AboutInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\BlogListModel.cs" />
@@ -348,7 +349,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -399,6 +399,9 @@
     <Content Include="Views\Blogs\Analyse.cshtml" />
     <Content Include="Views\Blogs\Edit.cshtml" />
     <Content Include="Views\Blogs\Create.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\PostsAsync\Delay.cshtml" />
+    <Content Include="Views\Posts\Delay.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

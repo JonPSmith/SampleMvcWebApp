@@ -1,7 +1,26 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model SampleWebApp.Models.AboutInfo
 
-<p>Use this area to provide additional information.</p>
+<div>
+    <h4>About Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkerThreads)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkerThreads)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableThreads)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableThreads)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to Home", "Index")
+</p>

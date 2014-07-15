@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using DataLayer.BBCScheduleService;
+using DataLayer.BBCScheduleService.Concrete;
 using NUnit.Framework;
 
 namespace Tests.UnitTests.Group01DataLayer

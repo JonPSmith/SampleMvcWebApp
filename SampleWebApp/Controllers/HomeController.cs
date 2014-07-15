@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SampleWebApp.Models;
 
 namespace SampleWebApp.Controllers
 {
@@ -13,7 +14,7 @@ namespace SampleWebApp.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(new AboutInfo());
         }
 
         public ActionResult Contact()

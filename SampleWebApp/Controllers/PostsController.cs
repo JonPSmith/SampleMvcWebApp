@@ -114,7 +114,7 @@ namespace SampleWebApp.Controllers
         public ActionResult Delay()
         {
             Thread.Sleep(500);
-            return RedirectToAction("Index");
+            return View(500);
         }
 
         public ActionResult Reset(SampleWebAppDb db)

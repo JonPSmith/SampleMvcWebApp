@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DataLayer.BBCScheduleService;
+using DataLayer.BBCScheduleService.Concrete;
 using Tests.Helpers;
 
 namespace Tests.MocksAndFakes

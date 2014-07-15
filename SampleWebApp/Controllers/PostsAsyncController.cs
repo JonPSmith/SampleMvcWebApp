@@ -103,7 +103,7 @@ namespace SampleWebApp.Controllers
         public async Task<ActionResult> Delay()
         {
             await Task.Delay(500);
-            return RedirectToAction("Index");
+            return View(500);
         }
 
         public ActionResult Reset(SampleWebAppDb db)
