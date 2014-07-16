@@ -71,8 +71,8 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 //VERIFY
                 db.Blogs.Count().ShouldEqual(4);
-                db.Posts.Count().ShouldEqual(13);
-                db.Tags.Count().ShouldEqual(7);
+                db.Posts.Count().ShouldEqual(17);
+                db.Tags.Count().ShouldEqual(8);
             }
         }
 

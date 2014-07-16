@@ -14,7 +14,7 @@ namespace SampleWebApp.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View(new AboutInfo());
+            return View();
         }
 
         public ActionResult Contact()

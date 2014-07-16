@@ -1,26 +1,34 @@
-﻿@model SampleWebApp.Models.AboutInfo
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>About this site and it's Author</h2>
 
-<div>
-    <h4>About Info</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkerThreads)
-        </dt>
+<h3>About this site</h3>
+<p>
+    You should have seen on the @Html.ActionLink("Home Page", "Index") a brief introduction to the site.
+    The site is here as a testing bed/demonstration of the <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices library</a>
+    and a number of software patterns specific to ASP.NET MVC. All the work here is open source under the
+    <a href="http://opensource.org/licenses/MIT" target="_blank">MIT licence</a>.
+</p>
+<p>
+    The @Html.ActionLink("Introduction to GenericServices", "CodeView") page goes into more detail about GenericServices library and some of the
+    items demonstrated on this web site. I also suggest you look at GenericServices's
+    <a href="https://github.com/JonPSmith/GenericServices/blob/master/README.md" target="_blank">read.me</a> file which gives more information.
+</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.WorkerThreads)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.AvailableThreads)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AvailableThreads)
-        </dd>
-    </dl>
-</div>
+<h3>About the Author</h3>
+<p>
+    The author of this open-source is me, Jon Smith. You can find out
+    <a href="http://www.thereformedprogrammer.net/about-me/" target="_blank">about me here</a>.
+<p>
+<p>
+    You may also be interested in my technical blog, <a href="http://www.thereformedprogrammer.net/about-me/" target="_blank">thereformedprogrammer.net</a>.
+</p>
+<p>
+    The site <a href="http://selectiveanalytics.com/" target="_blank">Selective Analytics</a> shows some of the analytical work I have done with my wife,
+    Dr Honora Smith. 
+</p>
+<br/>
 <p>
     @Html.ActionLink("Back to Home", "Index")
 </p>

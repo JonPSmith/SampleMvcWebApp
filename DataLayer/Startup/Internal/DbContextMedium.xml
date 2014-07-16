@@ -49,8 +49,7 @@
       <Posts>
         <Post>
           <Title>About Ada Lovelace</Title>
-          <Content>
-            The following was taken from Wikipedia, the free encyclopedia.
+          <Content>The following was taken from Wikipedia, the free encyclopedia.
 
             Augusta Ada King, Countess of Lovelace (10 December 1815 – 27 November 1852), born Augusta Ada Byron and now
             commonly known as Ada Lovelace, was an English mathematician and writer chiefly known for her work on
@@ -75,8 +74,7 @@
         </Post>
         <Post>
           <Title>Thoughts on programming with a spanner</Title>
-          <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
             Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
             ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
             Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
@@ -98,8 +96,7 @@
         </Post>
         <Post>
           <Title>Babbage engine - the internals</Title>
-          <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
+          <Content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis nibh sit amet mauris blandit molestie.
             Vivamus id enim orci. Duis vitae aliquet risus. Sed lorem felis, mattis non elementum rhoncus,
             ultricies in mauris. Aliquam erat volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
             Nunc suscipit posuere augue, id rhoncus augue dictum condimentum. Sed et ante sapien. Phasellus convallis
@@ -160,8 +157,7 @@
         </Post>
         <Post>
           <Title>Women in programming - we got here first</Title>
-          <Content>
-            The following was taken from Wikipedia, the free encyclopedia.
+          <Content>The following was taken from Wikipedia, the free encyclopedia.
 
             Ada described her approach as "poetical science" and herself as an "Analyst (and Metaphysician)".
             As a young adult, her mathematical talents led her to an ongoing working relationship and friendship 
@@ -185,8 +181,7 @@
       <Posts>
         <Post>
           <Title>About Sherlock Holmes</Title>
-          <Content>
-            The following was taken from Wikipedia, the free encyclopedia.
+          <Content>The following was taken from Wikipedia, the free encyclopedia.
 
             Sherlock Holmes is a fictional detective created by Scottish author and physician Sir Arthur Conan Doyle.
             A London-based "consulting detective" whose abilities border on the fantastic, Holmes is famous for his 
@@ -203,8 +198,7 @@
         </Post>
         <Post>
           <Title>Sound qualities of 221b Baker Street</Title>
-          <Content>
-            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -226,8 +220,7 @@
         </Post>
         <Post>
           <Title>Using urchins as an information source</Title>
-          <Content>
-            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -267,8 +260,7 @@
         </Post>
         <Post>
           <Title>My considered option on the TV adaptions of my life</Title>
-          <Content>
-            I enjoy "Elementary" on Sky, although the person portraying my is a little dull comparied to me.
+          <Content>I enjoy "Elementary" on Sky, although the person portraying my is a little dull comparied to me.
             Watson however is rather grand, and in my opinion more intelligent than my poor Waston I had to work with.
 
             The BBC "Sherlock" is entertaining but later versions have become more darker than I would like.
@@ -278,8 +270,7 @@
         </Post>
         <Post>
           <Title>Professor Moriarty's habits and acquaintances</Title>
-          <Content>
-            Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
+          <Content>Sed adipiscing eros et ipsum consectetur, vel pulvinar leo viverra. Phasellus posuere molestie magna,
             non sagittis mauris rhoncus et. Fusce blandit, ante quis scelerisque rutrum, arcu eros adipiscing lorem,
             ac pretium elit augue quis quam. Donec eu semper turpis. Quisque quis est cursus, iaculis turpis pretium,
             bibendum ante. Aliquam pharetra sem viverra nibh molestie, eu euismod eros rutrum. Cras ultricies enim at leo
@@ -310,8 +301,7 @@
       <Posts>
         <Post>
           <Title>About Homer Simpson</Title>
-          <Content>
-            The following was taken from Wikipedia, the free encyclopedia.
+          <Content>The following was taken from Wikipedia, the free encyclopedia.
             
             Homer Jay Simpson is a cartoon character in the animated television series The Simpsons as the 
             patriarch of the eponymous family. He is voiced by Dan Castellaneta and first appeared on television, 
@@ -357,8 +347,7 @@
         </Post>
         <Post>
           <Title>Why I only have three legs</Title>
-          <Content>
-            I don't remember much about the accident, but I was out on the town and something nasty happened.
+          <Content>I don't remember much about the accident, but I was out on the town and something nasty happened.
             My human servants fixed me up and I am still able to get around, although I do need more fuss because of this
             traumatic event.
           </Content>

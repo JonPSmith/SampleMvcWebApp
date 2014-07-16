@@ -23,15 +23,36 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Posts", "Index", "Posts", new { id = 0}, null)</li>
-                    <li>@Html.ActionLink("PostsAsync", "Index", "PostsAsync")</li>
-                    <li>@Html.ActionLink("Radio4 Schedule", "Radio4Search", "Action")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sync database<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Posts", "Index", "Posts", new { id = 0 }, null)</li>
+                            <li>@Html.ActionLink("Tags", "Index", "Tags")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Blogs", "Index", "Blogs")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Async database<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Posts", "Index", "PostsAsync", new { id = 0 }, null)</li>
+                            <li>@Html.ActionLink("Tags", "Index", "TagsAsync")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Radio4 Schedule", "Radio4Search", "Action")</li>
+                            <li>@Html.ActionLink("Full List Actions", "Index", "Action")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
-                <p class="text-right text-muted">
+                @*<p class="text-right text-muted">
                     <a id="stop-page-caching" href="#" data-toggle="tooltip" data-placement="bottom"
                        title="These digits are here to stop any page caching.">@DateTime.Now.Ticks</a>            
-                </p>
+                </p>*@
                 @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
