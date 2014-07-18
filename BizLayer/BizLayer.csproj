@@ -40,8 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GenericServices">
-      <HintPath>..\..\GenericServices\GenericServices\bin\Release\GenericServices.dll</HintPath>
+    <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GenericServices.1.0.0-beta2\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
