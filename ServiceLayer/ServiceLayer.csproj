@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta2\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta5\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>

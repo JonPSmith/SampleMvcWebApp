@@ -16,9 +16,9 @@ namespace SampleWebApp.Controllers
     public class BlogsController : Controller
     {
        
-        public ActionResult Index(IListService<Blog> service)
+        public ActionResult Index(IListService service)
         {
-            return View(service.GetList().Select(x => new BlogListModel
+            return View(service.GetList<Blog>().Select(x => new BlogListModel
             {
                 BlogId = x.BlogId,
                 Name = x.Name,
@@ -41,14 +41,14 @@ namespace SampleWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id, IDetailService<Blog> service)
+        public ActionResult Edit(int id, IDetailService service)
         {
-            return View(service.GetDetail(x => x.BlogId == id));
+            return View(service.GetDetail<Blog>(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Blog blog, IUpdateService<Blog> service)
+        public ActionResult Edit(Blog blog, IUpdateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -73,7 +73,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Blog blog, ICreateService<Blog> service)
+        public ActionResult Create(Blog blog, ICreateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -91,10 +91,10 @@ namespace SampleWebApp.Controllers
             return View(blog);
         }
 
-        public ActionResult Delete(int id, IDeleteService<Blog> service)
+        public ActionResult Delete(int id, IDeleteService service)
         {
 
-            var response = service.Delete(id);
+            var response = service.Delete<Blog>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else

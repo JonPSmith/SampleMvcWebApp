@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using BizLayer.Startup;
 using DataLayer.Startup;
 using GenericServices;
@@ -27,30 +28,32 @@ namespace ServiceLayer.Startup
             //Register service layer: autowire all 
             builder.RegisterAssemblyTypes(GetType().Assembly).AsImplementedInterfaces();
 
-            //and register the open generics
-            builder.RegisterGeneric(typeof(CreateService<>)).As(typeof(ICreateService<>));
-            builder.RegisterGeneric(typeof(DeleteService<>)).As(typeof(IDeleteService<>));
-            builder.RegisterGeneric(typeof(DetailService<>)).As(typeof(IDetailService<>));
-            builder.RegisterGeneric(typeof(ListService<>)).As(typeof(IListService<>));
-            builder.RegisterGeneric(typeof(UpdateService<>)).As(typeof(IUpdateService<>));
+            //and register the GenericServices assembly
+            builder.RegisterAssemblyTypes(typeof(IListService).Assembly).AsImplementedInterfaces();
+            
+            //builder.RegisterGeneric(typeof(CreateService<>)).As(typeof(ICreateService<>));
+            //builder.RegisterGeneric(typeof(DeleteService<>)).As(typeof(IDeleteService<>));
+            //builder.RegisterGeneric(typeof(DetailService<>)).As(typeof(IDetailService<>));
+            //builder.RegisterGeneric(typeof(ListService<>)).As(typeof(IListService<>));
+            //builder.RegisterGeneric(typeof(UpdateService<>)).As(typeof(IUpdateService<>));
 
-            builder.RegisterGeneric(typeof(CreateServiceAsync<>)).As(typeof(ICreateServiceAsync<>));
-            builder.RegisterGeneric(typeof(DeleteServiceAsync<>)).As(typeof(IDeleteServiceAsync<>));
-            builder.RegisterGeneric(typeof(DetailServiceAsync<>)).As(typeof(IDetailServiceAsync<>));
-            builder.RegisterGeneric(typeof(UpdateServiceAsync<>)).As(typeof(IUpdateServiceAsync<>));
+            //builder.RegisterGeneric(typeof(CreateServiceAsync<>)).As(typeof(ICreateServiceAsync<>));
+            //builder.RegisterGeneric(typeof(DeleteServiceAsync<>)).As(typeof(IDeleteServiceAsync<>));
+            //builder.RegisterGeneric(typeof(DetailServiceAsync<>)).As(typeof(IDetailServiceAsync<>));
+            //builder.RegisterGeneric(typeof(UpdateServiceAsync<>)).As(typeof(IUpdateServiceAsync<>));
 
-            builder.RegisterGeneric(typeof(CreateService<,>)).As(typeof(ICreateService<,>));
-            builder.RegisterGeneric(typeof(CreateSetupService<,>)).As(typeof(ICreateSetupService<,>));
-            builder.RegisterGeneric(typeof(DetailService<,>)).As(typeof(IDetailService<,>));
-            builder.RegisterGeneric(typeof(ListService<,>)).As(typeof(IListService<,>));
-            builder.RegisterGeneric(typeof(UpdateService<,>)).As(typeof(IUpdateService<,>));
-            builder.RegisterGeneric(typeof(UpdateSetupService<,>)).As(typeof(IUpdateSetupService<,>));
+            //builder.RegisterGeneric(typeof(CreateService<,>)).As(typeof(ICreateService<,>));
+            //builder.RegisterGeneric(typeof(CreateSetupService<,>)).As(typeof(ICreateSetupService<,>));
+            //builder.RegisterGeneric(typeof(DetailService<,>)).As(typeof(IDetailService<,>));
+            //builder.RegisterGeneric(typeof(ListService<,>)).As(typeof(IListService<,>));
+            //builder.RegisterGeneric(typeof(UpdateService<,>)).As(typeof(IUpdateService<,>));
+            //builder.RegisterGeneric(typeof(UpdateSetupService<,>)).As(typeof(IUpdateSetupService<,>));
 
-            builder.RegisterGeneric(typeof(CreateServiceAsync<,>)).As(typeof(ICreateServiceAsync<,>));
-            builder.RegisterGeneric(typeof(CreateSetupServiceAsync<,>)).As(typeof(ICreateSetupServiceAsync<,>));
-            builder.RegisterGeneric(typeof(DetailServiceAsync<,>)).As(typeof(IDetailServiceAsync<,>));
-            builder.RegisterGeneric(typeof(UpdateServiceAsync<,>)).As(typeof(IUpdateServiceAsync<,>));
-            builder.RegisterGeneric(typeof(UpdateSetupServiceAsync<,>)).As(typeof(IUpdateSetupServiceAsync<,>));
+            //builder.RegisterGeneric(typeof(CreateServiceAsync<,>)).As(typeof(ICreateServiceAsync<,>));
+            //builder.RegisterGeneric(typeof(CreateSetupServiceAsync<,>)).As(typeof(ICreateSetupServiceAsync<,>));
+            //builder.RegisterGeneric(typeof(DetailServiceAsync<,>)).As(typeof(IDetailServiceAsync<,>));
+            //builder.RegisterGeneric(typeof(UpdateServiceAsync<,>)).As(typeof(IUpdateServiceAsync<,>));
+            //builder.RegisterGeneric(typeof(UpdateSetupServiceAsync<,>)).As(typeof(IUpdateSetupServiceAsync<,>));
 
         }
 

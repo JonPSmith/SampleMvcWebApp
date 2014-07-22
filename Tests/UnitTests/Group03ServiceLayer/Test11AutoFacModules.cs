@@ -10,6 +10,7 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
 using GenericServices.Services;
+using GenericServices.Services.Concrete;
 using NUnit.Framework;
 using SampleWebApp.Infrastructure;
 using ServiceLayer.PostServices.Concrete;
@@ -122,9 +123,9 @@ namespace Tests.UnitTests.Group03ServiceLayer
             //ATTEMPT & VERIFY
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
-                var instance = lifetimeScope.Resolve<IListService<Post>>();
+                var instance = lifetimeScope.Resolve<IListService>();
                 Assert.NotNull(instance);
-                (instance is ListService<Post>).ShouldEqual(true);
+                (instance is ListService).ShouldEqual(true);
             }
         }
 

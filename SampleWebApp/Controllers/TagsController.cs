@@ -13,9 +13,9 @@ namespace SampleWebApp.Controllers
         /// This is an example of a Controller using GenericServices database commands directly to the data class.
         /// In this case we are using normal, non-async commands
         /// </summary>
-        public ActionResult Index(IListService<Tag> service)
+        public ActionResult Index(IListService service)
         {
-            return View(service.GetList().Select( x => new TagListModel
+            return View(service.GetList<Tag>().Select(x => new TagListModel
             {
                 TagId = x.TagId,
                 Name = x.Name,
@@ -24,20 +24,20 @@ namespace SampleWebApp.Controllers
             }).ToList());
         }
 
-        public ActionResult Details(int id, IDetailService<Tag> service)
+        public ActionResult Details(int id, IDetailService service)
         {
-            return View(service.GetDetail(x => x.TagId == id));
+            return View(service.GetDetail<Tag>(id));
         }
 
 
-        public ActionResult Edit(int id, IDetailService<Tag> service)
+        public ActionResult Edit(int id, IDetailService service)
         {
-            return View(service.GetDetail(x => x.TagId == id));
+            return View(service.GetDetail<Tag>(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Tag tag, IUpdateService<Tag> service)
+        public ActionResult Edit(Tag tag, IUpdateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -62,7 +62,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Tag tag, ICreateService<Tag> service)
+        public ActionResult Create(Tag tag, ICreateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -80,10 +80,10 @@ namespace SampleWebApp.Controllers
             return View(tag);
         }
 
-        public ActionResult Delete(int id, IDeleteService<Tag> service)
+        public ActionResult Delete(int id, IDeleteService service)
         {
 
-            var response = service.Delete(id);
+            var response = service.Delete<Tag>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else

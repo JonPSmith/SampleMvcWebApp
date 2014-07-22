@@ -16,9 +16,9 @@ namespace SampleWebApp.Controllers
     public class TagsAsyncController : Controller
     {
         // GET: TagsAsync
-        public async Task<ActionResult> Index(IListService<Tag> service)
+        public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetList().Select( x => new TagListModel
+            return View(await service.GetList<Tag>().Select(x => new TagListModel
             {
                 TagId = x.TagId,
                 Name = x.Name,
@@ -27,20 +27,20 @@ namespace SampleWebApp.Controllers
             }).ToListAsync());
         }
 
-        public async Task<ActionResult> Details(int id, IDetailServiceAsync<Tag> service)
+        public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync(x => x.TagId == id));
+            return View(await service.GetDetailAsync<Tag>(id));
         }
 
 
-        public async Task<ActionResult> Edit(int id, IDetailServiceAsync<Tag> service)
+        public async Task<ActionResult> Edit(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync(x => x.TagId == id));
+            return View(await service.GetDetailAsync<Tag>(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Tag tag, IUpdateServiceAsync<Tag> service)
+        public async Task<ActionResult> Edit(Tag tag, IUpdateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -65,7 +65,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Tag tag, ICreateServiceAsync<Tag> service)
+        public async Task<ActionResult> Create(Tag tag, ICreateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -83,10 +83,10 @@ namespace SampleWebApp.Controllers
             return View(tag);
         }
 
-        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync<Tag> service)
+        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service)
         {
 
-            var response = await service.DeleteAsync(id);
+            var response = await service.DeleteAsync<Tag>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else

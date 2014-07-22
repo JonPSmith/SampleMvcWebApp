@@ -16,26 +16,26 @@ namespace SampleWebApp.Controllers
         /// This is an example of a Controller using GenericServices database commands with a DTO.
         /// In this case we are using async commands
         /// </summary>
-        public async Task<ActionResult> Index(IListService<Post, SimplePostDtoAsync> service)
+        public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetList().ToListAsync());
+            return View(await service.GetList<SimplePostDtoAsync>().ToListAsync());
         }
 
-        public async Task<ActionResult> Details(int id, IDetailServiceAsync<Post, DetailPostDtoAsync> service)
+        public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync(x => x.PostId == id));
+            return View(await service.GetDetailAsync<DetailPostDtoAsync>(id));
         }
 
 
-        public async Task<ActionResult> Edit(int id, IUpdateSetupServiceAsync<Post, DetailPostDtoAsync> service)
+        public async Task<ActionResult> Edit(int id, IUpdateSetupServiceAsync service)
         {
-            var dto = await service.GetOriginalAsync(x => x.PostId == id);
+            var dto = await service.GetOriginalAsync<DetailPostDtoAsync>(id);
             return View(dto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(DetailPostDtoAsync dto, IUpdateServiceAsync<Post, DetailPostDtoAsync> service)
+        public async Task<ActionResult> Edit(DetailPostDtoAsync dto, IUpdateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -53,15 +53,15 @@ namespace SampleWebApp.Controllers
             return View(dto);
         }
 
-        public async Task<ActionResult> Create(ICreateSetupServiceAsync<Post, DetailPostDtoAsync> setupService)
+        public async Task<ActionResult> Create(ICreateSetupServiceAsync setupService)
         {
-            var dto = await setupService.GetDtoAsync();
+            var dto = await setupService.GetDtoAsync<DetailPostDtoAsync>();
             return View(dto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DetailPostDtoAsync dto, ICreateServiceAsync<Post, DetailPostDtoAsync> service)
+        public async Task<ActionResult> Create(DetailPostDtoAsync dto, ICreateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -79,10 +79,10 @@ namespace SampleWebApp.Controllers
             return View(dto);
         }
 
-        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync<Post> service)
+        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service)
         {
 
-            var response = await service.DeleteAsync(id);
+            var response = await service.DeleteAsync<Post>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else

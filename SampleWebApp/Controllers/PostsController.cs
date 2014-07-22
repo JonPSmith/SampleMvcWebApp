@@ -23,30 +23,30 @@ namespace SampleWebApp.Controllers
         /// <param name="id"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        public ActionResult Index(int? id, IListService<Post, SimplePostDto> service)
+        public ActionResult Index(int? id, IListService service)
         {
             var filtered = id != null && id != 0;
-            var query = filtered ? service.GetList().Where(x => x.BlogId == id) : service.GetList();
+            var query = filtered ? service.GetList<SimplePostDto>().Where(x => x.BlogId == id) : service.GetList<SimplePostDto>();
             if (filtered)
                 TempData["message"] = "Filtered list";
 
             return View(query.ToList());
         }
 
-        public ActionResult Details(int id, IDetailService<Post, DetailPostDto> service)
+        public ActionResult Details(int id, IDetailService service)
         {
-            return View(service.GetDetail(x => x.PostId == id));
+            return View(service.GetDetail<DetailPostDto>(id));
         }
 
-        public ActionResult Edit(int id, IUpdateSetupService<Post, DetailPostDto> service)
+        public ActionResult Edit(int id, IUpdateSetupService service)
         {
-            var dto = service.GetOriginal(x => x.PostId == id);
+            var dto = service.GetOriginal<DetailPostDto>(id);
             return View(dto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DetailPostDto dto, IUpdateService<Post, DetailPostDto> service)
+        public ActionResult Edit(DetailPostDto dto, IUpdateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -64,15 +64,15 @@ namespace SampleWebApp.Controllers
             return View(dto);
         }
 
-        public ActionResult Create(ICreateSetupService<Post, DetailPostDto> setupService)
+        public ActionResult Create(ICreateSetupService setupService)
         {
-            var dto = setupService.GetDto();
+            var dto = setupService.GetDto<DetailPostDto>();
             return View(dto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DetailPostDto dto, ICreateService<Post, DetailPostDto> service)
+        public ActionResult Create(DetailPostDto dto, ICreateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -90,10 +90,10 @@ namespace SampleWebApp.Controllers
             return View(dto);
         }
 
-        public ActionResult Delete(int id, IDeleteService<Post> service)
+        public ActionResult Delete(int id, IDeleteService service)
         {
 
-            var response = service.Delete(id);
+            var response = service.Delete<Post>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
             else
