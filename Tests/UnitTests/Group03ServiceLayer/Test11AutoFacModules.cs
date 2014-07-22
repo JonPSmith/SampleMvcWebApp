@@ -140,42 +140,8 @@ namespace Tests.UnitTests.Group03ServiceLayer
             //ATTEMPT & VERIFY
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
-                var service = lifetimeScope.Resolve<IListService<Post>>();
-                var posts = service.GetList().ToList();
-                posts.Count.ShouldEqual(3);
-            }
-        }
-
-        [Test]
-        public void Test17SetupServiceLayerViaDtoGenericsOk()
-        {
-            //SETUP
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new ServiceLayerModule());
-            var container = builder.Build();
-
-            //ATTEMPT & VERIFY
-            using (var lifetimeScope = container.BeginLifetimeScope())
-            {
-                var instance = lifetimeScope.Resolve<IUpdateService<Post, DetailPostDto>>();
-                Assert.NotNull(instance);
-                (instance is UpdateService<Post, DetailPostDto>).ShouldEqual(true);
-            }
-        }
-
-        [Test]
-        public void Test18UseServiceLayerViaDtoGenerics()
-        {
-            //SETUP
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new ServiceLayerModule());
-            var container = builder.Build();
-
-            //ATTEMPT & VERIFY
-            using (var lifetimeScope = container.BeginLifetimeScope())
-            {
-                var service = lifetimeScope.Resolve<IListService<Post, DetailPostDto>>();
-                var posts = service.GetList().ToList();
+                var service = lifetimeScope.Resolve<IListService>();
+                var posts = service.GetList<Post>().ToList();
                 posts.Count.ShouldEqual(3);
             }
         }
@@ -229,11 +195,11 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 (example1 is ScheduleSearcherAsync).ShouldEqual(true);
 
                 //ServiceLayer - complex
-                var service1 = lifetimeScope.Resolve<IListService<Post>>();
-                var service2 = lifetimeScope.Resolve<IListService<Post>>();
+                var service1 = lifetimeScope.Resolve<IListService>();
+                var service2 = lifetimeScope.Resolve<IListService>();
                 Assert.NotNull(service1);
                 Assert.AreNotSame(service1, service2);                       //check transient
-                (service1 is ListService<Post>).ShouldEqual(true);
+                (service1 is ListService).ShouldEqual(true);
             }
         }
     }
