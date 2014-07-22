@@ -13,13 +13,6 @@ namespace BizLayer.BlogsAnalysis.Concrete
 
         private readonly SampleWebAppDb _db;
 
-        /// <summary>
-        /// If true then the caller should call EF SubmitChanges if the method exited with status IsValid and
-        /// it looks to see if the data part has a ICheckIfWarnings and if the WriteEvenIfWarning is false
-        /// and there are warnings then it does not call SubmitChanges
-        /// </summary>
-        public override bool SubmitChangesOnSuccess { get { return false; } }
-
         public BlogAnalyser(SampleWebAppDb db)
         {
             _db = db;
