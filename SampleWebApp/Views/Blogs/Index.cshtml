@@ -1,16 +1,9 @@
-﻿@model IEnumerable<SampleWebApp.Models.BlogListModel>
+﻿@model SampleWebApp.Models.ListWithMessage<SampleWebApp.Models.BlogListModel>
 
 
 <h2>Blogs</h2>
 
-@if (TempData["message"] != null)
-{
-    <div class="text-success">@TempData["message"]</div><br />
-}
-@if (TempData["errorMessage"] != null)
-{
-    <div class="text-danger">@TempData["errorMessage"]</div>
-}
+@Model.FormHtmlMessage()
 
 <p>
     Below you will see a table of Blogs which can be manipulated, and analysed. 
@@ -29,18 +22,18 @@
         <th>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmailAddress)
+            Email address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumPosts)
+            Num posts
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Data) {
     <tr>
         <td>
             @Html.HiddenFor(modelItem => item.BlogId)

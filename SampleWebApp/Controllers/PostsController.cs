@@ -6,6 +6,7 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
 using SampleWebApp.Infrastructure;
+using SampleWebApp.Models;
 using ServiceLayer.PostServices.Concrete;
 
 
@@ -30,7 +31,7 @@ namespace SampleWebApp.Controllers
             if (filtered)
                 TempData["message"] = "Filtered list";
 
-            return View(query.ToList());
+            return View(query.ToList().ShowData());
         }
 
         public ActionResult Details(int id, IDetailService service)
@@ -46,7 +47,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DetailPostDto dto, IUpdateService service)
+        public ActionResult Edit(DetailPostDto dto, IUpdateService service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -54,10 +55,7 @@ namespace SampleWebApp.Controllers
 
             var response = service.Update(dto);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", listService.GetList<SimplePostDto>().ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, dto);
@@ -72,7 +70,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DetailPostDto dto, ICreateService service)
+        public ActionResult Create(DetailPostDto dto, ICreateService service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -80,28 +78,17 @@ namespace SampleWebApp.Controllers
 
             var response = service.Create(dto);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", listService.GetList<SimplePostDto>().ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, dto);
             return View(dto);
         }
 
-        public ActionResult Delete(int id, IDeleteService service)
+        public ActionResult Delete(int id, IDeleteService service, IListService listService)
         {
-
             var response = service.Delete<Post>(id);
-            if (response.IsValid)
-                TempData["message"] = response.SuccessMessage;
-            else
-            {
-                //else errors, so set up as error message
-                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
-            }
-            return RedirectToAction("Index");
+            return View("Index", listService.GetList<SimplePostDto>().ToList().ShowDataAndMessage(response));
         }
 
         //--------------------------------------------
@@ -123,5 +110,6 @@ namespace SampleWebApp.Controllers
             TempData["message"] = "Successfully reset the database";
             return RedirectToAction("Index");
         }
+
     }
 }

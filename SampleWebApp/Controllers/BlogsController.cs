@@ -18,13 +18,7 @@ namespace SampleWebApp.Controllers
        
         public ActionResult Index(IListService service)
         {
-            return View(service.GetList<Blog>().Select(x => new BlogListModel
-            {
-                BlogId = x.BlogId,
-                Name = x.Name,
-                EmailAddress = x.EmailAddress,
-                NumPosts = x.Posts.Count()
-            }).ToList());
+            return View(BlogListModel.GetListModels(service).ToList().ShowData());
         }
 
         public ActionResult Analyse(int id, IBlogAnalyser service)
@@ -48,7 +42,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Blog blog, IUpdateService service)
+        public ActionResult Edit(Blog blog, IUpdateService service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -56,10 +50,7 @@ namespace SampleWebApp.Controllers
 
             var response = service.Update(blog);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", BlogListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, blog);
@@ -73,7 +64,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Blog blog, ICreateService service)
+        public ActionResult Create(Blog blog, ICreateService service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -81,30 +72,18 @@ namespace SampleWebApp.Controllers
 
             var response = service.Create(blog);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", BlogListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, blog);
             return View(blog);
         }
 
-        public ActionResult Delete(int id, IDeleteService service)
+        public ActionResult Delete(int id, IDeleteService service, IListService listService)
         {
-
             var response = service.Delete<Blog>(id);
-            if (response.IsValid)
-                TempData["message"] = response.SuccessMessage;
-            else
-            {
-                //else errors, so set up as error message
-                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
-            }
-            return RedirectToAction("Index");
+            return View("Index", BlogListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
         }
-
 
     }
 }

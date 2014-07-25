@@ -18,13 +18,7 @@ namespace SampleWebApp.Controllers
         // GET: TagsAsync
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetList<Tag>().Select(x => new TagListModel
-            {
-                TagId = x.TagId,
-                Name = x.Name,
-                Slug = x.Slug,
-                NumPosts = x.Posts.Count()
-            }).ToListAsync());
+            return View((await TagListModel.GetListModels(service).ToListAsync()).ShowData());
         }
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
@@ -40,7 +34,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Tag tag, IUpdateServiceAsync service)
+        public async Task<ActionResult> Edit(Tag tag, IUpdateServiceAsync service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -48,10 +42,7 @@ namespace SampleWebApp.Controllers
 
             var response = await service.UpdateAsync(tag);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, tag);
@@ -65,7 +56,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Tag tag, ICreateServiceAsync service)
+        public async Task<ActionResult> Create(Tag tag, ICreateServiceAsync service, IListService listService)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -73,29 +64,17 @@ namespace SampleWebApp.Controllers
 
             var response = await service.CreateAsync(tag);
             if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return RedirectToAction("Index");
-            }
+                return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, tag);
             return View(tag);
         }
 
-        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service)
+        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service, IListService listService)
         {
-
             var response = await service.DeleteAsync<Tag>(id);
-            if (response.IsValid)
-                TempData["message"] = response.SuccessMessage;
-            else
-            {
-                //else errors, so set up as error message
-                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
-            }
-
-            return RedirectToAction("Index");
+            return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
         }
 
         //--------------------------------------------
