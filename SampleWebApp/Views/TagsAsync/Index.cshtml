@@ -10,10 +10,6 @@
 {
     <div class="text-success">@TempData["message"]</div><br />
 }
-@if (TempData["errorMessage"] != null)
-{
-    <div class="text-danger">@TempData["errorMessage"]</div>
-}
 
 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 

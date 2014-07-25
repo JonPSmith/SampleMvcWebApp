@@ -89,11 +89,7 @@ namespace SampleWebApp.Controllers
             var response = await service.DeleteAsync<Tag>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
-            else
-            {
-                //else errors, so set up as error message
-                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
-            }
+            //else it throws a concurrecy error, which shows the default error page.
 
             return RedirectToAction("Index");
         }
