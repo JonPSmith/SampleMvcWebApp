@@ -1,4 +1,4 @@
-﻿@model SampleWebApp.Models.ListWithMessage<SampleWebApp.Models.TagListModel>
+﻿@model IEnumerable<SampleWebApp.Models.TagListModel>
 
 @{
     ViewBag.Title = "TagsAsync";
@@ -6,7 +6,16 @@
 
 <h2>Tags (Async)</h2>
 
-@Model.FormHtmlMessage()
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
 <p>
     This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
@@ -32,10 +41,10 @@
 <table class="table">
     <tr>
         <th>
-            Name
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            Slug
+            @Html.DisplayNameFor(model => model.Slug)
         </th>
         <th>
             Num Posts Used In
@@ -43,7 +52,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Data) {
+@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)

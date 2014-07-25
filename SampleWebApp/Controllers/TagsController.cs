@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
@@ -16,7 +15,13 @@ namespace SampleWebApp.Controllers
         /// </summary>
         public ActionResult Index(IListService service)
         {
-            return View(TagListModel.GetListModels(service).ToList().ShowData());
+            return View(service.GetList<Tag>().Select(x => new TagListModel
+            {
+                TagId = x.TagId,
+                Name = x.Name,
+                Slug = x.Slug,
+                NumPosts = x.Posts.Count()
+            }).ToList());
         }
 
         public ActionResult Details(int id, IDetailService service)
@@ -32,7 +37,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Tag tag, IUpdateService service, IListService listService)
+        public ActionResult Edit(Tag tag, IUpdateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -40,7 +45,10 @@ namespace SampleWebApp.Controllers
 
             var response = service.Update(tag);
             if (response.IsValid)
-                return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
+            {
+                TempData["message"] = response.SuccessMessage;
+                return RedirectToAction("Index");
+            }
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, tag);
@@ -54,7 +62,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Tag tag, ICreateService service, IListService listService)
+        public ActionResult Create(Tag tag, ICreateService service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -62,17 +70,28 @@ namespace SampleWebApp.Controllers
 
             var response = service.Create(tag);
             if (response.IsValid)
-                return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
+            {
+                TempData["message"] = response.SuccessMessage;
+                return RedirectToAction("Index");
+            }
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, tag);
             return View(tag);
         }
 
-        public ActionResult Delete(int id, IDeleteService service, IListService listService)
+        public ActionResult Delete(int id, IDeleteService service)
         {
+
             var response = service.Delete<Tag>(id);
-            return View("Index", TagListModel.GetListModels(listService).ToList().ShowDataAndMessage(response));
+            if (response.IsValid)
+                TempData["message"] = response.SuccessMessage;
+            else
+            {
+                //else errors, so set up as error message
+                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
+            }
+            return RedirectToAction("Index");
         }
 
         //--------------------------------------------
@@ -81,7 +100,6 @@ namespace SampleWebApp.Controllers
         {
             return View();
         }
-
 
     }
 }

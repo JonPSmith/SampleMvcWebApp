@@ -1,7 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using DataLayer.DataClasses.Concrete;
-using GenericServices;
 
 namespace SampleWebApp.Models
 {
@@ -16,15 +14,6 @@ namespace SampleWebApp.Models
 
         public int NumPosts { get; set; }
 
-        public static IQueryable<TagListModel> GetListModels(IListService service)
-        {
-            return service.GetList<Tag>().Select(x => new TagListModel
-            {
-                TagId = x.TagId,
-                Name = x.Name,
-                Slug = x.Slug,
-                NumPosts = x.Posts.Count()
-            });
-        }
+
     }
 }

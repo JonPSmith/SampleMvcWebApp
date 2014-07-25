@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer.DataClasses;
@@ -7,7 +6,6 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
 using SampleWebApp.Infrastructure;
-using SampleWebApp.Models;
 using ServiceLayer.PostServices.Concrete;
 
 namespace SampleWebApp.Controllers
@@ -20,7 +18,7 @@ namespace SampleWebApp.Controllers
         /// </summary>
         public async Task<ActionResult> Index(IListService service)
         {
-            return View((await service.GetList<SimplePostDtoAsync>().ToListAsync()).ShowData());
+            return View(await service.GetList<SimplePostDtoAsync>().ToListAsync());
         }
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
@@ -37,7 +35,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(DetailPostDtoAsync dto, IUpdateServiceAsync service, IListService listService)
+        public async Task<ActionResult> Edit(DetailPostDtoAsync dto, IUpdateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -45,7 +43,10 @@ namespace SampleWebApp.Controllers
 
             var response = await service.UpdateAsync(dto);
             if (response.IsValid)
-                return View("Index", listService.GetList<SimplePostDtoAsync>().ToList().ShowDataAndMessage(response));
+            {
+                TempData["message"] = response.SuccessMessage;
+                return RedirectToAction("Index");
+            }
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, dto);
@@ -60,7 +61,7 @@ namespace SampleWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DetailPostDtoAsync dto, ICreateServiceAsync service, IListService listService)
+        public async Task<ActionResult> Create(DetailPostDtoAsync dto, ICreateServiceAsync service)
         {
             if (!ModelState.IsValid)
                 //model errors so return immediately
@@ -68,17 +69,28 @@ namespace SampleWebApp.Controllers
 
             var response = await service.CreateAsync(dto);
             if (response.IsValid)
-                return View("Index", listService.GetList<SimplePostDtoAsync>().ToList().ShowDataAndMessage(response));
+            {
+                TempData["message"] = response.SuccessMessage;
+                return RedirectToAction("Index");
+            }
 
             //else errors, so copy the errors over to the ModelState and return to view
             response.CopyErrorsToModelState(ModelState, dto);
             return View(dto);
         }
 
-        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service, IListService listService)
+        public async Task<ActionResult> Delete(int id, IDeleteServiceAsync service)
         {
+
             var response = await service.DeleteAsync<Post>(id);
-            return View("Index", listService.GetList<SimplePostDtoAsync>().ToList().ShowDataAndMessage(response));
+            if (response.IsValid)
+                TempData["message"] = response.SuccessMessage;
+            else
+            {
+                //else errors, so set up as error message
+                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
+            }
+            return RedirectToAction("Index");
         }
 
         //--------------------------------------------

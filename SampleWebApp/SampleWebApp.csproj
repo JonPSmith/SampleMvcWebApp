@@ -214,7 +214,6 @@
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
     <Compile Include="Models\AboutInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DataWithMessage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\BlogListModel.cs" />
     <Compile Include="Models\TagListModel.cs" />

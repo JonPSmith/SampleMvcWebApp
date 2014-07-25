@@ -1,4 +1,4 @@
-﻿@model SampleWebApp.Models.ListWithMessage<ServiceLayer.PostServices.Concrete.SimplePostDto>
+﻿@model IEnumerable<ServiceLayer.PostServices.Concrete.SimplePostDto>
 
 @{
     ViewBag.Title = "Posts";
@@ -6,7 +6,14 @@
 
 <h2>Posts</h2>
 
-@Model.FormHtmlMessage()
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
 
 <p>
     This is a demonstration of <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices'</a>
@@ -29,21 +36,21 @@
 <table class="table">
     <tr>
         <th>
-            Blogger name
+            @Html.DisplayNameFor(model => model.BloggerName)
         </th>
         <th>
-            Title
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
             Last updated
         </th>
         <th>
-            Tag names
+            @Html.DisplayNameFor(model => model.TagNames)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Data) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.BloggerName)
