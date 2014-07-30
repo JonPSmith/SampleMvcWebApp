@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer.DataClasses;
@@ -88,6 +90,21 @@ namespace SampleWebApp.Controllers
             //else it throws a concurrecy error, which shows the default error page.
            
             return RedirectToAction("Index");
+        }
+
+        //-----------------------------------------------------
+        //Code used in https://www.simple-talk.com/dotnet/.net-framework/the-.net-4.5-asyncawait-commands-in-promise-and-practice/
+
+        public async Task<ActionResult> NumPosts()
+        {
+            using (var db = new SampleWebAppDb())
+                return View((object)await GetNumPostsAsync(db));
+        }
+
+        private static async Task<string> GetNumPostsAsync(SampleWebAppDb db)
+        {
+            var numPosts = await db.Posts.CountAsync();
+            return string.Format("The total number of Posts is {0}", numPosts);
         }
 
         //--------------------------------------------

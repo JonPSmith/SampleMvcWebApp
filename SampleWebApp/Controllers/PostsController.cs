@@ -101,6 +101,22 @@ namespace SampleWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        //-----------------------------------------------------
+        //Code used in https://www.simple-talk.com/dotnet/.net-framework/the-.net-4.5-asyncawait-commands-in-promise-and-practice/
+
+        public ActionResult NumPosts()
+        {
+            using (var db = new SampleWebAppDb())
+                //The cast to object is to stop the View using the string as a view name
+                return View((object)GetNumPosts(db));
+        }
+
+        public static string GetNumPosts(SampleWebAppDb db)
+        {
+            var numPosts = db.Posts.Count();
+            return string.Format("The total number of Posts is {0}", numPosts);
+        }
+
         //--------------------------------------------
 
         public ActionResult CodeView()

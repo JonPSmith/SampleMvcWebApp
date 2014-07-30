@@ -402,6 +402,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\PostsAsync\Delay.cshtml" />
     <Content Include="Views\Posts\Delay.cshtml" />
+    <Content Include="Views\PostsAsync\NumPosts.cshtml" />
+    <Content Include="Views\Posts\NumPosts.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
