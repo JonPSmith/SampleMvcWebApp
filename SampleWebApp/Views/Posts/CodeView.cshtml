@@ -7,7 +7,7 @@
 <p>
     <strong>
         This is a summary of the main parts used to list, detail, create, edit and delete Post entries via a <abbr title="Data Transfer Object">DTO</abbr>
-        This type of services that needs a <abbr title="Data Transfer Object">DTO</abbr> are used then the data class have dependent foreign keys that 
+        This type of services that needs a <abbr title="Data Transfer Object">DTO</abbr> are used then the data class have dependent foreign keys that
         need to be manipulated before the data class can be written to the database.
     </strong>
 </p>
@@ -44,9 +44,9 @@
                             to combine data from linked tables to produce a user-friendly display. In this case I have listed the code here as its really short:
                         </p>
                         <code>
-                            public ActionResult Index(IListService&lt;Post, SimplePostDto&gt;service)<br />
+                            public ActionResult Index(IListService service)<br />
                             {<br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;View(service.GetList().ToList());<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;View(service.GetList&lt;SimplePostDto&gt;().ToList());<br />
                             }<br />
                         </code>
                         <p>Things to note:</p>
@@ -57,14 +57,9 @@
                                 It is explained in more detail in <a href="#di-section">Dependency Injection</a> section.
                             </li>
                             <li>
-                                The service is called <code>IListService</code> with two parameters
-                                <ol>
-                                    <li>The class <code>Post</code>, which is the database class.</li>
-                                    <li>The class <code>SimplePostDto</code>, which is the DTO that combines the data (more on that later)</li>
-                                </ol>
-                            </li>
-                            <li>
-                                This service has one command, <code>.GetList()</code>, which returns <code>IQueryable&lt;SimplePostDto&gt;</code>.
+                                This service has one command, <code>.GetList&lt;T&gt;()</code>, which returns
+                                <code>IQueryable&lt;T&gt;</code>, where T is either a class that is used in EF or
+                                a DTO that has inherited from EfGenericDto or EfGenericDtoAsync.
                                 In this case the <code>IQueryable</code> result is turned into a List to show in the view.
                             </li>
                         </ul>
@@ -72,7 +67,7 @@
                     <dt>One stage actions List, Detail and Delete</dt>
                     <dd>
                         <p>
-                            List, Detail and Delete have only have one stage as there is no setup needed. 
+                            List, Detail and Delete have only have one stage as there is no setup needed.
                             <em>Detail and Delete do need a reference to the entry to act on, but that normally comes from a list entry or a link.</em>
                         </p>
                     </dd>
@@ -96,8 +91,8 @@
                     <dt>Handling errors</dt>
                     <dd>
                         <p>
-                            In robust applications you should check data as it moves deeping into the system so that 
-                            bad or bogus is not let through. MVC is the first validation but GenericServices, in 
+                            In robust applications you should check data as it moves deeping into the system so that
+                            bad or bogus is not let through. MVC is the first validation but GenericServices, in
                             conjunction with <abbr title="Entity Framework">EF</abbr> carries out further checks.
                         </p>
                         <p>
@@ -111,7 +106,7 @@
                             </li>
                             <li>
                                 After the service has run if raised by the <abbr title="Entity Framework">EF</abbr> validation,
-                                then they are returned in the status. 
+                                then they are returned in the status.
                                 In the case of Create or Edit these are then copied into the ModelState of the dto before
                                 it is redisplayed.
                                 <em>
@@ -134,30 +129,26 @@
     </div>
 </div>
 
-<h3 id="generic-services-section">The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
+<h3 id="generic-services-section">The GenericService methods</h3>
 <p>
-    In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
+    In the Controller the
     <code>ListService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">code</a>),
     <code>DetailService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DetailService.cs" target="_blank">code</a>),
     <code>UpdateService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/UpdateService.cs" target="_blank">code</a>),
     <code>CreateService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">code</a>) and
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/CreateService.cs" target="_blank">code</a>) and
     <code>DeleteService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DeleteService.cs" target="_blank">code</a>)
-    are called.
-    <br /><em>NOTE: If you are looking at the code then scroll down until you see &quot;//DTO version&quot;.</em>
-</p>
-<p>
-    Click on the panel below to get more details about how these work.
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DeleteService.cs" target="_blank">code</a>)
+    are called. Click on the panel below to get more details about how these work.
 </p>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#GenericService">
-                GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions
+                GenericService methods
             </a>
         </h4>
         <div id="GenericService" class="panel-collapse collapse">
@@ -165,37 +156,38 @@
                 <dl>
                     <dt>
                         Basic, one stage services, i.e.
-                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
-                        and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">DetailService</a>
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">ListService</a>
+                        and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DetailService.cs" target="_blank">DetailService</a>
 
                     </dt>
                     <dd>
-                        <p>                     
-                        These services have only one stage, i.e. the production of data. Therefore they are nice and simple.
+                        <p>
+                            These services have only one stage, i.e. the production of data. Therefore they are nice and simple.
                         </p>
                     </dd>
                     <dt id="GenericService-two-stage">
-                        The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">CreateService</a>
-                        and the <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">UpdateService</a>
+                        The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/CreateService.cs" target="_blank">CreateService</a>
+                        and the <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/UpdateService.cs" target="_blank">UpdateService</a>
                         need two stages.
                     </dt>
                     <dd>
                         <p>These services have a setup stage to provide the initial data to display to the user. Therefore there is:</p>
                         <ul>
                             <li>
-                                A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateSetupService.cs" target="_blank">CreateSetupService</a>
-                                which has a <code>GetDto()</code> method.
+                                A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/CreateSetupService.cs" target="_blank">CreateSetupService</a>
+                                which has a <code>GetDto&lt;T&gt;()</code> method, where T is either a class that is used in EF or
+                                a DTO that has inherited from EfGenericDto or EfGenericDtoAsync.
                             </li>
                             <li>
-                                A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateSetupService.cs" target="_blank">UpdateSetupService</a>
-                                which has a <code>GetOriginal(Expression&lt;func&lt;Tdata, bool&gt;&gt; whereExpression)</code> method, where you have to
-                                supply a LINQ expression which will select one item from the database (normally using the Primary key).
+                                A <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/UpdateSetupService.cs" target="_blank">UpdateSetupService</a>
+                                which has a <code>GetOriginal(param object[] keys)</code> method, where you have to
+                                supply the primary key, or if multiple keys then they must be in the order that LINQ expects.
                             </li>
                         </ul>
                     </dd>
                     <dt>
                         The
-                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">ListService</a>
                         returns IQueryable
                     </dt>
                     <dd>
@@ -360,7 +352,7 @@
                     <dt>... however you can use GenericServices without DI</dt>
                     <dd>
                         <p>
-                            While we talk a lot about DI the GenericServices framework does NOT rely on DI at all. 
+                            While we talk a lot about DI the GenericServices framework does NOT rely on DI at all.
                             It just makes creating these services much easier and clearer.
                             So, if you can't use DI then GenericServices may still be useful to you.
                         </p>

@@ -89,30 +89,24 @@
     </div>
 </div>
 
-<h3 id="generic-services-section">The GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions</h3>
+<h3 id="generic-services-section">The GenericService <abbr title="Data Transfer Object">DTO</abbr> methods</h3>
 <p>
     In the Controller the <abbr title="Data Transfer Object">DTO</abbr> version of
     <code>DetailServiceAsync</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/DetailServiceAsync.cs" target="_blank">code</a>),
     <code>UpdateServiceAsync</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateServiceAsync.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/UpdateServiceAsync.cs" target="_blank">code</a>),
     <code>CreateServiceAsync</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateServiceAsync.cs" target="_blank">code</a>) and
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/CreateServiceAsync.cs" target="_blank">code</a>) and
     <code>DeleteServiceAsync</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DeleteServiceAsync.cs" target="_blank">code</a>)
-    are called.
-    NOTEs: 
-    <ul>
-        <li><em>If you are looking at the code then scroll down until you see &quot;//DTO version&quot;.</em></li>
-        <li>
-            <em>
-                As explained in the PostAsync Controller panel the <code>ListService</code>
-                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
-                can handle both normal and async commands depending on the LINQ method appended on the end.
-            </em>
-        </li>
-    </ul>    
-    
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/DeleteServiceAsync.cs" target="_blank">code</a>)
+    are called. NOTEs: 
+    <br/>
+    <em>
+        As explained in the PostAsync Controller panel the <code>ListService</code>
+        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">code</a>)
+        can handle both normal and async commands depending on the LINQ method appended on the end.
+    </em>  
 </p>
 <p>
     Click on the panel below to get more details about how these work.
@@ -121,7 +115,7 @@
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#GenericService">
-                GenericService <abbr title="Data Transfer Object">DTO</abbr> Actions
+                Async GenericService methods
             </a>
         </h4>
         <div id="GenericService" class="panel-collapse collapse">
@@ -136,29 +130,29 @@
                         <ul>
                             <li>
                                 The <code>ListService</code>
-                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>)
+                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">code</a>)
                 has the LINQ method .AsListAsync() appended to it to return a async result;
                             </li>
                             <li>The <code>DetailServiceAsync</code>
-                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/DetailServiceAsync.cs" target="_blank">code</a>)
+                                (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/DetailServiceAsync.cs" target="_blank">code</a>)
                                 services is a one stage service.
                             </li>
 
                             <li>The Update and Create services are two stage:
                                 <ul>
                                     <li>There is an <code>UpdateSetupServiceAsync</code>
-                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateSetupServiceAsync.cs" target="_blank">code</a>)
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/UpdateSetupServiceAsync.cs" target="_blank">code</a>)
                                         followed by the 
                                         <code>UpdateServiceAsync</code>
-                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/UpdateServiceAsync.cs" target="_blank">code</a>)
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/UpdateServiceAsync.cs" target="_blank">code</a>)
                                         service.
                                     </li> 
                                     <li>
                                         There is an <code>CreateSetupServiceAsync</code>
-                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateSetupServiceAsync.cs" target="_blank">code</a>)
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/CreateSetupServiceAsync.cs" target="_blank">code</a>)
                                         followed by the
                                         <code>CreateServiceAsync</code>
-                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/CreateServiceAsync.cs" target="_blank">code</a>)
+                                        (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/ServicesAsync/Concrete/CreateServiceAsync.cs" target="_blank">code</a>)
                                         service.
                                     </li>
                                 </ul>

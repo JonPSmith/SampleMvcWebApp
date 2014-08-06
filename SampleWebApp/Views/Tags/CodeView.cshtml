@@ -81,30 +81,26 @@
     </div>
 </div>
 
-<h3 id="generic-services-section">The GenericService Actions</h3>
+<h3 id="generic-services-section">The GenericService methods</h3>
 <p>
     In the Controller the direct version of the
     <code>ListService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">code</a>),
     <code>DetailService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DetailService.cs" target="_blank">code</a>),
     <code>UpdateService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">code</a>),
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/UpdateService.cs" target="_blank">code</a>),
     <code>CreateService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">code</a>) and
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/CreateService.cs" target="_blank">code</a>) and
     <code>DeleteService</code>
-    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DeleteService.cs" target="_blank">code</a>)
-    are called.
-    <br /><em>NOTE: These come at the start of each file before the &quot;//DTO version&quot; comment.</em>
-</p>
-<p>
-    Click on the panel below to get more details about how these work.
+    (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DeleteService.cs" target="_blank">code</a>)
+    are called. Click on the panel below to get more details about how these work.
 </p>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#GenericService">
-                Direct GenericService Actions
+                Direct GenericService methods
             </a>
         </h4>
         <div id="GenericService" class="panel-collapse collapse">
@@ -112,8 +108,8 @@
                 <dl>
                     <dt>
                         Basic, one stage services, i.e.
-                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
-                        and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/DetailService.cs" target="_blank">DetailService</a>
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">ListService</a>
+                        and <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/DetailService.cs" target="_blank">DetailService</a>
 
                     </dt>
                     <dd>
@@ -122,8 +118,8 @@
                         </p>
                     </dd>
                     <dt id="GenericService-two-stage">
-                        The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/CreateService.cs" target="_blank">CreateService</a>
-                        and the <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/UpdateService.cs" target="_blank">UpdateService</a>
+                        The <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/CreateService.cs" target="_blank">CreateService</a>
+                        and the <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/UpdateService.cs" target="_blank">UpdateService</a>
                         need two stages.
                     </dt>
                     <dd>
@@ -140,11 +136,11 @@
                     </dd>
                     <dt>
                         The
-                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/ListService.cs" target="_blank">ListService</a>
+                        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Services/Concrete/ListService.cs" target="_blank">ListService</a>
                         
                     </dt>
                     <dd>
-                        The service's <code>.GetList()</code> method returns an IQueryable result
+                        The service's <code>.GetList&lt;Tag&gt;()</code> method returns an IQueryable result
                          which we shape using LINQ <code>.Select</code> method in conjunction with a
                         simple class <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Models/TagListModel.cs" target="_blank">TagListModel</a>
                     </dd>
