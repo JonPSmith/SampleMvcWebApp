@@ -1,0 +1,42 @@
+﻿@model SampleWebApp.Models.InternalsInfo
+
+<div>
+    <h4>InternalsInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkerThreads)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkerThreads)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableThreads)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableThreads)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableMbytes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvailableMbytes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeapMemoryUsedKbytes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeapMemoryUsedKbytes)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

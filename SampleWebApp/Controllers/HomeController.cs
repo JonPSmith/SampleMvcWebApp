@@ -19,9 +19,12 @@ namespace SampleWebApp.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        public ActionResult Internals()
+        {
+            return View(new InternalsInfo());
         }
 
         public ActionResult CodeView()

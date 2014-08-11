@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Threading;
-using System.Web;
 
 namespace SampleWebApp.Models
 {
-    public class AboutInfo
+    public class InternalsInfo
     {
 
         public int WorkerThreads { get; private set; }
 
         public int AvailableThreads { get; private set; }
 
-        public AboutInfo()
+        public int AvailableMbytes { get; private set; }
+
+        public int HeapMemoryUsedKbytes { get; private set; }
+
+        public InternalsInfo()
         {
             int workerThreads;
             int completionPortThreads;
@@ -24,6 +26,10 @@ namespace SampleWebApp.Models
 
             WorkerThreads = workerThreads;
             AvailableThreads = availableThreads;
+
+            AvailableMbytes = (int)new PerformanceCounter("Memory", "Available MBytes", true).RawValue;
+
+            HeapMemoryUsedKbytes = (int)(GC.GetTotalMemory(true)/1000);
         }
     }
 }

@@ -212,7 +212,7 @@
     <Compile Include="Infrastructure\Log4NetGenericLogger.cs" />
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
-    <Compile Include="Models\AboutInfo.cs" />
+    <Compile Include="Models\InternalsInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\BlogListModel.cs" />
@@ -404,6 +404,7 @@
     <Content Include="Views\Posts\Delay.cshtml" />
     <Content Include="Views\PostsAsync\NumPosts.cshtml" />
     <Content Include="Views\Posts\NumPosts.cshtml" />
+    <Content Include="Views\Home\Internals.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
