@@ -15,9 +15,14 @@ namespace DataLayer.Startup.Internal
     internal static class LoadDbDataFromXml
     {
 
+        /// <summary>
+        /// Loads the Blogs, Posts and Tags from Xml file
+        /// </summary>
+        /// <param name="filepathWithinAssembly"></param>
+        /// <returns></returns>
         public static IEnumerable<Blog> FormBlogsWithPosts(string filepathWithinAssembly)
         {
-            var assemblyHoldingFile = Assembly.GetExecutingAssembly();
+            var assemblyHoldingFile = Assembly.GetAssembly(typeof(LoadDbDataFromXml));
 
             using (var fileStream = assemblyHoldingFile.GetManifestResourceStream(filepathWithinAssembly))
             {
@@ -29,6 +34,45 @@ namespace DataLayer.Startup.Internal
                 var tagsDict = DecodeTags(xmlData.Element("Tags"));
                 return DecodeBlogs(xmlData.Element("Blogs"), tagsDict);
             }
+        }
+
+        /// <summary>
+        /// Loads Courses and Attendees from Xml file
+        /// </summary>
+        /// <param name="filepathWithinAssembly"></param>
+        /// <returns></returns>
+        public static IEnumerable<Course> FormCoursesWithAddendees(string filepathWithinAssembly)
+        {
+
+            var assemblyHoldingFile = Assembly.GetAssembly(typeof(LoadDbDataFromXml));
+
+            using (var fileStream = assemblyHoldingFile.GetManifestResourceStream(filepathWithinAssembly))
+            {
+                if (fileStream == null)
+                    throw new NullReferenceException("Could not find the xml file you asked for. Did you remember to set properties->BuildAction to Embedded Resource?");
+                var xmlData = XElement.Load(fileStream);
+
+                return xmlData.Elements("Course").Select(UnpackCourseXml);
+            }
+        }
+
+        private static Course UnpackCourseXml(XElement courseXml)
+        {
+
+            var course = new Course
+            {
+                Name = courseXml.Element("Name").Value,
+                MainPresenter = courseXml.Element("MainPresenter").Value,
+                Description = courseXml.Element("Description").Value,
+                StartDate = DateTime.Parse(courseXml.Element("StartDate").Value),
+                LengthDays = int.Parse(courseXml.Element("LengthDays").Value)
+            };
+
+            course.Attendees = courseXml.Element("Attendees").Elements("Attendee")
+                .Select(x => new Attendee(x.Value, x.Attribute("HasPaid").Value.ToLowerInvariant() == "true", course))
+                .ToList();
+
+            return course;
         }
 
         private static IEnumerable<Blog> DecodeBlogs(XElement element, Dictionary<string, Tag> tagsDict)

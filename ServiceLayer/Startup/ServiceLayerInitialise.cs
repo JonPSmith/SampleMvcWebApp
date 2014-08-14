@@ -12,16 +12,16 @@ namespace ServiceLayer.Startup
     /// </summary>
     public static class ServiceLayerInitialise
     {
-
         /// <summary>
         /// This should be called at Startup
         /// </summary>
-        public static void InitialiseThis()
+        /// <param name="isAzure">true if working with azure database</param>
+        public static void InitialiseThis(bool isAzure)
         {
 
             //Place any tasks that need initialising here
 
-            DataLayerInitialise.InitialiseThis();
+            DataLayerInitialise.InitialiseThis(isAzure);
 
         }
     }

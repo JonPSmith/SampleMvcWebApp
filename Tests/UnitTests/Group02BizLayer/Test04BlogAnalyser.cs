@@ -15,8 +15,8 @@ namespace Tests.UnitTests.Group02BizLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis();
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
+                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
             }
         }
 

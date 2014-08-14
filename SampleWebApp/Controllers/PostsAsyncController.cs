@@ -122,7 +122,7 @@ namespace SampleWebApp.Controllers
 
         public ActionResult Reset(SampleWebAppDb db)
         {
-            DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Medium);
+            DataLayerInitialise.ResetBlogs(db, TestDataSelection.Medium);
             TempData["message"] = "Successfully reset the database";
             return RedirectToAction("Index");
         }

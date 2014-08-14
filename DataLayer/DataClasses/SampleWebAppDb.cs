@@ -9,7 +9,6 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.DataClasses.Concrete.Helpers;
 using GenericServices;
 using GenericServices.Core;
-using GenericServices.Services;
 
 namespace DataLayer.DataClasses
 {
@@ -19,6 +18,8 @@ namespace DataLayer.DataClasses
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Attendee> Attendees { get; set; }
 
         public ISuccessOrErrors SaveChangesWithValidation()
         {

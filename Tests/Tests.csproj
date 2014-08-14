@@ -159,9 +159,10 @@
     <Compile Include="Helpers\ModelStateTester.cs" />
     <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Tests01SetupBlogs.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests10Radio4Fm.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests01Setup.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests02Validation.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Tests02SetupCourses.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Tests03Validation.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWrite.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test02ScheduleSearcher.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test04BlogAnalyser.cs" />

@@ -85,10 +85,13 @@
   <ItemGroup>
     <Compile Include="BBCScheduleService\IRadio4Fm.cs" />
     <Compile Include="BBCScheduleService\Concrete\Radio4Fm.cs" />
+    <Compile Include="DataClasses\Concrete\Attendee.cs" />
     <Compile Include="DataClasses\Concrete\Blog.cs" />
+    <Compile Include="DataClasses\Concrete\Course.cs" />
     <Compile Include="DataClasses\Concrete\Helpers\TrackUpdate.cs" />
     <Compile Include="DataClasses\Concrete\Post.cs" />
     <Compile Include="DataClasses\Concrete\Tag.cs" />
+    <Compile Include="DataClasses\EfConfiguration.cs" />
     <Compile Include="Startup\DataLayerInitialise.cs" />
     <Compile Include="DataClasses\SampleWebAppDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,10 +103,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Startup\Internal\DbContentSimple.xml" />
+    <EmbeddedResource Include="Startup\Internal\BlogsContentSimple.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Startup\Internal\DbContextMedium.xml" />
+    <EmbeddedResource Include="Startup\Internal\BlogsContextMedium.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Startup\Internal\CoursesContent.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

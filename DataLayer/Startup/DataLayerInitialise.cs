@@ -16,23 +16,28 @@ namespace DataLayer.Startup
 
         private static IGenericLogger _logger;
 
-        private static readonly Dictionary<TestDataSelection, string> XmlDataFileManifestPath = new Dictionary<TestDataSelection, string>
+        private const string XmlCoursesDataFileManifestPath = "DataLayer.Startup.Internal.CoursesContent.xml";
+
+        private static readonly Dictionary<TestDataSelection, string> XmlBlogsDataFileManifestPath = new Dictionary<TestDataSelection, string>
             {
-                {TestDataSelection.Small, "DataLayer.Startup.Internal.DbContentSimple.xml"},
-                {TestDataSelection.Medium, "DataLayer.Startup.Internal.DbContextMedium.xml"}
+                {TestDataSelection.Small, "DataLayer.Startup.Internal.BlogsContentSimple.xml"},
+                {TestDataSelection.Medium, "DataLayer.Startup.Internal.BlogsContextMedium.xml"}
             };
 
         /// <summary>
         /// This should be called at Startup
         /// </summary>
-        public static void InitialiseThis()
+        /// <param name="isAzure"></param>
+        public static void InitialiseThis(bool isAzure)
         {
+            EfConfiguration.IsAzure = isAzure;
             _logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
-            //Initialise the database
+
+            //Initialiser for the database. Only used when first access is made
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SampleWebAppDb>());
         }
 
-        public static void ResetDatabaseToTestData(SampleWebAppDb context, TestDataSelection selection)
+        public static void ResetBlogs(SampleWebAppDb context, TestDataSelection selection)
         {
 
             context.Posts.ToList().ForEach(x => context.Posts.Remove(x));
@@ -40,17 +45,37 @@ namespace DataLayer.Startup
             context.Blogs.ToList().ForEach(x => context.Blogs.Remove(x));
             context.SaveChanges();
 
-            var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlDataFileManifestPath[selection]);
+            var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlBlogsDataFileManifestPath[selection]);
 
             context.Blogs.AddRange(bloggers);
             var status = context.SaveChangesWithValidation();
             if (!status.IsValid)
             {
-                _logger.CriticalFormat("Error when resetting database to data selection {0}. Error:\n{1}", selection, 
+                _logger.CriticalFormat("Error when resetting blogs to data selection {0}. Error:\n{1}", selection, 
                     string.Join(",", status.Errors));
                 throw new FormatException("xml derived data did not load well.");
             }
         }
+
+        public static void ResetCourses(SampleWebAppDb context)
+        {
+
+            context.Attendees.ToList().ForEach(x => context.Attendees.Remove(x));
+            context.Courses.ToList().ForEach(x => context.Courses.Remove(x));
+            context.SaveChanges();
+
+            var courses = LoadDbDataFromXml.FormCoursesWithAddendees(XmlCoursesDataFileManifestPath);
+
+            context.Courses.AddRange(courses);
+            var status = context.SaveChangesWithValidation();
+            if (!status.IsValid)
+            {
+                _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}", 
+                    string.Join(",", status.Errors));
+                throw new FormatException("xml derived data did not load well.");
+            }
+        }
+
     }
 
 }

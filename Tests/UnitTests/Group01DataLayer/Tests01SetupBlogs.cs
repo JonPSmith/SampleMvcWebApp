@@ -8,7 +8,7 @@ using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests01Setup
+    class Tests01SetupBlogs
     {
         [Test]
         public void Check01XmlFileLoadOk()
@@ -17,7 +17,7 @@ namespace Tests.UnitTests.Group01DataLayer
             //SETUP
 
             //ATTEMPT
-            var bloggers = LoadDbDataFromXml.FormBlogsWithPosts("DataLayer.Startup.Internal.DbContentSimple.xml").ToList();
+            var bloggers = LoadDbDataFromXml.FormBlogsWithPosts("DataLayer.Startup.Internal.BlogsContentSimple.xml").ToList();
 
             //VERIFY
             bloggers.Count().ShouldEqual(2);
@@ -41,15 +41,15 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check10DatabaseResetSmallOk()
+        public void Check10BlogsResetSmallOk()
         {
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis();
+                DataLayerInitialise.InitialiseThis(false);
 
                 //ATTEMPT
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
 
                 //VERIFY
                 db.Blogs.Count().ShouldEqual(2);
@@ -59,15 +59,15 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check11DatabaseResetMediumOk()
+        public void Check11BlogsResetMediumOk()
         {
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis();
+                DataLayerInitialise.InitialiseThis(false);
 
                 //ATTEMPT
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Medium);
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Medium);
 
                 //VERIFY
                 db.Blogs.Count().ShouldEqual(4);

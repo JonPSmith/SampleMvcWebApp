@@ -11,11 +11,9 @@ using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
-using GenericServices.Services;
 using GenericServices.Services.Concrete;
 using NUnit.Framework;
 using SampleWebApp.Infrastructure;
-using ServiceLayer.PostServices.Concrete;
 using ServiceLayer.Startup;
 using Tests.Helpers;
 
@@ -30,8 +28,8 @@ namespace Tests.UnitTests.Group03ServiceLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis();
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
+                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
             }
         }
 

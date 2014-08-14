@@ -9,7 +9,7 @@ using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests02Validation
+    class Tests03Validation
     {
 
         [TestFixtureSetUp]
@@ -17,8 +17,8 @@ namespace Tests.UnitTests.Group01DataLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis();
-                DataLayerInitialise.ResetDatabaseToTestData(db, TestDataSelection.Small);
+                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
             }
         }
 
