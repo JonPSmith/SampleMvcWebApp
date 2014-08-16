@@ -12,6 +12,11 @@ namespace DataLayer.DataClasses.Concrete
         [MaxLength(128)]
         public string FullName { get; set; }
 
+        [Required]
+        [MaxLength(128)]
+        [DataType(DataType.EmailAddress)]
+        public string EmailAddress { get; set; }
+
         //This column has been specifically included so we can add a column based security constraint
         public bool HasPaid { get; set; }
 
@@ -26,9 +31,10 @@ namespace DataLayer.DataClasses.Concrete
         //ctors
         public Attendee() {}
 
-        public Attendee(string fullName, bool hasPaid, Course bookedOn)
+        public Attendee(string fullName, string emailAddress, bool hasPaid, Course bookedOn)
         {
             FullName = fullName;
+            EmailAddress = emailAddress;
             HasPaid = hasPaid;
             BookedOn = bookedOn;
         }

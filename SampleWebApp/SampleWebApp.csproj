@@ -309,8 +309,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Properties\PublishProfiles\samplemvcwebapp - Azure, FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\samplemvcwebapp - Azure, Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\samplemvcwebapp - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\samplemvcwebapp - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\samplemvcwebapp.net - WebWiz.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

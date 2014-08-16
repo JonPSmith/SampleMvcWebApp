@@ -68,8 +68,10 @@ namespace DataLayer.Startup.Internal
                 LengthDays = int.Parse(courseXml.Element("LengthDays").Value)
             };
 
-            course.Attendees = courseXml.Element("Attendees").Elements("Attendee")
-                .Select(x => new Attendee(x.Value, x.Attribute("HasPaid").Value.ToLowerInvariant() == "true", course))
+            course.Attendees = (from personXml in courseXml.Element("Attendees").Elements("Attendee")
+                let email = personXml.Value.Trim().ToLowerInvariant().Replace(' ', '.') + "@nospam.com"
+                let hasPaid = personXml.Attribute("HasPaid").Value.ToLowerInvariant() == "true"
+                select new Attendee(personXml.Value.Trim(),email, hasPaid, course))
                 .ToList();
 
             return course;

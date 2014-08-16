@@ -18,7 +18,8 @@
   <Course>
     <Name>Analytical Engine: The internals</Name>
     <MainPresenter>Charles Babbage</MainPresenter>
-    <Description>This is an in-depth course on the design and pricipals of Analytical Engine, i.e. Difference engine version 2. </Description>
+    <Description>This is an in-depth course on the engineering principals of Analytical Engine, i.e. Difference engine version 2. 
+We cover such things as the various gear chains, cog sizes, oil feeds and cpm (computations per minute).</Description>
     <StartDate>1839-4-14</StartDate>
     <LengthDays>3</LengthDays>
     <Attendees>
