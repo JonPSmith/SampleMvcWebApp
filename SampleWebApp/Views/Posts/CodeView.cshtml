@@ -204,7 +204,7 @@
 <h3>The DetailPostDto <abbr title="Data Transfer Object">DTO</abbr></h3>
 <p>
     The <code>DetailPostDto</code>
-    (<a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/DetailPostDto.cs" target="_blank">code</a>)
+    (<a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/DetailPostDto.cs" target="_blank">code</a>)
     is at the heart of how the Create and Edit actions allows the user to setup or change a Post's author or tags. It inherits the abstract class <code>EfGenericDto</code>
     (<a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/EfGenericDto.cs" target="_blank">code</a>) and overrides a few
     methods to handle the Post's <code>BlogId</code> and <code>Tag</code> Collection.
@@ -273,9 +273,9 @@
                             <li>
                                 The property <code>SupportedFunctions</code> has to be overrriden and says what services the DTO can support.
                                 See the different setting in
-                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/DetailPostDto.cs" target="_blank">DetailPostDto</a>
+                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/DetailPostDto.cs" target="_blank">DetailPostDto</a>
                                 and
-                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/Concrete/SimplePostDto.cs" target="_blank">DetailPostDto</a>
+                                <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/PostServices/SimplePostDto.cs" target="_blank">DetailPostDto</a>
                             </li>
                             <li>
                                 When doing a Create or Edit(Update) the <code>CopyDtoToData</code> is called.
