@@ -163,9 +163,10 @@
     <Compile Include="UnitTests\Group01DataLayer\Tests10Radio4Fm.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests02SetupCourses.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Tests03Validation.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWrite.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWriteBlogs.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test02ScheduleSearcher.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test04BlogAnalyser.cs" />
+    <Compile Include="UnitTests\Group03ServiceLayer\Test04CourseDtos.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test10DiSimple.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test11AutoFacModules.cs" />
     <Compile Include="UnitTests\Group06Mvc\Test02Validation.cs" />
