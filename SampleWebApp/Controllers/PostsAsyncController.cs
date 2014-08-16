@@ -8,7 +8,7 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
 using SampleWebApp.Infrastructure;
-using ServiceLayer.PostServices.Concrete;
+using ServiceLayer.PostServices;
 
 namespace SampleWebApp.Controllers
 {

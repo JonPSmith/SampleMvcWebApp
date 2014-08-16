@@ -8,7 +8,7 @@ using GenericServices.Core;
 
 [assembly: InternalsVisibleTo("Tests")]
 
-namespace ServiceLayer.PostServices.Concrete
+namespace ServiceLayer.PostServices
 {
     public class SimplePostDto : EfGenericDto<Post, SimplePostDto>
     {

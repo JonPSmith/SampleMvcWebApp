@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using GenericServices.Core;
-using GenericServices.Services;
-using GenericServices.ServicesAsync;
 using ServiceLayer.UiClasses;
 
 [assembly: InternalsVisibleTo("Tests")]
 
-namespace ServiceLayer.PostServices.Concrete
+namespace ServiceLayer.PostServices
 {
-    public class DetailPostDtoAsync : EfGenericDtoAsync<Post, DetailPostDtoAsync>
+    public class DetailPostDto : EfGenericDto<Post, DetailPostDto>
     {
 
         [UIHint("HiddenInput")]
@@ -71,7 +67,7 @@ namespace ServiceLayer.PostServices.Concrete
 
 
         //ctor
-        public DetailPostDtoAsync()
+        public DetailPostDto()
         {
             Bloggers = new DropDownListType();
             UserChosenTags = new MultiSelectListType();
@@ -94,59 +90,53 @@ namespace ServiceLayer.PostServices.Concrete
         /// </summary>
         /// <param name="context"></param>
         /// <param name="dto"></param>
-        protected override async Task SetupSecondaryDataAsync(IDbContextWithValidation context, DetailPostDtoAsync dto)
+        protected override void SetupSecondaryData(IDbContextWithValidation context, DetailPostDto dto)
         {
 
-            var bloggers = await context.Set<Blog>().ToListAsync();
-
-            dto.Bloggers.SetupDropDownListContent(bloggers.Select(x => new KeyValuePair<string, string>(x.Name, x.BlogId.ToString("D"))),
+            dto.Bloggers.SetupDropDownListContent(
+                context.Set<Blog>()
+                    .ToList()
+                    .Select(x => new KeyValuePair<string, string>(x.Name, x.BlogId.ToString("D"))),
                 "--- choose blogger ---");
             if (dto.PostId != 0)
                 //there is an entry, so set the selected value to that
                 dto.Bloggers.SetSelectedValue(dto.BlogId.ToString("D"));
 
-            List<KeyValuePair<string, int>> preselectedTags;
-            if (dto.PostId == 0)
-            {
-                //create, so just produce empty list
-                preselectedTags = new List<KeyValuePair<string, int>>();
-            }
-            else
-            {
-                var tags = await context.Set<Tag>()
+            var preselectedTags = dto.PostId == 0
+                ? new List<KeyValuePair<string, int>>()
+                : context.Set<Tag>()
                     .Where(x => x.Posts.Any(y => y.PostId == dto.PostId))
                     .Select(x => new { Key = x.Name, Value = x.TagId })
-                    .ToListAsync();
-                preselectedTags = tags.Select(x => new KeyValuePair<string, int>(x.Key, x.Value))
+                    .ToList()
+                    .Select(x => new KeyValuePair<string, int>(x.Key, x.Value))
                     .ToList();
-            }
-
             dto.UserChosenTags.SetupMultiSelectList(
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
 
-        protected override async Task<ISuccessOrErrors> CopyDtoToDataAsync(IDbContextWithValidation context, DetailPostDtoAsync dto, Post post)
+        protected override ISuccessOrErrors CopyDtoToData(IDbContextWithValidation context, DetailPostDto dto, Post post)
         {
 
             var db = context as SampleWebAppDb;
             if (db == null)
                 throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
 
-            var status = SuccessOrErrors.Success("OK if no errors set");
+            //Copy over the standard items
+            var status = new SuccessOrErrors().SetSuccessMessage("OK if no errors set");
 
             //now we sort out the blogger
-            var errMsg = await SetupBloggerIdFromDropDownList(db, post);
+            var errMsg = SetupBloggerIdFromDropDownList(db, post);
             if (errMsg != null)
                 status.AddNamedParameterError("Bloggers", errMsg);
 
             //now we sort out the tags
-            errMsg = await ChangeTagsBasedOnMultiSelectList(db, post);
+            errMsg = ChangeTagsBasedOnMultiSelectList(db, post);
             if (errMsg != null)
                 status.AddNamedParameterError("UserChosenTags", errMsg);
 
             if (status.IsValid)
                 //now we copy the items to the right place
-                status = await base.CopyDtoToDataAsync(context, dto, post);
+                status = base.CopyDtoToData(context, dto, post);
 
             return status;
         }
@@ -155,14 +145,14 @@ namespace ServiceLayer.PostServices.Concrete
         //---------------------------------------------------
         //private helpers
 
-        private async Task<string> SetupBloggerIdFromDropDownList(SampleWebAppDb db, Post post)
+        private string SetupBloggerIdFromDropDownList(SampleWebAppDb db, Post post)
         {
 
             var blogId = Bloggers.SelectedValueAsInt;
             if (blogId == null)
                 return "The blogger was not selected. You must do that before the post can be saved.";
 
-            var blogger = await db.Blogs.FindAsync((int)blogId);
+            var blogger = db.Blogs.Find((int)blogId);
             if (blogger == null)
                 return "Could not find the blogger you selected. Did another user delete it?";
 
@@ -174,7 +164,7 @@ namespace ServiceLayer.PostServices.Concrete
             return null;
         }
 
-        private async Task<string> ChangeTagsBasedOnMultiSelectList(SampleWebAppDb db, Post post)
+        private string ChangeTagsBasedOnMultiSelectList(SampleWebAppDb db, Post post)
         {
             var requiredTagIds = UserChosenTags.GetFinalSelectionAsInts();
             if (!requiredTagIds.Any())
@@ -187,7 +177,7 @@ namespace ServiceLayer.PostServices.Concrete
                 //This is an update so we need to load the tags
                 db.Entry(post).Collection(p => p.Tags).Load();
 
-            var newTagsForPost = await db.Tags.Where(x => requiredTagIds.Contains(x.TagId)).ToListAsync();
+            var newTagsForPost = db.Tags.Where(x => requiredTagIds.Contains(x.TagId)).ToList();
             Tags = newTagsForPost;      //will be copied over by copyDtoToData
 
             return null;

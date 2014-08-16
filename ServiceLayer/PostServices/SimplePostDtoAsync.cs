@@ -4,14 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer.DataClasses.Concrete;
-using GenericServices;
 using GenericServices.Core;
-using GenericServices.Services;
-using GenericServices.ServicesAsync;
 
 [assembly: InternalsVisibleTo("Tests")]
 
-namespace ServiceLayer.PostServices.Concrete
+namespace ServiceLayer.PostServices
 {
     public class SimplePostDtoAsync : EfGenericDtoAsync<Post, SimplePostDtoAsync>
     {
