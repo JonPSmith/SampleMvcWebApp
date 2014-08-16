@@ -25,8 +25,10 @@ namespace ServiceLayer.PostServices
         [MinLength(2), MaxLength(128)]
         public string Title { get; set; }
 
+        [ScaffoldColumn(false)]
         public ICollection<Tag> Tags { get; internal set; }
 
+        [ScaffoldColumn(false)]
         public DateTime LastUpdated { get; internal set; }
 
         /// <summary>

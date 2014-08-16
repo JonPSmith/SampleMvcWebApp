@@ -32,6 +32,7 @@ namespace ServiceLayer.PostServices
         //-------------------------------------------
         //properties that cannot be set directly (The data layer looks after them)
 
+        [ScaffoldColumn(false)]
         public DateTime LastUpdated { get; internal set; }
 
         //------------------------------------------
@@ -40,6 +41,7 @@ namespace ServiceLayer.PostServices
         [UIHint("HiddenInput")]
         public int BlogId { get; set; }
 
+        [ScaffoldColumn(false)]
         public ICollection<Tag> Tags { get; set; }            //this must be copied back
 
         //------------------------------------------
