@@ -1,0 +1,25 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewBag.Title = "ListNames";
+}
+
+<h2>ListNames</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item
+        </td>
+    </tr>
+}
+
+</table>
+@Html.ActionLink("Back to Attendees page", "Index") 

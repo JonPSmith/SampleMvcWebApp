@@ -4,7 +4,7 @@ using GenericServices.Core;
 
 namespace ServiceLayer.AttendeeServices
 {
-    public class AttendeeUpdateAllDto : EfGenericDto<Attendee, AttendeeUpdateAllDto>
+    public class AttendeeDetailAllDto : EfGenericDto<Attendee, AttendeeDetailAllDto>
     {
         [UIHint("HiddenInput")]
         public int AttendeeId { get; set; }

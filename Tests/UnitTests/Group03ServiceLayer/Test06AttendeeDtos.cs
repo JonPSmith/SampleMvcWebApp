@@ -48,7 +48,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new DetailService(db);
 
                 //ATTEMPT
-                var attendee = service.GetDetail<AttendeeUpdateAllDto>(firstId);
+                var attendee = service.GetDetail<AttendeeDetailAllDto>(firstId);
 
                 //VERIFY
                 attendee.ShouldNotEqualNull();
@@ -67,7 +67,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var dto = setupService.GetOriginal<AttendeeUpdateAllDto>(firstAttendeeId);
+                var dto = setupService.GetOriginal<AttendeeDetailAllDto>(firstAttendeeId);
                 dto.FullName = "Unit Test";
                 dto.EmailAddress = "new@nospam.com";
                 dto.HasPaid = false;
@@ -93,7 +93,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var dto = setupService.GetOriginal<AttendeeUpdateNotPaidDto>(firstAttendeeId);
+                var dto = setupService.GetOriginal<AttendeeNotPaidDto>(firstAttendeeId);
                 dto.FullName = "Unit Test";
                 dto.EmailAddress = "new@nospam.com";
                 var status = service.Update(dto);

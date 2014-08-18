@@ -1,0 +1,50 @@
+﻿@model ServiceLayer.AttendeeServices.AttendeeDetailAllDto
+
+@{
+    ViewBag.Title = "DetailsAll";
+}
+
+<h2>DetailsAll</h2>
+
+<div>
+    <h4>AttendeeDetailAllDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttendeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasPaid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit (inc. payment)", "EditAll", new { id = @Model.AttendeeId }) |
+    @Html.ActionLink("Back to List", "ListPaid")
+</p>

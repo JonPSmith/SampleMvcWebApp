@@ -214,6 +214,7 @@
     <Compile Include="Infrastructure\Log4NetGenericLogger.cs" />
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
+    <Compile Include="Models\AttendeeAllListModel.cs" />
     <Compile Include="Models\InternalsInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -411,6 +412,13 @@
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Attendees\Index.cshtml" />
+    <Content Include="Views\Attendees\ListNames.cshtml" />
+    <Content Include="Views\Attendees\ListPaid.cshtml" />
+    <Content Include="Views\Attendees\DetailsNotPaid.cshtml" />
+    <Content Include="Views\Attendees\DetailsAll.cshtml" />
+    <Content Include="Views\Attendees\EditNotPaid.cshtml" />
+    <Content Include="Views\Attendees\EditAll.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

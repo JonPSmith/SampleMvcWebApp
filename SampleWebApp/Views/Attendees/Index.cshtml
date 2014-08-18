@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Course Attendees</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
+<p>
+    Some of the users cannot see any attendee data. Therefore we need to have this default page:
+</p>
+
+<p>Here are the links to the actions. Which of these work depends on the current user selected.</p>
+
+<ul>
+    <li>@Html.ActionLink("List all attendees, name only", "ListNames")</li>
+    <li>@Html.ActionLink("List all attendees, sorted by course and paid", "ListPaid")</li>
+    <li>@Html.ActionLink("Reset Course data", "Reset")</li>
+</ul>

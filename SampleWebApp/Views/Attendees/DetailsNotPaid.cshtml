@@ -1,0 +1,42 @@
+﻿@model ServiceLayer.AttendeeServices.AttendeeNotPaidDto
+
+@{
+    ViewBag.Title = "DetailsNotPaid";
+}
+
+<h2>DetailsNotPaid</h2>
+
+<div>
+    <h4>AttendeeNotPaidDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AttendeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit (not payment)", "EditNotPaid", new { id = @Model.AttendeeId }) |
+    @Html.ActionLink("Back to List", "ListPaid")
+</p>

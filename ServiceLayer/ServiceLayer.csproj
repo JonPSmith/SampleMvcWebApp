@@ -93,8 +93,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttendeeServices\AttendeeUpdateAllDto.cs" />
-    <Compile Include="AttendeeServices\AttendeeUpdateNotPaidDto.cs" />
+    <Compile Include="AttendeeServices\AttendeeDetailAllDto.cs" />
+    <Compile Include="AttendeeServices\AttendeeNotPaidDto.cs" />
     <Compile Include="CourseServices\CourseDetailDto.cs" />
     <Compile Include="CourseServices\CourseListDto.cs" />
     <Compile Include="PostServices\DetailPostDtoAsync.cs" />

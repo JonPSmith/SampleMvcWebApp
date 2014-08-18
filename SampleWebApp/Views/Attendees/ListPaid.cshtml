@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SampleWebApp.Models.AttendeeAllListModel>
+
+@{
+    ViewBag.Title = "ListPaid";
+}
+
+<h2>ListPaid</h2>
+
+@if (TempData["message"] != null)
+{
+    <div class="text-success">@TempData["message"]</div><br />
+}
+@if (TempData["errorMessage"] != null)
+{
+    <div class="text-danger">@TempData["errorMessage"]</div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasPaid)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasPaid)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditNotPaid", new { id = item.AttendeeId }) |
+                @Html.ActionLink("Edit (paid)", "EditAll", new { id = item.AttendeeId }) |
+                @Html.ActionLink("Details", "DetailsNotPaid", new { id = item.AttendeeId }) |
+                @Html.ActionLink("Details (inc. paid)", "DetailsAll", new { id = item.AttendeeId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AttendeeId })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.ActionLink("Back to Attendees page", "Index") 

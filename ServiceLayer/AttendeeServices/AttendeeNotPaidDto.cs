@@ -4,7 +4,7 @@ using GenericServices.Core;
 
 namespace ServiceLayer.AttendeeServices
 {
-    public class AttendeeUpdateNotPaidDto : EfGenericDto<Attendee, AttendeeUpdateNotPaidDto>
+    public class AttendeeNotPaidDto : EfGenericDto<Attendee, AttendeeNotPaidDto>
     {
         [UIHint("HiddenInput")]
         public int AttendeeId { get; set; }
@@ -17,9 +17,6 @@ namespace ServiceLayer.AttendeeServices
         [MaxLength(128)]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-
-        //In this dto HasPaid is never be updated
-        public bool HasPaid { get; internal set; }
 
         protected override ServiceFunctions SupportedFunctions
         {
