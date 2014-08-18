@@ -36,9 +36,8 @@ namespace SampleWebApp.Controllers
                 return View(response.Result);
             }
 
-            //else errors, so set up as error message
-            TempData["message"] = new MvcHtmlString(response.ErrorsAsHtml());
-            TempData["messageIsError"] = true;
+            //else errors, so send back an error message
+            TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
             return RedirectToAction("Index");
         }
 

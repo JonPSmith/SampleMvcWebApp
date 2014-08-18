@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
 using DataLayer.DataClasses;
-using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices.Services.Concrete;
 using NUnit.Framework;

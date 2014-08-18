@@ -78,7 +78,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta5\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta7\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -93,6 +93,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendeeServices\AttendeeUpdateAllDto.cs" />
+    <Compile Include="AttendeeServices\AttendeeUpdateNotPaidDto.cs" />
     <Compile Include="CourseServices\CourseDetailDto.cs" />
     <Compile Include="CourseServices\CourseListDto.cs" />
     <Compile Include="PostServices\DetailPostDtoAsync.cs" />

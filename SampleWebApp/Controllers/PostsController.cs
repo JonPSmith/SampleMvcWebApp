@@ -96,7 +96,9 @@ namespace SampleWebApp.Controllers
             var response = service.Delete<Post>(id);
             if (response.IsValid)
                 TempData["message"] = response.SuccessMessage;
-            //else it throws a concurrecy error, which shows the default error page.
+            else
+                //else errors, so send back an error message
+                TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
             
             return RedirectToAction("Index");
         }
