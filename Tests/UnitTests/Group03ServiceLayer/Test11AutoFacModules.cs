@@ -57,7 +57,24 @@ namespace Tests.UnitTests.Group03ServiceLayer
         }
 
         [Test]
-        public void CheckSetupDbContextLifetimeScopeViaSampleWebAppDb()
+        public void CheckSetupSecureSampleWebAppDb()
+        {
+            //SETUP
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new DataLayerModule());
+            var container = builder.Build();
+
+            //ATTEMPT & VERIFY
+            using (var lifetimeScope = container.BeginLifetimeScope())
+            {
+                var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                Assert.NotNull(instance1);
+                (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
+            }
+        }
+
+        [Test]
+        public void CheckSetupDifferentSampleWebAppDb()
         {
             //SETUP
             var builder = new ContainerBuilder();
@@ -70,8 +87,9 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
                 var instance2 = lifetimeScope.Resolve<SampleWebAppDb>();
                 Assert.NotNull(instance1);
-                (instance1 is SampleWebAppDb).ShouldEqual(true);
-                Assert.AreSame(instance1, instance2);                       //check the two different items are the same
+                (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
+                (instance2 is SampleWebAppDb).ShouldEqual(true);
+                Assert.AreNotEqual(instance1, instance2);                       //check the two different items are different
             }
         }
 

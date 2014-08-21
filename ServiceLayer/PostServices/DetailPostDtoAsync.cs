@@ -128,7 +128,7 @@ namespace ServiceLayer.PostServices
         protected override async Task<ISuccessOrErrors> CopyDtoToDataAsync(IDbContextWithValidation context, DetailPostDtoAsync dto, Post post)
         {
 
-            var db = context as SampleWebAppDb;
+            var db = context as SecureSampleWebAppDb;
             if (db == null)
                 throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
 
@@ -155,7 +155,7 @@ namespace ServiceLayer.PostServices
         //---------------------------------------------------
         //private helpers
 
-        private async Task<string> SetupBloggerIdFromDropDownList(SampleWebAppDb db, Post post)
+        private async Task<string> SetupBloggerIdFromDropDownList(SecureSampleWebAppDb db, Post post)
         {
 
             var blogId = Bloggers.SelectedValueAsInt;
@@ -174,7 +174,7 @@ namespace ServiceLayer.PostServices
             return null;
         }
 
-        private async Task<string> ChangeTagsBasedOnMultiSelectList(SampleWebAppDb db, Post post)
+        private async Task<string> ChangeTagsBasedOnMultiSelectList(SecureSampleWebAppDb db, Post post)
         {
             var requiredTagIds = UserChosenTags.GetFinalSelectionAsInts();
             if (!requiredTagIds.Any())

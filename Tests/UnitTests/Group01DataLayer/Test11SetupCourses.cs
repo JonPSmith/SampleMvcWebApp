@@ -8,7 +8,7 @@ using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests02SetupCourses
+    class Test11SetupCourses
     {
         [Test]
         public void Check01XmlFileLoadOk()

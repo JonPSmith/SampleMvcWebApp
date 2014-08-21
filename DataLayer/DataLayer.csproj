@@ -75,6 +75,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -92,6 +93,8 @@
     <Compile Include="DataClasses\Concrete\Post.cs" />
     <Compile Include="DataClasses\Concrete\Tag.cs" />
     <Compile Include="DataClasses\EfConfiguration.cs" />
+    <Compile Include="DataClasses\SecureSampleWebAppDb.cs" />
+    <Compile Include="DataClasses\SqlSecurity.cs" />
     <Compile Include="Startup\DataLayerInitialise.cs" />
     <Compile Include="DataClasses\SampleWebAppDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

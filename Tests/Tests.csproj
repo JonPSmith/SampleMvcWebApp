@@ -106,6 +106,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -159,11 +160,12 @@
     <Compile Include="Helpers\ModelStateTester.cs" />
     <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests01SetupBlogs.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests10Radio4Fm.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests02SetupCourses.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests03Validation.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Tests04ReadWriteBlogs.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test10SetupBlogs.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test01SqlSecurity.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test50Radio4Fm.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test11SetupCourses.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test13Validation.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test14ReadWriteBlogs.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test02ScheduleSearcher.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test04BlogAnalyser.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test06AttendeeDtos.cs" />

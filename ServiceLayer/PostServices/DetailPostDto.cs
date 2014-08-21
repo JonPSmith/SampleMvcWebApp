@@ -119,7 +119,7 @@ namespace ServiceLayer.PostServices
         protected override ISuccessOrErrors CopyDtoToData(IDbContextWithValidation context, DetailPostDto dto, Post post)
         {
 
-            var db = context as SampleWebAppDb;
+            var db = context as SecureSampleWebAppDb;
             if (db == null)
                 throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
 
@@ -147,7 +147,7 @@ namespace ServiceLayer.PostServices
         //---------------------------------------------------
         //private helpers
 
-        private string SetupBloggerIdFromDropDownList(SampleWebAppDb db, Post post)
+        private string SetupBloggerIdFromDropDownList(SecureSampleWebAppDb db, Post post)
         {
 
             var blogId = Bloggers.SelectedValueAsInt;
@@ -166,7 +166,7 @@ namespace ServiceLayer.PostServices
             return null;
         }
 
-        private string ChangeTagsBasedOnMultiSelectList(SampleWebAppDb db, Post post)
+        private string ChangeTagsBasedOnMultiSelectList(SecureSampleWebAppDb db, Post post)
         {
             var requiredTagIds = UserChosenTags.GetFinalSelectionAsInts();
             if (!requiredTagIds.Any())

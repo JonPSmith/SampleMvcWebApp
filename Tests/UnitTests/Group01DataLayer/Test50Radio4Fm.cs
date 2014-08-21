@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests10Radio4Fm
+    class Test50Radio4Fm
     {
 
         [Test]

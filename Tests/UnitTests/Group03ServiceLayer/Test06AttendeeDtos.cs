@@ -15,7 +15,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [SetUp]
         public void SetUp()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 DataLayerInitialise.InitialiseThis(false);
                 DataLayerInitialise.ResetCourses(db);
@@ -25,7 +25,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check01ListAttendeeNamesOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var service = new ListService(db);
@@ -41,7 +41,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check02AttendeeDetailOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstId = db.Attendees.First().AttendeeId;
@@ -59,7 +59,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check05AttendeeUpdateAllOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstAttendeeId = db.Attendees.First().AttendeeId;
@@ -85,7 +85,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check06AttendeeUpdateExcludeNotPaidOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstAttendeeId = db.Attendees.First().AttendeeId;
@@ -110,7 +110,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check10AttendeeDeleteOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstAttendeeId = db.Attendees.First().AttendeeId;

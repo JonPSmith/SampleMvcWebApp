@@ -4,22 +4,31 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.DataClasses.Concrete.Helpers;
 using GenericServices;
 using GenericServices.Core;
 
+[assembly: InternalsVisibleTo("Tests")]
+
 namespace DataLayer.DataClasses
 {
 
-    public class SampleWebAppDb : DbContext, IDbContextWithValidation
+    public class SampleWebAppDb : DbContext
     {
+        internal const string NameOfConnectionString = "SampleWebAppDb";
+
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Attendee> Attendees { get; set; }
+
+        public SampleWebAppDb() : base("name=" + NameOfConnectionString) {}
+
+        internal SampleWebAppDb(string connectionString) : base(connectionString) { }
 
         public ISuccessOrErrors SaveChangesWithValidation()
         {

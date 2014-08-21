@@ -16,7 +16,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [SetUp]
         public void SetUp()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 DataLayerInitialise.InitialiseThis(false);
                 DataLayerInitialise.ResetCourses(db);
@@ -26,7 +26,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check01ListCoursesOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var service = new ListService(db);
@@ -43,7 +43,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check02CourseDetailOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstCourseId = db.Courses.First().CourseId;
@@ -61,7 +61,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check05CourseUpdateOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var firstCourseId = db.Courses.First().CourseId;
@@ -89,7 +89,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check06CourseCreateOk()
         {
-            using (var db = new SampleWebAppDb())
+            using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
                 var setupService = new CreateSetupService(db);

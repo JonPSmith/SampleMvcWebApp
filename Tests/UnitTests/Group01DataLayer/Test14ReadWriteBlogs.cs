@@ -10,7 +10,7 @@ using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests04ReadWriteBlogs
+    class Test14ReadWriteBlogs
     {
 
         [SetUp]

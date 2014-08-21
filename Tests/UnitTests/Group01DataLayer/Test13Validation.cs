@@ -9,7 +9,7 @@ using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Tests03Validation
+    class Test13Validation
     {
 
         [TestFixtureSetUp]
