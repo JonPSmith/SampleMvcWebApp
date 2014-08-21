@@ -4,9 +4,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 
-namespace DataLayer.DataParts
+namespace DataLayer.Security
 {
-    public class SqlSecurity
+    public class SqlSecure
     {
         private const string DatabaseUserClaimType = "DatabaseUser";
         private const string DatabasePasswordClaimType = "DatabasePassword";
@@ -26,7 +26,7 @@ namespace DataLayer.DataParts
             get { return _securityEnabled; }
             set { 
                 if (value && _unauthenticatedUserName == null)
-                    throw new InvalidOperationException("You must call SetupUnauthenticatedUser to enable SqlSecurity.");
+                    throw new InvalidOperationException("You must call SetupUnauthenticatedUser to enable SqlSecure.");
                 _securityEnabled = value;
             }
         }
@@ -44,7 +44,7 @@ namespace DataLayer.DataParts
         }
 
         //private ctor because only BuildSqlConnectionString can create a SqlSecurity instance
-        private SqlSecurity()
+        private SqlSecure()
         {
 
             var identity = Thread.CurrentPrincipal.Identity as ClaimsIdentity;
@@ -84,10 +84,10 @@ namespace DataLayer.DataParts
                 System.Configuration.ConfigurationManager.ConnectionStrings[nameOfConnectionString].ConnectionString;
             if (!SecurityEnabled)
                 //In SampleMvcWebApp we default to full access in case someone is using this without security
-                //In real applciations you would throw an exception
+                //In real applications you would throw an exception
                 return baseConnection;
 
-            var dbInfo = new SqlSecurity();
+            var dbInfo = new SqlSecure();
             var sb = new SqlConnectionStringBuilder(baseConnection)
             {
                 UserID = dbInfo.DatabaseUserName,

@@ -94,7 +94,14 @@
     <Compile Include="DataClasses\Concrete\Tag.cs" />
     <Compile Include="DataClasses\EfConfiguration.cs" />
     <Compile Include="DataClasses\SecureSampleWebAppDb.cs" />
-    <Compile Include="DataClasses\SqlSecurity.cs" />
+    <Compile Include="Security\SqlSecure.cs" />
+    <Compile Include="Security\Internal\SqlRoleRow.cs" />
+    <Compile Include="Security\Internal\SqlUserAndRoleRow.cs" />
+    <Compile Include="Security\SqlPermission.cs" />
+    <Compile Include="Security\SqlRole.cs" />
+    <Compile Include="Security\SqlRoles.cs" />
+    <Compile Include="Security\SqlInfo.cs" />
+    <Compile Include="Security\SqlUserAndRoles.cs" />
     <Compile Include="Startup\DataLayerInitialise.cs" />
     <Compile Include="DataClasses\SampleWebAppDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

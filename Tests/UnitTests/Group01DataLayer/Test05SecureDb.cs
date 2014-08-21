@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataLayer.DataClasses;
-using DataLayer.DataParts;
+using DataLayer.Security;
 using DataLayer.Startup;
 using NUnit.Framework;
 using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
 {
-    class Test01SqlSecurity
+    class Test05SecureDb
     {
 
         [Test]
@@ -35,7 +31,7 @@ namespace Tests.UnitTests.Group01DataLayer
         [Test]
         public void Check05SetSecurityBadThrowsException()
         {
-            SqlSecurity.SetupUnauthenticatedDatabaseUser("BadUserName", "BadPassword");
+            SqlSecure.SetupUnauthenticatedDatabaseUser("BadUserName", "BadPassword");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -56,7 +52,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var baseConnection =
                 System.Configuration.ConfigurationManager.ConnectionStrings[SampleWebAppDb.NameOfConnectionString].ConnectionString;
             var sb = new SqlConnectionStringBuilder(baseConnection);
-            SqlSecurity.SetupUnauthenticatedDatabaseUser(sb.UserID, sb.Password);
+            SqlSecure.SetupUnauthenticatedDatabaseUser(sb.UserID, sb.Password);
 
             using (var db = new SecureSampleWebAppDb())
             {

@@ -160,8 +160,10 @@
     <Compile Include="Helpers\ModelStateTester.cs" />
     <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test01BuildSqlUserRoles.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test03SqlUsersPermissions.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test10SetupBlogs.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Test01SqlSecurity.cs" />
+    <Compile Include="UnitTests\Group01DataLayer\Test05SecureDb.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test50Radio4Fm.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test11SetupCourses.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test13Validation.cs" />
