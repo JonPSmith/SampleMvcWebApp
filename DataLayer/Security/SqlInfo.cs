@@ -24,7 +24,7 @@ namespace DataLayer.Security
 
         /// <summary>
         /// This returns all the roles that have GRANT/DENY permissions on them.
-        /// Note: this excludes sys roles and any user role that links only to a sys role
+        /// Note: this excludes fixed database role and any user role that links only to a fixed database roles
         /// </summary>
         /// <param name="db"></param>
         /// <returns></returns>
@@ -34,7 +34,7 @@ namespace DataLayer.Security
         }
 
         /// <summary>
-        /// This returns all the users and the roles, sys roles or GRANT/DENY permission roles, that they are in
+        /// This returns all the users and the roles, both fixed database roles user defined permission roles, that they are in
         /// </summary>
         /// <param name="db"></param>
         /// <param name="sqlUser">defaults to true, i.e. SQL users. Set to false for windows users</param>
@@ -46,18 +46,36 @@ namespace DataLayer.Security
             return SqlRoles.GetAllUsersAndTheirRoles(usersAndRoleNames, allRoles);
         }
 
-        //public static XDocument SerializeSqlUserAndRoles(IEnumerable<SqlUserAndRoles> usersAndRoles)
-        //{
-        //    var x = new XmlSerializer(usersAndRoles.GetType());
-        //    XDocument result;
-        //    using (var stream = new MemoryStream())
-        //    {
-        //        x.Serialize(stream, usersAndRoles);
-        //        stream.Flush();
-        //        result = XDocument.Load(stream);
-        //    }
-        //    return result;
-        //}
+        /// <summary>
+        /// This will produce a list of sql commands to add the users, define the roles with permissions 
+        /// and add the roles to the the users.
+        /// Note: It assumes the User Login is set up as we can't do that due tou no password
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="usersAndRoles"></param>
+        /// <returns></returns>
+        public static IReadOnlyList<string> AddAllUsersRolesAndPermissions(this DbContext db, List<SqlUserAndRoles> usersAndRoles)
+        {
+            var result = new List<string>();
+
+            //first we add all the users and extract distinct roles
+            result.Add( "-- Add all users");
+            result.AddRange(usersAndRoles.Select( x => x.SqlCommandToAddUserToLogin()));
+
+            result.Add( "-- create each role and its permissions");
+            //we group to stop roles that are used in multiple times from being declared twice
+            var allRolesGroupedByName = usersAndRoles.SelectMany(x => x.UserRoles).GroupBy( x => x.RoleName);
+            foreach (var roleGroup in allRolesGroupedByName)
+            {
+                result.Add( roleGroup.First().SqlCommandToCreateRole());
+                result.AddRange(roleGroup.First().SqlCommandsToAddPermissionsToRole(db));
+            }
+
+            result.Add("-- add each user to its roles");
+            result.AddRange(usersAndRoles.SelectMany(x => x.SqlCommandToAddUserToItsRoles()) );
+
+            return result;
+        }
 
 
 

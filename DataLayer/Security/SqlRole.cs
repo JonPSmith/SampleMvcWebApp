@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace DataLayer.Security
         public SqlRole(string roleName, IReadOnlyCollection<SqlPermission> permissions)
         {
             RoleName = roleName;
-            Permissions = permissions;
+            Permissions = permissions ?? new List<SqlPermission>();
         }
 
         /// <summary>
@@ -25,8 +26,8 @@ namespace DataLayer.Security
         public string SqlCommandToCreateRole()
         {
             return Permissions.Any() 
-                ? string.Format("CREATE ROLE {0}", RoleName) 
-                : null;
+                ? string.Format("CREATE ROLE [{0}]", RoleName) 
+                : string.Empty;
         }
 
         /// <summary>
@@ -37,8 +38,8 @@ namespace DataLayer.Security
         public string SqlCommandToDropRole()
         {
             return Permissions.Any()
-                ? string.Format("DROP ROLE {0}", RoleName)
-                : null;
+                ? string.Format("DROP ROLE [{0}]", RoleName)
+                : string.Empty;
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace DataLayer.Security
         public IEnumerable<string> SqlCommandsToAddPermissionsToRole(DbContext db)
         {
             return Permissions.Any()
-                ? Permissions.Select(x => string.Format("{0} ON {1}", x.SqlCommandToAddPermission(db), RoleName))
+                ? Permissions.Select(x => string.Format("{0} ON [{1}]", x.SqlCommandToAddPermission(db), RoleName))
                 : new List<string>();
         }
 
