@@ -419,6 +419,8 @@
     <Content Include="Views\Attendees\EditNotPaid.cshtml" />
     <Content Include="Views\Attendees\EditAll.cshtml" />
     <Content Include="Views\Shared\PartialUsers.cshtml" />
+    <Content Include="Views\Security\Index.cshtml" />
+    <Content Include="Views\Shared\SecuritySubMenu.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -428,7 +430,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Docs\" />
-    <Folder Include="Views\Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

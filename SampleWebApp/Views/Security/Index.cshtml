@@ -1,0 +1,49 @@
+﻿@using SampleWebApp.Infrastructure
+@{
+    ViewBag.Title = "Security";
+}
+@Html.Partial("SecuritySubMenu")
+<h2>What is the Security Demo all about?</h2>
+
+<p>
+    In the (forthcoming) Article
+    <a href="#" target="_blank">Securing your data with Entity Framework and Identity 2.0</a>
+    I explained how to get Entity Framework to work with SQL Server/Azure security features
+    by using ASP.NET Identity 2.
+    This section of the SampleMvcWebApp provides a live demonstration of SQL security running on SQL
+    @if (SampleWebApp.Infrastructure.WebUiInitialise.HostType == HostTypes.Azure)
+    {<text>Azure.</text>} else { <text>Server.</text> }
+</p>
+<p>
+    The demo implements a simple online training web site to allow the public find and book a course while also providing admin/finance staff
+    with the ability to manage the courses and bookings. I use a very simple structure with only two tables: <strong>Courses</strong> containing the details
+    of each course and <strong>Attendees</strong> holding the attendees who are booked on the courses.
+</p>
+
+<h3>How to use demo</h3>
+<p>
+    What you can do is controlled by who is logged in, which for this demo is controlled by the dropdown list (top right of page).
+    This list allows you to quickly change who is logged in.
+    Which user you have selected will change the level of access you have to the data.
+</p>
+    Unlike real web applications this site does not stop you from trying to access commands you aren't allowed to use.
+    This is to show you that the SQL security is working and illegal accesses should produce an error message.
+    The basic rules on who can do what are:
+</p>
+<ul>
+    <li><strong>Ada Lovelace (Admin)</strong> can do everything apart from update whether a attendee has paid.</li>
+    <li><strong>William King (Finance)</strong> cannot change the course information, but is the only person who can change the HasPaid status.</li>
+    <li>
+        <strong>Charges Babbage (Trainer)</strong> can change course details and see details of the attendees, but not if they have paid or not.
+    </li>
+    <li>
+        <strong>Sherlock Holmes (Authenticated)</strong> can see the courses and book a place. However he cannot see the details of who is attending.
+    </li>
+    <li><strong>Not logged in (Unauthenticated)</strong> users can see the courses, but nothing else.</li>
+</ul>
+
+<h3>Where do I start?</h3>
+<p>
+    See the white tabs at the top starting with "Intro"? Click the links on there to start accessing the data (if you have the right permissions of course!) 
+    or reading more on how it works. 
+</p>
