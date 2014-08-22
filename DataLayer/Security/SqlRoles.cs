@@ -51,8 +51,10 @@ namespace DataLayer.Security
             var result = new Dictionary<string, Collection<SqlPermission>>();
             foreach (var roleRow in rolesRows)
             {
-                var roleName = roleRow.DataBasePrincipalsName;
+                var roleName = roleRow.DatabasePrincipalsName;
                 var permission = new SqlPermission(roleRow);
+                //we try and combine the roles. This relies on the list being sorted to place 
+                //permissions for the same permission, scheme and object next to each other
                 if (roleName == lastRoleName && permission.TryCombine(last)) continue;          //if can combine then don't need to add
                 last = permission;
                 lastRoleName = roleName;

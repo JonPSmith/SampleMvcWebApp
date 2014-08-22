@@ -28,5 +28,13 @@ namespace SampleWebApp.Controllers
             HttpContext.ChangeUser(value);
             return new HttpStatusCodeResult(HttpStatusCode.Accepted);
         }
+
+        //-------------------------------------------------
+        //sql commands
+
+        public ActionResult RolesList()
+        {
+            return View();
+        }
     }
 }

@@ -76,6 +76,14 @@ namespace DataLayer.Security
         public int ColumnId { get; private set; }
 
 
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}", OnWhat, SqlCommandToAddPermission(null));
+        }
+
+        //--------------------------------------------
+        //internal parts
+
         internal SqlPermission(SqlRoleRow readRow)
             : this(ConvertDataBasePrincipalType(readRow.DatabasePrincipalType), 
                    ConvertDatabasePermissionState(readRow.DatabasePermissionState), 
@@ -99,17 +107,17 @@ namespace DataLayer.Security
         /// </summary>
         /// <param name="last"></param>
         /// <returns>true if next has been combined into last. False otherwise</returns>
-        public bool TryCombine( SqlPermission last)
+        internal bool TryCombine( SqlPermission last)
         {
             if (last == null) return false;
             if (last.OnWhat != OnWhat || last.State != State || last.SchemaName != SchemaName ||
-                last.ObjectName != ObjectName) return false;
+                last.ObjectName != ObjectName || last.ColumnId != ColumnId) return false;
 
             last.Flags |= Flags;
             return true;
         }
 
-        public string SqlCommandToAddPermission(DbContext db)
+        internal string SqlCommandToAddPermission(DbContext db)
         {
             if (db == null)
                 //can't do proper lookup so do incorrect, but viewable text, so ToString works
@@ -118,15 +126,23 @@ namespace DataLayer.Security
                         ? string.Empty
                         : string.Format("(Column[{0}])", ColumnId));
 
-            if (ColumnId == 0)
-                return SqlPermissionCommandWithColumnText(string.Empty);
-            
-            //Otherwise need to look up column and insert it
+            //Otherwise need to look up column (if present) and insert it
+            var columnText = GetColumnNameInBrackets(db);
+            return SqlPermissionCommandWithColumnText(columnText);
+        }
+
+        //------------------------------------------------------
+        //internal/private helpers
+
+        private string GetColumnNameInBrackets(DbContext db)
+        {
+            if (ColumnId == 0) return string.Empty;
+
             var columnText = string.Format("({0})", db.Database.SqlQuery<string>(
                 string.Format(
                     "SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = '{0}' AND ORDINAL_POSITION = {1}",
                     ObjectName, ColumnId)));
-            return SqlPermissionCommandWithColumnText(columnText);
+            return columnText;
         }
 
         private string SqlPermissionCommandWithColumnText( string columnText)
@@ -134,14 +150,6 @@ namespace DataLayer.Security
             return string.Format("{0} {1} ON OBJECT::{2}.{3}{4}", State.ToString().ToUpperInvariant(),
                 Flags.ToString().Replace(',', ' ').ToUpperInvariant(), SchemaName, ObjectName, columnText);
         }
-
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}", OnWhat, SqlCommandToAddPermission(null));
-        }
-
-        //------------------------------------------------------
-        //internal/private helpers
 
         internal static PermissionsOnWhat ConvertDataBasePrincipalType(string typeString)
         {
