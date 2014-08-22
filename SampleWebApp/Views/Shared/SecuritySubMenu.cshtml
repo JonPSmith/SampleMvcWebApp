@@ -1,18 +1,17 @@
-﻿@*@Html.Partial("_LoginPartial")*@
-@{ var controllerName = @ViewContext.RouteData.Values["Controller"].ToString(); }
-<div>
-    
-    <ul class="nav nav-tabs" role="tablist">
-        <li @if (controllerName == "Security")
-            {<text>class="active"</text>}>
-            @Html.ActionLink("Intro", "Index", "Security")
-        </li>
-        <li @if (controllerName == "Courses") { <text> class="active" </text> }>
-            @Html.ActionLink("Courses", "Index", "Courses")
-        </li>
-        <li @if (controllerName == "Attendees") { <text> class="active" </text>  }>
-            @Html.ActionLink("Attendees", "Index", "Attendees")
-        </li>
-    </ul>
-    <span class="pull-right">This is where the dropdown would go@*@{ Html.RenderAction("PartialUsers", "Security"); }*@</span>
-</div>
+﻿@{
+    var controllerName = @ViewContext.RouteData.Values["Controller"].ToString();
+    var actionName = @ViewContext.RouteData.Values["Action"].ToString();
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li @if (controllerName == "Security") { <text> class="active" </text> }>
+        @Html.ActionLink("Intro", "Index", "Security")
+    </li>
+    <li @if (controllerName == "Courses") { <text> class="active" </text>  }>
+        @Html.ActionLink("Courses", "Index", "Courses")
+    </li>
+    <li @if (controllerName == "Attendees") { <text> class="active" </text>   }>
+        @Html.ActionLink("Attendees", "Index", "Attendees")
+    </li>
+    <li class="pull-right" style="margin-top: 12px">This is where the dropdown would go@*@{ Html.RenderAction("PartialUsers", "Security"); }*@</li>
+</ul>

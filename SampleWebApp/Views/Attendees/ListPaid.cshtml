@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "ListPaid";
 }
-
-<h2>ListPaid</h2>
+@Html.Partial("SecuritySubMenu")
+<h2>List with name and paid</h2>
 
 @if (TempData["message"] != null)
 {
