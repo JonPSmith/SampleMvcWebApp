@@ -1,0 +1,23 @@
+﻿@model SampleWebApp.Identity.SelectListOfUsers
+
+
+@Html.DropDownListFor(x => x.SelectedValue, Model.KeyValueList.Select(x => new SelectListItem
+                        {
+                            Selected = Model.SelectedValue == x.Value,
+                            Text = x.Key,
+                            Value = x.Value
+                        }), new { onchange = "SendBackUser()", @class = "nav navbar-nav navbar-right", @id = "user-select", style = "margin-top: 15px" }
+    )
+
+<script type="text/javascript">
+    function SendBackUser() {
+        var value = document.getElementById("user-select").value;
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("SetUser", "Home")', 
+            data: { value : value}
+        });
+        return false;
+    }
+    
+</script>
