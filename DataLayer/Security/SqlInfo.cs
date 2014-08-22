@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -47,9 +48,9 @@ namespace DataLayer.Security
         }
 
         /// <summary>
-        /// This will produce a list of sql commands to add the users, define the roles with permissions 
-        /// and add the roles to the the users.
-        /// Note: It assumes the User Login is set up as we can't do that due tou no password
+        /// This will produce a list of sql commands to add the users, define the roles 
+        /// with permissions and add the roles to the the users.
+        /// Note: It assumes the User Login is set up as we can't do that due to no password
         /// </summary>
         /// <param name="db"></param>
         /// <param name="usersAndRoles"></param>
@@ -59,7 +60,7 @@ namespace DataLayer.Security
             var result = new List<string>();
 
             //first we add all the users and extract distinct roles
-            result.Add( "-- Add all users");
+            result.Add( "-- Add all users (note: user Logons must be already set up)");
             result.AddRange(usersAndRoles.Select( x => x.SqlCommandToAddUserToLogin()));
 
             result.Add( "-- create each role and its permissions");
@@ -77,8 +78,38 @@ namespace DataLayer.Security
             return result;
         }
 
+        /// <summary>
+        /// This executes a collection of sql commands in a transaction, i.e. any error rolls back the changes 
+        /// It skips any lines that are empty or start with "--", i.e. the SQL comment characters
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="sqlCommands"></param>
+        /// <returns>null if OK. Otherwise the error string.</returns>
+        public static string ExecuteSqlCommands(this DbContext db, IEnumerable<string> sqlCommands)
+        {
+            string result = null;
+            var itemIndex = -1;
+            using (var dbContextTransaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var text in sqlCommands)
+                    {
+                        itemIndex++;
+                        if (string.IsNullOrEmpty(text) || text.StartsWith("--")) continue;
+                        db.Database.ExecuteSqlCommand(text);
+                    }
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    result = string.Format("{0} at index {1}. Message = {2}", ex.GetType().Name, itemIndex, ex.Message);
+                    dbContextTransaction.Rollback(); 
+                }
+            }
 
-
+            return result;
+        }
 
     }
 }

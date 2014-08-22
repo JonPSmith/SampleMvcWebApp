@@ -52,6 +52,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var baseConnection =
                 System.Configuration.ConfigurationManager.ConnectionStrings[SampleWebAppDb.NameOfConnectionString].ConnectionString;
             var sb = new SqlConnectionStringBuilder(baseConnection);
+            //NOTE SURE HOW THIS WORKS. The username and password are both empty strings??
             SqlSecure.SetupUnauthenticatedDatabaseUser(sb.UserID, sb.Password);
 
             using (var db = new SecureSampleWebAppDb())

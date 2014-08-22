@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
+using DataLayer.DataClasses;
 using DataLayer.Security;
 using NUnit.Framework;
 using Tests.Helpers;
@@ -293,6 +294,73 @@ namespace Tests.UnitTests.Group01DataLayer
 
             list[7].ShouldEqual("ALTER [TestRole1] ADD MEMBER [User1]");
             list[8].ShouldEqual("ALTER [db_datawriter] ADD MEMBER [User1]");
+        }
+
+
+        //---------------------------------------
+        //Test execute sql commands
+
+        [Test]
+        public void Test40TestExecuteSqlCommandsOk()
+        {
+
+            using (var db = new SampleWebAppDb())
+            {
+                //SETUP
+                var commands = new List<string>
+                {
+                    "CREATE ROLE [ExecuteCommandRole]",
+                    "DROP ROLE [ExecuteCommandRole]"
+                };
+
+                //ATTEMPT
+                var result = db.ExecuteSqlCommands(commands);
+
+                //VERIFY
+                result.ShouldEqual(null);
+            }
+        }
+
+        [Test]
+        public void Test41TestExecuteSqlCommandsBad()
+        {
+
+            using (var db = new SampleWebAppDb())
+            {
+                //SETUP
+                var commands = new List<string>
+                {
+                    "BAD! SQL COMMAND",
+                };
+
+                //ATTEMPT
+                var result = db.ExecuteSqlCommands(commands);
+
+                //VERIFY
+                result.ShouldEqual("SqlException at index 0. Message = Incorrect syntax near '!'.");
+            }
+        }
+
+        [Test]
+        public void Test42TestExecuteSqlCommandsRollback()
+        {
+
+            using (var db = new SampleWebAppDb())
+            {
+                //SETUP
+                var commands = new List<string>
+                {
+                    "CREATE ROLE [ExecuteCommandRole]",
+                    "BAD! SQL COMMAND",
+                };
+
+                //ATTEMPT
+                var result = db.ExecuteSqlCommands(commands);
+
+                //VERIFY
+                result.ShouldEqual("SqlException at index 1. Message = Incorrect syntax near '!'.");
+                //Need to check database!!!!!
+            }
         }
     }
 }
