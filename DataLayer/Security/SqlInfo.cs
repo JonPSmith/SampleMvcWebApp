@@ -54,14 +54,16 @@ namespace DataLayer.Security
         /// </summary>
         /// <param name="db"></param>
         /// <param name="usersAndRoles"></param>
+        /// <param name="loginPrefix">The login name is created by prepending this parameter to the database username</param>
         /// <returns></returns>
-        public static IReadOnlyList<string> AddAllUsersRolesAndPermissions(this DbContext db, List<SqlUserAndRoles> usersAndRoles)
+        public static IReadOnlyList<string> AddAllUsersRolesAndPermissions(this DbContext db,
+            List<SqlUserAndRoles> usersAndRoles, string loginPrefix)
         {
             var result = new List<string>();
 
             //first we add all the users and extract distinct roles
             result.Add( "-- Add all users (note: user Logons must be already set up)");
-            result.AddRange(usersAndRoles.Select( x => x.SqlCommandToAddUserToLogin()));
+            result.AddRange(usersAndRoles.Select(x => x.SqlCommandToAddUserToLogin(loginPrefix)));
 
             result.Add( "-- create each role and its permissions");
             //we group to stop roles that are used in multiple times from being declared twice

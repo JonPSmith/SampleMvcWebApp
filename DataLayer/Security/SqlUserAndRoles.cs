@@ -18,10 +18,16 @@ namespace DataLayer.Security
             UserType = userType;
             UserRoles = userRoles;
         }
-
-        public string SqlCommandToAddUserToLogin()
+        /// <summary>
+        /// This created the SQL command to create user and connect it to a login name
+        /// </summary>
+        /// <param name="loginPrefix">The login name is created by prepending this parameter to the database username</param>
+        /// <returns></returns>
+        public string SqlCommandToAddUserToLogin(string loginPrefix)
         {
-            return string.Format("CREATE USER [{0}] FOR LOGIN [{0}] WITH DEFAULT_SCHEMA=[dbo]", UserName);
+            
+            return string.Format("CREATE USER [{0}] FOR LOGIN [{1}{0}] WITH DEFAULT_SCHEMA=[dbo]", 
+                UserName, loginPrefix ?? string.Empty);
         }
 
         public string SqlCommandToRemoveUserFromLogin()

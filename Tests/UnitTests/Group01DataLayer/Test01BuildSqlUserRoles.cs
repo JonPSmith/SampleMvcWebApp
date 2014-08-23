@@ -161,7 +161,22 @@ namespace Tests.UnitTests.Group01DataLayer
             var u = new SqlUserAndRoles("User", PermissionsOnWhat.SqlUser, new Collection<SqlRole> {r});
 
             //VERIFY
-            u.SqlCommandToAddUserToLogin().ShouldEqual("CREATE USER [User] FOR LOGIN [User] WITH DEFAULT_SCHEMA=[dbo]");
+            u.SqlCommandToAddUserToLogin(null).ShouldEqual("CREATE USER [User] FOR LOGIN [User] WITH DEFAULT_SCHEMA=[dbo]");
+        }
+
+        [Test]
+        public void Test20UserAddCommandWithPrefixOk()
+        {
+            //SETUP         
+            var p = new SqlPermission(PermissionsOnWhat.SqlUser, PermissionStates.Grant, PermissionTypeFlags.Insert,
+                "dbo", "Table", 0);
+            var r = new SqlRole("TestRole", new Collection<SqlPermission> { p });
+
+            //ATTEMPT
+            var u = new SqlUserAndRoles("User", PermissionsOnWhat.SqlUser, new Collection<SqlRole> { r });
+
+            //VERIFY
+            u.SqlCommandToAddUserToLogin("Prefix_").ShouldEqual("CREATE USER [User] FOR LOGIN [Prefix_User] WITH DEFAULT_SCHEMA=[dbo]");
         }
 
         [Test]
@@ -226,7 +241,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var u2 = new SqlUserAndRoles("User2", PermissionsOnWhat.SqlUser, new Collection<SqlRole> { r });
 
             //ATTEMPT
-            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> {u1, u2});
+            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> { u1, u2 }, null);
 
             //VERIFY
             list.Count.ShouldEqual(9);
@@ -254,7 +269,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var u2 = new SqlUserAndRoles("User2", PermissionsOnWhat.SqlUser, new Collection<SqlRole> { r2 });
 
             //ATTEMPT
-            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> {u1, u2});
+            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> { u1, u2 }, null);
 
             //VERIFY
             list.Count.ShouldEqual(11);
@@ -282,7 +297,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var u1 = new SqlUserAndRoles("User1", PermissionsOnWhat.SqlUser, new Collection<SqlRole> { r1, r2 });
 
             //ATTEMPT
-            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> { u1 });
+            var list = db.AddAllUsersRolesAndPermissions(new List<SqlUserAndRoles> { u1 }, null);
 
             //VERIFY
             list.Count.ShouldEqual(9);

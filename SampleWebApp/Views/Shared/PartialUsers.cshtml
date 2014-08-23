@@ -14,7 +14,7 @@
         var value = document.getElementById("user-select").value;
         $.ajax({
             type: 'post',
-            url: '@Url.Action("SetUser", "Home")', 
+            url: '@Url.Action("SetUser", "Security")', 
             data: { value : value}
         });
         return false;
