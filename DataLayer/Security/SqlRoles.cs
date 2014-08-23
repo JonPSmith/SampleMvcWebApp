@@ -19,7 +19,7 @@ namespace DataLayer.Security
         /// <summary>
         /// This returns a list of Users with attached roles. 
         /// Note: At the moment it does NOT handle permissions assigned directly to a user
-        /// (It could be change to do that but I didn't need it)
+        /// (It could be changed to do that but I didn't need it)
         /// </summary>
         /// <param name="userAndRoleStrings"></param>
         /// <param name="rolesRows"></param>
