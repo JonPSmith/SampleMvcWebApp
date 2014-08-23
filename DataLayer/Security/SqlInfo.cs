@@ -67,7 +67,7 @@ namespace DataLayer.Security
 
             result.Add( "-- create each role and its permissions");
             //we group to stop roles that are used in multiple times from being declared twice
-            var allRolesGroupedByName = usersAndRoles.SelectMany(x => x.UserRoles).GroupBy( x => x.RoleName);
+            var allRolesGroupedByName = usersAndRoles.SelectMany(x => x.UserRoles).GroupBy( x => x.PrincipalName);
             foreach (var roleGroup in allRolesGroupedByName)
             {
                 result.Add( roleGroup.First().SqlCommandToCreateRole());

@@ -151,6 +151,11 @@ namespace DataLayer.Security
                 Flags.ToString().Replace(',', ' ').ToUpperInvariant(), SchemaName, ObjectName, columnText);
         }
 
+        internal static bool IsUser(string typeString)
+        {
+            return typeString[0] == SqlUserChar || typeString[0] == WindowsUserChar || typeString[0] == WindowsGroupChar;
+        }
+
         internal static PermissionsOnWhat ConvertDataBasePrincipalType(string typeString)
         {
             PermissionsOnWhat onWhat;

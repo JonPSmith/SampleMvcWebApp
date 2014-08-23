@@ -16,6 +16,14 @@ namespace DataLayer.Security
             Roles = BuildPrivateRoles(rolesRows).Select(x => new SqlRole(x.Key, x.Value)).ToList();
         }
 
+        /// <summary>
+        /// This returns a list of Users with attached roles. 
+        /// Note: At the moment it does NOT handle permissions assigned directly to a user
+        /// (It could be change to do that but I didn't need it)
+        /// </summary>
+        /// <param name="userAndRoleStrings"></param>
+        /// <param name="rolesRows"></param>
+        /// <returns></returns>
         internal static IEnumerable<SqlUserAndRoles> GetAllUsersAndTheirRoles (
             IEnumerable<SqlUserAndRoleRow> userAndRoleStrings, IEnumerable<SqlRoleRow> rolesRows)
         {

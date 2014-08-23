@@ -8,37 +8,35 @@ namespace DataLayer.Security
     public class SqlRole
     {
 
-        public string RoleName { get; private set; }
+        public string PrincipalName { get; private set; }
 
         public IReadOnlyCollection<SqlPermission> Permissions { get; private set; }
 
-        public SqlRole(string roleName, IReadOnlyCollection<SqlPermission> permissions)
+        public SqlRole(string principalName, IReadOnlyCollection<SqlPermission> permissions)
         {
-            RoleName = roleName;
+            PrincipalName = principalName;
             Permissions = permissions ?? new List<SqlPermission>();
         }
 
         /// <summary>
         /// This will return a command to create the role
         /// </summary>
-        /// <param name="db"></param>
-        /// <returns>Sql command to create the role. Null if the role is a built-in role</returns>
+        /// <returns>Sql command to create the role. Empty if the role is a built-in role or permission isn't a database role</returns>
         public string SqlCommandToCreateRole()
         {
-            return Permissions.Any() 
-                ? string.Format("CREATE ROLE [{0}]", RoleName) 
+            return Permissions.Any( x => x.OnWhat == PermissionsOnWhat.DatabaseRole)
+                ? string.Format("CREATE ROLE [{0}]", PrincipalName) 
                 : string.Empty;
         }
 
         /// <summary>
         /// This will return a command to drop a role
         /// </summary>
-        /// <param name="db"></param>
-        /// <returns>Sql command to drop the role. Null if the role is a built-in role</returns>
+        /// <returns>Sql command to drop the role. Empty if the role is a built-in role or permission isn't a database role</returns>
         public string SqlCommandToDropRole()
         {
-            return Permissions.Any()
-                ? string.Format("DROP ROLE [{0}]", RoleName)
+            return Permissions.Any(x => x.OnWhat == PermissionsOnWhat.DatabaseRole)
+                ? string.Format("DROP ROLE [{0}]", PrincipalName)
                 : string.Empty;
         }
 
@@ -50,7 +48,7 @@ namespace DataLayer.Security
         public IEnumerable<string> SqlCommandsToAddPermissionsToRole(DbContext db)
         {
             return Permissions.Any()
-                ? Permissions.Select(x => string.Format("{0} ON [{1}]", x.SqlCommandToAddPermission(db), RoleName))
+                ? Permissions.Select(x => string.Format("{0} ON [{1}]", x.SqlCommandToAddPermission(db), PrincipalName))
                 : new List<string>();
         }
 

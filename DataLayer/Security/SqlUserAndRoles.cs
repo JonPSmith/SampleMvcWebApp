@@ -37,12 +37,12 @@ namespace DataLayer.Security
 
         public IEnumerable<string> SqlCommandToRemoveUserFromItsRoles()
         {
-            return UserRoles.Select(x => string.Format("ALTER [{0}] DROP MEMBER [{1}]", x.RoleName, UserName));
+            return UserRoles.Select(x => string.Format("ALTER [{0}] DROP MEMBER [{1}]", x.PrincipalName, UserName));
         }
 
         public IEnumerable<string> SqlCommandToAddUserToItsRoles()
         {
-            return UserRoles.Select(x => string.Format("ALTER [{0}] ADD MEMBER [{1}]", x.RoleName, UserName));
+            return UserRoles.Select(x => string.Format("ALTER [{0}] ADD MEMBER [{1}]", x.PrincipalName, UserName));
         }
     }
 }
