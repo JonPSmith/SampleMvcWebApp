@@ -13,5 +13,5 @@
     <li @if (controllerName == "Attendees") { <text> class="active" </text>   }>
         @Html.ActionLink("Attendees", "Index", "Attendees")
     </li>
-    <li class="pull-right" style="margin-top: 12px">This is where the dropdown would go@*@{ Html.RenderAction("PartialUsers", "Security"); }*@</li>
+    <li class="pull-right" style="margin-top: 12px">@{ Html.RenderAction("PartialUsers", "Security"); }</li>
 </ul>

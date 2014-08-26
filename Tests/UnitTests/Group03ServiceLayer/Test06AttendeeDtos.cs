@@ -11,11 +11,18 @@ namespace Tests.UnitTests.Group03ServiceLayer
 {
     class Test06AttendeeDtos
     {
+        private ClaimsIdentityHelper _userSetup;
+
+        [TestFixtureSetUp]
+        public void FixtureSetup()
+        {
+            _userSetup = new ClaimsIdentityHelper();
+        }
 
         [SetUp]
         public void SetUp()
         {
-            using (var db = new SecureSampleWebAppDb())
+            using (var db = new SampleWebAppDb())
             {
                 DataLayerInitialise.InitialiseThis(false);
                 DataLayerInitialise.ResetCourses(db);
@@ -25,6 +32,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check01ListAttendeeNamesOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -41,6 +49,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check02AttendeeDetailOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -59,6 +68,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check05AttendeeUpdateAllOk()
         {
+            _userSetup.SetUser("william");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -85,6 +95,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check06AttendeeUpdateExcludeNotPaidOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -110,6 +121,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check10AttendeeDeleteOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP

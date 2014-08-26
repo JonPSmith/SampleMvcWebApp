@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.Security;
 using DataLayer.Security.Internal;
 using NUnit.Framework;
+using SampleWebApp.Infrastructure;
 using Tests.Helpers;
 
 namespace Tests.UnitTests.Group01DataLayer
@@ -87,5 +90,36 @@ namespace Tests.UnitTests.Group01DataLayer
             }
         }
 
+        //-----------------------------------------------------------
+
+        [Test]
+        [Ignore("Just used to check the setup of the permissions")]
+        public void Test98ListDatabasePermissionsOk()
+        {
+            //SETUP
+            const string loginPrefix = "";
+            using (var db = new SampleWebAppDb())
+            {
+
+                //ATTEMPT
+                var data = db.SqlCommandsCreateUsersRolesAndPermissions(loginPrefix);
+
+                //VERIFY
+                foreach (var line in data)
+                    Console.WriteLine(line);
+            }
+        }
+
+        [Test]
+        [Ignore("Just used to check the setup of the permissions")]
+        public void Test99WriteDataToAppDataOk()
+        {
+            //SETUP
+            var data = SqlSecurityHelper.SaveSqlSecuritySetup(HostTypes.WebWiz, "JonSmith_");
+
+            //VERIFY
+            foreach (var line in data)
+                Console.WriteLine(line);    
+        }
     }
 }

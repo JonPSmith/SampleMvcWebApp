@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using DataLayer.Security.Internal;
 
 namespace DataLayer.Security
@@ -53,13 +49,15 @@ namespace DataLayer.Security
         /// Note: It assumes the User Login is set up as we can't do that due to no password
         /// </summary>
         /// <param name="db"></param>
-        /// <param name="usersAndRoles"></param>
         /// <param name="loginPrefix">The login name is created by prepending this parameter to the database username</param>
+        /// <param name="usersAndRoles"></param>
         /// <returns></returns>
-        public static IReadOnlyList<string> AddAllUsersRolesAndPermissions(this DbContext db,
-            List<SqlUserAndRoles> usersAndRoles, string loginPrefix)
+        public static IReadOnlyList<string> SqlCommandsCreateUsersRolesAndPermissions(this DbContext db, string loginPrefix, 
+            List<SqlUserAndRoles> usersAndRoles = null)
         {
             var result = new List<string>();
+            if (usersAndRoles == null)
+                usersAndRoles = db.GetUsersAndTheirRoles().ToList();
 
             //first we add all the users and extract distinct roles
             result.Add( "-- Add all users (note: user Logons must be already set up)");

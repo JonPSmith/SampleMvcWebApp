@@ -93,6 +93,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1408.0717\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -144,6 +147,7 @@
     <Compile Include="DependencyItems\GenericInterface.cs" />
     <Compile Include="DependencyItems\MyDisposableClass.cs" />
     <Compile Include="DependencyItems\SimpleClass.cs" />
+    <Compile Include="Helpers\ClaimsIdentityHelper.cs" />
     <Compile Include="Helpers\DbSnapShot.cs" />
     <Compile Include="Helpers\DummyIDbContextWithValidation.cs" />
     <Compile Include="Helpers\EmptyTestActionWithSubmit.cs" />
@@ -153,6 +157,7 @@
     <Compile Include="Helpers\EmptyTestAction.cs" />
     <Compile Include="Helpers\SimpleTagDto.cs" />
     <Compile Include="Helpers\SimpleTagDtoAsync.cs" />
+    <Compile Include="Helpers\SqlSecurityHelper.cs" />
     <Compile Include="Helpers\TestFileHelpers.cs" />
     <Compile Include="MocksAndFakes\MockActionHubSend.cs" />
     <Compile Include="MocksAndFakes\MockHubDependencyResolver.cs" />

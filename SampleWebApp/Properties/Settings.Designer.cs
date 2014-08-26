@@ -31,5 +31,14 @@ namespace SampleWebApp.Properties {
                 return ((string)(this["HostTypeString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DatabaseLoginPrefix {
+            get {
+                return ((string)(this["DatabaseLoginPrefix"]));
+            }
+        }
     }
 }

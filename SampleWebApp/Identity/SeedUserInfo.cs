@@ -12,9 +12,9 @@
         public string OriginalPassword { get; set; }
 
         /// <summary>
-        /// Thsi contains the SQL Username to use for this ASP.NET Users when logging into sql server
+        /// Thsi contains the SQL Login name to use for this ASP.NET Users when logging into sql server
         /// </summary>
-        public string DatabaseUser { get; set; }
+        public string DatabaseLogin { get; set; }
 
         /// <summary>
         /// This contains the password to go with the DatabaseUser property

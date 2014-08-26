@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DataLayer.DataClasses;
+using DataLayer.Security;
 using SampleWebApp.Identity;
+using ServiceLayer.Security;
 
 namespace SampleWebApp.Controllers
 {
@@ -32,9 +35,9 @@ namespace SampleWebApp.Controllers
         //-------------------------------------------------
         //sql commands
 
-        public ActionResult RolesList()
+        public ActionResult ViewPermissions(ISqlCommands service)
         {
-            return View();
+            return View(service.GetSqlCommands());
         }
     }
 }

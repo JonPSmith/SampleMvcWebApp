@@ -24,6 +24,7 @@ namespace SampleWebApp
 
             //Set the parameter to true if you want the Identity database completely reset, otherwise false 
             Database.SetInitializer(new IdentityDbInitializer(false));
+
         }
     }
 }

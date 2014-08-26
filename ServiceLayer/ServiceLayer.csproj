@@ -102,6 +102,9 @@
     <Compile Include="PostServices\SimplePostDtoAsync.cs" />
     <Compile Include="PostServices\SimplePostDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ISqlCommands.cs" />
+    <Compile Include="Security\SqlCommandDto.cs" />
+    <Compile Include="Security\SqlCommands.cs" />
     <Compile Include="Startup\ServiceLayerInitialise.cs" />
     <Compile Include="Startup\ServiceLayerModule.cs" />
     <Compile Include="TestActionService\Concrete\CommsTestActionBase.cs" />

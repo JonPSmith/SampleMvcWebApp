@@ -31,7 +31,7 @@ namespace SampleWebApp.Identity
                 DisplayName = userXml.Element("DisplayName").Value,
                 Email = userXml.Element("Email").Value,
                 OriginalPassword = userXml.Element("Password").Value,
-                DatabaseUser = userXml.Element("DatabaseUser").Value,
+                DatabaseLogin = userXml.Element("DatabaseLogin").Value,
                 DatabasePassword = userXml.Element("DatabasePassword").Value,
             });
         }
@@ -42,7 +42,7 @@ namespace SampleWebApp.Identity
         /// <param name="xml"></param>
         private static void DecodeUnauthenticatedUser(XElement xml)
         {
-            SqlSecure.SetupUnauthenticatedDatabaseUser(xml.Element("DatabaseUser").Value, xml.Element("DatabasePassword").Value);
+            SqlSecure.SetupUnauthenticatedDatabaseUser(xml.Element("DatabaseLogin").Value, xml.Element("DatabasePassword").Value);
         }
 
     }

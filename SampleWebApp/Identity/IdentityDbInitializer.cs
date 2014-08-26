@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Web;
+using DataLayer.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -9,9 +10,6 @@ namespace SampleWebApp.Identity
 {
     public class IdentityDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
-        private const string DatabaseUserClaimType = "DatabaseUser";
-        private const string DatabasePasswordClaimType = "DatabasePassword";
-
         private readonly bool _replaceAllUsers;
 
         public IdentityDbInitializer(bool replaceAllUsers)
@@ -59,8 +57,8 @@ namespace SampleWebApp.Identity
                     throw new InvalidOperationException(string.Format("Could not create user for {0}. Errors = {1}",
                         user.UserName, string.Join(", ", result.Errors)));
 
-                AddClaimAndCheck(userManager, user, DatabaseUserClaimType, seedUser.DatabaseUser);
-                AddClaimAndCheck(userManager, user, DatabasePasswordClaimType, seedUser.DatabasePassword);
+                AddClaimAndCheck(userManager, user, SqlSecure.DatabaseLoginClaimType, seedUser.DatabaseLogin);
+                AddClaimAndCheck(userManager, user, SqlSecure.DatabasePasswordClaimType, seedUser.DatabasePassword);
             }
         }
 

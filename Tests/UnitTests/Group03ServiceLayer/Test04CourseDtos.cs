@@ -13,10 +13,18 @@ namespace Tests.UnitTests.Group03ServiceLayer
     class Test04CourseDtos
     {
 
+        private ClaimsIdentityHelper _userSetup;
+
+        [TestFixtureSetUp]
+        public void FixtureSetup()
+        {
+            _userSetup = new ClaimsIdentityHelper();
+        }
+
         [SetUp]
         public void SetUp()
         {
-            using (var db = new SecureSampleWebAppDb())
+            using (var db = new SampleWebAppDb())
             {
                 DataLayerInitialise.InitialiseThis(false);
                 DataLayerInitialise.ResetCourses(db);
@@ -26,6 +34,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check01ListCoursesOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -43,6 +52,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check02CourseDetailOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -61,6 +71,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check05CourseUpdateOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
@@ -89,6 +100,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         [Test]
         public void Check06CourseCreateOk()
         {
+            _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP

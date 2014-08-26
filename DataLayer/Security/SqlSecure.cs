@@ -8,14 +8,14 @@ namespace DataLayer.Security
 {
     public class SqlSecure
     {
-        private const string DatabaseUserClaimType = "DatabaseUser";
-        private const string DatabasePasswordClaimType = "DatabasePassword";
+        public const string DatabaseLoginClaimType = "DatabaseLogin";
+        public const string DatabasePasswordClaimType = "DatabasePassword";
 
         private static string _unauthenticatedUserName = null;
         private static string _unauthenticatedUserPassword = null;
         private static bool _securityEnabled;
 
-        private string DatabaseUserName { get; set; }
+        private string DatabaseLoginName { get; set; }
         private string DatabaseUserPassword { get; set; }
 
         /// <summary>
@@ -47,27 +47,27 @@ namespace DataLayer.Security
         private SqlSecure()
         {
 
-            var identity = Thread.CurrentPrincipal.Identity as ClaimsIdentity;
-            if (identity == null)
-                throw new InvalidOperationException("This only works with a claims based identity.");
-
-            if (!identity.IsAuthenticated)
+            if (!Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 //not logged in so use unauthenticated account
-                DatabaseUserName = _unauthenticatedUserName;
+                DatabaseLoginName = _unauthenticatedUserName;
                 DatabaseUserPassword = _unauthenticatedUserPassword;
                 return;
             }
 
-            var userNameClaim = identity.Claims.SingleOrDefault(
-                x => x.Type == DatabaseUserClaimType);
+            var identity = Thread.CurrentPrincipal.Identity as ClaimsIdentity;
+            if (identity == null)
+                throw new InvalidOperationException("This only works with a claims based identity.");
+
+            var userloginClaim = identity.Claims.SingleOrDefault(
+                x => x.Type == DatabaseLoginClaimType);
             var passwordClaim = identity.Claims.SingleOrDefault(
                 x => x.Type == DatabasePasswordClaimType);
-            if (userNameClaim == null || passwordClaim == null)
+            if (userloginClaim == null || passwordClaim == null)
                 throw new InvalidOperationException(
                     "Could not find the required database information in the user's claims.");
 
-            DatabaseUserName = userNameClaim.Value;
+            DatabaseLoginName = userloginClaim.Value;
             DatabaseUserPassword = passwordClaim.Value;
         }
 
@@ -90,7 +90,7 @@ namespace DataLayer.Security
             var dbInfo = new SqlSecure();
             var sb = new SqlConnectionStringBuilder(baseConnection)
             {
-                UserID = dbInfo.DatabaseUserName,
+                UserID = dbInfo.DatabaseLoginName,
                 Password = dbInfo.DatabaseUserPassword,
                 IntegratedSecurity = false
             };

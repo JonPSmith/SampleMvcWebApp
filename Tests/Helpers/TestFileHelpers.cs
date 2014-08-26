@@ -41,6 +41,7 @@ namespace Tests.Helpers
             return fileList;
         }
 
+
         //------------------------------------------------------------------------------
 
         public static string GetTestDataFileDirectory(string alternateTestDir = TestFileDirectoryName)
@@ -55,6 +56,25 @@ namespace Tests.Helpers
                 return pathToManipulate.Substring(0, pathToManipulate.Length - releaseEnding.Length) + alternateTestDir;   
                 
             throw new Exception("bad news guys. Not the expected path");
+
+        }
+
+        public static string GetSolutionDirectory()
+        {
+            string pathToManipulate = Environment.CurrentDirectory;
+            const string debugEnding = @"\bin\debug";
+            const string releaseEnding = @"\bin\release";
+
+            string projectDir = null;
+            if (pathToManipulate.EndsWith(debugEnding, StringComparison.InvariantCultureIgnoreCase))
+                projectDir = pathToManipulate.Substring(0, pathToManipulate.Length - debugEnding.Length);
+            if (pathToManipulate.EndsWith(releaseEnding, StringComparison.InvariantCultureIgnoreCase))
+                projectDir = pathToManipulate.Substring(0, pathToManipulate.Length - releaseEnding.Length);
+
+            if (projectDir == null)
+                throw new Exception("bad news guys. Not the expected path");
+
+            return projectDir.Substring(0, projectDir.LastIndexOf("\\", StringComparison.Ordinal));
 
         }
 

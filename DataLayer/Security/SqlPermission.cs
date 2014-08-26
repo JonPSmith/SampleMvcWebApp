@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer.Security.Internal;
 
@@ -139,16 +140,16 @@ namespace DataLayer.Security
             if (ColumnId == 0) return string.Empty;
 
             var columnText = string.Format("({0})", db.Database.SqlQuery<string>(
-                string.Format(
+                string.Format( 
                     "SELECT COLUMN_NAME FROM information_schema.columns WHERE TABLE_NAME = '{0}' AND ORDINAL_POSITION = {1}",
-                    ObjectName, ColumnId)));
+                    ObjectName, ColumnId)).First());
             return columnText;
         }
 
         private string SqlPermissionCommandWithColumnText( string columnText)
         {
             return string.Format("{0} {1} ON OBJECT::{2}.{3}{4}", State.ToString().ToUpperInvariant(),
-                Flags.ToString().Replace(',', ' ').ToUpperInvariant(), SchemaName, ObjectName, columnText);
+                Flags.ToString().ToUpperInvariant(), SchemaName, ObjectName, columnText);
         }
 
         internal static bool IsUser(string typeString)

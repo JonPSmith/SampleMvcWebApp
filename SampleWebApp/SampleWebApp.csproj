@@ -230,7 +230,6 @@
     <Compile Include="Models\AttendeeAllListModel.cs" />
     <Compile Include="Models\InternalsInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\BlogListModel.cs" />
     <Compile Include="Models\TagListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SeedIdentities.xml" />
+    <Content Include="App_Data\WebWizSqlSecurity.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
