@@ -300,15 +300,14 @@ namespace Tests.UnitTests.Group01DataLayer
             var list = db.SqlCommandsCreateUsersRolesAndPermissions(null, new List<SqlUserAndRoles> { u1 });
 
             //VERIFY
-            list.Count.ShouldEqual(9);
+            list.Count.ShouldEqual(8);
             list[1].ShouldStartWith("CREATE USER [User1]");
 
             list[3].ShouldEqual("CREATE ROLE [TestRole1]");
             list[4].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole1]");
-            list[5].ShouldEqual("");
 
-            list[7].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
-            list[8].ShouldEqual("ALTER ROLE [db_datawriter] ADD MEMBER [User1]");
+            list[6].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
+            list[7].ShouldEqual("ALTER ROLE [db_datawriter] ADD MEMBER [User1]");
         }
 
 

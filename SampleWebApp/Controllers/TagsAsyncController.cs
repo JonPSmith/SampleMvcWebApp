@@ -18,7 +18,7 @@ namespace SampleWebApp.Controllers
         // GET: TagsAsync
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetList<Tag>().Select(x => new TagListModel
+            return View(await service.GetMany<Tag>().Select(x => new TagListModel
             {
                 TagId = x.TagId,
                 Name = x.Name,
@@ -29,13 +29,13 @@ namespace SampleWebApp.Controllers
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync<Tag>(id));
+            return View((await service.GetDetailAsync<Tag>(id)).Result);
         }
 
 
         public async Task<ActionResult> Edit(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync<Tag>(id));
+            return View((await service.GetDetailAsync<Tag>(id)).Result);
         }
 
         [HttpPost]

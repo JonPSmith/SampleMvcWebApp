@@ -75,7 +75,7 @@ namespace DataLayer.Security
             result.Add("-- add each user to its roles");
             result.AddRange(usersAndRoles.SelectMany(x => x.SqlCommandToAddUserToItsRoles()) );
 
-            return result;
+            return result.Where(x => !string.IsNullOrEmpty(x)).ToList();
         }
 
         /// <summary>

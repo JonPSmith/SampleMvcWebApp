@@ -50,13 +50,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta7\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta12\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -421,6 +420,7 @@
     <Content Include="Views\Shared\PartialUsers.cshtml" />
     <Content Include="Views\Security\Index.cshtml" />
     <Content Include="Views\Shared\SecuritySubMenu.cshtml" />
+    <Content Include="Views\Security\ViewPermissions.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

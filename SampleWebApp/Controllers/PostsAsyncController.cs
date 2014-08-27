@@ -20,19 +20,18 @@ namespace SampleWebApp.Controllers
         /// </summary>
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetList<SimplePostDtoAsync>().ToListAsync());
+            return View(await service.GetMany<SimplePostDtoAsync>().ToListAsync());
         }
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)
         {
-            return View(await service.GetDetailAsync<DetailPostDtoAsync>(id));
+            return View((await service.GetDetailAsync<DetailPostDtoAsync>(id)).Result);
         }
 
 
         public async Task<ActionResult> Edit(int id, IUpdateSetupServiceAsync service)
         {
-            var dto = await service.GetOriginalAsync<DetailPostDtoAsync>(id);
-            return View(dto);
+            return View((await service.GetOriginalAsync<DetailPostDtoAsync>(id)).Result);
         }
 
         [HttpPost]

@@ -4,6 +4,7 @@ using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
+using GenericServices.Core;
 using SampleWebApp.Infrastructure;
 using SampleWebApp.Models;
 using ServiceLayer.AttendeeServices;
@@ -20,37 +21,64 @@ namespace SampleWebApp.Controllers
 
         public ActionResult ListNames(IListService service)
         {
-            return View(service.GetList<Attendee>().Select( x => x.FullName).ToList());
+            var status = service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionChecking();
+
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("Index");
         }
 
         public ActionResult ListPaid(IListService service)
         {
-            return View(service.GetList<Attendee>().OrderBy( x => x.BookedOn.StartDate).ThenBy( x => x.HasPaid)
+            var status = service.GetMany<Attendee>().OrderBy(x => x.BookedOn.StartDate).ThenBy(x => x.HasPaid)
                 .Select(x => new AttendeeAllListModel()
-            {
-                AttendeeId = x.AttendeeId,
-                FullName = x.FullName,
-                EmailAddress = x.EmailAddress,
-                HasPaid = x.HasPaid,
-                CourseName = x.BookedOn.Name
-            }).ToList());
+                {
+                    AttendeeId = x.AttendeeId,
+                    FullName = x.FullName,
+                    EmailAddress = x.EmailAddress,
+                    HasPaid = x.HasPaid,
+                    CourseName = x.BookedOn.Name
+                }).TryManyWithPermissionChecking();
+
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("Index");
         }
 
 
         public ActionResult DetailsNotPaid(int id, IDetailService service)
         {
-            return View(service.GetDetail<AttendeeNotPaidDto>(id));
+            var status = service.GetDetail<AttendeeNotPaidDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("ListPaid");
         }
 
         public ActionResult DetailsAll(int id, IDetailService service)
         {
-            return View(service.GetDetail<AttendeeDetailAllDto>(id));
+            var status = service.GetDetail<AttendeeDetailAllDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("ListPaid");
         }
 
 
         public ActionResult EditNotPaid(int id, IDetailService service)
         {
-            return View(service.GetDetail<AttendeeNotPaidDto>(id));
+            var status = service.GetDetail<AttendeeNotPaidDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("ListPaid");
         }
 
         [HttpPost]
@@ -75,7 +103,12 @@ namespace SampleWebApp.Controllers
 
         public ActionResult EditAll(int id, IDetailService service)
         {
-            return View(service.GetDetail<AttendeeDetailAllDto>(id));
+            var status = service.GetDetail<AttendeeDetailAllDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("ListPaid");
         }
 
         [HttpPost]

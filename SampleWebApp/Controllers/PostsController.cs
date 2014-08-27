@@ -26,7 +26,7 @@ namespace SampleWebApp.Controllers
         public ActionResult Index(int? id, IListService service)
         {
             var filtered = id != null && id != 0;
-            var query = filtered ? service.GetList<SimplePostDto>().Where(x => x.BlogId == id) : service.GetList<SimplePostDto>();
+            var query = filtered ? service.GetMany<SimplePostDto>().Where(x => x.BlogId == id) : service.GetMany<SimplePostDto>();
             if (filtered)
                 TempData["message"] = "Filtered list";
 
@@ -35,13 +35,12 @@ namespace SampleWebApp.Controllers
 
         public ActionResult Details(int id, IDetailService service)
         {
-            return View(service.GetDetail<DetailPostDto>(id));
+            return View(service.GetDetail<DetailPostDto>(id).Result);
         }
 
         public ActionResult Edit(int id, IUpdateSetupService service)
         {
-            var dto = service.GetOriginal<DetailPostDto>(id);
-            return View(dto);
+            return View(service.GetOriginal<DetailPostDto>(id).Result);
         }
 
         [HttpPost]

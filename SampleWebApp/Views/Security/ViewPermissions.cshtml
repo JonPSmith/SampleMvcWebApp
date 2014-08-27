@@ -1,0 +1,49 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "ViewPermissions";
+}
+@Html.Partial("SecuritySubMenu")
+<h2>View SQL Permissions on this database</h2>
+<p>
+    The lines below list the sql permissions currently in the database it is connected to.
+    This lists three parts:
+
+</p>
+<ol>
+    <li>
+        The database users, which EF needs to change for the different types of users.
+        <br />       
+        The users relate to the users listed on the @Html.ActionLink("Intro Page", "Index"),
+        with the addition of user <strong>Homer</strong> for unautheticated users.
+    </li>
+    <li>
+        The database roles, which define the access granted (GRANT) or taken away (DENY).
+        This uses both table, e.g. <code>OBJECT::dbo.Courses</code> and column security e.g. <code>OBJECT::dbo.Attendees(HasPaid)</code>.
+    </li>
+    <li>The adding of the users to the appropriate roles.</li>
+</ol>
+<p>
+    Be aware that the SQL security I have used is NOT the best way to secure a database.
+    I only used this method because this was the easiest way to secure the courses data while not affecting the existing blog part of the database.
+    Normally the Database Administrator (DBA) would provide a base login with the miniumum capabilities needed, not db_owner as I am using.
+    This base login permissions would differ depending on whether you use EF initializers, EF Migration or no initialization at all.
+    They may then use DENY to take away permissions from this base login,
+    or assign a less capable login to a user and then use GRANT permissions to open up access.
+    Talk to your DBA about what is needed - and I recommend Unit Tests to check it works.
+</p>
+<p>
+    From EF's point of view it doesn't care how the permissions are set.
+    EF, with the help of ASP.NET Identity 2, simply supplies different database login details based on the logged in user.
+    It is the job of the database security to allow/stop access based on these login details.
+</p>
+<hr />
+<h4>SQL Security commands reproduced from the current database</h4>
+@{ var lineNum = 0;}
+@foreach (var line in @Model)
+{
+    <text>  @lineNum.ToString("00")</text>
+    <text>: </text>
+    <text><code>@line</code><br /></text>
+    lineNum++;
+}
+

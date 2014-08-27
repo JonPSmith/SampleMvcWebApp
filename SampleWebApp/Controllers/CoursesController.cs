@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericServices;
+using GenericServices.Core;
 using SampleWebApp.Infrastructure;
 using ServiceLayer.CourseServices;
 
@@ -13,19 +13,35 @@ namespace SampleWebApp.Controllers
     {
         public ActionResult Index(IListService service)
         {
-            return View(service.GetList<CourseListDto>().ToList());
+            var status = service.GetMany<CourseListDto>().TryManyWithPermissionChecking();
+
+            if (!status.IsValid)
+                TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+                
+                
+            return View(status.Result);
         }
 
 
         public ActionResult Details(int id, IDetailService service)
         {
-            return View(service.GetDetail<CourseDetailDto>(id));
+            var status = service.GetDetail<CourseDetailDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("Index");
         }
 
 
         public ActionResult Edit(int id, IDetailService service)
         {
-            return View(service.GetDetail<CourseDetailDto>(id));
+            var status = service.GetDetail<CourseDetailDto>(id);
+            if (status.IsValid)
+                return View(status.Result);
+
+            TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

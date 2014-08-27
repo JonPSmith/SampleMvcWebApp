@@ -53,18 +53,23 @@ namespace ServiceLayer.CourseServices
         /// <param name="context"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        protected override CourseDetailDto CreateDtoAndCopyDataIn(IDbContextWithValidation context, Expression<Func<Course, bool>> predicate)
+        protected override ISuccessOrErrors<CourseDetailDto> CreateDtoAndCopyDataIn(IDbContextWithValidation context, Expression<Func<Course, bool>> predicate)
         {
             Mapper.CreateMap<Course, CourseDetailDto>();
-            var dto = GetDataUntracked(context).Where(predicate).Project().To<CourseDetailDto>().SingleOrDefault();
-            if (dto == null)
-                throw new ArgumentException("We could not find an entry using that filter. Has it been deleted by someone else?");
+            var status = GetDataUntracked(context).Where(predicate).Project().To<CourseDetailDto>().TrySingleWithPermissionChecking();
+            if (!status.IsValid)
+                return status;
 
-            //now we just read the name beacause the other columns are protected
-            dto.AttendeesNames = string.Join(", ",
-                context.Set<Attendee>().Where(x => x.CourseId == dto.CourseId).Select(x => x.FullName));
+            //now we just read the name beacause the other columns are protected 
+            //(need to use TryManyWithPermissionChecking as not logged in cannot see anything)
+            var localStatus =
+                context.Set<Attendee>().Where(x => x.CourseId == status.Result.CourseId).Select( x => x.FullName).TryManyWithPermissionChecking();
+            if (!localStatus.IsValid)
+                return status.SetErrors(localStatus.Errors.Select( x => x.ErrorMessage));
 
-            return dto;
+            status.Result.AttendeesNames = string.Join(", ", localStatus.Result);
+
+            return status;
         }
     }
 }

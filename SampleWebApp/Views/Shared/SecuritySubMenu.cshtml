@@ -4,7 +4,8 @@
 }
 
 <ul class="nav nav-tabs" role="tablist">
-    <li @if (controllerName == "Security") { <text> class="active" </text> }>
+    <li @if (controllerName == "Security" && actionName == "Index")
+        { <text> class="active" </text> }>
         @Html.ActionLink("Intro", "Index", "Security")
     </li>
     <li @if (controllerName == "Courses") { <text> class="active" </text>  }>
@@ -12,6 +13,10 @@
     </li>
     <li @if (controllerName == "Attendees") { <text> class="active" </text>   }>
         @Html.ActionLink("Attendees", "Index", "Attendees")
+    </li>
+    <li @if (controllerName == "Security" && actionName == "ViewPermissions")
+        { <text> class="active" </text>    }>
+        @Html.ActionLink("SQL Permissions", "ViewPermissions", "Security")
     </li>
     <li class="pull-right" style="margin-top: 12px">@{ Html.RenderAction("PartialUsers", "Security"); }</li>
 </ul>

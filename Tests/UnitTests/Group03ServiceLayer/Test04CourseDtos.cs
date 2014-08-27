@@ -41,7 +41,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new ListService(db);
 
                 //ATTEMPT
-                var courses = service.GetList<CourseListDto>().ToList();
+                var courses = service.GetMany<CourseListDto>().ToList();
 
                 //VERIFY
                 courses.Count.ShouldEqual(2);
@@ -60,11 +60,12 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new DetailService(db);
 
                 //ATTEMPT
-                var course = service.GetDetail<CourseDetailDto>(firstCourseId);
+                var status = service.GetDetail<CourseDetailDto>(firstCourseId);
 
                 //VERIFY
-                course.ShouldNotEqualNull();
-                course.AttendeesNames.ShouldEqual("Andrew Crosse, Sir David Brewster, Charles Wheatstone, Charles Dickens, Michael Faraday, John Hobhouse");
+                status.IsValid.ShouldEqual(true, status.Errors);
+                status.Result.ShouldNotEqualNull();
+                status.Result.AttendeesNames.ShouldEqual("Andrew Crosse, Sir David Brewster, Charles Wheatstone, Charles Dickens, Michael Faraday, John Hobhouse");
             }
         }
 
@@ -80,10 +81,11 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var dto = setupService.GetOriginal<CourseDetailDto>(firstCourseId);
-                dto.Name = "Unit Test";
-                dto.StartDate = new DateTime(2000,1,1);
-                var status = service.Update(dto);
+                var setupStatus = setupService.GetOriginal<CourseDetailDto>(firstCourseId);
+                setupStatus.IsValid.ShouldEqual(true, setupStatus.Errors);
+                setupStatus.Result.Name = "Unit Test";
+                setupStatus.Result.StartDate = new DateTime(2000,1,1);
+                var status = service.Update(setupStatus.Result);
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);

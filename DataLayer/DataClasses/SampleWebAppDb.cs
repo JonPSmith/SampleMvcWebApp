@@ -177,6 +177,9 @@ namespace DataLayer.DataClasses
                 if (SqlErrorTextDict.TryGetValue(errorNum, out errorText))
                     result.Add(new ValidationResult(errorText));
             }
+            if (sqlException.CheckSqlExceptionForPermissions("SaveChangesWithValidation"))
+                result.Add(new ValidationResult("You are not allowed to change that item."));
+
             return result.Any() ? result : null;
         }
     }

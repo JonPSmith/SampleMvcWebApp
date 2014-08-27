@@ -159,7 +159,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
                 var service = lifetimeScope.Resolve<IListService>();
-                var posts = service.GetList<Post>().ToList();
+                var posts = service.GetMany<Post>().ToList();
                 posts.Count.ShouldEqual(3);
             }
         }

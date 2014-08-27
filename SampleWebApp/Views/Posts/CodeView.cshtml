@@ -46,7 +46,7 @@
                         <code>
                             public ActionResult Index(IListService service)<br />
                             {<br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;View(service.GetList&lt;SimplePostDto&gt;().ToList());<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;View(service.GetMany&lt;SimplePostDto&gt;().ToList());<br />
                             }<br />
                         </code>
                         <p>Things to note:</p>
@@ -57,7 +57,7 @@
                                 It is explained in more detail in <a href="#di-section">Dependency Injection</a> section.
                             </li>
                             <li>
-                                This service has one command, <code>.GetList&lt;T&gt;()</code>, which returns
+                                This service has one command, <code>.GetMany&lt;T&gt;()</code>, which returns
                                 <code>IQueryable&lt;T&gt;</code>, where T is either a class that is used in EF or
                                 a DTO that has inherited from EfGenericDto or EfGenericDtoAsync.
                                 In this case the <code>IQueryable</code> result is turned into a List to show in the view.

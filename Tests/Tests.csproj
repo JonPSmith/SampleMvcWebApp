@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta7\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta12\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,7 +98,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -175,6 +175,7 @@
     <Compile Include="UnitTests\Group01DataLayer\Test14ReadWriteBlogs.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test02ScheduleSearcher.cs" />
     <Compile Include="UnitTests\Group02BizLayer\Test04BlogAnalyser.cs" />
+    <Compile Include="UnitTests\Group03ServiceLayer\Test08PermissionCatching.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test06AttendeeDtos.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test04CourseDtos.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test10DiSimple.cs" />

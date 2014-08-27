@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta7\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta12\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

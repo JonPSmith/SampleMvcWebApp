@@ -15,7 +15,7 @@ namespace SampleWebApp.Controllers
         /// </summary>
         public ActionResult Index(IListService service)
         {
-            return View(service.GetList<Tag>().Select(x => new TagListModel
+            return View(service.GetMany<Tag>().Select(x => new TagListModel
             {
                 TagId = x.TagId,
                 Name = x.Name,
@@ -26,13 +26,13 @@ namespace SampleWebApp.Controllers
 
         public ActionResult Details(int id, IDetailService service)
         {
-            return View(service.GetDetail<Tag>(id));
+            return View(service.GetDetail<Tag>(id).Result);
         }
 
 
         public ActionResult Edit(int id, IDetailService service)
         {
-            return View(service.GetDetail<Tag>(id));
+            return View(service.GetDetail<Tag>(id).Result);
         }
 
         [HttpPost]

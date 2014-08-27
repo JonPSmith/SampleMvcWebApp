@@ -39,7 +39,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new ListService(db);
 
                 //ATTEMPT
-                var attendees = service.GetList<Attendee>().Select( x => x.FullName).ToList();
+                var attendees = service.GetMany<Attendee>().Select( x => x.FullName).ToList();
 
                 //VERIFY
                 attendees.Count.ShouldEqual(11);
@@ -57,11 +57,12 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new DetailService(db);
 
                 //ATTEMPT
-                var attendee = service.GetDetail<AttendeeDetailAllDto>(firstId);
+                var status = service.GetDetail<AttendeeDetailAllDto>(firstId);
 
                 //VERIFY
-                attendee.ShouldNotEqualNull();
-                attendee.FullName.ShouldEqual("Andrew Crosse");
+                status.IsValid.ShouldEqual(true, status.Errors);
+                status.Result.ShouldNotEqualNull();
+                status.Result.FullName.ShouldEqual("Andrew Crosse");
             }
         }
 
@@ -77,11 +78,12 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var dto = setupService.GetOriginal<AttendeeDetailAllDto>(firstAttendeeId);
-                dto.FullName = "Unit Test";
-                dto.EmailAddress = "new@nospam.com";
-                dto.HasPaid = false;
-                var status = service.Update(dto);
+                var setupStatus = setupService.GetOriginal<AttendeeDetailAllDto>(firstAttendeeId);
+                setupStatus.IsValid.ShouldEqual(true, setupStatus.Errors);
+                setupStatus.Result.FullName = "Unit Test";
+                setupStatus.Result.EmailAddress = "new@nospam.com";
+                setupStatus.Result.HasPaid = false;
+                var status = service.Update(setupStatus.Result);
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -104,10 +106,11 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var dto = setupService.GetOriginal<AttendeeNotPaidDto>(firstAttendeeId);
-                dto.FullName = "Unit Test";
-                dto.EmailAddress = "new@nospam.com";
-                var status = service.Update(dto);
+                var setupStatus = setupService.GetOriginal<AttendeeNotPaidDto>(firstAttendeeId);
+                setupStatus.IsValid.ShouldEqual(true, setupStatus.Errors);
+                setupStatus.Result.FullName = "Unit Test";
+                setupStatus.Result.EmailAddress = "new@nospam.com";
+                var status = service.Update(setupStatus.Result);
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);

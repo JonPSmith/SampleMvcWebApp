@@ -2,6 +2,7 @@
 using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.Startup;
+using GenericServices.Core;
 using NUnit.Framework;
 using Tests.Helpers;
 
@@ -24,7 +25,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check01NoSecuirityOk()
+        public void Test01NoSecuirityOk()
         {
             using (var db = new SampleWebAppDb())
             {
@@ -41,7 +42,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check05SetSecurityBadThrowsException()
+        public void Test05SetSecurityBadThrowsException()
         {
             _userSetup.SetUser("bad");
             using (var db = new SecureSampleWebAppDb())
@@ -58,7 +59,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check06ReadOk()
+        public void Test06ReadOk()
         {
             //SETUP
             _userSetup.SetUser("ada");
@@ -73,7 +74,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check10SetUserHasSecurityOk()
+        public void Test10SetUserHasSecurityOk()
         {
             //SETUP
             _userSetup.SetUser("ada");
@@ -91,7 +92,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check11SetUserDoesNotHasSecurityBad()
+        public void Test11SetUserDoesNotHasSecurityBad()
         {
             //SETUP
             _userSetup.SetUser("michael");
@@ -111,7 +112,7 @@ namespace Tests.UnitTests.Group01DataLayer
         //now test the HasPaid flag: write 
 
         [Test]
-        public void Check20CanChangeHasPaidOk()
+        public void Test20CanChangeHasPaidOk()
         {
             //SETUP
             _userSetup.SetUser("william");
@@ -132,7 +133,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check21CannotChangeHasPaidBad()
+        public void Test21CannotChangeHasPaidBad()
         {
             //SETUP
             _userSetup.SetUser("ada");
@@ -153,7 +154,7 @@ namespace Tests.UnitTests.Group01DataLayer
         //HasPaid: read
 
         [Test]
-        public void Check25CanReadAttendeeHasPaidOk()
+        public void Test25CanReadAttendeeHasPaidOk()
         {
             //SETUP
             _userSetup.SetUser("ada");
@@ -169,7 +170,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check26CannotReadAttendeeHasPaidBad()
+        public void Test26CannotReadAttendeeHasPaidBad()
         {
             //SETUP
             _userSetup.SetUser("michael");
@@ -185,11 +186,30 @@ namespace Tests.UnitTests.Group01DataLayer
             }
         }
 
+        [Test]
+        public void Test27CannotReadAttendeeHasPaidBadWithHelper()
+        {
+            //SETUP
+            _userSetup.SetUser("michael");
+            using (var db = new SecureSampleWebAppDb())
+            {
+
+                //ATTEMPT
+                var status = db.Attendees.TryManyWithPermissionChecking();
+
+                //VERIFY
+                status.IsValid.ShouldEqual(false);
+                status.Errors.Count.ShouldEqual(1);
+                status.Errors[0].ErrorMessage.ShouldEqual("This access was not allowed.");
+                status.Result.Count().ShouldEqual(0);
+            }
+        }
+
         //----------------------------------------------------------------
         //can/cannot read attendees
 
         [Test]
-        public void Check30CanReadAttendessOk()
+        public void Test30CanReadAttendessOk()
         {
             //SETUP
             _userSetup.SetUser("charles");
@@ -205,7 +225,7 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Check31CannotReadAttendeesBad()
+        public void Test31CannotReadAttendeesBad()
         {
             //SETUP
             _userSetup.SetUser(null);

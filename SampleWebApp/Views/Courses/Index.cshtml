@@ -12,7 +12,7 @@
 }
 @if (TempData["errorMessage"] != null)
 {
-    <div class="text-danger">@TempData["errorMessage"]</div>
+    <div class="text-danger"><strong>@TempData["errorMessage"]</strong></div>
 }
 
 <div>
@@ -32,9 +32,6 @@
         <th>
             @Html.DisplayNameFor(model => model.LengthDays)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AttendeesCount)
-        </th>
         <th></th>
     </tr>
 
@@ -51,9 +48,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LengthDays)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttendeesCount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
