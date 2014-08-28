@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "CodeView";
 }
-
+@Html.Partial("SecuritySubMenu")
 <h2>SQL security: An explanation of how I have handled SQL Security</h2>
 
 <p>
@@ -86,11 +86,11 @@
         <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">CheckSqlExceptionForPermissions method</a>
         (look near the end of SecurityHelper class for that method) which can look at a SqlException and say if it was cause by some sort or Sql security permission failure.
         This is used in <code>SaveChangesWithValidation</code> to catch permission failures and give a useful feedback to the user. 
-        <br/>
-        NOTE: All Sql security permission failures are normally logged as this often means that the user should not have access to this function.
     </li>
 </ul>
-
+<p>
+    <strong>NOTE:</strong> All Sql security permission failures are, by default, logged as this often means that the user should not have access to this function.
+</p>
 <h4>Part 4: Building the connection string</h4>
 <p>
     Building the connection string is simple as we just replace the UserID and Password in the connection string with the right ones

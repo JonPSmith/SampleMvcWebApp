@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 @Html.Partial("SecuritySubMenu")
@@ -20,8 +19,29 @@
 
 <p>Here are the links to the actions. Which of these work depends on the current user selected.</p>
 
-<ul>
-    <li>@Html.ActionLink("List all attendees, name only", "ListNames")</li>
-    <li>@Html.ActionLink("List all attendees, sorted by course and paid", "ListPaid")</li>
-    <li>@Html.ActionLink("Reset Course data", "Reset")</li>
-</ul>
+<table class="table">
+    <tr>
+        <td>
+            <a class="btn btn-primary btn-default" href="@Url.Action("ListNames")" style="width: 150px;">List attendees</a> 
+        </td>
+        <td>
+            Names only (everybody other than -- not logged in -- can do this)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="btn btn-primary btn-default" href="@Url.Action("ListPaid")" style="width: 150px;">List attendees</a>
+        </td>
+        <td>
+            Full data including whether paid, sorted by course (Only admin and finance staff can see this)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="btn btn-primary btn-default" href="@Url.Action("Reset")" style="width: 150px;">Reset Course data</a> 
+        </td>
+        <td>
+            Any user can do this - this is not secured.
+        </td>
+    </tr>
+</table>

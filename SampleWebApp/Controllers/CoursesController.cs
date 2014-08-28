@@ -17,8 +17,7 @@ namespace SampleWebApp.Controllers
 
             if (!status.IsValid)
                 TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
-                
-                
+                  
             return View(status.Result);
         }
 
