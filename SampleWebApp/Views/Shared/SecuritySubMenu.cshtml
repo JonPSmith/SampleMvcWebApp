@@ -18,5 +18,9 @@
         { <text> class="active" </text>    }>
         @Html.ActionLink("SQL Permissions", "ViewPermissions", "Security")
     </li>
+    <li @if (controllerName == "Security" && actionName == "CodeView") { <text> class="active" </text>     }>
+        @Html.ActionLink("Code explained", "CodeView", "Security")
+    </li>
+
     <li class="pull-right" style="margin-top: 12px">@{ Html.RenderAction("PartialUsers", "Security"); }</li>
 </ul>

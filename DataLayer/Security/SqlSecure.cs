@@ -77,8 +77,9 @@ namespace DataLayer.Security
         /// </summary>
         /// <param name="nameOfConnectionString">Should be the name of the connection string
         /// as stored in the Web/App.Config file</param>
+        /// <param name="isAzure">true if azure database</param>
         /// <returns>A database connection string with the database username and password in it</returns>
-        internal static string BuildSqlConnectionString(string nameOfConnectionString)
+        internal static string BuildSqlConnectionString(string nameOfConnectionString, bool isAzure)
         {
             var baseConnection =
                 System.Configuration.ConfigurationManager.ConnectionStrings[nameOfConnectionString].ConnectionString;
@@ -90,11 +91,29 @@ namespace DataLayer.Security
             var dbInfo = new SqlSecure();
             var sb = new SqlConnectionStringBuilder(baseConnection)
             {
-                UserID = dbInfo.DatabaseLoginName,
                 Password = dbInfo.DatabaseUserPassword,
                 IntegratedSecurity = false
             };
+            sb.UserID = isAzure
+                ? FormAzureUserId(dbInfo.DatabaseLoginName, sb.DataSource)
+                : dbInfo.DatabaseLoginName;
+
             return sb.ConnectionString;
+        }
+
+        /// <summary>
+        /// Azure UserId needs to be in the format |LoginName|@|DatabaseName|
+        /// </summary>
+        /// <param name="loginName"></param>
+        /// <param name="dataSource"></param>
+        /// <returns></returns>
+        private static string FormAzureUserId(string loginName, string dataSource)
+        {
+            var indexOfDot = dataSource.IndexOf('.');
+            if (indexOfDot < 4)
+                throw new InvalidOperationException("The format of the datasource does not fit the azure format.");
+            var databaseName = dataSource.Substring(4, indexOfDot - 4);
+            return string.Format("{0}@{1}", loginName, databaseName);
         }
     }
 }

@@ -55,7 +55,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta12\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta14\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -421,6 +421,7 @@
     <Content Include="Views\Security\Index.cshtml" />
     <Content Include="Views\Shared\SecuritySubMenu.cshtml" />
     <Content Include="Views\Security\ViewPermissions.cshtml" />
+    <Content Include="Views\Security\CodeView.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

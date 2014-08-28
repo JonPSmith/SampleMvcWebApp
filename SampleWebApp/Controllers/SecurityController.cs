@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
-using DataLayer.DataClasses;
-using DataLayer.Security;
 using SampleWebApp.Identity;
 using ServiceLayer.Security;
 
@@ -30,6 +24,11 @@ namespace SampleWebApp.Controllers
         {
             HttpContext.ChangeUser(value);
             return new HttpStatusCodeResult(HttpStatusCode.Accepted);
+        }
+
+        public ActionResult CodeView()
+        {
+            return View();
         }
 
         //-------------------------------------------------
