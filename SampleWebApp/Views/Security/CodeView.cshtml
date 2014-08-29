@@ -94,12 +94,12 @@
 <h4>Part 4: Building the connection string</h4>
 <p>
     Building the connection string is simple as we just replace the UserID and Password in the connection string with the right ones
-    - see part 3 for how we decide on the right username and password.
+    - see part 5 for how we decide on the right username and password.
     The only complicated things were:
 </p>
 <ul>
     <li>Handling the different format of the UserID for Azure, but that is a simple string formatting job.</li>
-    <li>Handling hosted SQL Server login names as they need a prefix. This is done in part 3, when the login name is loaded.</li>
+    <li>Handling hosted SQL Server login names as they need a prefix. This is done in part 5, when the login name is loaded.</li>
 </ul>
 <p>
     You can see the code for <code>BuildSqlConnectionString</code> method towards the end of the
@@ -110,7 +110,7 @@
 <h4>Part 5: Selecting the right database user name and password to send to SQL Server</h4>
 <p>
     This is the trickly part, but was greatly helped by ASP.NET Identity 2.
-    Below I have enumerated the various parts separately with links to code:
+    Below I have listed the various parts separately, with links to any relevant code:
 </p>
 <ol>
     <li>
@@ -145,7 +145,7 @@
         I chose to hold the database login name and its password unencrypted as a) the accounts database is hidden from the user and
         b) the claims are held in the encrypted identity cookie which has to be secure to protect the identity.
         <br />
-        In real life you may add encryption to make this more secure, but I don't think my current scheme is insecure.
+        I don't think my current design is insecure, but for your application you may want to add encryption to make this more secure.
     </li>
 </ol>
 
