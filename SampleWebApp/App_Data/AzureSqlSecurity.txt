@@ -1,0 +1,31 @@
+-- Add all users (note: user Logons must be already set up)
+CREATE USER [Ada] FOR LOGIN [AzureAda] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Charles] FOR LOGIN [AzureCharles] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Homer] FOR LOGIN [AzureHomer] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Michael] FOR LOGIN [AzureMichael] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [William] FOR LOGIN [AzureWilliam] WITH DEFAULT_SCHEMA=[dbo]
+-- create each role and its permissions
+CREATE ROLE [AttendeeNoPayUpdate]
+DENY UPDATE ON OBJECT::dbo.Attendees(HasPaid) TO [AttendeeNoPayUpdate]
+CREATE ROLE [CourseRU]
+DENY INSERT, DELETE ON OBJECT::dbo.Courses TO [CourseRU]
+CREATE ROLE [AttendeeNoPay]
+DENY SELECT, UPDATE ON OBJECT::dbo.Attendees(HasPaid) TO [AttendeeNoPay]
+CREATE ROLE [CourseReadOnly]
+DENY INSERT, UPDATE, DELETE, REFERENCE ON OBJECT::dbo.Courses TO [CourseReadOnly]
+CREATE ROLE [DenyAttendee]
+DENY INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Attendees TO [DenyAttendee]
+-- add each user to its roles
+EXEC sp_addrolemember 'AttendeNoPay', 'Ada';
+EXEC sp_addrolemember 'db_owner', 'Ada'
+EXEC sp_addrolemember 'CourseRU', 'Charles'
+EXEC sp_addrolemember 'AttendeeNoPay', 'Charles'
+EXEC sp_addrolemember 'db_owner', 'Charles'
+EXEC sp_addrolemember 'CourseReadOnly', 'Homer'
+EXEC sp_addrolemember 'DenyAttendee', 'Homer'
+EXEC sp_addrolemember 'db_owner', 'Homer'
+EXEC sp_addrolemember 'CourseReadOnly', 'Michael'
+EXEC sp_addrolemember 'AttendeeNoPay', 'Michael'
+EXEC sp_addrolemember 'db_owner', 'Michael'
+EXEC sp_addrolemember 'CourseReadOnly', 'William'
+EXEC sp_addrolemember 'db_owner', 'William'

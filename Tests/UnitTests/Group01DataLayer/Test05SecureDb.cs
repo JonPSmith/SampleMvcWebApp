@@ -143,10 +143,12 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 //ATTEMPT
                 attendee.HasPaid = !attendee.HasPaid;
-                var ex = Assert.Throws<System.Data.Entity.Infrastructure.DbUpdateException>(() => db.SaveChangesWithValidation());
+                var status = db.SaveChangesWithValidation();
 
                 //VERIFY
-
+                status.IsValid.ShouldEqual(false);
+                status.Errors.Count.ShouldEqual(1);
+                status.Errors[0].ErrorMessage.ShouldEqual("You are not allowed to change that item.");
             }
         }
 

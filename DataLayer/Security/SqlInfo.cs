@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using DataLayer.DataClasses;
 using DataLayer.Security.Internal;
+using GenericServices;
 
 namespace DataLayer.Security
 {
@@ -89,6 +91,7 @@ namespace DataLayer.Security
         {
             string result = null;
             var itemIndex = -1;
+            
             using (var dbContextTransaction = db.Database.BeginTransaction())
             {
                 try
@@ -103,8 +106,8 @@ namespace DataLayer.Security
                 }
                 catch (Exception ex)
                 {
-                    result = string.Format("{0} at index {1}. Message = {2}", ex.GetType().Name, itemIndex, ex.Message);
                     dbContextTransaction.Rollback(); 
+                    result = string.Format("{0} at index {1}. Message = {2}", ex.GetType().Name, itemIndex, ex.Message);
                 }
             }
 

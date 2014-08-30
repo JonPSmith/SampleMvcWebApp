@@ -48,7 +48,7 @@ namespace DataLayer.Security
         public IEnumerable<string> SqlCommandsToAddPermissionsToRole(DbContext db)
         {
             return Permissions.Any()
-                ? Permissions.Select(x => string.Format("{0} ON [{1}]", x.SqlCommandToAddPermission(db), PrincipalName))
+                ? Permissions.Select(x => string.Format("{0} TO [{1}]", x.SqlCommandToAddPermission(db), PrincipalName))
                 : new List<string>();
         }
 

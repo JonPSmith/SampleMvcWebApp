@@ -115,7 +115,7 @@ namespace Tests.UnitTests.Group01DataLayer
         public void Test99WriteDataToAppDataOk()
         {
             //SETUP
-            var data = SqlSecurityHelper.SaveSqlSecuritySetup(HostTypes.WebWiz, "JonSmith_");
+            var data = SqlSecurityHelper.SaveSqlSecuritySetup(HostTypes.Azure, "Azure");
 
             //VERIFY
             foreach (var line in data)

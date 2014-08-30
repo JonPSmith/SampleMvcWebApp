@@ -5,6 +5,7 @@ using System.Web;
 using DataLayer.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SampleWebApp.Properties;
 
 namespace SampleWebApp.Identity
 {
@@ -30,7 +31,7 @@ namespace SampleWebApp.Identity
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            var loader = new SeedUsersLoader(HttpContext.Current.Server.MapPath("~/App_Data/SeedIdentities.xml"));
+            var loader = new SeedUsersLoader(HttpContext.Current.Server.MapPath("~/App_Data/SeedIdentities.xml"), Settings.Default.DatabaseLoginPrefix);
             if (!loader.DataFileExists) 
                 //We don't fail if there isnt a file because this is a open-source project
                 //and people may run the application without users

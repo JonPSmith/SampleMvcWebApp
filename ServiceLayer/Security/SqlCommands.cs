@@ -6,6 +6,7 @@ using DataLayer.DataClasses;
 using DataLayer.Security;
 using GenericServices;
 using GenericServices.Core;
+using Microsoft.SqlServer.Server;
 
 namespace ServiceLayer.Security
 {
@@ -30,35 +31,43 @@ namespace ServiceLayer.Security
             return _db.SqlCommandsCreateUsersRolesAndPermissions(loginPrefix);
         }
 
-        //public IEnumerable<string> LoadSqlCommandsFromFile(SqlCommandDto dto)
-        //{
-        //    if (string.IsNullOrEmpty(dto.AppDataFilePath))
-        //        throw new ArgumentException("You must provide the AppDataFilePath");
-        //    if (string.IsNullOrEmpty(dto.Filename))
-        //        throw new ArgumentException("You must provide the Filename");
+        /// <summary>
+        /// This will load the appropriate sql security file and send it to the host.
+        /// NOTE: This should not be used if permissions already exist
+        /// </summary>
+        /// <param name="appDataFilePath"></param>
+        /// <param name="hostString"></param>
+        /// <returns></returns>
+        public ISuccessOrErrors ExecuteSqlCommandsFromFile(string appDataFilePath, string hostString)
+        {
+            var status = SuccessOrErrors.Success("Successfully setup database security for host {0}", hostString);
 
-        //    var filepath = Path.Combine(dto.AppDataFilePath, dto.Filename + ".txt");
-        //    return File.ReadAllLines(filepath);
-        //}
+            if (string.IsNullOrEmpty(appDataFilePath))
+                throw new ArgumentException("You must provide the appDataFilePath");
+            if (string.IsNullOrEmpty(hostString))
+                throw new ArgumentException("You must provide the hostString");
 
-        //public ISuccessOrErrors ExecuteSqlCommandsFromFile(SqlCommandDto dto)
-        //{
-        //    if (string.IsNullOrEmpty(dto.AppDataFilePath))
-        //        throw new ArgumentException("You must provide the AppDataFilePath");
-        //    if (string.IsNullOrEmpty(dto.Filename))
-        //        throw new ArgumentException("You must provide the Filename");
+            var logger = GenericLoggerFactory.GetLogger("ExecuteSqlCommandsFromFile");
+            logger.InfoFormat("Called for host {0}", hostString);
+            var filepath = Path.Combine(appDataFilePath, hostString + "SqlSecurity.txt");
 
-        //    var filepath = Path.Combine(dto.AppDataFilePath, dto.Filename + ".txt");
-        //    var commands = File.ReadAllLines(filepath);
+            if (!File.Exists(filepath))
+            {             
+                logger.ErrorFormat("Failed to find a file at path {0}", filepath);
+                return new SuccessOrErrors().AddSingleError("Could not find a file for host {0}", hostString);
+            }
 
-        //    var errMsg = _db.ExecuteSqlCommands(commands);
+            var commands = File.ReadAllLines(filepath);
 
-        //    var status = SuccessOrErrors.Success("Successfully setup database security from file {0}", dto.Filename + ".txt");
-        //    if (errMsg != null)
-        //        status.AddSingleError("Setup Failed: {0}", errMsg);
+            var errMsg = _db.ExecuteSqlCommands(commands);
 
-        //    return status;
-        //}
+            if (errMsg == null) return status;
+
+            //There was an error
+            logger.ErrorFormat("Setup Failed: {0}", errMsg);
+            status.AddSingleError("Setup Failed: {0}", errMsg);
+            return status;
+        }
 
 
     }

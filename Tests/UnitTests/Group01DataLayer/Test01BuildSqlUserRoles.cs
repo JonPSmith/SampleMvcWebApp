@@ -66,7 +66,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var r = new SqlRole("TestRole", new Collection<SqlPermission> {p});
 
             //VERIFY
-            r.ToString().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole]");
+            r.ToString().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]");
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             r.SqlCommandsToAddPermissionsToRole(null).Count().ShouldEqual(1);
-            r.SqlCommandsToAddPermissionsToRole(null).First().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole]");
+            r.SqlCommandsToAddPermissionsToRole(null).First().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]");
         }
 
         [Test]
@@ -125,7 +125,7 @@ namespace Tests.UnitTests.Group01DataLayer
             var r = new SqlRole("TestRole", new Collection<SqlPermission> { p1, p2 });
 
             //VERIFY
-            r.ToString().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole]\nDENY SELECT ON OBJECT::dbo.Table ON [TestRole]");
+            r.ToString().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]\nDENY SELECT ON OBJECT::dbo.Table TO [TestRole]");
         }
 
         [Test]
@@ -142,8 +142,8 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             r.SqlCommandsToAddPermissionsToRole(null).Count().ShouldEqual(2);
-            r.SqlCommandsToAddPermissionsToRole(null).First().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole]");
-            r.SqlCommandsToAddPermissionsToRole(null).Last().ShouldEqual("DENY SELECT ON OBJECT::dbo.Table ON [TestRole]");
+            r.SqlCommandsToAddPermissionsToRole(null).First().ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]");
+            r.SqlCommandsToAddPermissionsToRole(null).Last().ShouldEqual("DENY SELECT ON OBJECT::dbo.Table TO [TestRole]");
         }
 
         //----------------------------------------------
@@ -249,7 +249,7 @@ namespace Tests.UnitTests.Group01DataLayer
             list[2].ShouldStartWith("CREATE USER [User2]");
 
             list[4].ShouldEqual("CREATE ROLE [TestRole]");
-            list[5].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole]");
+            list[5].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]");
 
             list[7].ShouldEqual("ALTER ROLE [TestRole] ADD MEMBER [User1]");
             list[8].ShouldEqual("ALTER ROLE [TestRole] ADD MEMBER [User2]");
@@ -277,9 +277,9 @@ namespace Tests.UnitTests.Group01DataLayer
             list[2].ShouldStartWith("CREATE USER [User2]");
 
             list[4].ShouldEqual("CREATE ROLE [TestRole1]");
-            list[5].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole1]");
+            list[5].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole1]");
             list[6].ShouldEqual("CREATE ROLE [TestRole2]");
-            list[7].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole2]");
+            list[7].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole2]");
 
             list[9].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
             list[10].ShouldEqual("ALTER ROLE [TestRole2] ADD MEMBER [User2]");
@@ -304,7 +304,7 @@ namespace Tests.UnitTests.Group01DataLayer
             list[1].ShouldStartWith("CREATE USER [User1]");
 
             list[3].ShouldEqual("CREATE ROLE [TestRole1]");
-            list[4].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table ON [TestRole1]");
+            list[4].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole1]");
 
             list[6].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
             list[7].ShouldEqual("ALTER ROLE [db_datawriter] ADD MEMBER [User1]");

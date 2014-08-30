@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using SampleWebApp.Identity;
+using SampleWebApp.Infrastructure;
 using ServiceLayer.Security;
 
 namespace SampleWebApp.Controllers
@@ -37,6 +38,21 @@ namespace SampleWebApp.Controllers
         public ActionResult ViewPermissions(ISqlCommands service)
         {
             return View(service.GetSqlCommands());
+        }
+
+        public ActionResult ExecuteSqlCommands(ISqlCommands service)
+        {
+            var status = service.ExecuteSqlCommandsFromFile(
+                System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"),
+                WebUiInitialise.HostType.ToString());
+
+            if (status.IsValid)
+                TempData["message"] = status.SuccessMessage;
+            else
+                //else errors, so send back an error message
+                TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());
+
+            return RedirectToAction("Index");
         }
     }
 }
