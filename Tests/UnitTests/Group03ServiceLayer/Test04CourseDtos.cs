@@ -45,7 +45,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
 
                 //VERIFY
                 courses.Count.ShouldEqual(2);
-                courses[0].StartDate.ShouldEqual(new DateTime(1842 ,7, 2));
+                courses[0].StartDate.ShouldEqual(new DateTime(1839, 04, 14));
             }
         }
 
@@ -56,11 +56,11 @@ namespace Tests.UnitTests.Group03ServiceLayer
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
-                var firstCourseId = db.Courses.First().CourseId;
+                var lastCourseId = db.Courses.OrderByDescending( x => x.CourseId).First().CourseId;
                 var service = new DetailService(db);
 
                 //ATTEMPT
-                var status = service.GetDetail<CourseDetailDto>(firstCourseId);
+                var status = service.GetDetail<CourseDetailDto>(lastCourseId);
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -76,12 +76,12 @@ namespace Tests.UnitTests.Group03ServiceLayer
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
-                var firstCourseId = db.Courses.First().CourseId;
+                var lastCourseId = db.Courses.OrderByDescending(x => x.CourseId).First().CourseId;
                 var setupService = new UpdateSetupService(db);
                 var service = new UpdateService(db);
 
                 //ATTEMPT
-                var setupStatus = setupService.GetOriginal<CourseDetailDto>(firstCourseId);
+                var setupStatus = setupService.GetOriginal<CourseDetailDto>(lastCourseId);
                 setupStatus.IsValid.ShouldEqual(true, setupStatus.Errors);
                 setupStatus.Result.Name = "Unit Test";
                 setupStatus.Result.StartDate = new DateTime(2000,1,1);
@@ -89,7 +89,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
-                var course = db.Courses.Include(x => x.Attendees).AsNoTracking().First();
+                var course = db.Courses.Include(x => x.Attendees).AsNoTracking().ToList().Last();
                 course.Name.ShouldEqual( "Unit Test");
                 course.StartDate.ShouldEqual(new DateTime(2000, 1, 1));
                 //not changed

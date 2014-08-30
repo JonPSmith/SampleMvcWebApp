@@ -21,8 +21,8 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             courses.Count().ShouldEqual(2);
-            courses[0].Attendees.Count.ShouldEqual(6);
-            courses[1].Attendees.Count.ShouldEqual(5);
+            courses[0].Attendees.Count.ShouldEqual(5);
+            courses[1].Attendees.Count.ShouldEqual(6);
         }
 
         [Test]

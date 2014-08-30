@@ -62,7 +62,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
                 status.Result.ShouldNotEqualNull();
-                status.Result.FullName.ShouldEqual("Andrew Crosse");
+                status.Result.FullName.ShouldEqual("C. G. Jarvis");
             }
         }
 
