@@ -222,7 +222,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 var info = db.Courses.Select( x => new { Course = x, Names = x.Attendees.Select( y => y.FullName) }).First();
 
                 //VERIFY
-                info.Names.Count().ShouldEqual(6);
+                info.Names.Count().ShouldEqual(5);
             }
         }
 

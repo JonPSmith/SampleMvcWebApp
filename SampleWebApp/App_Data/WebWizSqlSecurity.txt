@@ -6,27 +6,26 @@ CREATE USER [Michael] FOR LOGIN [JonSmith_Michael] WITH DEFAULT_SCHEMA=[dbo]
 CREATE USER [William] FOR LOGIN [JonSmith_William] WITH DEFAULT_SCHEMA=[dbo]
 -- create each role and its permissions
 CREATE ROLE [AttendeeNoPayUpdate]
-DENY UPDATE ON OBJECT::dbo.Attendees(HasPaid) ON [AttendeeNoPayUpdate]
-
+DENY UPDATE ON OBJECT::dbo.Attendees(HasPaid) TO [AttendeeNoPayUpdate]
 CREATE ROLE [CourseRU]
-DENY INSERT, DELETE ON OBJECT::dbo.Courses ON [CourseRU]
+DENY INSERT, DELETE ON OBJECT::dbo.Courses TO [CourseRU]
 CREATE ROLE [AttendeeNoPay]
-DENY SELECT, UPDATE ON OBJECT::dbo.Attendees(HasPaid) ON [AttendeeNoPay]
+DENY SELECT, UPDATE ON OBJECT::dbo.Attendees(HasPaid) TO [AttendeeNoPay]
 CREATE ROLE [CourseReadOnly]
-DENY INSERT, UPDATE, DELETE, REFERENCE ON OBJECT::dbo.Courses ON [CourseReadOnly]
+DENY INSERT, UPDATE, DELETE, REFERENCE ON OBJECT::dbo.Courses TO [CourseReadOnly]
 CREATE ROLE [DenyAttendee]
-DENY INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Attendees ON [DenyAttendee]
+DENY INSERT, SELECT, UPDATE, DELETE ON OBJECT::dbo.Attendees TO [DenyAttendee]
 -- add each user to its roles
-ALTER ROLE [AttendeeNoPayUpdate] ADD MEMBER [Ada]
-ALTER ROLE [db_owner] ADD MEMBER [Ada]
-ALTER ROLE [CourseRU] ADD MEMBER [Charles]
-ALTER ROLE [AttendeeNoPay] ADD MEMBER [Charles]
-ALTER ROLE [db_owner] ADD MEMBER [Charles]
-ALTER ROLE [CourseReadOnly] ADD MEMBER [Homer]
-ALTER ROLE [DenyAttendee] ADD MEMBER [Homer]
-ALTER ROLE [db_owner] ADD MEMBER [Homer]
-ALTER ROLE [CourseReadOnly] ADD MEMBER [Michael]
-ALTER ROLE [AttendeeNoPay] ADD MEMBER [Michael]
-ALTER ROLE [db_owner] ADD MEMBER [Michael]
-ALTER ROLE [CourseReadOnly] ADD MEMBER [William]
-ALTER ROLE [db_owner] ADD MEMBER [William]
+EXEC sp_addrolemember @rolename='AttendeeNoPayUpdate', @membername='Ada'
+EXEC sp_addrolemember @rolename='JonSmith_smwa', @membername='Ada'
+EXEC sp_addrolemember @rolename='CourseRU', @membername='Charles'
+EXEC sp_addrolemember @rolename='AttendeeNoPay', @membername='Charles'
+EXEC sp_addrolemember @rolename='JonSmith_smwa', @membername='Charles'
+EXEC sp_addrolemember @rolename='CourseReadOnly', @membername='Homer'
+EXEC sp_addrolemember @rolename='DenyAttendee', @membername='Homer'
+EXEC sp_addrolemember @rolename='JonSmith_smwa', @membername='Homer'
+EXEC sp_addrolemember @rolename='CourseReadOnly', @membername='Michael'
+EXEC sp_addrolemember @rolename='AttendeeNoPay', @membername='Michael'
+EXEC sp_addrolemember @rolename='JonSmith_smwa', @membername='Michael'
+EXEC sp_addrolemember @rolename='CourseReadOnly', @membername='William'
+EXEC sp_addrolemember @rolename='JonSmith_smwa', @membername='William'

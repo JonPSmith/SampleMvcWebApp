@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using SampleWebApp.Identity;
 using SampleWebApp.Infrastructure;
+using SampleWebApp.Properties;
 using ServiceLayer.Security;
 
 namespace SampleWebApp.Controllers

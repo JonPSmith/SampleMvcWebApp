@@ -97,7 +97,7 @@ namespace Tests.UnitTests.Group01DataLayer
         public void Test98ListDatabasePermissionsOk()
         {
             //SETUP
-            const string loginPrefix = "";
+            const string loginPrefix = "xxx";
             using (var db = new SampleWebAppDb())
             {
 
@@ -115,7 +115,7 @@ namespace Tests.UnitTests.Group01DataLayer
         public void Test99WriteDataToAppDataOk()
         {
             //SETUP
-            var data = SqlSecurityHelper.SaveSqlSecuritySetup(HostTypes.Azure, "Azure");
+            var data = SqlSecurityHelper.SaveSqlSecuritySetup(HostTypes.WebWiz, "JonSmith_");
 
             //VERIFY
             foreach (var line in data)

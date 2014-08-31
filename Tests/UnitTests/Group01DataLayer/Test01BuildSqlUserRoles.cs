@@ -207,7 +207,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             u.SqlCommandToAddUserToItsRoles().Count().ShouldEqual(1);
-            u.SqlCommandToAddUserToItsRoles().First().ShouldEqual("ALTER ROLE [TestRole] ADD MEMBER [User]");
+            u.SqlCommandToAddUserToItsRoles().First().ShouldEqual("EXEC sp_addrolemember @rolename='TestRole', @membername='User'");
         }
 
         [Test]
@@ -223,7 +223,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             u.SqlCommandToRemoveUserFromItsRoles().Count().ShouldEqual(1);
-            u.SqlCommandToRemoveUserFromItsRoles().First().ShouldEqual("ALTER ROLE [TestRole] DROP MEMBER [User]");
+            u.SqlCommandToRemoveUserFromItsRoles().First().ShouldEqual("EXEC sp_droprolemember @rolename='TestRole', @membername='User'");
         }
 
         //---------------------------------
@@ -251,8 +251,8 @@ namespace Tests.UnitTests.Group01DataLayer
             list[4].ShouldEqual("CREATE ROLE [TestRole]");
             list[5].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole]");
 
-            list[7].ShouldEqual("ALTER ROLE [TestRole] ADD MEMBER [User1]");
-            list[8].ShouldEqual("ALTER ROLE [TestRole] ADD MEMBER [User2]");
+            list[7].ShouldEqual("EXEC sp_addrolemember @rolename='TestRole', @membername='User1'");
+            list[8].ShouldEqual("EXEC sp_addrolemember @rolename='TestRole', @membername='User2'");
 
         }
 
@@ -281,8 +281,8 @@ namespace Tests.UnitTests.Group01DataLayer
             list[6].ShouldEqual("CREATE ROLE [TestRole2]");
             list[7].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole2]");
 
-            list[9].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
-            list[10].ShouldEqual("ALTER ROLE [TestRole2] ADD MEMBER [User2]");
+            list[9].ShouldEqual("EXEC sp_addrolemember @rolename='TestRole1', @membername='User1'");
+            list[10].ShouldEqual("EXEC sp_addrolemember @rolename='TestRole2', @membername='User2'");
         }
 
         [Test]
@@ -306,8 +306,8 @@ namespace Tests.UnitTests.Group01DataLayer
             list[3].ShouldEqual("CREATE ROLE [TestRole1]");
             list[4].ShouldEqual("GRANT INSERT ON OBJECT::dbo.Table TO [TestRole1]");
 
-            list[6].ShouldEqual("ALTER ROLE [TestRole1] ADD MEMBER [User1]");
-            list[7].ShouldEqual("ALTER ROLE [db_datawriter] ADD MEMBER [User1]");
+            list[6].ShouldEqual("EXEC sp_addrolemember @rolename='TestRole1', @membername='User1'");
+            list[7].ShouldEqual("EXEC sp_addrolemember @rolename='db_datawriter', @membername='User1'");
         }
 
 
