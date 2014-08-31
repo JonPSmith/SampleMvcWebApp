@@ -33,7 +33,36 @@
     <li>There is also a @Html.ActionLink("Blogs", "Index", "Blogs") page to demonstrate calling a business method.</li>
 </ul>
 
-<h4>2. Use of Dependency Injection</h4>
+<h4>2. Adding Sql Security support to Entity Framework</h4>
+<p>
+    SQL Server and Azure SQL databases have a range of
+    <a href="http://msdn.microsoft.com/en-us/library/bb669078%28v=vs.110%29.aspx" target="_blank">data security features</a>.
+    By combining a number of techniques the
+    <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices library</a>
+    and this sample mvc web site support this feature and use it in a demo to show what it can do.
+</p>
+
+<ul>
+    <li>Go to the @Html.ActionLink("Security Demo", "Index", "Security") page for an introduction.</li>
+    <li>Access either the @Html.ActionLink("Courses", "Index", "Courses") or @Html.ActionLink("Attendees", "Index", "Attendees") page to try accessing the data.</li>
+    <li>Visit the @Html.ActionLink("SQL Permissions", "ViewPermissions", "Security") to see how the database is protected.</li>
+    <li>Or visit the @Html.ActionLink("Code Explanation", "CodeView", "Security") for the details on how it was implemented.</li>
+</ul>
+
+<h4>3. Handling long running tasks</h4>
+<p>
+    Having long running tasks on a web site without feedback is not what users expect.
+    My <a href="http://selectiveanalytics.com/" target="_blank">mathematic modelling applications</a>
+    have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
+    Examples on this web site are:
+</p>
+<ul>
+    <li>A @Html.ActionLink("BBC Radio schedule searcher", "Radio4Search", "Action") shows an async task in action.</li>
+    <li>Other examples of usage can be found on @Html.ActionLink("Action", "Index", "Action") page</li>
+    @*<li>See <a href="#" target="_blank">insert blog link</a> for an explanation of this code.</li>*@
+</ul>
+
+<h4>4. Use of Dependency Injection</h4>
 
 <p>
     <a href="http://www.codeproject.com/Articles/615139/An-Absolute-Beginners-Tutorial-on-Dependency-Inver" target="_blank">Dependency Injection</a> (DI)
@@ -56,18 +85,7 @@
     dependency injection framework, but the framework allows you to replace AutoFac with your own favourite DI tool.
 </p>
 
-<h4>3. Handling long running tasks</h4>
-<p>
-    Having long running tasks on a web site without feedback is not what users expect.
-    My <a href="http://selectiveanalytics.com/" target="_blank">mathematic modelling applications</a>
-    have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
-    Examples on this web site are:
-</p>
-<ul>
-    <li>A @Html.ActionLink("BBC Radio schedule searcher", "Radio4Search", "Action") shows an async task in action.</li>
-    <li>Other examples of usage can be found on @Html.ActionLink("Action", "Index", "Action") page</li>
-    @*<li>See <a href="#" target="_blank">insert blog link</a> for an explanation of this code.</li>*@
-</ul>
+
 
 
 
