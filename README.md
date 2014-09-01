@@ -18,7 +18,18 @@ Database accesses are normally a big part of enterprise systems build with APS.N
  - See normal, synchronous access directly via data class in the [Tags Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsController.cs)
  - See new EF6 async access directly via data class in the [TagsAsync Controller](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Controllers/TagsAsyncController.cs)
 
-### 2. Handling long running tasks
+### 2. Adding Sql Security support to Entity Framework</h4>
+
+SQL Server and Azure SQL databases have a range of [data security features](http://msdn.microsoft.com/en-us/library/bb669078%28v=vs.110%29.aspx).
+By combining a number of techniques the [GenericServices library](https://github.com/JonPSmith/GenericServices)
+and this sample mvc web site support this feature and use it in a demo to show what it can do.
+
+ - A new [SecureSampleWebAppDb](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/DataLayer/DataClasses/SecureSampleWebAppDb.cs) causes sql logins to be used to set what users can access.
+ - (In this demo you can select different users with different access rights from a drop down box).
+ - There is a separate Course/Attendee part of the database that provides examples 
+ - Full explanations of the [access rights](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Security/Index.cshtml) and [how this feature was implemented](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Security/CodeView.cshtml) are given.
+
+### 3. Handling long running tasks
 
 Having long running tasks on a web site without feedback is not what users expect. My mathematic modelling applications have a lot of long running tasks so I have developed specific code for displaying progress messages and allowing the user to cancel a task etc.
 
@@ -26,7 +37,7 @@ Having long running tasks on a web site without feedback is not what users expec
  - You can find a [BBC Radio schedule searcher task](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/ServiceLayer/BBCScheduleService/Concrete/ScheduleSearcherAsync.cs) being called from [this view](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Action/Radio4Search.cshtml)
  - Other variations of long running actions can be found in [this view](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Views/Action/Index.cshtml)
 
-### 3. Use of Dependency Injection
+### 4. Use of Dependency Injection
 
  The GenericService framework is designed specifically to work with Dependency Injection (DI). DI is used throughout this web site, but specific examples are:
 
