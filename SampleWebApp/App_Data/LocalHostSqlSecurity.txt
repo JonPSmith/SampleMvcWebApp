@@ -1,9 +1,9 @@
 -- Add all users (note: user Logons must be already set up)
-CREATE USER [Ada1] FOR LOGIN [Ada1] WITH DEFAULT_SCHEMA=[dbo]
-CREATE USER [Charles] FOR LOGIN [Charles] WITH DEFAULT_SCHEMA=[dbo]
-CREATE USER [Homer] FOR LOGIN [Homer] WITH DEFAULT_SCHEMA=[dbo]
-CREATE USER [Michael] FOR LOGIN [Michael] WITH DEFAULT_SCHEMA=[dbo]
-CREATE USER [William] FOR LOGIN [William] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Ada1] FOR LOGIN [jonsmith_Ada1] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Charles] FOR LOGIN [jonsmith_Charles] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Homer] FOR LOGIN [jonsmith_Homer] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [Michael] FOR LOGIN [jonsmith_Michael] WITH DEFAULT_SCHEMA=[dbo]
+CREATE USER [William] FOR LOGIN [jonsmith_William] WITH DEFAULT_SCHEMA=[dbo]
 -- create each role and its permissions
 CREATE ROLE [AttendeeNoPayUpdate]
 DENY UPDATE ON OBJECT::dbo.Attendees(HasPaid) TO [AttendeeNoPayUpdate]

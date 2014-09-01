@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SampleWebApp.Properties {
+namespace Tests.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -23,21 +23,15 @@ namespace SampleWebApp.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LocalHost")]
-        public string HostTypeString {
-            get {
-                return ((string)(this["HostTypeString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("jonsmith_")]
         public string DatabaseLoginPrefix {
             get {
                 return ((string)(this["DatabaseLoginPrefix"]));
+            }
+            set {
+                this["DatabaseLoginPrefix"] = value;
             }
         }
     }

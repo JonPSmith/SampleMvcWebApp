@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Security.Claims;
 using System.Web;
 using DataLayer.Security;
+using GenericServices;
+using GenericServices.Logger;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SampleWebApp.Properties;
@@ -12,18 +14,21 @@ namespace SampleWebApp.Identity
     public static class InitialiseIdentityDb
     {
 
+        private static IGenericLogger _logger;
+
         public static void Initialise(bool resetIdentityDbContent, bool canCreateDatabase)
         {
 
+            _logger = GenericLoggerFactory.GetLogger("InitialiseIdentityDb");
+            _logger.InfoFormat("Initialising with resetIdentityDbContent = {0} and canCreateDatabase = {1}", resetIdentityDbContent, canCreateDatabase);
+
             //Initialiser for the database.
             if (canCreateDatabase)
-                Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+                //This initialiser will DropCreate the database every time (it has to so the seed is run)
+                Database.SetInitializer(new IdentityDbInitialiserDropCreate(resetIdentityDbContent));
             else
-                //This initializer will not try to change the database
-                Database.SetInitializer(new NullDatabaseInitializer<ApplicationDbContext>());
-
-            using (var context = new ApplicationDbContext())
-                InitializeAspNetUsers(context, resetIdentityDbContent);
+                //This initializer will not try to change the database, but will run the initialize, which calls InitializeAspNetUsers
+                Database.SetInitializer(new IdentityDbInitializerNoCreate(resetIdentityDbContent));
         }
 
         /// <summary>
@@ -31,7 +36,7 @@ namespace SampleWebApp.Identity
         /// </summary>
         /// <param name="context"></param>
         /// <param name="resetIdentityDbContent">If true it will setup/reset all the users in the seed file</param>
-        private static void InitializeAspNetUsers(ApplicationDbContext context, bool resetIdentityDbContent)
+        internal static void InitializeAspNetUsers(ApplicationDbContext context, bool resetIdentityDbContent)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -46,13 +51,17 @@ namespace SampleWebApp.Identity
             SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
 
             if (!resetIdentityDbContent) return;
+            _logger.InfoFormat("Full reset of users asked for");
 
             foreach (var seedUser in loader.LoadSeedData())
             {
                 var foundUser = userManager.FindByEmail(seedUser.Email);
                 if (foundUser != null)
+                {
                     //We are replacing all existing user data
                     userManager.Delete(foundUser);
+                    _logger.InfoFormat("Deleting user {0} prior to replacement.", foundUser.DisplayName);
+                }
 
                 var user = new ApplicationUser
                 {
@@ -68,6 +77,7 @@ namespace SampleWebApp.Identity
 
                 AddClaimAndCheck(userManager, user, SqlSecure.DatabaseLoginClaimType, seedUser.DatabaseLogin);
                 AddClaimAndCheck(userManager, user, SqlSecure.DatabasePasswordClaimType, seedUser.DatabasePassword);
+                _logger.InfoFormat("Successfull created user {0}.", user.DisplayName);
             }
         }
 
@@ -79,7 +89,6 @@ namespace SampleWebApp.Identity
                 throw new InvalidOperationException(string.Format("Could not add claim {0} to user {1}. Errors = {2}",
                     user.UserName, claimName, string.Join(", ", result.Errors)));
         }
-
-
+ 
     }
 }

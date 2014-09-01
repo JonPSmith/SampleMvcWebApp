@@ -38,7 +38,7 @@ namespace SampleWebApp.Controllers
 
         public ActionResult ViewPermissions(ISqlCommands service)
         {
-            return View(service.GetSqlCommands());
+            return View(service.GetSqlCommands(Settings.Default.DatabaseLoginPrefix));
         }
 
         public ActionResult ExecuteSqlCommands(ISqlCommands service)

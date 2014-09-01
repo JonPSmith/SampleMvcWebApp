@@ -214,7 +214,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Identity\IdentityDbInitializerNoCreate.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Identity\IdentityModels.cs" />
+    <Compile Include="Identity\IdentityDbInitialiserDropCreate.cs" />
     <Compile Include="Identity\InitialiseIdentityDb.cs" />
     <Compile Include="Identity\SeedUserInfo.cs" />
     <Compile Include="Identity\SeedUserLoader.cs" />

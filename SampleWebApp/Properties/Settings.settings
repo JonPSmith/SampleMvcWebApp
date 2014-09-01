@@ -6,7 +6,7 @@
       <Value Profile="(Default)">LocalHost</Value>
     </Setting>
     <Setting Name="DatabaseLoginPrefix" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">jonsmith_</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -5,18 +5,19 @@ using System.Security.Principal;
 using System.Threading;
 using DataLayer.Security;
 using SampleWebApp.Identity;
+using SampleWebApp.Properties;
 
 namespace Tests.Helpers
 {
     internal class ClaimsIdentityHelper
     {
 
-        private Dictionary<string, SeedUserInfo> _users;
+        private readonly Dictionary<string, SeedUserInfo> _users;
 
         public ClaimsIdentityHelper()
         {
             var seedFilepath = TestFileHelpers.GetSolutionDirectory() + @"\SampleWebApp\App_Data\SeedIdentities.xml";
-            var loader = new SeedUsersLoader(seedFilepath,"");
+            var loader = new SeedUsersLoader(seedFilepath, Settings.Default.DatabaseLoginPrefix);
             var seed = loader.LoadSeedData().ToList();
             //and set the unathenticated user in SqlSecure
             SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
