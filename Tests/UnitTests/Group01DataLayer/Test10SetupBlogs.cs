@@ -46,7 +46,7 @@ namespace Tests.UnitTests.Group01DataLayer
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
@@ -64,7 +64,7 @@ namespace Tests.UnitTests.Group01DataLayer
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 DataLayerInitialise.ResetBlogs(db, TestDataSelection.Medium);
@@ -76,5 +76,25 @@ namespace Tests.UnitTests.Group01DataLayer
             }
         }
 
+        //---------------------------------------------------------
+
+        [Test]
+        public void Check20NullInitialiserOk()
+        {
+            Check10BlogsResetSmallOk();             //we call this to ensure the database is setup
+            using (var db = new SampleWebAppDb())
+            {
+                //SETUP
+                DataLayerInitialise.InitialiseThis(false, false);           //select null initialiser
+
+                //ATTEMPT
+                DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
+
+                //VERIFY
+                db.Blogs.Count().ShouldEqual(2);
+                db.Posts.Count().ShouldEqual(3);
+                db.Tags.Count().ShouldEqual(3);
+            }
+        }
     }
 }

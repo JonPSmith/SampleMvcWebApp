@@ -17,7 +17,7 @@ namespace Tests.UnitTests.Group01DataLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
                 DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
             }
         }

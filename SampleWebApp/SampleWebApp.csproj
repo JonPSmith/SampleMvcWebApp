@@ -214,8 +214,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\IdentityDbInitializer.cs" />
     <Compile Include="Identity\IdentityModels.cs" />
+    <Compile Include="Identity\InitialiseIdentityDb.cs" />
     <Compile Include="Identity\SeedUserInfo.cs" />
     <Compile Include="Identity\SeedUserLoader.cs" />
     <Compile Include="Identity\SelectListOfUsers.cs" />

@@ -16,12 +16,13 @@ namespace ServiceLayer.Startup
         /// This should be called at Startup
         /// </summary>
         /// <param name="isAzure">true if working with azure database</param>
-        public static void InitialiseThis(bool isAzure)
+        /// <param name="canCreateDatabase">true if the database provider allows the app to drop/create a database</param>
+        public static void InitialiseThis(bool isAzure, bool canCreateDatabase)
         {
 
             //Place any tasks that need initialising here
 
-            DataLayerInitialise.InitialiseThis(isAzure);
+            DataLayerInitialise.InitialiseThis(isAzure, canCreateDatabase);
 
         }
     }

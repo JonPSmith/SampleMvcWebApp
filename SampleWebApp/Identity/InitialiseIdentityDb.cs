@@ -9,39 +9,48 @@ using SampleWebApp.Properties;
 
 namespace SampleWebApp.Identity
 {
-    public class IdentityDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public static class InitialiseIdentityDb
     {
-        private readonly bool _replaceAllUsers;
 
-        public IdentityDbInitializer(bool replaceAllUsers)
+        public static void Initialise(bool resetIdentityDbContent, bool canCreateDatabase)
         {
-            _replaceAllUsers = replaceAllUsers;
+
+            //Initialiser for the database.
+            if (canCreateDatabase)
+                Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+            else
+                //This initializer will not try to change the database
+                Database.SetInitializer(new NullDatabaseInitializer<ApplicationDbContext>());
+
+            using (var context = new ApplicationDbContext())
+                InitializeAspNetUsers(context, resetIdentityDbContent);
         }
 
-        //Remember this runs EVERY time the initialiser is called, which is what we need
-        protected override void Seed(ApplicationDbContext context)
-        {
-            InitializeAspNetUsers(context);
-            base.Seed(context);
-        }
-
-        private void InitializeAspNetUsers(ApplicationDbContext context)
+        /// <summary>
+        /// This will 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="resetIdentityDbContent">If true it will setup/reset all the users in the seed file</param>
+        private static void InitializeAspNetUsers(ApplicationDbContext context, bool resetIdentityDbContent)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             var loader = new SeedUsersLoader(HttpContext.Current.Server.MapPath("~/App_Data/SeedIdentities.xml"), Settings.Default.DatabaseLoginPrefix);
-            if (!loader.DataFileExists) 
+            if (!loader.DataFileExists)
                 //We don't fail if there isnt a file because this is a open-source project
                 //and people may run the application without users
                 return;
 
+            //always setup unauthenticaed user as not stored in Identity (this also turns on SqlSecure)
+            SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
+
+            if (!resetIdentityDbContent) return;
+
             foreach (var seedUser in loader.LoadSeedData())
             {
                 var foundUser = userManager.FindByEmail(seedUser.Email);
-                if (foundUser != null && !_replaceAllUsers) continue;
-
-                if (_replaceAllUsers && foundUser != null)
+                if (foundUser != null)
                     //We are replacing all existing user data
                     userManager.Delete(foundUser);
 
@@ -62,7 +71,7 @@ namespace SampleWebApp.Identity
             }
         }
 
-        private static void AddClaimAndCheck(UserManager<ApplicationUser, string> userManager, IUser<string> user, 
+        private static void AddClaimAndCheck(UserManager<ApplicationUser, string> userManager, IUser<string> user,
             string claimName, string claimValue)
         {
             var result = userManager.AddClaim(user.Id, new Claim(claimName, claimValue));

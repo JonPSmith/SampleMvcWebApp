@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac.Integration.Mvc;
 using SampleWebApp.ActionProgress;
+using SampleWebApp.Identity;
 using SampleWebApp.Properties;
 using ServiceLayer.Startup;
 
@@ -27,12 +28,17 @@ namespace SampleWebApp.Infrastructure
         public static void InitialiseThis(HttpApplication application)
         {
             HostType = DecodeHostType(Settings.Default.HostTypeString);
+            //WebWiz does not allow drop/create database
+            var canDropCreateDatabase = HostType != HostTypes.WebWiz;
 
             SetupLogging(application, HostType);
 
             //This runs the ServiceLayer initialise, whoes job it is to initialise any of the lower layers
             //NOTE: This MUST to come before the setup of the DI because it relies on the configInfo being set up
-            ServiceLayerInitialise.InitialiseThis(false);
+            ServiceLayerInitialise.InitialiseThis(false, canDropCreateDatabase); 
+
+            //Set the first parameter to true to setup/reset the Identity database, otherwise false to use what is there
+            InitialiseIdentityDb.Initialise(true, canDropCreateDatabase);
 
             //This sets up the Autofac container for all levels in the program
             var container = AutofacDi.SetupDependency();

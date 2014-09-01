@@ -25,7 +25,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
                 DataLayerInitialise.ResetCourses(db);
             }
         }

@@ -17,8 +17,9 @@ namespace Tests.Helpers
         {
             var seedFilepath = TestFileHelpers.GetSolutionDirectory() + @"\SampleWebApp\App_Data\SeedIdentities.xml";
             var loader = new SeedUsersLoader(seedFilepath,"");
-            loader.DataFileExists.ShouldEqual(true);
-            var seed = loader.LoadSeedData().ToList();    //this also sets unathenticated user in SqlSecure
+            var seed = loader.LoadSeedData().ToList();
+            //and set the unathenticated user in SqlSecure
+            SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
             seed.Add(new SeedUserInfo { Email = "bad@nospam.com", DatabaseLogin = "BadUser", DatabasePassword = "BadPassword" });
             _users = seed.ToDictionary(x => x.Email);      
         }

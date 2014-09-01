@@ -17,7 +17,7 @@ namespace Tests.UnitTests.Group01DataLayer
         {
             using (var db = new SampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
                 DataLayerInitialise.ResetBlogs(db, TestDataSelection.Small);
                 DataLayerInitialise.ResetCourses(db);
             }
@@ -25,12 +25,12 @@ namespace Tests.UnitTests.Group01DataLayer
         }
 
         [Test]
-        public void Test01NoSecuirityOk()
+        public void Test01NoSecurityOk()
         {
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 DataLayerInitialise.ResetCourses(db);
@@ -48,7 +48,7 @@ namespace Tests.UnitTests.Group01DataLayer
             using (var db = new SecureSampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 var ex = Assert.Throws<SqlException>(() => DataLayerInitialise.ResetCourses(db));
@@ -80,7 +80,7 @@ namespace Tests.UnitTests.Group01DataLayer
             _userSetup.SetUser("ada");
             using (var db = new SecureSampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 DataLayerInitialise.ResetCourses(db);
@@ -98,7 +98,7 @@ namespace Tests.UnitTests.Group01DataLayer
             _userSetup.SetUser("michael");
             using (var db = new SecureSampleWebAppDb())
             {
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 var ex = Assert.Throws<System.Data.Entity.Core.EntityCommandExecutionException>(() => DataLayerInitialise.ResetCourses(db));

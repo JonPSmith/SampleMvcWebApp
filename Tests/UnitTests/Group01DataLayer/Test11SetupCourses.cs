@@ -45,7 +45,7 @@ namespace Tests.UnitTests.Group01DataLayer
             using (var db = new SampleWebAppDb())
             {
                 //SETUP
-                DataLayerInitialise.InitialiseThis(false);
+                DataLayerInitialise.InitialiseThis(false, true);
 
                 //ATTEMPT
                 DataLayerInitialise.ResetCourses(db);

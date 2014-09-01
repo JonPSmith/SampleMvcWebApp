@@ -27,23 +27,35 @@ namespace DataLayer.Startup
         /// <summary>
         /// This should be called at Startup
         /// </summary>
-        /// <param name="isAzure"></param>
-        public static void InitialiseThis(bool isAzure)
+        /// <param name="isAzure">true if running on azure (used for configuring retry policy and BuildSqlConnectionString UserId)</param>
+        /// <param name="canCreateDatabase">true if the database provider allows the app to drop/create a database</param>
+        public static void InitialiseThis(bool isAzure, bool canCreateDatabase)
         {
             EfConfiguration.IsAzure = isAzure;
             _logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
 
             //Initialiser for the database. Only used when first access is made
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SampleWebAppDb>());
+            if (canCreateDatabase)
+                Database.SetInitializer(new CreateDatabaseIfNotExists<SampleWebAppDb>());
+            else
+                //This initializer will not try to change the database
+                Database.SetInitializer(new NullDatabaseInitializer<SampleWebAppDb>());
         }
 
         public static void ResetBlogs(SampleWebAppDb context, TestDataSelection selection)
         {
-
-            context.Posts.ToList().ForEach(x => context.Posts.Remove(x));
-            context.Tags.ToList().ForEach(x => context.Tags.Remove(x));
-            context.Blogs.ToList().ForEach(x => context.Blogs.Remove(x));
-            context.SaveChanges();
+            try
+            {
+                context.Posts.ToList().ForEach(x => context.Posts.Remove(x));
+                context.Tags.ToList().ForEach(x => context.Tags.Remove(x));
+                context.Blogs.ToList().ForEach(x => context.Blogs.Remove(x));
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.Critical("Exception when resetting the blogs", ex);
+                throw;
+            }
 
             var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlBlogsDataFileManifestPath[selection]);
 
@@ -51,18 +63,25 @@ namespace DataLayer.Startup
             var status = context.SaveChangesWithValidation();
             if (!status.IsValid)
             {
-                _logger.CriticalFormat("Error when resetting blogs to data selection {0}. Error:\n{1}", selection, 
+                _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}",
                     string.Join(",", status.Errors));
-                throw new FormatException("xml derived data did not load well.");
+                throw new FormatException("problem writing to database. See log.");
             }
         }
 
         public static void ResetCourses(SampleWebAppDb context)
         {
-
-            context.Attendees.ToList().ForEach(x => context.Attendees.Remove(x));
-            context.Courses.ToList().ForEach(x => context.Courses.Remove(x));
-            context.SaveChanges();
+            try
+            {
+                context.Attendees.ToList().ForEach(x => context.Attendees.Remove(x));
+                context.Courses.ToList().ForEach(x => context.Courses.Remove(x));
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.Critical("Exception when resetting the courses", ex);
+                throw;
+            }
 
             var courses = LoadDbDataFromXml.FormCoursesWithAddendees(XmlCoursesDataFileManifestPath);
 
@@ -72,7 +91,7 @@ namespace DataLayer.Startup
             {
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}", 
                     string.Join(",", status.Errors));
-                throw new FormatException("xml derived data did not load well.");
+                throw new FormatException("xml derived data did not load well. See log.");
             }
         }
 
