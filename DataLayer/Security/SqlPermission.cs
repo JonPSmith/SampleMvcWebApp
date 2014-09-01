@@ -12,7 +12,7 @@ namespace DataLayer.Security
     public enum PermissionsOnWhat { NotHandled, SqlUser, WindowsUser, WindowsGroup, ApplicationRole, DatabaseRole}
     public enum PermissionStates { NotHandled, Deny, Revoke, Grant }
     [Flags]
-    public enum PermissionTypeFlags { NotHandled = 0, Insert = 1, Select = 2, Update = 4, Delete = 8, Reference = 16}
+    public enum PermissionTypeFlags { NotHandled = 0, Insert = 1, Select = 2, Update = 4, Delete = 8, References = 16}
 
     public class SqlPermission
     {
@@ -43,7 +43,7 @@ namespace DataLayer.Security
             {"SL", PermissionTypeFlags.Select},
             {"UP", PermissionTypeFlags.Update},
             {"DL", PermissionTypeFlags.Delete},
-            {"RF", PermissionTypeFlags.Reference}
+            {"RF", PermissionTypeFlags.References}
         };
 
         /// <summary>

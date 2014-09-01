@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AzureSqlSecurity.txt" />
+    <Content Include="App_Data\LocalHostSqlSecurity.txt" />
     <Content Include="App_Data\SeedIdentities.xml" />
     <Content Include="App_Data\WebWizSqlSecurity.txt" />
     <Content Include="Content\bootstrap-theme.css" />

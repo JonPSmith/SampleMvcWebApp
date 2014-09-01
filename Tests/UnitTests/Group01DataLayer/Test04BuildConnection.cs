@@ -95,7 +95,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             var sc = new SqlConnectionStringBuilder(con);
-            sc.UserID.ShouldEqual("Ada");
+            sc.UserID.ShouldEqual("Ada1");
             sc.IntegratedSecurity.ShouldEqual(false);
         }
 
