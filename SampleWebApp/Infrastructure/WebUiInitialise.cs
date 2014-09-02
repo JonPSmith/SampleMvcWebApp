@@ -13,6 +13,7 @@ namespace SampleWebApp.Infrastructure
 
     public static class WebUiInitialise
     {
+        private const bool ResetIndentityDatabase = false;          //set this to true to reset content of Identity database
 
         //Note: This is also used when running locally
         private const string WebWizLog4NetRelPath = "~/Log4Net.xml";
@@ -38,7 +39,7 @@ namespace SampleWebApp.Infrastructure
             ServiceLayerInitialise.InitialiseThis(false, canDropCreateDatabase); 
 
             //Set the first parameter to true to setup/reset the Identity database, otherwise false to use what is there
-            InitialiseIdentityDb.Initialise(true, canDropCreateDatabase);
+            InitialiseIdentityDb.Initialise(ResetIndentityDatabase, canDropCreateDatabase);
 
             //This sets up the Autofac container for all levels in the program
             var container = AutofacDi.SetupDependency();

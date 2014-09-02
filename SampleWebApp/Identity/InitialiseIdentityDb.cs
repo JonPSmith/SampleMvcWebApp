@@ -25,7 +25,7 @@ namespace SampleWebApp.Identity
             //Initialiser for the database.
             if (canCreateDatabase)
                 //This initialiser will DropCreate the database every time (it has to so the seed is run)
-                Database.SetInitializer(new IdentityDbInitialiserDropCreate(resetIdentityDbContent));
+                Database.SetInitializer(new IdentityDbInitialiserDropCreate(true));     //NOTE: we use dropcreate so have to always run
             else
                 //This initializer will not try to change the database, but will run the initialize, which calls InitializeAspNetUsers
                 Database.SetInitializer(new IdentityDbInitializerNoCreate(resetIdentityDbContent));
