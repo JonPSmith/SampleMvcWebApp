@@ -80,7 +80,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             var sc = new SqlConnectionStringBuilder(con);
-            sc.UserID.ShouldEqual("Homer");
+            sc.UserID.ShouldEqual("jonsmith_Homer");
             sc.IntegratedSecurity.ShouldEqual(false);
         }
 
@@ -95,7 +95,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             var sc = new SqlConnectionStringBuilder(con);
-            sc.UserID.ShouldEqual("Ada1");
+            sc.UserID.ShouldEqual("jonsmith_Ada1");
             sc.IntegratedSecurity.ShouldEqual(false);
         }
 
@@ -110,7 +110,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
             //VERIFY
             var sc = new SqlConnectionStringBuilder(con);
-            sc.UserID.ShouldEqual("Homer@AzureServerName");
+            sc.UserID.ShouldEqual("jonsmith_Homer@AzureServerName");
             sc.IntegratedSecurity.ShouldEqual(false);
         }
     }
