@@ -18,7 +18,7 @@ namespace DataLayer.Startup
 
             //set Entity Framework context to instance per lifetime scope. 
             //This is important as we get one context per lifetime, so all db classes are tracked together.
-            builder.RegisterType<SecureSampleWebAppDb>().As<IDbContextWithValidation>().InstancePerLifetimeScope();
+            builder.RegisterType<SecureSampleWebAppDb>().As<IGenericServicesDbContext>().InstancePerLifetimeScope();
             builder.RegisterType<SampleWebAppDb>().As<SampleWebAppDb>().InstancePerLifetimeScope();
         }
     }

@@ -94,7 +94,7 @@ namespace ServiceLayer.PostServices
         /// </summary>
         /// <param name="context"></param>
         /// <param name="dto"></param>
-        protected override async Task SetupSecondaryDataAsync(IDbContextWithValidation context, DetailPostDtoAsync dto)
+        protected override async Task SetupSecondaryDataAsync(IGenericServicesDbContext context, DetailPostDtoAsync dto)
         {
 
             var bloggers = await context.Set<Blog>().ToListAsync();
@@ -125,12 +125,12 @@ namespace ServiceLayer.PostServices
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
 
-        protected override async Task<ISuccessOrErrors> CopyDtoToDataAsync(IDbContextWithValidation context, DetailPostDtoAsync dto, Post post)
+        protected override async Task<ISuccessOrErrors> CopyDtoToDataAsync(IGenericServicesDbContext context, DetailPostDtoAsync dto, Post post)
         {
 
             var db = context as SecureSampleWebAppDb;
             if (db == null)
-                throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
+                throw new NullReferenceException("The IGenericServicesDbContext must be linked to TemplateWebAppDb.");
 
             var status = SuccessOrErrors.Success("OK if no errors set");
 

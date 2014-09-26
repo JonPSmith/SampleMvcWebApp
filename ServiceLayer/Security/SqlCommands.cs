@@ -47,7 +47,7 @@ namespace ServiceLayer.Security
             if (string.IsNullOrEmpty(hostString))
                 throw new ArgumentException("You must provide the hostString");
 
-            var logger = GenericLoggerFactory.GetLogger("ExecuteSqlCommandsFromFile");
+            var logger = ServicesConfiguration.GetLogger("ExecuteSqlCommandsFromFile");
             logger.InfoFormat("Called for host {0}", hostString);
             var filepath = Path.Combine(appDataFilePath, hostString + "SqlSecurity.txt");
 

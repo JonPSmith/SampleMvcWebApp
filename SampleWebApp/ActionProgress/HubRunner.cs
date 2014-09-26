@@ -15,7 +15,7 @@ namespace SampleWebApp.ActionProgress
 
         static HubRunner()
         {
-            Logger = GenericLoggerFactory.GetLogger("HubRunner");
+            Logger = GenericServices.ServicesConfiguration.GetLogger("HubRunner");
         }
 
         /// <summary>
@@ -285,11 +285,11 @@ namespace SampleWebApp.ActionProgress
         {
 
             //we now need to save the changes to the database
-            var db = diContainer.Resolve(typeof(IDbContextWithValidation)) as IDbContextWithValidation;
+            var db = diContainer.Resolve(typeof(IGenericServicesDbContext)) as IGenericServicesDbContext;
             if (db == null)
-                throw new NullReferenceException("IDbContextWithValidation must resolve via DI for HubRunner db to work.");
+                throw new NullReferenceException("IGenericServicesDbContext must resolve via DI for HubRunner db to work.");
             
-            var dataStatus = await db.SaveChangesWithValidationAsync();
+            var dataStatus = await db.SaveChangesWithCheckingAsync();
             return dataStatus.IsValid
                 ? status.SetSuccessMessage("{0}... and written to database.", status.SuccessMessage)
                 : dataStatus;

@@ -37,7 +37,7 @@
 
 <h4>Part 2: Getting services to use SecureSampleWebAppDb</h4>
 <p>
-    Again, this was very simple as GenericServices only works with a DbContext that has the interface <code>IDbContextWithValidation</code>.
+    Again, this was very simple as GenericServices only works with a DbContext that has the interface <code>IGenericServicesDbContext</code>.
     By moving that interface from <code>SampleWebAppDb</code> and putting it on <code>SecureSampleWebAppDb</code> then ensures that all the
     services will use the DbContext that supports the SQL security.
 </p>

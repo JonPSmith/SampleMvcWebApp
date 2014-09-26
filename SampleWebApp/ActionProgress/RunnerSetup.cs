@@ -53,7 +53,7 @@ namespace SampleWebApp.ActionProgress
         /// If all is well then it sets up the HubRunner ready to receive the start command from the JavaScript
         /// </summary>
         /// <returns>It returns either json with an errorDict in it if the copy didn't go well, or the ActionGuid if it did</returns>
-        public JsonResult SetupAndReturnJsonResult(IDbContextWithValidation db)
+        public JsonResult SetupAndReturnJsonResult(IGenericServicesDbContext db)
         {          
             //now we extract the Action TOut and TIn and decide if a copy is needed
             var actionDefnParts = _actionInterface.GetGenericArguments();
@@ -69,7 +69,7 @@ namespace SampleWebApp.ActionProgress
             if (copyDtoToDataMethod == null)
                 throw new InvalidOperationException("The data you provided didn't match the action and neither was it a GenericDto");
             if (db == null)
-                throw new ArgumentNullException("db", "The data you provided was a generic dto, which needs IDbContextWithValidation");
+                throw new ArgumentNullException("db", "The data you provided was a generic dto, which needs IGenericServicesDbContext");
 
             _status = _isAsync
                 ? (copyDtoToDataMethod.Invoke(_data, new object[] {db, _data, actionData}) as Task<ISuccessOrErrors>)

@@ -48,8 +48,8 @@ namespace Tests.UnitTests.Group03ServiceLayer
             //ATTEMPT & VERIFY
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
-                var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
-                var instance2 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                var instance1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
+                var instance2 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 Assert.NotNull(instance1);
                 (instance1 is SampleWebAppDb).ShouldEqual(true);
                 Assert.AreSame(instance1, instance2);                       //check that lifetimescope is working
@@ -67,7 +67,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
             //ATTEMPT & VERIFY
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
-                var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                var instance1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 Assert.NotNull(instance1);
                 (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
             }
@@ -84,7 +84,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
             //ATTEMPT & VERIFY
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
-                var instance1 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                var instance1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 var instance2 = lifetimeScope.Resolve<SampleWebAppDb>();
                 Assert.NotNull(instance1);
                 (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
@@ -159,7 +159,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
                 var service = lifetimeScope.Resolve<IListService>();
-                var posts = service.GetMany<Post>().ToList();
+                var posts = service.GetAll<Post>().ToList();
                 posts.Count.ShouldEqual(3);
             }
         }
@@ -193,8 +193,8 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 (dataClass1 is Radio4Fm).ShouldEqual(true);
 
                 //DataLayer - repositories
-                var db1 = lifetimeScope.Resolve<IDbContextWithValidation>();
-                var db2 = lifetimeScope.Resolve<IDbContextWithValidation>();
+                var db1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
+                var db2 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 Assert.NotNull(db1);
                 Assert.AreSame(db1, db2);                       //check that lifetimescope is working
 

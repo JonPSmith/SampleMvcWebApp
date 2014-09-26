@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
+using GenericSecurity;
 using GenericServices;
 using GenericServices.Core;
 using SampleWebApp.Infrastructure;
@@ -21,7 +22,7 @@ namespace SampleWebApp.Controllers
 
         public ActionResult ListNames(IListService service)
         {
-            var status = service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionChecking();
+            var status = service.GetAll<Attendee>().Select(x => x.FullName).RealiseManyWithErrorChecking();
 
             if (status.IsValid)
                 return View(status.Result);
@@ -32,7 +33,7 @@ namespace SampleWebApp.Controllers
 
         public ActionResult ListPaid(IListService service)
         {
-            var status = service.GetMany<Attendee>().OrderBy(x => x.BookedOn.StartDate).ThenBy(x => x.HasPaid)
+            var status = service.GetAll<Attendee>().OrderBy(x => x.BookedOn.StartDate).ThenBy(x => x.HasPaid)
                 .Select(x => new AttendeeAllListModel()
                 {
                     AttendeeId = x.AttendeeId,
@@ -40,7 +41,7 @@ namespace SampleWebApp.Controllers
                     EmailAddress = x.EmailAddress,
                     HasPaid = x.HasPaid,
                     CourseName = x.BookedOn.Name
-                }).TryManyWithPermissionChecking();
+                }).RealiseManyWithErrorChecking();
 
             if (status.IsValid)
                 return View(status.Result);

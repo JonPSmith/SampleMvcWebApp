@@ -26,7 +26,7 @@ namespace SampleWebApp.Controllers
         public ActionResult Index(int? id, IListService service)
         {
             var filtered = id != null && id != 0;
-            var query = filtered ? service.GetMany<SimplePostDto>().Where(x => x.BlogId == id) : service.GetMany<SimplePostDto>();
+            var query = filtered ? service.GetAll<SimplePostDto>().Where(x => x.BlogId == id) : service.GetAll<SimplePostDto>();
             if (filtered)
                 TempData["message"] = "Filtered list";
 

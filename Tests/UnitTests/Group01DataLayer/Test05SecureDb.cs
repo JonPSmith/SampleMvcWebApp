@@ -2,6 +2,8 @@
 using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.Startup;
+using GenericSecurity;
+using GenericServices;
 using GenericServices.Core;
 using NUnit.Framework;
 using Tests.Helpers;
@@ -123,7 +125,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 //ATTEMPT
                 attendee.HasPaid = newHasPaid;
-                var status = db.SaveChangesWithValidation();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true);
@@ -143,7 +145,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 //ATTEMPT
                 attendee.HasPaid = !attendee.HasPaid;
-                var status = db.SaveChangesWithValidation();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -197,7 +199,7 @@ namespace Tests.UnitTests.Group01DataLayer
             {
 
                 //ATTEMPT
-                var status = db.Attendees.TryManyWithPermissionChecking();
+                var status = db.Attendees.RealiseManyWithErrorChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);

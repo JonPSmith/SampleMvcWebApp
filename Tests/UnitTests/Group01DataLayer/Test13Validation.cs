@@ -4,6 +4,7 @@ using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
+using GenericServices;
 using NUnit.Framework;
 using Tests.Helpers;
 
@@ -33,7 +34,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 //ATTEMPT
                 var dupTag = new Tag { Name = "non-duplicate slug", Slug = Guid.NewGuid().ToString("N") };
                 db.Tags.Add(dupTag);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -52,7 +53,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 //ATTEMPT
                 var dupTag = new Tag {Name = "duplicate slug", Slug = existingTag.Slug};
                 db.Tags.Add(dupTag);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -80,7 +81,7 @@ namespace Tests.UnitTests.Group01DataLayer
                     Tags = new[] { existingTag }
                 };
                 db.Posts.Add(newPost);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -107,7 +108,7 @@ namespace Tests.UnitTests.Group01DataLayer
                     Tags = new[] { existingTag }
                 };
                 db.Posts.Add(newPost);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -134,7 +135,7 @@ namespace Tests.UnitTests.Group01DataLayer
                     Tags = new[] { existingTag }
                 };
                 db.Posts.Add(newPost);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -161,7 +162,7 @@ namespace Tests.UnitTests.Group01DataLayer
                     Tags = new[] { existingTag }
                 };
                 db.Posts.Add(newPost);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -189,7 +190,7 @@ namespace Tests.UnitTests.Group01DataLayer
                     Tags = new[] { existingTag }
                 };
                 db.Posts.Add(newPost);
-                var status = db.SaveChangesWithValidation();
+                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();;
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);

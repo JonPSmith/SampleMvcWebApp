@@ -32,7 +32,9 @@ namespace DataLayer.Startup
         public static void InitialiseThis(bool isAzure, bool canCreateDatabase)
         {
             EfConfiguration.IsAzure = isAzure;
-            _logger = GenericLoggerFactory.GetLogger("DataLayerInitialise");
+            _logger = ServicesConfiguration.GetLogger("DataLayerInitialise");
+
+
 
             //Initialiser for the database. Only used when first access is made
             if (canCreateDatabase)
@@ -41,6 +43,9 @@ namespace DataLayer.Startup
                 //This initializer will not try to change the database
                 Database.SetInitializer(new NullDatabaseInitializer<SampleWebAppDb>());
         }
+
+
+
 
         public static void ResetBlogs(SampleWebAppDb context, TestDataSelection selection)
         {
@@ -60,7 +65,7 @@ namespace DataLayer.Startup
             var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlBlogsDataFileManifestPath[selection]);
 
             context.Blogs.AddRange(bloggers);
-            var status = context.SaveChangesWithValidation();
+            var status = ((IGenericServicesDbContext)context).SaveChangesWithChecking();
             if (!status.IsValid)
             {
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}",
@@ -86,7 +91,7 @@ namespace DataLayer.Startup
             var courses = LoadDbDataFromXml.FormCoursesWithAddendees(XmlCoursesDataFileManifestPath);
 
             context.Courses.AddRange(courses);
-            var status = context.SaveChangesWithValidation();
+            var status = ((IGenericServicesDbContext)context).SaveChangesWithChecking();
             if (!status.IsValid)
             {
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}", 

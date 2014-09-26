@@ -20,7 +20,7 @@ namespace SampleWebApp.Controllers
         /// </summary>
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetMany<SimplePostDtoAsync>().ToListAsync());
+            return View(await service.GetAll<SimplePostDtoAsync>().ToListAsync());
         }
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)

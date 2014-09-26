@@ -92,7 +92,7 @@ namespace ServiceLayer.PostServices
         /// </summary>
         /// <param name="context"></param>
         /// <param name="dto"></param>
-        protected override void SetupSecondaryData(IDbContextWithValidation context, DetailPostDto dto)
+        protected override void SetupSecondaryData(IGenericServicesDbContext context, DetailPostDto dto)
         {
 
             dto.Bloggers.SetupDropDownListContent(
@@ -116,12 +116,12 @@ namespace ServiceLayer.PostServices
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
 
-        protected override ISuccessOrErrors CopyDtoToData(IDbContextWithValidation context, DetailPostDto dto, Post post)
+        protected override ISuccessOrErrors CopyDtoToData(IGenericServicesDbContext context, DetailPostDto dto, Post post)
         {
 
             var db = context as SecureSampleWebAppDb;
             if (db == null)
-                throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
+                throw new NullReferenceException("The IGenericServicesDbContext must be linked to TemplateWebAppDb.");
 
             //Copy over the standard items
             var status = new SuccessOrErrors().SetSuccessMessage("OK if no errors set");

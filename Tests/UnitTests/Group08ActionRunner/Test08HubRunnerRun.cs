@@ -29,7 +29,7 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             _log4NetMemoryLog = new MemoryAppender();
             BasicConfigurator.Configure(_log4NetMemoryLog);
-            GenericLoggerFactory.SetLoggerMethod = name => new Log4NetGenericLogger(name);
+            ServicesConfiguration.SetLoggerMethod = name => new Log4NetGenericLogger(name);
         }
 
         [SetUp]
@@ -42,7 +42,7 @@ namespace Tests.UnitTests.Group08ActionRunner
             _action = new CommsTestActionNormal();
             var builder = new ContainerBuilder();
             builder.RegisterInstance(_action).As<ICommsTestActionNormal>();
-            builder.RegisterInstance(_dummyDb).As<IDbContextWithValidation>();
+            builder.RegisterInstance(_dummyDb).As<IGenericServicesDbContext>();
             builder.RegisterType<EmptyTestAction>().As<IEmptyTestAction>();
             builder.RegisterType<EmptyTestActionWithSubmit>().As<IEmptyTestActionWithSubmit>();
             var container = builder.Build();

@@ -18,7 +18,7 @@ namespace SampleWebApp.Controllers
         // GET: TagsAsync
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetMany<Tag>().Select(x => new TagListModel
+            return View(await service.GetAll<Tag>().Select(x => new TagListModel
             {
                 TagId = x.TagId,
                 Name = x.Name,

@@ -2,6 +2,7 @@
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
+using GenericSecurity;
 using GenericServices;
 using GenericServices.Core;
 using SampleWebApp.Infrastructure;
@@ -13,7 +14,7 @@ namespace SampleWebApp.Controllers
     {
         public ActionResult Index(IListService service)
         {
-            var status = service.GetMany<CourseListDto>().TryManyWithPermissionChecking();
+            var status = service.GetAll<CourseListDto>().RealiseManyWithErrorChecking();
 
             if (!status.IsValid)
                 TempData["errorMessage"] = new MvcHtmlString(status.ErrorsAsHtml());

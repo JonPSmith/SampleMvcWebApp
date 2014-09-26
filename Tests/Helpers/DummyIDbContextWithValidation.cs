@@ -9,7 +9,7 @@ using GenericServices.Core;
 
 namespace Tests.Helpers
 {
-    public class DummyIDbContextWithValidation : IDbContextWithValidation
+    public class DummyIDbContextWithValidation : IGenericServicesDbContext
     {
 
         public bool SaveChangesWithValidationCalled { get; private set; }

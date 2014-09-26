@@ -41,7 +41,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new ListService(db);
 
                 //ATTEMPT
-                var courses = service.GetMany<CourseListDto>().ToList();
+                var courses = service.GetAll<CourseListDto>().ToList();
 
                 //VERIFY
                 courses.Count.ShouldEqual(2);

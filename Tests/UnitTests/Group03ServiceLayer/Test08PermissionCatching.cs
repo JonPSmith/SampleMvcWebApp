@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
+using GenericSecurity;
 using GenericServices.Core;
 using GenericServices.Services.Concrete;
 using NUnit.Framework;
@@ -41,7 +42,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
 
                 //ATTEMPT
                 var status =
-                    service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionChecking();
+                    service.GetAll<Attendee>().Select(x => x.FullName).RealiseManyWithErrorChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -59,8 +60,8 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new ListService(db);
 
                 //ATTEMPT
-                var status = await 
-                    service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionCheckingAsync();
+                var status = await
+                    service.GetAll<Attendee>().Select(x => x.FullName).RealiseManyWithErrorCheckingAsync();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -79,7 +80,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
 
                 //ATTEMPT
                 var status =
-                    service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionChecking();
+                    service.GetAll<Attendee>().Select(x => x.FullName).RealiseManyWithErrorChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);
@@ -100,7 +101,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
 
                 //ATTEMPT
                 var status = await 
-                    service.GetMany<Attendee>().Select(x => x.FullName).TryManyWithPermissionCheckingAsync();
+                    service.GetAll<Attendee>().Select(x => x.FullName).RealiseManyWithErrorCheckingAsync();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(false);

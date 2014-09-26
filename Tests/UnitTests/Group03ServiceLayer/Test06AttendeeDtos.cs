@@ -39,7 +39,7 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 var service = new ListService(db);
 
                 //ATTEMPT
-                var attendees = service.GetMany<Attendee>().Select( x => x.FullName).ToList();
+                var attendees = service.GetAll<Attendee>().Select( x => x.FullName).ToList();
 
                 //VERIFY
                 attendees.Count.ShouldEqual(11);

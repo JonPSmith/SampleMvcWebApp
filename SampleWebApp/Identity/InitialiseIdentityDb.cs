@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Web;
-using DataLayer.Security;
 using GenericServices;
 using GenericServices.Logger;
 using Microsoft.AspNet.Identity;
@@ -13,13 +12,15 @@ namespace SampleWebApp.Identity
 {
     public static class InitialiseIdentityDb
     {
+        public const string DatabaseLoginClaimType = "DatabaseLogin";
+        public const string DatabasePasswordClaimType = "DatabasePassword";
 
         private static IGenericLogger _logger;
 
         public static void Initialise(bool resetIdentityDbContent, bool canCreateDatabase)
         {
 
-            _logger = GenericLoggerFactory.GetLogger("InitialiseIdentityDb");
+            _logger = ServicesConfiguration.GetLogger("InitialiseIdentityDb");
             _logger.InfoFormat("Initialising with resetIdentityDbContent = {0} and canCreateDatabase = {1}", resetIdentityDbContent, canCreateDatabase);
 
             //Initialiser for the database.
@@ -47,8 +48,8 @@ namespace SampleWebApp.Identity
                 //and people may run the application without users
                 return;
 
-            //always setup unauthenticaed user as not stored in Identity (this also turns on SqlSecure)
-            SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
+            //This sets up the GenericSecurity information
+            SetupGenericSecurity.Setup(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
 
             if (!resetIdentityDbContent) return;
             _logger.InfoFormat("Full reset of users asked for");
@@ -75,8 +76,8 @@ namespace SampleWebApp.Identity
                     throw new InvalidOperationException(string.Format("Could not create user for {0}. Errors = {1}",
                         user.UserName, string.Join(", ", result.Errors)));
 
-                AddClaimAndCheck(userManager, user, SqlSecure.DatabaseLoginClaimType, seedUser.DatabaseLogin);
-                AddClaimAndCheck(userManager, user, SqlSecure.DatabasePasswordClaimType, seedUser.DatabasePassword);
+                AddClaimAndCheck(userManager, user, DatabaseLoginClaimType, seedUser.DatabaseLogin);
+                AddClaimAndCheck(userManager, user, DatabasePasswordClaimType, seedUser.DatabasePassword);
                 _logger.InfoFormat("Successfull created user {0}.", user.DisplayName);
             }
         }

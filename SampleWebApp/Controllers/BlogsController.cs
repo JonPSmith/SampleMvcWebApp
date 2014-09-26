@@ -18,7 +18,7 @@ namespace SampleWebApp.Controllers
        
         public ActionResult Index(IListService service)
         {
-            return View(service.GetMany<Blog>().Select(x => new BlogListModel
+            return View(service.GetAll<Blog>().Select(x => new BlogListModel
             {
                 BlogId = x.BlogId,
                 Name = x.Name,

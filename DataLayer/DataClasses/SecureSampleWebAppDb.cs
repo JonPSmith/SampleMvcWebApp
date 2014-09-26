@@ -1,11 +1,11 @@
-﻿using DataLayer.Security;
+﻿using GenericSecurity;
 using GenericServices;
 
 namespace DataLayer.DataClasses
 {
-    public class SecureSampleWebAppDb : SampleWebAppDb, IDbContextWithValidation
+    public class SecureSampleWebAppDb : SampleWebAppDb, IGenericServicesDbContext
     {
         public SecureSampleWebAppDb()
-            : base(SqlSecure.BuildSqlConnectionString(NameOfConnectionString, EfConfiguration.IsAzure)) { }
+            : base(DatabaseUser.BuildConnectionString()) { }
     }
 }
