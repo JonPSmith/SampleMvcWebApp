@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using DataLayer.DataClasses;
-using DataLayer.Security;
+using GenericSecurity.SqlInformation;
 using GenericServices;
 using GenericServices.Core;
-using Microsoft.SqlServer.Server;
 
 namespace ServiceLayer.Security
 {
@@ -24,11 +22,10 @@ namespace ServiceLayer.Security
         /// <summary>
         /// This obtains the current sql security setup from the database and returns the sql commands to set it up
         /// </summary>
-        /// <param name="loginPrefix"></param>
         /// <returns></returns>
-        public IEnumerable<string> GetSqlCommands(string loginPrefix = null)
+        public IEnumerable<string> GetSqlCommands()
         {
-            return _db.SqlCommandsCreateUsersRolesAndPermissions(loginPrefix);
+            return _db.SqlCommandsCreateRolesAndPermissions();
         }
 
         /// <summary>

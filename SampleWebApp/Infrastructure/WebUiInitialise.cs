@@ -55,6 +55,17 @@ namespace SampleWebApp.Infrastructure
 
         }
 
+        /// <summary>
+        /// This returns the connection string of the database
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDbConnectionString()
+        {
+            return
+                System.Configuration.ConfigurationManager.ConnectionStrings[WebUiInitialise.DatabaseConnectionStringName
+                    ].ConnectionString;
+        }
+
         private static HostTypes DecodeHostType(string hostTypeString)
         {
             HostTypes hostType ;

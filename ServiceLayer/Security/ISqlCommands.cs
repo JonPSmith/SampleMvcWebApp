@@ -8,13 +8,12 @@ namespace ServiceLayer.Security
         /// <summary>
         /// This obtains the current sql security setup from the database and returns the sql commands to set it up
         /// </summary>
-        /// <param name="loginPrefix"></param>
         /// <returns></returns>
-        IEnumerable<string> GetSqlCommands(string loginPrefix = null);
+        IEnumerable<string> GetSqlCommands();
 
         /// <summary>
         /// This will load the appropriate sql security file and send it to the host.
-        /// NOTE: This should not be used if permissions arealy exist
+        /// NOTE: This should not be used if permissions already exist
         /// </summary>
         /// <param name="appDataFilePath"></param>
         /// <param name="hostString"></param>

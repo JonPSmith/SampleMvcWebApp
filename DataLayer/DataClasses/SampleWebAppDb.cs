@@ -6,13 +6,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.DataClasses.Concrete.Helpers;
+using GenericServices;
 
 [assembly: InternalsVisibleTo("Tests")]
 
 namespace DataLayer.DataClasses
 {
 
-    public class SampleWebAppDb : DbContext
+    public class SampleWebAppDb : DbContext, IGenericServiceSaveChanges
     {
         internal const string NameOfConnectionString = "SampleWebAppDb";
 

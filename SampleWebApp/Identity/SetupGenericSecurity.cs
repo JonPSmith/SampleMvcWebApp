@@ -16,7 +16,7 @@ namespace SampleWebApp.Identity
             
             //now we set up the GenericSecurity parts
             SecurityConfiguration.SetupSecurity(unathenticatedSqlUserName, unathenticatedSqlUserPassword,
-                System.Configuration.ConfigurationManager.ConnectionStrings[WebUiInitialise.DatabaseConnectionStringName].ConnectionString,
+                WebUiInitialise.GetDbConnectionString(),
                 WebUiInitialise.HostType == HostTypes.Azure);
 
             SecurityConfiguration.GetDatabaseUser = GetDatabaseUserFromThread;

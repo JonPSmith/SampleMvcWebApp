@@ -14,17 +14,6 @@ namespace Tests.Helpers
 
         public bool SaveChangesWithValidationCalled { get; private set; }
 
-        public ISuccessOrErrors SaveChangesWithValidation()
-        {
-            SaveChangesWithValidationCalled = true;
-            return SuccessOrErrors.Success("All ok.");
-        }
-
-        public async Task<ISuccessOrErrors> SaveChangesWithValidationAsync()
-        {
-            SaveChangesWithValidationCalled = true;
-            return SuccessOrErrors.Success("All ok.");
-        }
 
         public DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
@@ -38,12 +27,14 @@ namespace Tests.Helpers
 
         public int SaveChanges()
         {
-            throw new NotImplementedException();
+            SaveChangesWithValidationCalled = true;
+            return 1;
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            SaveChangesWithValidationCalled = true;
+            return 1;
         }
 
         public IEnumerable<DbEntityValidationResult> GetValidationErrors()

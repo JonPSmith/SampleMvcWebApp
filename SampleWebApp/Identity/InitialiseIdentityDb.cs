@@ -2,10 +2,12 @@
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Web;
+using GenericSecurity;
 using GenericServices;
 using GenericServices.Logger;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SampleWebApp.Infrastructure;
 using SampleWebApp.Properties;
 
 namespace SampleWebApp.Identity
@@ -22,6 +24,10 @@ namespace SampleWebApp.Identity
 
             _logger = ServicesConfiguration.GetLogger("InitialiseIdentityDb");
             _logger.InfoFormat("Initialising with resetIdentityDbContent = {0} and canCreateDatabase = {1}", resetIdentityDbContent, canCreateDatabase);
+            
+            //We force security off until the Indentity initiaiser is called. 
+            //This is not the normal way of doing things but it allowed the non-security part to work without GenericSecurity taking the time to start
+            SecurityConfiguration.TurnOffSecurityUntilSetupIsCalled(WebUiInitialise.GetDbConnectionString());
 
             //Initialiser for the database.
             if (canCreateDatabase)

@@ -74,7 +74,7 @@
     </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.0-beta3-001\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.0-beta3-002\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -97,16 +97,6 @@
     <Compile Include="DataClasses\Concrete\Tag.cs" />
     <Compile Include="DataClasses\EfConfiguration.cs" />
     <Compile Include="DataClasses\SecureSampleWebAppDb.cs" />
-    <Compile Include="Security\Internal\SqlRoleRow.cs" />
-    <Compile Include="Security\Internal\SqlUserAndRoleRow.cs" />
-    <Compile Include="Security\SqlPermission.cs" />
-    <Compile Include="Security\SqlRole.cs" />
-    <Compile Include="Security\SqlRoles.cs" />
-    <Compile Include="Security\SqlInfo.cs" />
-    <Compile Include="Security\SqlSecure.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\SqlUserAndRoles.cs" />
     <Compile Include="Startup\DataLayerInitialise.cs" />
     <Compile Include="DataClasses\SampleWebAppDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

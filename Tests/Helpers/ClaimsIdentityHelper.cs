@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
-using DataLayer.Security;
 using SampleWebApp.Identity;
 using SampleWebApp.Properties;
 
@@ -20,7 +19,7 @@ namespace Tests.Helpers
             var loader = new SeedUsersLoader(seedFilepath, Settings.Default.DatabaseLoginPrefix);
             var seed = loader.LoadSeedData().ToList();
             //and set the unathenticated user in SqlSecure
-            SqlSecure.SetupUnauthenticatedDatabaseUser(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
+            SetupGenericSecurity.Setup(loader.UnauthenticatedDatabaseLogin, loader.UnauthenticatedDatabasePassword);
             seed.Add(new SeedUserInfo { Email = "bad@nospam.com", DatabaseLogin = "BadUser", DatabasePassword = "BadPassword" });
             _users = seed.ToDictionary(x => x.Email);      
         }
@@ -36,8 +35,8 @@ namespace Tests.Helpers
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(SqlSecure.DatabaseLoginClaimType, userInfo.DatabaseLogin),
-                    new Claim(SqlSecure.DatabasePasswordClaimType, userInfo.DatabasePassword)
+                    new Claim(InitialiseIdentityDb.DatabaseLoginClaimType, userInfo.DatabaseLogin),
+                    new Claim(InitialiseIdentityDb.DatabasePasswordClaimType, userInfo.DatabasePassword)
                 };
                 var identity = new ClaimsIdentity(new ClaimsIdentity(CreateIdentity(userInfo)), claims);
                 Thread.CurrentPrincipal = new ClaimsPrincipal(identity);

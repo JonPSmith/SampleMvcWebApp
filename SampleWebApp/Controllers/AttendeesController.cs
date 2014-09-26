@@ -5,7 +5,6 @@ using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
 using GenericSecurity;
 using GenericServices;
-using GenericServices.Core;
 using SampleWebApp.Infrastructure;
 using SampleWebApp.Models;
 using ServiceLayer.AttendeeServices;

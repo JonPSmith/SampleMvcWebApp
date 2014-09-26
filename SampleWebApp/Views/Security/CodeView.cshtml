@@ -17,6 +17,10 @@
     the individual CRUD accesses to a table and for a column, just the Read and Update (you can't create or delete a column).
     The type of access can be set for each <strong>Database Login/User</strong>.
 </p>
+<p>
+    Note that the the code for handling security, called GenericSecurity, is not open source. Therefore some of the code you will not be able to see.
+    However the idea is fairly easy to understand. You will just have to implement some parts yourself. (I have to have something that others need!)
+</p>
 
 <h3>The steps to get SQL data security working</h3>
 <p>
@@ -49,17 +53,16 @@
 
 <h4>Part 3: Handling sql security errors</h4>
 <p>
-    I made a number of changes to the
-    <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices</a> library to handle the errors. 
+    I made a number of changes to the. Most of these are kept in the non open-source library, but you can see parts in the 
+    <a href="https://github.com/JonPSmith/GenericServices" target="_blank">GenericServices</a> library.
     The changes are:
 </p>
 
 <ul>
     <li>
-        The introduction of <code></code>
-        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">.TryManyWithPermissionChecking()</a>
-        (sync and async) extention to add to the end of a list service
-        <code>.GetMany()</code> call. This causes the SQL command to be executed and returns a <code>ISuccessOrErrors&lt;ICollection&lt;T&gt;&gt;</code>
+        The creation of a extention method called <code>.RealiseManyWithChecking()</code> (sync and async) in the GenericSecurity module.
+        This is added to add to the end of a list service
+        <code>.GetAll()</code> call. This causes the SQL command to be executed and returns a <code>ISuccessOrErrors&lt;ICollection&lt;T&gt;&gt;</code>
         result. If the flag <code>.IsValid</code> is true then all is fine and the <code>.Result</code> properly holds the Collection.
         If <code>.IsValid</code> is false then <code>.Errors</code> contains the error messages and <code>.Result</code> holds an empty collection.
         <br />
@@ -77,15 +80,19 @@
     </li>
     <li>
         These is also
-        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">.TrySingleWithPermissionChecking()</a>
+        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">.RealiseSingleWithChecking()</a>
         (sync and async) extension in case it is needed by the user in a Dto.
         (this is the code used in <code>DetailService</code> and <code>UpdateSetupService</code>)
     </li>
     <li>
-        Finally there is a 
-        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">CheckSqlExceptionForPermissions method</a>
-        (look near the end of SecurityHelper class for that method) which can look at a SqlException and say if it was cause by some sort or Sql security permission failure.
-        This is used in <code>SaveChangesWithValidation</code> to catch permission failures and give a useful feedback to the user. 
+        There is a method in the GenericService configuration called <code>ServicesConfiguration.RealiseSingleExceptionMethod</code>.
+        GenericSecurity places a method in the ServicesConfiguration which checks exceptions and returns an error message if it is a permission error.
+        You can see this method being used in 
+        <a href="https://github.com/JonPSmith/GenericServices/blob/master/GenericServices/Core/SecurityHelper.cs" target="_blank">RealiseSingleWithErrorChecking method</a>
+    </li>
+    <li>
+        Finally GenericSecurity adds sql permission error codes to GenericService's <code>SqlErrorDict</code>. This means that if <code>.SaveChangesWithChecking()</code>
+        has a permission exception it outputs a helpful error message.
     </li>
 </ul>
 <p>
@@ -102,9 +109,7 @@
     <li>Handling hosted SQL Server login names as they need a prefix. This is done in part 5, when the login name is loaded.</li>
 </ul>
 <p>
-    You can see the code for <code>BuildSqlConnectionString</code> method towards the end of the
-    <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/DataLayer/Security/SqlSecure.cs" target="_blank">SqlSecure</a>
-    class on GitHub.
+    This code is unfortunately not open source.
 </p>
 
 <h4>Part 5: Selecting the right database user name and password to send to SQL Server</h4>
@@ -123,8 +128,13 @@
     </li>
     <li>
         The
-        <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/DataLayer/Security/SqlSecure.cs" target="_blank">SqlSecure</a>
-        class, which <code>BuildSqlConnectionString</code> is part of, picked up the claims from the <code>Thread.CurrentPrincipal.Identity</code>
+        <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Identity/SetupGenericSecurity.cs" target="_blank">SetupGenericSecurity</a>
+        class which sets up the GenericSecurity module
+    </li>
+    <li>
+        The method <code>GetDatabaseUserFromThread()</code> towwards the bottom of 
+        <a href="https://github.com/JonPSmith/SampleMvcWebApp/blob/master/SampleWebApp/Identity/SetupGenericSecurity.cs" target="_blank">SetupGenericSecurity</a>
+        provides GenericSecurity with the current database user and password when it needs it. This is taken from the Thread.Principal
     </li>
     <li>
         For the demo I set an

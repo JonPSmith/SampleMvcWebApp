@@ -65,7 +65,7 @@ namespace DataLayer.Startup
             var bloggers = LoadDbDataFromXml.FormBlogsWithPosts(XmlBlogsDataFileManifestPath[selection]);
 
             context.Blogs.AddRange(bloggers);
-            var status = ((IGenericServicesDbContext)context).SaveChangesWithChecking();
+            var status = context.SaveChangesWithChecking();
             if (!status.IsValid)
             {
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}",
@@ -91,7 +91,7 @@ namespace DataLayer.Startup
             var courses = LoadDbDataFromXml.FormCoursesWithAddendees(XmlCoursesDataFileManifestPath);
 
             context.Courses.AddRange(courses);
-            var status = ((IGenericServicesDbContext)context).SaveChangesWithChecking();
+            var status = context.SaveChangesWithChecking();
             if (!status.IsValid)
             {
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}", 

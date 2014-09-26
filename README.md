@@ -20,9 +20,11 @@ Database accesses are normally a big part of enterprise systems build with APS.N
 
 ### 2. Adding Sql Security support to Entity Framework</h4>
 
-SQL Server and Azure SQL databases have a range of [data security features](http://msdn.microsoft.com/en-us/library/bb669078%28v=vs.110%29.aspx).
-By combining a number of techniques the [GenericServices library](https://github.com/JonPSmith/GenericServices)
-and this sample mvc web site support this feature and use it in a demo to show what it can do.
+SQL Server and Azure SQL databases have a range of 
+[data security features](http://msdn.microsoft.com/en-us/library/bb669078%28v=vs.110%29.aspx).
+This is provided by a non-Open Source library called GenericSecurity that links into the
+[GenericServices library](https://github.com/JonPSmith/GenericServices) 
+and this sample mvc web site to provide Sql Security support in this example site.
 
  - A new [SecureSampleWebAppDb](https://github.com/JonPSmith/SampleMvcWebApp/blob/master/DataLayer/DataClasses/SecureSampleWebAppDb.cs) causes sql logins to be used to set what users can access.
  - (In this demo you can select different users with different access rights from a drop down box).

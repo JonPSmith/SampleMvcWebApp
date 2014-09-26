@@ -150,7 +150,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 };
 
                 db.Posts.Add(newPost);
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -172,7 +172,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 //ATTEMPT
                 var firstPost = db.Posts.First();
                 firstPost.Title = newGuid;
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -195,7 +195,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 //ATTEMPT
                 firstPost.Title = Guid.NewGuid().ToString();
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -217,7 +217,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 //ATTEMPT
                 db.Entry(firstPost).Collection(x => x.Tags).Load();
                 firstPost.Tags.Add(badTag);
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -241,7 +241,7 @@ namespace Tests.UnitTests.Group01DataLayer
 
                 db.Entry(firstPost).Collection(x => x.Tags).Load();
                 firstPost.Tags = tagsNotInFirstPostTracked;
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -267,7 +267,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 firstPostUntracked.Blogger = db.Blogs.First();
                 firstPostUntracked.Tags = db.Tags.Take(2).ToList();
                 db.Posts.Add(firstPostUntracked);
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
@@ -291,7 +291,7 @@ namespace Tests.UnitTests.Group01DataLayer
                 firstPostUntracked.Blogger = db.Blogs.First();
                 firstPostUntracked.Tags = db.Tags.Take(2).ToList();
                 db.Posts.Add(firstPostUntracked);
-                var status = ((IGenericServicesDbContext)db).SaveChangesWithChecking();
+                var status = db.SaveChangesWithChecking();
 
                 //VERIFY
                 status.IsValid.ShouldEqual(true, status.Errors);
