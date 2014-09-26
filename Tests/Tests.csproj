@@ -145,7 +145,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DependencyItems\ConstructorParamClass.cs" />
     <Compile Include="DependencyItems\GenericInterface.cs" />
     <Compile Include="DependencyItems\MyDisposableClass.cs" />

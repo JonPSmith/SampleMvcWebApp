@@ -64,7 +64,6 @@
     <Compile Include="BlogsAnalysis\Concrete\AnalysisResult.cs" />
     <Compile Include="BlogsAnalysis\IBlogAnalyser.cs" />
     <Compile Include="BlogsAnalysis\Internal\PostWithWordCount.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup\BizLayerInitialise.cs" />
     <Compile Include="Startup\BizLayerModule.cs" />
