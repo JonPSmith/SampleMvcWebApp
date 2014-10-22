@@ -48,12 +48,12 @@ namespace SampleWebApp.Identity
         public static void Initialise(bool resetIdentityDbContent, bool canCreateDatabase)
         {
 
-            _logger = ServicesConfiguration.GetLogger("InitialiseIdentityDb");
+            _logger = GenericServicesConfig.GetLogger("InitialiseIdentityDb");
             _logger.InfoFormat("Initialising with resetIdentityDbContent = {0} and canCreateDatabase = {1}", resetIdentityDbContent, canCreateDatabase);
             
             //We force security off until the Indentity initiaiser is called. 
             //This is not the normal way of doing things but it allowed the non-security part to work without GenericSecurity taking the time to start
-            SecurityConfiguration.TurnOffSecurityUntilSetupIsCalled(WebUiInitialise.GetDbConnectionString());
+            GenericSecurityConfig.TurnOffSecurityUntilSetupIsCalled(WebUiInitialise.GetDbConnectionString());
 
             //Initialiser for the database.
             if (canCreateDatabase)

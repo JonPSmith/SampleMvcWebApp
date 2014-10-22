@@ -41,7 +41,7 @@ namespace SampleWebApp.ActionProgress
 
         static HubRunner()
         {
-            Logger = GenericServices.ServicesConfiguration.GetLogger("HubRunner");
+            Logger = GenericServices.GenericServicesConfig.GetLogger("HubRunner");
         }
 
         /// <summary>

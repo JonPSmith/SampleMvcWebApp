@@ -25,7 +25,10 @@
 // SOFTWARE.
 #endregion
 using System;
+using System.Linq;
+using System.Reflection;
 using Autofac;
+using Autofac.Core;
 using NUnit.Framework;
 using Tests.DependencyItems;
 using Tests.Helpers;
@@ -239,6 +242,53 @@ namespace Tests.UnitTests.Group03ServiceLayer
                 Assert.NotNull(instance);
                 (instance is GenericInterface<SimpleClass>).ShouldEqual(true);
                 instance.GetTypeName().ShouldEqual(typeof(SimpleClass).Name);
+            }
+
+        }
+
+        //---------------------------------------------------------
+        //tests on what happens if ctor is private
+
+        [Test]
+        public void Test30AutoFacRegisterClassWithPrivateCtorBad()
+        {
+            //SETUP
+            var builder = new ContainerBuilder();
+            builder.RegisterType<ClassWithPrivateCtor>().As<IClassWithPrivateCtor>();
+            var container = builder.Build();
+
+            //ATTEMPT & VERIFY
+            using (var lifetimeScope = container.BeginLifetimeScope())
+            {
+                var ex = Assert.Throws<Autofac.Core.DependencyResolutionException>(() => lifetimeScope.Resolve<IClassWithPrivateCtor>());
+                ex.Message.ShouldStartWith("No constructors on type");
+            }
+
+        }
+
+        [Test]
+        public void Test31AutoFacTryCtorWithPrivateCtorAsOptionOk()
+        {
+            //SETUP
+            var builder = new ContainerBuilder();
+            builder.RegisterType<ClassWithPrivateCtor>().As<IClassWithPrivateCtor>();
+            builder.RegisterGeneric(typeof (ClassToTestClassWithPrivateCtor<>))
+                .As(typeof (IClassToTestClassWithPrivateCtor<>))
+                .OnActivating(e =>
+                {
+                    var interfaceToLookup = e.Instance.GetType().GetGenericArguments()[0];
+                    var resolvedInterface =
+                        e.Context.ComponentRegistry.RegistrationsFor(new TypedService(interfaceToLookup)).SingleOrDefault();
+                    ((ISetType)e.Instance).SetType(resolvedInterface.Activator.LimitType);
+                });
+            var container = builder.Build();
+
+            //ATTEMPT & VERIFY
+            using (var lifetimeScope = container.BeginLifetimeScope())
+            {
+                var instance = lifetimeScope.Resolve<IClassToTestClassWithPrivateCtor<IClassWithPrivateCtor>>();
+                Assert.NotNull(instance);
+                (instance is ClassToTestClassWithPrivateCtor<IClassWithPrivateCtor>).ShouldEqual(true);
             }
 
         }

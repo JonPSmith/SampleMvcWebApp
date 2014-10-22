@@ -160,7 +160,7 @@ var ActionRunnerUi = (function ($, window) {
 
     function createPanelBasic() {
         $actionButton.unbind('click').on('click', function (eventObject) {
-            actionComms.respondToStateChangeRequest(eventObject.target.innerText);
+            actionComms.respondToStateChangeRequest(eventObject.target.innerHTML);      //changed for FireFox
         });
         jQueryDialogOptions = new CreatejQueryUiDialogOptions();
         setupStartupPanel(jQueryDialogOptions);       

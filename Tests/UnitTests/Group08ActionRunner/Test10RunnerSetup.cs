@@ -185,14 +185,14 @@ namespace Tests.UnitTests.Group08ActionRunner
         public void Test25RunnerDecodeDtoFail()
         {
             //SETUP
-            var rs = new RunnerSetup<SimpleTagDto>(typeof(IEmptyTestAction), new SimpleTagDto(InstrumentedOpFlags.FailOnCopyDtoToData));
+            var rs = new RunnerSetup<SimpleTagDto>(typeof(IEmptyTestAction), new SimpleTagDto(InstrumentedOpFlags.FailOnUpdateDataFromDto));
 
             //ATTEMPT
             var json = rs.SetupAndReturnJsonResult(new DummyIDbContextWithValidation());
 
             //VERIFY
             var js = json.Data.SerialiseToJson();
-            js.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"Flag was set to fail in CopyDtoToData.\"]}}}");
+            js.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"Flag was set to fail in UpdateDataFromDto.\"]}}}");
         }
 
 
@@ -200,14 +200,14 @@ namespace Tests.UnitTests.Group08ActionRunner
         public void Test26RunnerAsyncDecodeDtoOk()
         {
             //SETUP
-            var rs = new RunnerSetup<SimpleTagDtoAsync>(typeof(IEmptyTestActionAsync), new SimpleTagDtoAsync(InstrumentedOpFlags.FailOnCopyDtoToData));
+            var rs = new RunnerSetup<SimpleTagDtoAsync>(typeof(IEmptyTestActionAsync), new SimpleTagDtoAsync(InstrumentedOpFlags.FailOnUpdateDataFromDto));
 
             //ATTEMPT
             var json = rs.SetupAndReturnJsonResult(new DummyIDbContextWithValidation());
 
             //VERIFY
             var js = json.Data.SerialiseToJson();
-            js.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"Flag was set to fail in CopyDtoToDataAsync.\"]}}}");
+            js.ShouldEqual("{\"errorsDict\":{\"\":{\"errors\":[\"Flag was set to fail in UpdateDataFromDto.\"]}}}");
         }
     }
 }

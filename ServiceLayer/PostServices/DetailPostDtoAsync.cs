@@ -104,9 +104,6 @@ namespace ServiceLayer.PostServices
         }
 
 
-        //-----------------------------------------------------------------------------
-        //override methods
-
         //----------------------------------------------
         //overridden methods
 
@@ -139,6 +136,7 @@ namespace ServiceLayer.PostServices
             }
             else
             {
+
                 var tags = await context.Set<Tag>()
                     .Where(x => x.Posts.Any(y => y.PostId == dto.PostId))
                     .Select(x => new { Key = x.Name, Value = x.TagId })
@@ -151,12 +149,33 @@ namespace ServiceLayer.PostServices
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
 
-        protected override async Task<ISuccessOrErrors> CopyDtoToDataAsync(IGenericServicesDbContext context, DetailPostDtoAsync dto, Post post)
+
+        protected override async Task<ISuccessOrErrors<Post>> CreateDataFromDtoAsync(IGenericServicesDbContext context, DetailPostDtoAsync source)
+        {
+            var status = await SetupRestOfDto(context);
+
+            return status.IsValid
+                ? await base.CreateDataFromDtoAsync(context, this)
+                : SuccessOrErrors<Post>.ConvertNonResultStatus(status);
+        }
+
+        protected override async Task<ISuccessOrErrors> UpdateDataFromDtoAsync(IGenericServicesDbContext context, DetailPostDtoAsync source, Post destination)
+        {
+            var status = await SetupRestOfDto(context, destination);
+
+            if (status.IsValid)
+                //now we copy the items to the right place
+                status = await base.UpdateDataFromDtoAsync(context, this, destination);
+
+            return status;
+        }
+
+        private async Task<ISuccessOrErrors> SetupRestOfDto(IGenericServicesDbContext context, Post post = null)
         {
 
-            var db = context as SecureSampleWebAppDb;
+            var db = context as SampleWebAppDb;
             if (db == null)
-                throw new NullReferenceException("The IGenericServicesDbContext must be linked to TemplateWebAppDb.");
+                throw new NullReferenceException("The IDbContextWithValidation must be linked to TemplateWebAppDb.");
 
             var status = SuccessOrErrors.Success("OK if no errors set");
 
@@ -170,10 +189,6 @@ namespace ServiceLayer.PostServices
             if (errMsg != null)
                 status.AddNamedParameterError("UserChosenTags", errMsg);
 
-            if (status.IsValid)
-                //now we copy the items to the right place
-                status = await base.CopyDtoToDataAsync(context, dto, post);
-
             return status;
         }
 
@@ -181,7 +196,7 @@ namespace ServiceLayer.PostServices
         //---------------------------------------------------
         //private helpers
 
-        private async Task<string> SetupBloggerIdFromDropDownList(SecureSampleWebAppDb db, Post post)
+        private async Task<string> SetupBloggerIdFromDropDownList(SampleWebAppDb db, Post post)
         {
 
             var blogId = Bloggers.SelectedValueAsInt;
@@ -192,15 +207,11 @@ namespace ServiceLayer.PostServices
             if (blogger == null)
                 return "Could not find the blogger you selected. Did another user delete it?";
 
-            //all ok
-            if ((int)blogId != post.BlogId)
-                post.Blogger = null;                //old info is incorrect, so remove it
-
             BlogId = (int)blogId;
             return null;
         }
 
-        private async Task<string> ChangeTagsBasedOnMultiSelectList(SecureSampleWebAppDb db, Post post)
+        private async Task<string> ChangeTagsBasedOnMultiSelectList(SampleWebAppDb db, Post post)
         {
             var requiredTagIds = UserChosenTags.GetFinalSelectionAsInts();
             if (!requiredTagIds.Any())
@@ -209,7 +220,7 @@ namespace ServiceLayer.PostServices
             if (requiredTagIds.Any(x => db.Tags.Find(x) == null))
                 return "Could not find one of the tags. Did another user delete it?";
 
-            if (post.PostId != 0)
+            if (post != null)
                 //This is an update so we need to load the tags
                 db.Entry(post).Collection(p => p.Tags).Load();
 

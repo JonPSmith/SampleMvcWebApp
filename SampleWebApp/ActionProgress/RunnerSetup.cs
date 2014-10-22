@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using GenericServices;
 using GenericServices.ActionComms;
+using GenericServices.Core;
 using SampleWebApp.Infrastructure;
 
 namespace SampleWebApp.ActionProgress
@@ -91,7 +92,7 @@ namespace SampleWebApp.ActionProgress
 
             //else we need to copy over the dto to the data
             var actionData = Activator.CreateInstance(actionInType);
-            var copyDtoToDataMethod = _data.GetType().GetMethod(_isAsync ? "CopyDtoToDataAsync" : "CopyDtoToData", BindingFlags.Instance | BindingFlags.NonPublic);
+            var copyDtoToDataMethod = _data.GetType().GetMethod(_isAsync ? "UpdateDataFromDtoAsync" : "UpdateDataFromDto", BindingFlags.Instance | BindingFlags.NonPublic);
             if (copyDtoToDataMethod == null)
                 throw new InvalidOperationException("The data you provided didn't match the action and neither was it a GenericDto");
             if (db == null)
@@ -100,7 +101,7 @@ namespace SampleWebApp.ActionProgress
             _status = _isAsync
                 ? (copyDtoToDataMethod.Invoke(_data, new object[] {db, _data, actionData}) as Task<ISuccessOrErrors>)
                     .ConfigureAwait(false).GetAwaiter().GetResult()
-                : _status = copyDtoToDataMethod.Invoke(_data, new object[] {db, _data, actionData}) as ISuccessOrErrors;
+                : copyDtoToDataMethod.Invoke(_data, new object[] { db, _data, actionData}) as ISuccessOrErrors;
 
             if (_status.IsValid)
                 return SetupHubRunner(actionOutType, actionInType, actionData);

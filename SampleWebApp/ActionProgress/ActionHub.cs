@@ -43,7 +43,7 @@ namespace SampleWebApp.ActionProgress
 
         static ActionHub()
         {
-            Logger = GenericServices.ServicesConfiguration.GetLogger("ActionHub");
+            Logger = GenericServices.GenericServicesConfig.GetLogger("ActionHub");
         }
 
         private static readonly ConcurrentDictionary<string, IHubControl> AllActionsRunning = new ConcurrentDictionary<string, IHubControl>();

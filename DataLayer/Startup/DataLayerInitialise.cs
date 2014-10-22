@@ -58,7 +58,7 @@ namespace DataLayer.Startup
         public static void InitialiseThis(bool isAzure, bool canCreateDatabase)
         {
             EfConfiguration.IsAzure = isAzure;
-            _logger = ServicesConfiguration.GetLogger("DataLayerInitialise");
+            _logger = GenericServicesConfig.GetLogger("DataLayerInitialise");
 
 
 

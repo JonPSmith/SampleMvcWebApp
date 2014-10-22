@@ -41,11 +41,11 @@ namespace SampleWebApp.Identity
         {
             
             //now we set up the GenericSecurity parts
-            SecurityConfiguration.SetupSecurity(unathenticatedSqlUserName, unathenticatedSqlUserPassword,
+            GenericSecurityConfig.SetupSecurity(unathenticatedSqlUserName, unathenticatedSqlUserPassword,
                 WebUiInitialise.GetDbConnectionString(),
                 WebUiInitialise.HostType == HostTypes.Azure);
 
-            SecurityConfiguration.GetDatabaseUser = GetDatabaseUserFromThread;
+            GenericSecurityConfig.GetDatabaseUser = GetDatabaseUserFromThread;
         }
 
         //--------------------------------------------------------------------

@@ -61,7 +61,7 @@ namespace Tests.UnitTests.Group08ActionRunner
 
             _log4NetMemoryLog = new MemoryAppender();
             BasicConfigurator.Configure(_log4NetMemoryLog);
-            ServicesConfiguration.SetLoggerMethod = name => new Log4NetGenericLogger(name);
+            GenericServicesConfig.SetLoggerMethod = name => new Log4NetGenericLogger(name);
         }
 
         [SetUp]

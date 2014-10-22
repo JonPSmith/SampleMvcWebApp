@@ -35,7 +35,6 @@ using DataLayer.DataClasses.Concrete;
 using GenericSecurity;
 using GenericServices;
 using GenericServices.Core;
-using GenericServices;
 
 namespace ServiceLayer.CourseServices
 {
@@ -77,7 +76,7 @@ namespace ServiceLayer.CourseServices
         /// <param name="context"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        protected override ISuccessOrErrors<CourseDetailDto> CreateDtoAndCopyDataIn(IGenericServicesDbContext context, Expression<Func<Course, bool>> predicate)
+        protected override ISuccessOrErrors<CourseDetailDto> DetailDtoFromDataIn(IGenericServicesDbContext context, Expression<Func<Course, bool>> predicate)
         {
             Mapper.CreateMap<Course, CourseDetailDto>();
             var status = GetDataUntracked(context).Where(predicate).Project().To<CourseDetailDto>().RealiseSingleWithErrorChecking();

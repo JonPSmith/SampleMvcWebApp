@@ -113,11 +113,11 @@ namespace SampleWebApp.Infrastructure
                     //We set up the log4net settings from a local file and then assign the logger to GenericServices.GenericLoggerFactory
                     var log4NetPath = application.Server.MapPath(WebWizLog4NetRelPath);
                     log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(log4NetPath));
-                    GenericServices.ServicesConfiguration.SetLoggerMethod = name => new Log4NetGenericLogger(name);
+                    GenericServices.GenericServicesConfig.SetLoggerMethod = name => new Log4NetGenericLogger(name);
                     break;
                 case HostTypes.Azure:
                     //we use the TraceGenericLogger when in Azure
-                    GenericServices.ServicesConfiguration.SetLoggerMethod = name => new TraceGenericLogger(name);
+                    GenericServices.GenericServicesConfig.SetLoggerMethod = name => new TraceGenericLogger(name);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("hostType");
