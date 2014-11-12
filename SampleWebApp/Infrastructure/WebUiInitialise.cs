@@ -63,7 +63,7 @@ namespace SampleWebApp.Infrastructure
 
             //This runs the ServiceLayer initialise, whoes job it is to initialise any of the lower layers
             //NOTE: This MUST to come before the setup of the DI because it relies on the configInfo being set up
-            ServiceLayerInitialise.InitialiseThis(false, canDropCreateDatabase); 
+            ServiceLayerInitialise.InitialiseThis(HostType == HostTypes.Azure, canDropCreateDatabase); 
 
             //This sets up the Autofac container for all levels in the program
             var container = AutofacDi.SetupDependency();
@@ -103,6 +103,8 @@ namespace SampleWebApp.Infrastructure
                 default:
                     throw new ArgumentOutOfRangeException("hostType");
             }
+
+            GenericLibsBaseConfig.GetLogger("LoggerSetup").Info("We have just assegned a logger.");
         }
     }
 }
