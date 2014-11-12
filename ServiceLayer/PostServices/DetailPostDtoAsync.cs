@@ -33,6 +33,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
+using GenericLibsBase;
+using GenericLibsBase.Core;
 using GenericServices;
 using GenericServices.Core;
 using ServiceLayer.UiClasses;
@@ -107,9 +109,9 @@ namespace ServiceLayer.PostServices
         //----------------------------------------------
         //overridden methods
 
-        protected override ServiceFunctions SupportedFunctions
+        protected override CrudFunctions SupportedFunctions
         {
-            get { return ServiceFunctions.AllCrud; }
+            get { return CrudFunctions.AllCrud; }
         }
 
         /// <summary>

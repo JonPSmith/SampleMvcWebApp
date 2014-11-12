@@ -30,8 +30,8 @@ using System.Data.Entity;
 using System.Linq;
 using DataLayer.DataClasses;
 using DataLayer.Startup.Internal;
+using GenericLibsBase;
 using GenericServices;
-using GenericServices.Logger;
 
 namespace DataLayer.Startup
 {
@@ -56,7 +56,7 @@ namespace DataLayer.Startup
         public static void InitialiseThis(bool isAzure, bool canCreateDatabase)
         {
             EfConfiguration.IsAzure = isAzure;
-            _logger = GenericServicesConfig.GetLogger("DataLayerInitialise");
+            _logger = GenericLibsBaseConfig.GetLogger("DataLayerInitialise");
 
             //Initialiser for the database. Only used when first access is made
             if (canCreateDatabase)

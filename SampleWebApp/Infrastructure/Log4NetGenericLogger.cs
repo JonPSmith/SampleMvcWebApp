@@ -25,7 +25,7 @@
 // SOFTWARE.
 #endregion
 using System;
-using GenericServices.Logger;
+using GenericLibsBase;
 
 namespace SampleWebApp.Infrastructure
 {

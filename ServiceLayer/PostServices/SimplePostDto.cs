@@ -67,9 +67,9 @@ namespace ServiceLayer.PostServices
         //----------------------------------------------
         //overridden properties or methods
 
-        protected override ServiceFunctions SupportedFunctions
+        protected override CrudFunctions SupportedFunctions
         {
-            get { return ServiceFunctions.List | ServiceFunctions.DoesNotNeedSetup; }
+            get { return CrudFunctions.List | CrudFunctions.DoesNotNeedSetup; }
         }
     }
 }

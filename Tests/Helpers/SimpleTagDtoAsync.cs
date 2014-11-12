@@ -33,18 +33,6 @@ namespace Tests.Helpers
     class SimpleTagDtoAsync : InstrumentedEfGenericDtoAsync<Tag, SimpleTagDtoAsync>
     {
 
-        private ServiceFunctions _supportedFunctionsToUse = ServiceFunctions.AllCrud |
-                                                    ServiceFunctions.DoAction;
-
-        public SimpleTagDtoAsync()
-        {
-        }
-
-        public SimpleTagDtoAsync(InstrumentedOpFlags whereToFail)
-            : base(whereToFail)
-        {
-        }
-
 
         [Key]
         public int TagId { get; set; }
@@ -62,14 +50,9 @@ namespace Tests.Helpers
         //--------------------------------------
 
 
-        protected internal override ServiceFunctions SupportedFunctions
+        protected internal override CrudFunctions SupportedFunctions
         {
-            get { return _supportedFunctionsToUse; }
-        }
-
-        public void SetSupportedFunctions(ServiceFunctions allowedFunctions)
-        {
-            _supportedFunctionsToUse = allowedFunctions;
+            get { return CrudFunctions.AllCrud; }
         }
 
     }

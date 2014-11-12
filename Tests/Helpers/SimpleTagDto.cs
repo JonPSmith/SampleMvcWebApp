@@ -33,18 +33,6 @@ namespace Tests.Helpers
     class SimpleTagDto : InstrumentedEfGenericDto<Tag, SimpleTagDto>
     {
 
-        private ServiceFunctions _supportedFunctionsToUse = ServiceFunctions.AllCrud |
-                                                    ServiceFunctions.DoAction;
-
-        public SimpleTagDto()
-        {
-        }
-
-        public SimpleTagDto(InstrumentedOpFlags whereToFail) : base(whereToFail)
-        {
-        }
-
-
         [Key]
         public int TagId { get; set; }
 
@@ -57,18 +45,11 @@ namespace Tests.Helpers
         [Required]
         public string Name { get; set; }
 
-
         //--------------------------------------
 
-
-        protected internal override ServiceFunctions SupportedFunctions
+        protected internal override CrudFunctions SupportedFunctions
         {
-            get { return _supportedFunctionsToUse; }
-        }
-
-        public void SetSupportedFunctions(ServiceFunctions allowedFunctions)
-        {
-            _supportedFunctionsToUse = allowedFunctions;
+            get { return CrudFunctions.AllCrud; }
         }
 
     }
