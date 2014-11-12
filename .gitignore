@@ -155,3 +155,11 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /data/Log4Net/log.txt
+SampleWebApp/App_Data/SeedIdentities.xml
+SampleWebApp/App_Data/aspnet-SampleWebApp-001.mdf
+SampleWebApp/App_Data/aspnet-SampleWebApp-001_log.ldf
+SampleWebApp/Properties/PublishProfiles/samplemvcwebapp - FTP.pubxml
+SampleWebApp/Properties/PublishProfiles/samplemvcwebapp - Web Deploy.pubxml
+SampleWebApp/Properties/PublishProfiles/samplemvcwebapp.net - WebWiz.pubxml
+git/.gitattributes
+git/.gitignore
