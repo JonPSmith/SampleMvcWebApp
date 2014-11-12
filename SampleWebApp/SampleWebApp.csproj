@@ -60,9 +60,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GenericSecurity">
-      <HintPath>..\..\GenericSecurity\GenericSecurity\bin\Release\GenericSecurity.dll</HintPath>
-    </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\GenericServices.1.0.0-beta4-003\lib\GenericServices.dll</HintPath>
@@ -196,52 +193,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionProgress\AutoFacActionHubResolver.cs" />
-    <Compile Include="ActionProgress\HubRunner.cs" />
-    <Compile Include="ActionProgress\IActionHubDependencyResolver.cs" />
-    <Compile Include="ActionProgress\IActionHubSend.cs" />
-    <Compile Include="ActionProgress\IHubControl.cs" />
-    <Compile Include="ActionProgress\ActionHub.cs" />
-    <Compile Include="ActionProgress\RunnerSetup.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ActionProgress\RunnerSetupFactory.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\ActionController.cs" />
-    <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
-    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\PostsAsyncController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\TagsAsyncController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\IdentityDbInitializerNoCreate.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Identity\IdentityModels.cs" />
-    <Compile Include="Identity\IdentityDbInitialiserDropCreate.cs" />
-    <Compile Include="Identity\InitialiseIdentityDb.cs" />
-    <Compile Include="Identity\SeedUserInfo.cs" />
-    <Compile Include="Identity\SeedUserLoader.cs" />
-    <Compile Include="Identity\SelectListOfUsers.cs" />
-    <Compile Include="Identity\SetupGenericSecurity.cs" />
-    <Compile Include="Identity\UserControl.cs" />
     <Compile Include="Infrastructure\AutofacDi.cs" />
     <Compile Include="Infrastructure\DiModelBinder.cs" />
     <Compile Include="Infrastructure\TraceGenericLogger.cs" />
     <Compile Include="Infrastructure\Log4NetGenericLogger.cs" />
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
-    <Compile Include="Models\AttendeeAllListModel.cs" />
     <Compile Include="Models\InternalsInfo.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlogListModel.cs" />
@@ -390,14 +362,11 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownListType.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultiSelectListType.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Action\CommsWithData.cshtml" />
     <Content Include="Views\PostsAsync\Create.cshtml" />
     <Content Include="Views\PostsAsync\Details.cshtml" />
     <Content Include="Views\PostsAsync\Edit.cshtml" />
     <Content Include="Views\PostsAsync\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Action\Index.cshtml" />
-    <Content Include="Views\Action\Radio4Search.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Tags\Details.cshtml" />
     <Content Include="Views\Tags\Edit.cshtml" />
@@ -414,7 +383,6 @@
     <Content Include="Views\TagsAsync\CodeView.cshtml" />
     <Content Include="Views\Home\CodeView.cshtml" />
     <Content Include="Views\Blogs\Index.cshtml" />
-    <Content Include="Views\Blogs\Analyse.cshtml" />
     <Content Include="Views\Blogs\Edit.cshtml" />
     <Content Include="Views\Blogs\Create.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -423,22 +391,6 @@
     <Content Include="Views\PostsAsync\NumPosts.cshtml" />
     <Content Include="Views\Posts\NumPosts.cshtml" />
     <Content Include="Views\Home\Internals.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
-    <Content Include="Views\Courses\Edit.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Attendees\Index.cshtml" />
-    <Content Include="Views\Attendees\ListNames.cshtml" />
-    <Content Include="Views\Attendees\ListPaid.cshtml" />
-    <Content Include="Views\Attendees\DetailsNotPaid.cshtml" />
-    <Content Include="Views\Attendees\DetailsAll.cshtml" />
-    <Content Include="Views\Attendees\EditNotPaid.cshtml" />
-    <Content Include="Views\Attendees\EditAll.cshtml" />
-    <Content Include="Views\Shared\PartialUsers.cshtml" />
-    <Content Include="Views\Security\Index.cshtml" />
-    <Content Include="Views\Shared\SecuritySubMenu.cshtml" />
-    <Content Include="Views\Security\ViewPermissions.cshtml" />
-    <Content Include="Views\Security\CodeView.cshtml" />
     <None Include="Web.AzureRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -454,10 +406,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BizLayer\BizLayer.csproj">
-      <Project>{19592a8f-7c58-4221-8124-d38acd8f5e31}</Project>
-      <Name>BizLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{264e1878-12de-4099-b8d7-cc53a73fea49}</Project>
       <Name>DataLayer</Name>

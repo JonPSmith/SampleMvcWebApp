@@ -75,9 +75,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GenericSecurity">
-      <HintPath>..\..\GenericSecurity\GenericSecurity\bin\Release\GenericSecurity.dll</HintPath>
-    </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\GenericServices.1.0.0-beta4-003\lib\GenericServices.dll</HintPath>
@@ -93,16 +90,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BBCScheduleService\IRadio4Fm.cs" />
-    <Compile Include="BBCScheduleService\Concrete\Radio4Fm.cs" />
-    <Compile Include="DataClasses\Concrete\Attendee.cs" />
     <Compile Include="DataClasses\Concrete\Blog.cs" />
-    <Compile Include="DataClasses\Concrete\Course.cs" />
     <Compile Include="DataClasses\Concrete\Helpers\TrackUpdate.cs" />
     <Compile Include="DataClasses\Concrete\Post.cs" />
     <Compile Include="DataClasses\Concrete\Tag.cs" />
     <Compile Include="DataClasses\EfConfiguration.cs" />
-    <Compile Include="DataClasses\SecureSampleWebAppDb.cs" />
     <Compile Include="Startup\DataLayerInitialise.cs" />
     <Compile Include="DataClasses\SampleWebAppDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,9 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Startup\Internal\BlogsContextMedium.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Startup\Internal\CoursesContent.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />

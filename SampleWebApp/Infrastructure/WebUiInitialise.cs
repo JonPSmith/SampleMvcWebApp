@@ -28,8 +28,6 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using Autofac.Integration.Mvc;
-using SampleWebApp.ActionProgress;
-using SampleWebApp.Identity;
 using SampleWebApp.Properties;
 using ServiceLayer.Startup;
 
@@ -66,30 +64,12 @@ namespace SampleWebApp.Infrastructure
             //NOTE: This MUST to come before the setup of the DI because it relies on the configInfo being set up
             ServiceLayerInitialise.InitialiseThis(false, canDropCreateDatabase); 
 
-            //Set the first parameter to true to setup/reset the Identity database, otherwise false to use what is there
-            InitialiseIdentityDb.Initialise(ResetIndentityDatabase, canDropCreateDatabase);
-
             //This sets up the Autofac container for all levels in the program
             var container = AutofacDi.SetupDependency();
 
             //// Set the dependency resolver for MVC.
             var mvcResolver = new AutofacDependencyResolver(container);
             DependencyResolver.SetResolver(mvcResolver);
-
-            //Now set the Action dependency resolver
-            ActionHub.LifeTimeScopeProvider = () => new AutoFacActionHubResolver(container);
-
-        }
-
-        /// <summary>
-        /// This returns the connection string of the database
-        /// </summary>
-        /// <returns></returns>
-        public static string GetDbConnectionString()
-        {
-            return
-                System.Configuration.ConfigurationManager.ConnectionStrings[WebUiInitialise.DatabaseConnectionStringName
-                    ].ConnectionString;
         }
 
         private static HostTypes DecodeHostType(string hostTypeString)

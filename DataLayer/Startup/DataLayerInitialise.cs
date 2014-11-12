@@ -42,8 +42,6 @@ namespace DataLayer.Startup
 
         private static IGenericLogger _logger;
 
-        private const string XmlCoursesDataFileManifestPath = "DataLayer.Startup.Internal.CoursesContent.xml";
-
         private static readonly Dictionary<TestDataSelection, string> XmlBlogsDataFileManifestPath = new Dictionary<TestDataSelection, string>
             {
                 {TestDataSelection.Small, "DataLayer.Startup.Internal.BlogsContentSimple.xml"},
@@ -60,8 +58,6 @@ namespace DataLayer.Startup
             EfConfiguration.IsAzure = isAzure;
             _logger = GenericServicesConfig.GetLogger("DataLayerInitialise");
 
-
-
             //Initialiser for the database. Only used when first access is made
             if (canCreateDatabase)
                 Database.SetInitializer(new CreateDatabaseIfNotExists<SampleWebAppDb>());
@@ -69,9 +65,6 @@ namespace DataLayer.Startup
                 //This initializer will not try to change the database
                 Database.SetInitializer(new NullDatabaseInitializer<SampleWebAppDb>());
         }
-
-
-
 
         public static void ResetBlogs(SampleWebAppDb context, TestDataSelection selection)
         {
@@ -97,32 +90,6 @@ namespace DataLayer.Startup
                 _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}",
                     string.Join(",", status.Errors));
                 throw new FormatException("problem writing to database. See log.");
-            }
-        }
-
-        public static void ResetCourses(SampleWebAppDb context)
-        {
-            try
-            {
-                context.Attendees.ToList().ForEach(x => context.Attendees.Remove(x));
-                context.Courses.ToList().ForEach(x => context.Courses.Remove(x));
-                context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _logger.Critical("Exception when resetting the courses", ex);
-                throw;
-            }
-
-            var courses = LoadDbDataFromXml.FormCoursesWithAddendees(XmlCoursesDataFileManifestPath);
-
-            context.Courses.AddRange(courses);
-            var status = context.SaveChangesWithChecking();
-            if (!status.IsValid)
-            {
-                _logger.CriticalFormat("Error when resetting courses data. Error:\n{0}", 
-                    string.Join(",", status.Errors));
-                throw new FormatException("xml derived data did not load well. See log.");
             }
         }
 

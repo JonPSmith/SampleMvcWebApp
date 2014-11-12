@@ -62,47 +62,6 @@ namespace DataLayer.Startup.Internal
             }
         }
 
-        /// <summary>
-        /// Loads Courses and Attendees from Xml file
-        /// </summary>
-        /// <param name="filepathWithinAssembly"></param>
-        /// <returns></returns>
-        public static IEnumerable<Course> FormCoursesWithAddendees(string filepathWithinAssembly)
-        {
-
-            var assemblyHoldingFile = Assembly.GetAssembly(typeof(LoadDbDataFromXml));
-
-            using (var fileStream = assemblyHoldingFile.GetManifestResourceStream(filepathWithinAssembly))
-            {
-                if (fileStream == null)
-                    throw new NullReferenceException("Could not find the xml file you asked for. Did you remember to set properties->BuildAction to Embedded Resource?");
-                var xmlData = XElement.Load(fileStream);
-
-                return xmlData.Elements("Course").Select(UnpackCourseXml);
-            }
-        }
-
-        private static Course UnpackCourseXml(XElement courseXml)
-        {
-
-            var course = new Course
-            {
-                Name = courseXml.Element("Name").Value,
-                MainPresenter = courseXml.Element("MainPresenter").Value,
-                Description = courseXml.Element("Description").Value,
-                StartDate = DateTime.Parse(courseXml.Element("StartDate").Value),
-                LengthDays = int.Parse(courseXml.Element("LengthDays").Value)
-            };
-
-            course.Attendees = (from personXml in courseXml.Element("Attendees").Elements("Attendee")
-                let email = personXml.Value.Trim().ToLowerInvariant().Replace(' ', '.') + "@nospam.com"
-                let hasPaid = personXml.Attribute("HasPaid").Value.ToLowerInvariant() == "true"
-                select new Attendee(personXml.Value.Trim(),email, hasPaid, course))
-                .ToList();
-
-            return course;
-        }
-
         private static IEnumerable<Blog> DecodeBlogs(XElement element, Dictionary<string, Tag> tagsDict)
         {
             var result = new Collection<Blog>();

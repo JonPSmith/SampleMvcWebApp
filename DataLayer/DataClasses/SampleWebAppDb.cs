@@ -39,15 +39,13 @@ using GenericServices;
 namespace DataLayer.DataClasses
 {
 
-    public class SampleWebAppDb : DbContext, IGenericServiceSaveChanges
+    public class SampleWebAppDb : DbContext, IGenericServicesDbContext
     {
         internal const string NameOfConnectionString = "SampleWebAppDb";
 
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Attendee> Attendees { get; set; }
 
         public SampleWebAppDb() : base("name=" + NameOfConnectionString) {}
 

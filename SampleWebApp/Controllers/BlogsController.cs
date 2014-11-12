@@ -26,7 +26,6 @@
 #endregion
 using System.Linq;
 using System.Web.Mvc;
-using BizLayer.BlogsAnalysis;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using SampleWebApp.Infrastructure;
@@ -51,20 +50,6 @@ namespace SampleWebApp.Controllers
                 EmailAddress = x.EmailAddress,
                 NumPosts = x.Posts.Count()
             }).ToList());
-        }
-
-        public ActionResult Analyse(int id, IBlogAnalyser service)
-        {
-            var response = service.DoAction(id);
-            if (response.IsValid)
-            {
-                TempData["message"] = response.SuccessMessage;
-                return View(response.Result);
-            }
-
-            //else errors, so send back an error message
-            TempData["errorMessage"] = new MvcHtmlString(response.ErrorsAsHtml());
-            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id, IDetailService service)

@@ -122,10 +122,9 @@ namespace SampleWebApp.Controllers
         //-----------------------------------------------------
         //Code used in https://www.simple-talk.com/dotnet/.net-framework/the-.net-4.5-asyncawait-commands-in-promise-and-practice/
 
-        public async Task<ActionResult> NumPosts()
+        public async Task<ActionResult> NumPosts(SampleWebAppDb db)
         {
-            using (var db = new SampleWebAppDb())
-                return View((object)await GetNumPostsAsync(db));
+            return View((object)await GetNumPostsAsync(db));
         }
 
         private static async Task<string> GetNumPostsAsync(SampleWebAppDb db)

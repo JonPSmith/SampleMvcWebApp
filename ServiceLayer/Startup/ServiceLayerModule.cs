@@ -24,13 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-using System;
+
 using Autofac;
-using BizLayer.Startup;
 using DataLayer.Startup;
 using GenericServices;
-using GenericServices.Services;
-using GenericServices.ServicesAsync;
 
 namespace ServiceLayer.Startup
 {
@@ -46,9 +43,6 @@ namespace ServiceLayer.Startup
 
             //Now register the DataLayer
             builder.RegisterModule(new DataLayerModule());
-
-            //Reigister the BizLayer
-            builder.RegisterModule(new BizLayerModule());
 
             //---------------------------
             //Register service layer: autowire all 

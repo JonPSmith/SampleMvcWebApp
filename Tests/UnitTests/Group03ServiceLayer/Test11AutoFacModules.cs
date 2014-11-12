@@ -26,13 +26,6 @@
 #endregion
 using System.Linq;
 using Autofac;
-using BizLayer.BBCScheduleService;
-using BizLayer.BBCScheduleService.Concrete;
-using BizLayer.BlogsAnalysis;
-using BizLayer.BlogsAnalysis.Concrete;
-using BizLayer.Startup;
-using DataLayer.BBCScheduleService;
-using DataLayer.BBCScheduleService.Concrete;
 using DataLayer.DataClasses;
 using DataLayer.DataClasses.Concrete;
 using DataLayer.Startup;
@@ -82,63 +75,6 @@ namespace Tests.UnitTests.Group03ServiceLayer
             }
         }
 
-        [Test]
-        public void CheckSetupSecureSampleWebAppDb()
-        {
-            //SETUP
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new DataLayerModule());
-            var container = builder.Build();
-
-            //ATTEMPT & VERIFY
-            using (var lifetimeScope = container.BeginLifetimeScope())
-            {
-                var instance1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
-                Assert.NotNull(instance1);
-                (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
-            }
-        }
-
-        [Test]
-        public void CheckSetupDifferentSampleWebAppDb()
-        {
-            //SETUP
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new DataLayerModule());
-            var container = builder.Build();
-
-            //ATTEMPT & VERIFY
-            using (var lifetimeScope = container.BeginLifetimeScope())
-            {
-                var instance1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
-                var instance2 = lifetimeScope.Resolve<SampleWebAppDb>();
-                Assert.NotNull(instance1);
-                (instance1 is SecureSampleWebAppDb).ShouldEqual(true);
-                (instance2 is SampleWebAppDb).ShouldEqual(true);
-                Assert.AreNotEqual(instance1, instance2);                       //check the two different items are different
-            }
-        }
-
-        [Test]
-        public void CheckSetupBizLayerScopeItems()
-        {
-            //SETUP
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new DataLayerModule());
-            builder.RegisterModule(new BizLayerModule());
-            var container = builder.Build();
-
-            //ATTEMPT & VERIFY
-            using (var lifetimeScope = container.BeginLifetimeScope())
-            {
-                var example1 = lifetimeScope.Resolve<IBlogAnalyser>();
-                var example2 = lifetimeScope.Resolve<IBlogAnalyser>();
-                Assert.NotNull(example1);
-                Assert.AreNotSame(example1, example2);                       //check transient
-                (example1 is BlogAnalyser).ShouldEqual(true);
-            }
-
-        }
 
         //---------------------------------------------
         //ServiceLayer, which also resolves DataLayer
@@ -212,31 +148,12 @@ namespace Tests.UnitTests.Group03ServiceLayer
             using (var lifetimeScope = container.BeginLifetimeScope())
             {
                 //DataLayer - Data classes
-                var dataClass1 = lifetimeScope.Resolve<IRadio4Fm>();
-                var dataClass2 = lifetimeScope.Resolve<IRadio4Fm>();
-                Assert.NotNull(dataClass1);
-                Assert.AreNotSame(dataClass1, dataClass2);                       //check transient
-                (dataClass1 is Radio4Fm).ShouldEqual(true);
 
                 //DataLayer - repositories
                 var db1 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 var db2 = lifetimeScope.Resolve<IGenericServicesDbContext>();
                 Assert.NotNull(db1);
                 Assert.AreSame(db1, db2);                       //check that lifetimescope is working
-
-                ////BizLayer
-                var bizclass1 = lifetimeScope.Resolve<IBlogAnalyser>();
-                var bizclass2 = lifetimeScope.Resolve<IBlogAnalyser>();
-                Assert.NotNull(bizclass1);
-                Assert.AreNotSame(bizclass1, bizclass2);                       //check transient
-                (bizclass1 is BlogAnalyser).ShouldEqual(true);
-
-                //ServiceLayer - simple
-                var example1 = lifetimeScope.Resolve<IScheduleSearcherAsync>();
-                var example2 = lifetimeScope.Resolve<IScheduleSearcherAsync>();
-                Assert.NotNull(example1);
-                Assert.AreNotSame(example1, example2);                       //check transient
-                (example1 is ScheduleSearcherAsync).ShouldEqual(true);
 
                 //ServiceLayer - complex
                 var service1 = lifetimeScope.Resolve<IListService>();

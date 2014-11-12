@@ -76,9 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GenericSecurity">
-      <HintPath>..\..\GenericSecurity\GenericSecurity\bin\Release\GenericSecurity.dll</HintPath>
-    </Reference>
     <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\GenericServices.1.0.0-beta4-003\lib\GenericServices.dll</HintPath>
@@ -159,23 +156,14 @@
     <Compile Include="DependencyItems\MyDisposableClass.cs" />
     <Compile Include="DependencyItems\ServiceTypeClass.cs" />
     <Compile Include="DependencyItems\SimpleClass.cs" />
-    <Compile Include="Helpers\ClaimsIdentityHelper.cs" />
     <Compile Include="Helpers\DbSnapShot.cs" />
     <Compile Include="Helpers\DummyIDbContextWithValidation.cs" />
-    <Compile Include="Helpers\EmptyTestActionWithSubmit.cs" />
     <Compile Include="Helpers\ExtendAsserts.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\EmptyTestActionAsync.cs" />
-    <Compile Include="Helpers\EmptyTestAction.cs" />
     <Compile Include="Helpers\SimpleTagDto.cs" />
     <Compile Include="Helpers\SimpleTagDtoAsync.cs" />
-    <Compile Include="Helpers\SqlSecurityHelper.cs" />
     <Compile Include="Helpers\TestFileHelpers.cs" />
-    <Compile Include="MocksAndFakes\MockActionHubSend.cs" />
-    <Compile Include="MocksAndFakes\MockHubDependencyResolver.cs" />
-    <Compile Include="MocksAndFakes\MockActionComms.cs" />
     <Compile Include="Helpers\ModelStateTester.cs" />
-    <Compile Include="MocksAndFakes\MockRadio4Fm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -183,23 +171,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="UnitTests\Group01DataLayer\Test10SetupBlogs.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Test05SecureDb.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Test50Radio4Fm.cs" />
-    <Compile Include="UnitTests\Group01DataLayer\Test11SetupCourses.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test13Validation.cs" />
     <Compile Include="UnitTests\Group01DataLayer\Test14ReadWriteBlogs.cs" />
-    <Compile Include="UnitTests\Group02BizLayer\Test02ScheduleSearcher.cs" />
-    <Compile Include="UnitTests\Group02BizLayer\Test04BlogAnalyser.cs" />
-    <Compile Include="UnitTests\Group03ServiceLayer\Test08PermissionCatching.cs" />
-    <Compile Include="UnitTests\Group03ServiceLayer\Test06AttendeeDtos.cs" />
-    <Compile Include="UnitTests\Group03ServiceLayer\Test04CourseDtos.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test10DiSimple.cs" />
     <Compile Include="UnitTests\Group03ServiceLayer\Test11AutoFacModules.cs" />
     <Compile Include="UnitTests\Group06Mvc\Test02Validation.cs" />
-    <Compile Include="UnitTests\Group08ActionRunner\Test05HubRunnerBasic.cs" />
-    <Compile Include="UnitTests\Group08ActionRunner\Test06HubRunnerDi.cs" />
-    <Compile Include="UnitTests\Group08ActionRunner\Test08HubRunnerRun.cs" />
-    <Compile Include="UnitTests\Group08ActionRunner\Test10RunnerSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -212,10 +188,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BizLayer\BizLayer.csproj">
-      <Project>{19592a8f-7c58-4221-8124-d38acd8f5e31}</Project>
-      <Name>BizLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{264e1878-12de-4099-b8d7-cc53a73fea49}</Project>
       <Name>DataLayer</Name>
@@ -233,12 +205,6 @@
     <Folder Include="Docs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="JsUnitTests\Test05CheckActionRunner.comms.js" />
-    <Content Include="JsUnitTests\Test04CheckMockActionRunnerUi.js" />
-    <Content Include="JsUnitTests\Test03CheckMockSignalRClient.js" />
-    <Content Include="JsUnitTests\Test01CheckJasmine.js" />
-    <Content Include="MocksAndFakes\mockActionRunnerUi.js" />
-    <Content Include="MocksAndFakes\mockSignalRClient.js" />
     <Content Include="TestData\actionRunnerData - default.js" />
     <Content Include="TestData\TestRadio4 schedule 2014-7-3.xml" />
   </ItemGroup>
