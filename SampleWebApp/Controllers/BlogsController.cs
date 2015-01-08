@@ -52,9 +52,9 @@ namespace SampleWebApp.Controllers
             }).ToList());
         }
 
-        public ActionResult Edit(int id, IDetailService service)
+        public ActionResult Edit(int id, IUpdateSetupService service)
         {
-            return View(service.GetDetail<Blog>(id).Result);
+            return View(service.GetOriginal<Blog>(id).Result);
         }
 
         [HttpPost]

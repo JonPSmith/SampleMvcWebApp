@@ -59,9 +59,9 @@ namespace SampleWebApp.Controllers
         }
 
 
-        public async Task<ActionResult> Edit(int id, IDetailServiceAsync service)
+        public async Task<ActionResult> Edit(int id, IUpdateSetupServiceAsync service)
         {
-            return View((await service.GetDetailAsync<Tag>(id)).Result);
+            return View((await service.GetOriginalAsync<Tag>(id)).Result);
         }
 
         [HttpPost]

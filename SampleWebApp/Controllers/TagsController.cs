@@ -56,9 +56,9 @@ namespace SampleWebApp.Controllers
         }
 
 
-        public ActionResult Edit(int id, IDetailService service)
+        public ActionResult Edit(int id, IUpdateSetupService service)
         {
-            return View(service.GetDetail<Tag>(id).Result);
+            return View(service.GetOriginal<Tag>(id).Result);
         }
 
         [HttpPost]
