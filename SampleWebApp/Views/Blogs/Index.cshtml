@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SampleWebApp.Models.BlogListModel>
+﻿@model IEnumerable<ServiceLayer.BlogServices.BlogListDto>
 
 
 <h2>Blogs</h2>
@@ -35,7 +35,7 @@
             @Html.DisplayNameFor(model => model.EmailAddress)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumPosts)
+            Num Posts this Author
         </th>
         <th></th>
     </tr>
@@ -52,7 +52,7 @@
             @Html.DisplayFor(modelItem => item.EmailAddress)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumPosts)
+            @Html.DisplayFor(modelItem => item.PostsCount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BlogId }) |

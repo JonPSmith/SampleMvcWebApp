@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SampleWebApp.Models.TagListModel>
+﻿@model IEnumerable<ServiceLayer.TagServices.TagListDto>
 
 @{
     ViewBag.Title = "TagsAsync";
@@ -61,7 +61,7 @@
             @Html.DisplayFor(modelItem => item.Slug)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumPosts)
+            @Html.DisplayFor(modelItem => item.PostsCount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TagId }) |

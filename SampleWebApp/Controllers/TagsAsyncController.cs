@@ -25,18 +25,17 @@
 // SOFTWARE.
 #endregion
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using SampleWebApp.Infrastructure;
-using SampleWebApp.Models;
+using ServiceLayer.TagServices;
 
 namespace SampleWebApp.Controllers
 {
     /// <summary>
-    /// This is an example of a Controller using GenericServices database commands directly to the data class.
+    /// This is an example of a Controller using GenericServices database commands directly to the data class (other that List, which needs a DTO)
     /// In this case we are using async commands
     /// </summary>
     public class TagsAsyncController : Controller
@@ -44,13 +43,7 @@ namespace SampleWebApp.Controllers
         // GET: TagsAsync
         public async Task<ActionResult> Index(IListService service)
         {
-            return View(await service.GetAll<Tag>().Select(x => new TagListModel
-            {
-                TagId = x.TagId,
-                Name = x.Name,
-                Slug = x.Slug,
-                NumPosts = x.Posts.Count()
-            }).ToListAsync());
+            return View(await service.GetAll<TagListDto>().ToListAsync());
         }
 
         public async Task<ActionResult> Details(int id, IDetailServiceAsync service)

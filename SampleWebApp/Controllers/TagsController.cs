@@ -29,25 +29,19 @@ using System.Web.Mvc;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using SampleWebApp.Infrastructure;
-using SampleWebApp.Models;
+using ServiceLayer.TagServices;
 
 namespace SampleWebApp.Controllers
 {
     public class TagsController : Controller
     {
         /// <summary>
-        /// This is an example of a Controller using GenericServices database commands directly to the data class.
+        /// This is an example of a Controller using GenericServices database commands directly to the data class (other that List, which needs a DTO)
         /// In this case we are using normal, non-async commands
         /// </summary>
         public ActionResult Index(IListService service)
         {
-            return View(service.GetAll<Tag>().Select(x => new TagListModel
-            {
-                TagId = x.TagId,
-                Name = x.Name,
-                Slug = x.Slug,
-                NumPosts = x.Posts.Count()
-            }).ToList());
+            return View(service.GetAll<TagListDto>().ToList());
         }
 
         public ActionResult Details(int id, IDetailService service)

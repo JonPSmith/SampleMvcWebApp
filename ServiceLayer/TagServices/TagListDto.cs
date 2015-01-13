@@ -1,8 +1,8 @@
 ﻿#region licence
 // The MIT License (MIT)
 // 
-// Filename: BlogListModel.cs
-// Date Created: 2014/07/11
+// Filename: TagListDto.cs
+// Date Created: 2015/01/13
 // 
 // Copyright (c) 2014 Jon Smith (www.selectiveanalytics.com & www.thereformedprogrammer.net)
 // 
@@ -24,21 +24,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace SampleWebApp.Models
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+using DataLayer.DataClasses.Concrete;
+using GenericServices.Core;
+
+[assembly: InternalsVisibleTo("Tests")]
+
+namespace ServiceLayer.TagServices
 {
-    public class BlogListModel
+    public class TagListDto : EfGenericDto<Tag, TagListDto>
     {
-        [HiddenInput(DisplayValue = false)]
-        public int BlogId { get; set; }
+
+        [UIHint("HiddenInput")]
+        [Key]
+        public int TagId { get; set; }
 
         public string Name { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Slug { get; set; }
 
-        public int NumPosts { get; set; }
+        public int PostsCount { get; set; }         //uses AutoMapper Aggregate
 
+        //----------------------------------------------
+        //overridden properties or methods
+
+        protected override CrudFunctions SupportedFunctions
+        {
+            get { return CrudFunctions.List; }
+        }
     }
 }

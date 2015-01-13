@@ -29,13 +29,13 @@ using System.Web.Mvc;
 using DataLayer.DataClasses.Concrete;
 using GenericServices;
 using SampleWebApp.Infrastructure;
-using SampleWebApp.Models;
+using ServiceLayer.BlogServices;
 
 namespace SampleWebApp.Controllers
 {
 
     /// <summary>
-    /// This is an example of a Controller using GenericServices database commands directly to the data class.
+    /// This is an example of a Controller using GenericServices database commands directly to the data class (other that List, which needs a DTO)
     /// In this case we are using normal, non-async commands
     /// </summary>
     public class BlogsController : Controller
@@ -43,13 +43,7 @@ namespace SampleWebApp.Controllers
        
         public ActionResult Index(IListService service)
         {
-            return View(service.GetAll<Blog>().Select(x => new BlogListModel
-            {
-                BlogId = x.BlogId,
-                Name = x.Name,
-                EmailAddress = x.EmailAddress,
-                NumPosts = x.Posts.Count()
-            }).ToList());
+            return View(service.GetAll<BlogListDto>().ToList());
         }
 
         public ActionResult Edit(int id, IUpdateSetupService service)
