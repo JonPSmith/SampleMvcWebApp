@@ -30,6 +30,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using DataLayer.DataClasses.Concrete;
+using GenericServices;
 using GenericServices.Core;
 
 [assembly: InternalsVisibleTo("Tests")]
@@ -44,18 +45,18 @@ namespace ServiceLayer.PostServices
         public int PostId { get; set; }
 
         [UIHint("HiddenInput")]
-        public int BlogId { get; internal set; }
+        public int BlogId { get;  set; }
 
-        public string BloggerName { get; internal set; }
+        public string BloggerName { get;  set; }
 
         [MinLength(2), MaxLength(128)]
         public string Title { get; set; }
 
         [ScaffoldColumn(false)]
-        public ICollection<Tag> Tags { get; internal set; }
+        public ICollection<Tag> Tags { get;  set; }
 
         [ScaffoldColumn(false)]
-        public DateTime LastUpdated { get; internal set; }
+        public DateTime LastUpdated { get;  set; }
 
         /// <summary>
         /// When it was last updated in DateTime format
@@ -69,7 +70,7 @@ namespace ServiceLayer.PostServices
 
         protected override CrudFunctions SupportedFunctions
         {
-            get { return CrudFunctions.List | CrudFunctions.DoesNotNeedSetup; }
+            get { return CrudFunctions.List; }
         }
     }
 }

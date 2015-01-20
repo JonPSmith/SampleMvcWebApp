@@ -59,7 +59,8 @@ namespace ServiceLayer.PostServices
         //properties that cannot be set directly (The data layer looks after them)
 
         [ScaffoldColumn(false)]
-        public DateTime LastUpdated { get; internal set; }
+        [DoNotCopyBackToDatabase]
+        public DateTime LastUpdated { get; set; }
 
         //------------------------------------------
         //these two items are altered by the  
@@ -70,10 +71,8 @@ namespace ServiceLayer.PostServices
         [ScaffoldColumn(false)]
         public ICollection<Tag> Tags { get; set; }            //this must be copied back
 
-        //------------------------------------------
-        //Item set up if update
-
-        public string BloggerName { get; internal set; }
+        [DoNotCopyBackToDatabase]
+        public string BloggerName { get; set; }
 
         //-------------------------------------------
         //now the various lists for user interaction
