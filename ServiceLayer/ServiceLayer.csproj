@@ -69,12 +69,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="DelegateDecompiler, Version=0.13.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DelegateDecompiler.0.13.0.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
+      <HintPath>..\packages\DelegateDecompiler.0.15.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
     </Reference>
-    <Reference Include="DelegateDecompiler.EntityFramework">
-      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.13.0.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.15.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -88,9 +89,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\GenericLibsBase.1.0.0\lib\GenericLibsBase.dll</HintPath>
     </Reference>
-    <Reference Include="GenericServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GenericServices, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.1\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.2\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Reflection">
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
