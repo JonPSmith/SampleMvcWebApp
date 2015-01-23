@@ -212,9 +212,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\PostsAsyncController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,7 +222,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\IdentityModels.cs" />
     <Compile Include="Infrastructure\AutofacDi.cs" />
     <Compile Include="Infrastructure\DiModelBinder.cs" />
     <Compile Include="Infrastructure\TraceGenericLogger.cs" />
@@ -232,20 +229,15 @@
     <Compile Include="Infrastructure\ValidationHelper.cs" />
     <Compile Include="Infrastructure\WebUiInitialise.cs" />
     <Compile Include="Models\InternalsInfo.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AzureSqlSecurity.txt" />
-    <Content Include="App_Data\LocalHostSqlSecurity.txt" />
     <Content Include="App_Data\SeedIdentities.xml" />
-    <Content Include="App_Data\WebWizSqlSecurity.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
