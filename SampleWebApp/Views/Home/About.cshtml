@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>About this site and it's Author</h2>
+<h2>About this site</h2>
 
 <h3>About this site</h3>
 <p>
@@ -17,9 +17,13 @@
 </p>
 
 <h3>Documentation</h3>
-<p>
-    See <a href="https://github.com/JonPSmith/GenericServices/wiki" target="_blank">GenericServices Wiki</a> on GitHub.
-</p>
+<ul>
+    <li>
+        The <a href="https://github.com/JonPSmith/GenericServices/wiki" target="_blank">GenericServices Wiki</a>
+        now contains comprehensive documentation on GenericServices.
+    </li>
+    <li>A new, more complex example is now available at <a href="http://complex.samplemvcwebapp.net/">Complex.SampleMvcWebApp</a>.</li>
+</ul>
 
 <h3>Related articles</h3>
 <p>
@@ -41,29 +45,21 @@
             The performance of async/await in Entity Framework 6 and ASP.NET MVC5
         </a> on Simple Talk site.
     </li>
-    <li><a href="https://www.simple-talk.com/dotnet/.net-framework/using-entity-framework-with-an-existing-database-data-access/" target="_blank">
+    <li>
+        <a href="https://www.simple-talk.com/dotnet/.net-framework/using-entity-framework-with-an-existing-database-data-access/" target="_blank">
             Using Entity Framework With an Existing Database: Data Access
-        </a> on Simple Talk site</li>
+        </a> on Simple Talk site
+    </li>
     <li>
         <a href="https://www.simple-talk.com/dotnet/asp.net/using-entity-framework-with-an-existing-database--user-interface/" target="_blank">
             Using Entity Framework with an Existing Database: User Interface
-        </a> on Simple Talk site. <strong>This article provides an architectural overview of a MVC web site using GenericServices.</strong>
+        </a> on Simple Talk site.
     </li>
 </ul>
-
-<h3>About the Author</h3>
 <p>
-    The author of this open-source project is Jon Smith. You can find out
-    <a href="http://www.thereformedprogrammer.net/about-me/" target="_blank">about me here</a>.
-<p>
-<p>
-    You may also be interested in my technical blog, <a href="http://www.thereformedprogrammer.net/" target="_blank">www.thereformedprogrammer.net</a>.
+    The last article in particular provides a good architectural overview of a MVC web site built Entity Framework and GenericServices.
 </p>
-<p>
-    The site <a href="http://selectiveanalytics.com/" target="_blank">Selective Analytics</a> shows some of the analytical work I have done with my wife,
-    Dr Honora Smith. 
-</p>
-<br/>
+<br />
 <p>
     @Html.ActionLink("Back to Home", "Index")
 </p>

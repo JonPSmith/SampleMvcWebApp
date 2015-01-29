@@ -13,7 +13,14 @@ of the code - see an example of this on the [Posts code explanation](http://samp
 
 The GenericService Framework is available on [GitHub](https://github.com/JonPSmith/GenericServices) and soon via NuGet (when the release is stable).
 
-The specific features in this code are:
+**GenericServices is now available on NuGet.**
+See [NuGet Package Page](https://www.nuget.org/packages/GenericServices/) for more details.
+
+**An additinal, more complex example is now available.** 
+Visit [Complex.SampleMvcWebApp](http://complex.samplemvcwebapp.net/) to see more.
+
+
+The specific features in the code in this example are:
 
 ### 1. Simple, but robust database services
 

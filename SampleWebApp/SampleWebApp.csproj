@@ -313,7 +313,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Log4Net.xml" />
-    <Content Include="robots.txt" />
     <Content Include="Scripts\ActionRunnerUi.js" />
     <Content Include="Scripts\ActionRunnerComms.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
