@@ -89,9 +89,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\GenericLibsBase.1.0.0\lib\GenericLibsBase.dll</HintPath>
     </Reference>
-    <Reference Include="GenericServices, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GenericServices, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GenericServices.1.0.2\lib\GenericServices.dll</HintPath>
+      <HintPath>..\packages\GenericServices.1.0.3\lib\GenericServices.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Reflection">
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
