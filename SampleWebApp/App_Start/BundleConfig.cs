@@ -24,7 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-using System.Web;
+
 using System.Web.Optimization;
 
 namespace SampleWebApp
@@ -35,17 +35,29 @@ namespace SampleWebApp
         public static void RegisterBundles(BundleCollection bundles)
         {
 
-
             bundles.Add(new ScriptBundle("~/bundles/javascript").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      //"~/Content/notify.css", - not used any more
+                      "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            //------------------------------------------------------------------
+            //the bundles below were once used but not any more. Left as I might need them for the code that has been moved out to another library
+
+            //Combined with bootstrap.js into one javascript bundle
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/jquery-{version}.js"));
+            //
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //    "~/Scripts/bootstrap.js",
+            //    "~/Scripts/respond.js"));
 
             //Not used anymore
             //bundles.Add(new ScriptBundle("~/bundles/ActionRunner").Include(
@@ -55,19 +67,11 @@ namespace SampleWebApp
             //    "~/Scripts/ActionRunnerComms.js",
             //    "~/Scripts/ActionRunnerUi.js"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      //"~/Content/notify.css", - not used any more
-                      "~/Content/site.css"));
+            //Not used
+            //// Use the development version of Modernizr to develop with and learn from. Then, when you're
+            //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            //            "~/Scripts/modernizr-*"));
 
             //Not used any more
             ////Commented out the parts that are not used from the jQuery UI

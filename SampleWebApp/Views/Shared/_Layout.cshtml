@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SampleMvcWebApp</title>
     @Styles.Render("~/Content/css")
-    @*@Styles.Render("~/Content/themes/base/css")*@
-    @*@Scripts.Render("~/bundles/modernizr")*@
 
 </head>
 <body>
@@ -43,10 +41,6 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @*<p class="text-right text-muted">
-                    <a id="stop-page-caching" href="#" data-toggle="tooltip" data-placement="bottom"
-                       title="These digits are here to stop any page caching.">@DateTime.Now.Ticks</a>            
-                </p>*@
                 @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
@@ -60,12 +54,7 @@
         </footer>
     </div>
 
-    @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
     @Scripts.Render("~/bundles/javascript")
-    @*<script type="text/javascript" language="javascript">
-        $('#stop-page-caching').tooltip();         //This turns on Bootstrap tooltop for the DateTime ticks
-    </script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
