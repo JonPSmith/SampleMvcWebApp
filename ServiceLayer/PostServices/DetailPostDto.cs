@@ -71,7 +71,6 @@ namespace ServiceLayer.PostServices
         [ScaffoldColumn(false)]
         public ICollection<Tag> Tags { get; set; }            //this must be copied back
 
-        [DoNotCopyBackToDatabase]
         public string BloggerName { get; set; }
 
         //-------------------------------------------
