@@ -55,6 +55,9 @@ namespace ServiceLayer.PostServices
         [Required]
         public string Content { get; set; }
 
+        //AutoMapper understands that this means Blogger.Name and fills it with the Name of the Blogger
+        public string BloggerName { get; set; }
+
         //-------------------------------------------
         //properties that cannot be set directly (The data layer looks after them)
 
@@ -63,15 +66,13 @@ namespace ServiceLayer.PostServices
         public DateTime LastUpdated { get; set; }
 
         //------------------------------------------
-        //these two items are altered by the  
+        //these two items are altered by the SetupRestOfDto method based on the user's selection
 
         [UIHint("HiddenInput")]
         public int BlogId { get; set; }
 
         [ScaffoldColumn(false)]
-        public ICollection<Tag> Tags { get; set; }            //this must be copied back
-
-        public string BloggerName { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
         //-------------------------------------------
         //now the various lists for user interaction
@@ -84,7 +85,9 @@ namespace ServiceLayer.PostServices
         public MultiSelectListType UserChosenTags { get; set; }
 
         //-------------------------------------------
-        //calculated properties to help display
+        //calculated properties to help display 
+        //(Note: SampleMvcWebApp was written before calculated properties using [Computed] was added to GenericServices.
+        //see https://github.com/JonPSmith/GenericServices/wiki/Calculated-properties for a better way of doing this
 
         /// <summary>
         /// When it was last updated in DateTime format
@@ -93,15 +96,12 @@ namespace ServiceLayer.PostServices
 
         public string TagNames { get { return string.Join(", ", Tags.Select(x => x.Name)); } }
 
-
         //ctor
         public DetailPostDto()
         {
             Bloggers = new DropDownListType();
             UserChosenTags = new MultiSelectListType();
         }
-
-
 
         //----------------------------------------------
         //overridden methods
@@ -129,9 +129,8 @@ namespace ServiceLayer.PostServices
                 dto.Bloggers.SetSelectedValue(dto.BlogId.ToString("D"));
 
             var preselectedTags = dto.PostId == 0
-                ? new List<KeyValuePair<string, int>>()
-                : context.Set<Tag>()
-                    .Where(x => x.Posts.Any(y => y.PostId == dto.PostId))
+                ? new List<KeyValuePair<string, int>>()     //Create, so no tags selected yet
+                : Tags
                     .Select(x => new { Key = x.Name, Value = x.TagId })
                     .ToList()
                     .Select(x => new KeyValuePair<string, int>(x.Key, x.Value))
@@ -153,11 +152,9 @@ namespace ServiceLayer.PostServices
         {
             var status = SetupRestOfDto(context, destination);
 
-            if (status.IsValid)
-                //now we copy the items to the right place
-                status = base.UpdateDataFromDto(context, this, destination);
-
-            return status;
+            return status.IsValid
+                ? base.UpdateDataFromDto(context, this, destination)
+                : status;
         }
 
         //---------------------------------------------------
@@ -196,7 +193,7 @@ namespace ServiceLayer.PostServices
             if (blogger == null)
                 return "Could not find the blogger you selected. Did another user delete it?";
 
-            BlogId = (int)blogId;
+            BlogId = (int)blogId;   //will be copied over to database entity by AutoMapper
             return null;
         }
 
@@ -214,7 +211,7 @@ namespace ServiceLayer.PostServices
                 db.Entry(post).Collection(p => p.Tags).Load();
 
             var newTagsForPost = db.Tags.Where(x => requiredTagIds.Contains(x.TagId)).ToList();
-            Tags = newTagsForPost;      //will be copied over by copyDtoToData
+            Tags = newTagsForPost;      //will be copied over to database entity by AutoMapper
 
             return null;
         }
