@@ -57,6 +57,9 @@ namespace ServiceLayer.PostServices
         [Required]
         public string Content { get; set; }
 
+        //AutoMapper understands that this means Blogger.Name and fills it with the Name of the Blogger
+        public string BloggerName { get; set; }
+
         //-------------------------------------------
         //properties that cannot be set directly (The data layer looks after them)
 
@@ -65,16 +68,13 @@ namespace ServiceLayer.PostServices
         public DateTime LastUpdated { get; set; }
 
         //------------------------------------------
-        //these two items are altered by the  
+        //these two items are altered by the SetupRestOfDto method based on the user's selection
 
         [UIHint("HiddenInput")]
         public int BlogId { get; set; }
 
         [ScaffoldColumn(false)]
         public ICollection<Tag> Tags { get; set; }            //this must be copied back
-
-        [DoNotCopyBackToDatabase]
-        public string BloggerName { get; set; }
 
         //-------------------------------------------
         //now the various lists for user interaction
@@ -88,6 +88,8 @@ namespace ServiceLayer.PostServices
 
         //-------------------------------------------
         //calculated properties to help display
+        //(Note: SampleMvcWebApp was written before calculated properties using [Computed] was added to GenericServices.
+        //see https://github.com/JonPSmith/GenericServices/wiki/Calculated-properties for a better way of doing this
 
         /// <summary>
         /// When it was last updated in DateTime format
@@ -95,7 +97,6 @@ namespace ServiceLayer.PostServices
         public DateTime LastUpdatedUtc { get { return DateTime.SpecifyKind(LastUpdated, DateTimeKind.Utc); } }
 
         public string TagNames { get { return string.Join(", ", Tags.Select(x => x.Name)); } }
-
 
         //ctor
         public DetailPostDtoAsync()
@@ -129,23 +130,13 @@ namespace ServiceLayer.PostServices
                 //there is an entry, so set the selected value to that
                 dto.Bloggers.SetSelectedValue(dto.BlogId.ToString("D"));
 
-            List<KeyValuePair<string, int>> preselectedTags;
-            if (dto.PostId == 0)
-            {
-                //create, so just produce empty list
-                preselectedTags = new List<KeyValuePair<string, int>>();
-            }
-            else
-            {
-
-                var tags = await context.Set<Tag>()
-                    .Where(x => x.Posts.Any(y => y.PostId == dto.PostId))
+            var preselectedTags = dto.PostId == 0
+                ? new List<KeyValuePair<string, int>>()     //Create, so no tags selected yet
+                : Tags
                     .Select(x => new { Key = x.Name, Value = x.TagId })
-                    .ToListAsync();
-                preselectedTags = tags.Select(x => new KeyValuePair<string, int>(x.Key, x.Value))
+                    .ToList()
+                    .Select(x => new KeyValuePair<string, int>(x.Key, x.Value))
                     .ToList();
-            }
-
             dto.UserChosenTags.SetupMultiSelectList(
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
@@ -164,11 +155,9 @@ namespace ServiceLayer.PostServices
         {
             var status = await SetupRestOfDto(context, destination);
 
-            if (status.IsValid)
-                //now we copy the items to the right place
-                status = await base.UpdateDataFromDtoAsync(context, this, destination);
-
-            return status;
+            return status.IsValid
+                ? await base.UpdateDataFromDtoAsync(context, this, destination)
+                : status;
         }
 
         private async Task<ISuccessOrErrors> SetupRestOfDto(IGenericServicesDbContext context, Post post = null)
