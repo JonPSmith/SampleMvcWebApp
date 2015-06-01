@@ -140,7 +140,7 @@ namespace ServiceLayer.PostServices
             dto.UserChosenTags.SetupMultiSelectList(
                 context.Set<Tag>().ToList().Select(x => new KeyValuePair<string, int>(x.Name, x.TagId)), preselectedTags);
         }
-
+        
         protected override ISuccessOrErrors<Post> CreateDataFromDto(IGenericServicesDbContext context, DetailPostDto source)
         {
             var status = SetupRestOfDto(context);

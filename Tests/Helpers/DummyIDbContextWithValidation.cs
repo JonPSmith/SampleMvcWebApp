@@ -77,5 +77,9 @@ namespace Tests.Helpers
         {
             throw new NotImplementedException();
         }
+
+        public void Dispose()
+        {
+        }
     }
 }
